@@ -37,10 +37,10 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Hradec_Kralove_CZ_view_from_White_Tower_02.jpg/640px-Hradec_Kralove_CZ_view_from_White_Tower_02.jpg",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Bila_vez_Hradec_Kralove.jpg/960px-Bila_vez_Hradec_Kralove.jpg",
             "alt": "Pohled na Hradec Králové",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hradec_Kralove_CZ_view_from_White_Tower_02.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bila%20vez%20Hradec%20Kralove.jpg"
           }
         },
         {
@@ -80,10 +80,10 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Oslofjord_and_city_hall.jpg/640px-Oslofjord_and_city_hall.jpg",
-            "alt": "Oslo a Oslofjord",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Oslo_Harbour.jpg/960px-Oslo_Harbour.jpg",
+            "alt": "Oslo",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oslofjord_and_city_hall.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oslo%20Harbour.jpg"
           }
         }
       ]
@@ -114,10 +114,10 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Lillehammer%2C_Norway.jpg/640px-Lillehammer%2C_Norway.jpg",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Lillehammer.jpg/960px-Lillehammer.jpg",
             "alt": "Lillehammer",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lillehammer,_Norway.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lillehammer.jpg"
           }
         }
       ]
@@ -148,10 +148,10 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Rondane_National_Park.jpg/640px-Rondane_National_Park.jpg",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Rondane.jpg/960px-Rondane.jpg",
             "alt": "NP Rondane",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rondane_National_Park.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rondane.jpg"
           }
         },
         {
@@ -191,10 +191,11 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Sn%C3%B8hetta_viewpoint.jpg/640px-Sn%C3%B8hetta_viewpoint.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Viewpoint%20Sn%C3%B8hetta.jpg?width=640",
             "alt": "Viewpoint Snøhetta",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sn%C3%B8hetta_viewpoint.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Viewpoint%20Sn%C3%B8hetta.jpg",
+            "_filename": "Viewpoint Snøhetta.jpg"
           }
         }
       ]
@@ -221,10 +222,10 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Innerdalen%2C_M%C3%B8re_og_Romsdal%2C_Norway.jpg/640px-Innerdalen%2C_M%C3%B8re_og_Romsdal%2C_Norway.jpg",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Innerdalen.jpg",
             "alt": "Innerdalen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Innerdalen,_M%C3%B8re_og_Romsdal,_Norway.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Innerdalen.jpg"
           }
         },
         {
@@ -240,10 +241,10 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Trondheim_from_Bakke_Bridge.jpg/640px-Trondheim_from_Bakke_Bridge.jpg",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Trondheim.jpg/960px-Trondheim.jpg",
             "alt": "Trondheim",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Trondheim_from_Bakke_Bridge.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Trondheim.jpg"
           }
         }
       ]
@@ -274,10 +275,11 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Laksforsen_waterfall.jpg/640px-Laksforsen_waterfall.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Laksforsen.jpg?width=640",
             "alt": "Vodopád Laksforsen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laksforsen_waterfall.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laksforsen.jpg",
+            "_filename": "Laksforsen.jpg"
           }
         }
       ]
@@ -308,10 +310,11 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Svartisen_glacier.jpg/640px-Svartisen_glacier.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Svartisen.jpg?width=640",
             "alt": "Ledovec Svartisen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen_glacier.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen.jpg",
+            "_filename": "Svartisen.jpg"
           }
         }
       ]
@@ -342,10 +345,11 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Svartisen_glacier.jpg/640px-Svartisen_glacier.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Svartisen.jpg?width=640",
             "alt": "Ledovec Svartisen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen_glacier.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen.jpg",
+            "_filename": "Svartisen.jpg"
           }
         }
       ]
@@ -381,10 +385,11 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Junkerdal_national_park.jpg/640px-Junkerdal_national_park.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Junkerdal.jpg?width=640",
             "alt": "Junkerdal",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Junkerdal_national_park.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Junkerdal.jpg",
+            "_filename": "Junkerdal.jpg"
           }
         }
       ]
@@ -403,11 +408,19 @@
       "segmentIds": [],
       "places": [
         {
-          "name": "Myrkulla",
+          "name": "Myrkulla (Arvidsjaur)",
           "links": [
             {
+              "label": "Myrkulla",
+              "url": "https://www.myrkulla.com/"
+            },
+            {
+              "label": "Arvidsjaur – Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Arvidsjaur"
+            },
+            {
               "label": "Visit Sweden",
-              "url": "https://visitsweden.com/"
+              "url": "https://visitsweden.com/where-to-go/middle/northern-sweden/arvidsjaur/"
             }
           ]
         }
@@ -427,11 +440,19 @@
       "segmentIds": [],
       "places": [
         {
-          "name": "Myrkulla",
+          "name": "Myrkulla (Arvidsjaur)",
           "links": [
             {
+              "label": "Myrkulla",
+              "url": "https://www.myrkulla.com/"
+            },
+            {
+              "label": "Arvidsjaur – Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Arvidsjaur"
+            },
+            {
               "label": "Visit Sweden",
-              "url": "https://visitsweden.com/"
+              "url": "https://visitsweden.com/where-to-go/middle/northern-sweden/arvidsjaur/"
             }
           ]
         }
@@ -451,11 +472,19 @@
       "segmentIds": [],
       "places": [
         {
-          "name": "Myrkulla",
+          "name": "Myrkulla (Arvidsjaur)",
           "links": [
             {
+              "label": "Myrkulla",
+              "url": "https://www.myrkulla.com/"
+            },
+            {
+              "label": "Arvidsjaur – Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Arvidsjaur"
+            },
+            {
               "label": "Visit Sweden",
-              "url": "https://visitsweden.com/"
+              "url": "https://visitsweden.com/where-to-go/middle/northern-sweden/arvidsjaur/"
             }
           ]
         }
@@ -475,11 +504,19 @@
       "segmentIds": [],
       "places": [
         {
-          "name": "Myrkulla",
+          "name": "Myrkulla (Arvidsjaur)",
           "links": [
             {
+              "label": "Myrkulla",
+              "url": "https://www.myrkulla.com/"
+            },
+            {
+              "label": "Arvidsjaur – Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Arvidsjaur"
+            },
+            {
               "label": "Visit Sweden",
-              "url": "https://visitsweden.com/"
+              "url": "https://visitsweden.com/where-to-go/middle/northern-sweden/arvidsjaur/"
             }
           ]
         }
@@ -511,10 +548,10 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Slattdalsskrevan.jpg/640px-Slattdalsskrevan.jpg",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Sl%C3%A5ttdalsskrevan.jpg",
             "alt": "Slåttdalsskrevan ve Skuleskogen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Slattdalsskrevan.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sl%C3%A5ttdalsskrevan.jpg"
           }
         }
       ]
@@ -543,13 +580,7 @@
               "label": "Wikipedia",
               "url": "https://cs.wikipedia.org/wiki/Astrid_Lindgren"
             }
-          ],
-          "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Villa_Villekulla_in_Astrid_Lindgrens_World.jpg/640px-Villa_Villekulla_in_Astrid_Lindgrens_World.jpg",
-            "alt": "Villa Villekula",
-            "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Villa_Villekulla_in_Astrid_Lindgrens_World.jpg"
-          }
+          ]
         }
       ]
     },
@@ -579,10 +610,10 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Ales_stenar_2012.jpg/640px-Ales_stenar_2012.jpg",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Ales_stenar.jpg/960px-Ales_stenar.jpg",
             "alt": "Ales Stenar",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ales_stenar_2012.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ales%20stenar.jpg"
           }
         }
       ]
@@ -615,10 +646,11 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Hradec_Kralove_CZ_view_from_White_Tower_02.jpg/640px-Hradec_Kralove_CZ_view_from_White_Tower_02.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Bila%20vez%20Hradec%20Kralove.jpg?width=640",
             "alt": "Pohled na Hradec Králové",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hradec_Kralove_CZ_view_from_White_Tower_02.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bila%20vez%20Hradec%20Kralove.jpg",
+            "_filename": "Bila vez Hradec Kralove.jpg"
           }
         }
       ]

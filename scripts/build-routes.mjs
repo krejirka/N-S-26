@@ -18,7 +18,7 @@ const PLACES = {
   laksforsen: { name: "Laksforsen", lat: 65.6641, lng: 13.2694, country: "Norsko" },
   furoy: { name: "Furøy", lat: 66.5342, lng: 13.2844, country: "Norsko" },
   junkerdal: { name: "Junkerdal", lat: 66.112, lng: 14.063, country: "Norsko" },
-  myrkulla: { name: "Myrkulla", lat: 58.403, lng: 12.955, country: "Švédsko" },
+  myrkulla: { name: "Myrkulla (Arvidsjaur)", lat: 65.9397278, lng: 18.8357806, country: "Švédsko" },
   axmarbruk: { name: "Axmarbruk", lat: 61.3014, lng: 17.0167, country: "Švédsko" },
   vimmerby: { name: "Vimmerby", lat: 57.6659, lng: 15.8557, country: "Švédsko" },
   ales_stenar: { name: "Ales Stenar", lat: 55.3869, lng: 14.0534, country: "Švédsko" },

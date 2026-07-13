@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { execSync } from "node:child_process";
+import { commonsImage, COMMONS_FILES, resolvePlacesImages } from "./commons-image.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
@@ -18,12 +19,7 @@ const PLACE_ENRICHMENT = {
           { label: "Wikipedia", url: "https://cs.wikipedia.org/wiki/Hradec_Kr%C3%A1lov%C3%A9" },
           { label: "Turistická informace", url: "https://www.hradeckralove.org/" },
         ],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Hradec_Kralove_CZ_view_from_White_Tower_02.jpg/640px-Hradec_Kralove_CZ_view_from_White_Tower_02.jpg",
-          alt: "Pohled na Hradec Králové",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Hradec_Kralove_CZ_view_from_White_Tower_02.jpg",
-        },
+        image: commonsImage(COMMONS_FILES.hradec, "Pohled na Hradec Králové"),
       },
     ],
   },
@@ -36,12 +32,7 @@ const PLACE_ENRICHMENT = {
           { label: "Wikipedia", url: "https://cs.wikipedia.org/wiki/Oslo" },
           { label: "Visit Oslo", url: "https://www.visitoslo.com/" },
         ],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Oslofjord_and_city_hall.jpg/640px-Oslofjord_and_city_hall.jpg",
-          alt: "Oslo a Oslofjord",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Oslofjord_and_city_hall.jpg",
-        },
+        image: commonsImage(COMMONS_FILES.oslo, "Oslo"),
       },
     ],
   },
@@ -54,12 +45,7 @@ const PLACE_ENRICHMENT = {
           { label: "Wikipedia", url: "https://cs.wikipedia.org/wiki/Lillehammer" },
           { label: "Visit Norway", url: "https://www.visitnorway.com/places-to-go/eastern-norway/lillehammer/" },
         ],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Lillehammer%2C_Norway.jpg/640px-Lillehammer%2C_Norway.jpg",
-          alt: "Lillehammer",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Lillehammer,_Norway.jpg",
-        },
+        image: commonsImage(COMMONS_FILES.lillehammer, "Lillehammer"),
       },
     ],
   },
@@ -72,12 +58,7 @@ const PLACE_ENRICHMENT = {
           { label: "Wikipedia", url: "https://cs.wikipedia.org/wiki/Rondane" },
           { label: "Národní park", url: "https://www.nationalpark.no/parkene/rondane" },
         ],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Rondane_National_Park.jpg/640px-Rondane_National_Park.jpg",
-          alt: "NP Rondane",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Rondane_National_Park.jpg",
-        },
+        image: commonsImage(COMMONS_FILES.rondane, "NP Rondane"),
       },
       { name: "Rondvassbu", links: [{ label: "DNT Rondvassbu", url: "https://www.dnt.no/turhytta/rondvassbu" }] },
     ],
@@ -91,12 +72,7 @@ const PLACE_ENRICHMENT = {
           { label: "Wikipedia", url: "https://en.wikipedia.org/wiki/Sn%C3%B8hetta_(mountain)" },
           { label: "Visit Norway", url: "https://www.visitnorway.com/places-to-go/fjord-norway/the-northwest/the-snohetta-viewpoint/" },
         ],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Sn%C3%B8hetta_viewpoint.jpg/640px-Sn%C3%B8hetta_viewpoint.jpg",
-          alt: "Viewpoint Snøhetta",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Sn%C3%B8hetta_viewpoint.jpg",
-        },
+        image: commonsImage(COMMONS_FILES.snohetta, "Viewpoint Snøhetta"),
       },
     ],
   },
@@ -106,12 +82,7 @@ const PLACE_ENRICHMENT = {
       {
         name: "Innerdalen",
         links: [{ label: "Visit Norway", url: "https://www.visitnorway.com/places-to-go/fjord-norway/the-northwest/innerdalen/" }],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Innerdalen%2C_M%C3%B8re_og_Romsdal%2C_Norway.jpg/640px-Innerdalen%2C_M%C3%B8re_og_Romsdal%2C_Norway.jpg",
-          alt: "Innerdalen",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Innerdalen,_M%C3%B8re_og_Romsdal,_Norway.jpg",
-        },
+        image: commonsImage(COMMONS_FILES.innerdalen, "Innerdalen"),
       },
       {
         name: "Trondheim",
@@ -119,12 +90,7 @@ const PLACE_ENRICHMENT = {
           { label: "Wikipedia", url: "https://cs.wikipedia.org/wiki/Trondheim" },
           { label: "Visit Trondheim", url: "https://www.visittrondheim.no/" },
         ],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Trondheim_from_Bakke_Bridge.jpg/640px-Trondheim_from_Bakke_Bridge.jpg",
-          alt: "Trondheim",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Trondheim_from_Bakke_Bridge.jpg",
-        },
+        image: commonsImage(COMMONS_FILES.trondheim, "Trondheim"),
       },
     ],
   },
@@ -137,12 +103,7 @@ const PLACE_ENRICHMENT = {
           { label: "Wikipedia", url: "https://no.wikipedia.org/wiki/Laksforsen" },
           { label: "Visit Norway", url: "https://www.visitnorway.com/listings/laksforsen-waterfall/177671/" },
         ],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Laksforsen_waterfall.jpg/640px-Laksforsen_waterfall.jpg",
-          alt: "Vodopád Laksforsen",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Laksforsen_waterfall.jpg",
-        },
+        image: commonsImage(COMMONS_FILES.laksforsen, "Vodopád Laksforsen"),
       },
     ],
   },
@@ -155,12 +116,7 @@ const PLACE_ENRICHMENT = {
           { label: "Wikipedia", url: "https://cs.wikipedia.org/wiki/Svartisen" },
           { label: "Visit Norway", url: "https://www.visitnorway.com/places-to-go/northern-norway/svartisen/" },
         ],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Svartisen_glacier.jpg/640px-Svartisen_glacier.jpg",
-          alt: "Ledovec Svartisen",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Svartisen_glacier.jpg",
-        },
+        image: commonsImage(COMMONS_FILES.svartisen, "Ledovec Svartisen"),
       },
     ],
   },
@@ -171,18 +127,22 @@ const PLACE_ENRICHMENT = {
       {
         name: "Junkerdal",
         links: [{ label: "Wikipedia", url: "https://no.wikipedia.org/wiki/Junkerdal" }],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Junkerdal_national_park.jpg/640px-Junkerdal_national_park.jpg",
-          alt: "Junkerdal",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Junkerdal_national_park.jpg",
-        },
+        image: commonsImage(COMMONS_FILES.junkerdal, "Junkerdal"),
       },
     ],
   },
   Myrkulla: {
     placeId: "myrkulla",
-    places: [{ name: "Myrkulla", links: [{ label: "Visit Sweden", url: "https://visitsweden.com/" }] }],
+    places: [
+      {
+        name: "Myrkulla (Arvidsjaur)",
+        links: [
+          { label: "Myrkulla", url: "https://www.myrkulla.com/" },
+          { label: "Arvidsjaur – Wikipedia", url: "https://cs.wikipedia.org/wiki/Arvidsjaur" },
+          { label: "Visit Sweden", url: "https://visitsweden.com/where-to-go/middle/northern-sweden/arvidsjaur/" },
+        ],
+      },
+    ],
   },
   Axmarbruk: {
     placeId: "axmarbruk",
@@ -193,12 +153,7 @@ const PLACE_ENRICHMENT = {
           { label: "Wikipedia", url: "https://cs.wikipedia.org/wiki/Skuleskogen" },
           { label: "Národní park", url: "https://www.nationalpark.se/skuleskogen/" },
         ],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Slattdalsskrevan.jpg/640px-Slattdalsskrevan.jpg",
-          alt: "Slåttdalsskrevan ve Skuleskogen",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Slattdalsskrevan.jpg",
-        },
+        image: commonsImage(COMMONS_FILES.skuleskogen, "Slåttdalsskrevan ve Skuleskogen"),
       },
     ],
   },
@@ -211,12 +166,6 @@ const PLACE_ENRICHMENT = {
           { label: "Oficiální web", url: "https://www.alv.se/" },
           { label: "Wikipedia", url: "https://cs.wikipedia.org/wiki/Astrid_Lindgren" },
         ],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Villa_Villekulla_in_Astrid_Lindgrens_World.jpg/640px-Villa_Villekulla_in_Astrid_Lindgrens_World.jpg",
-          alt: "Villa Villekula",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Villa_Villekulla_in_Astrid_Lindgrens_World.jpg",
-        },
       },
     ],
   },
@@ -229,12 +178,7 @@ const PLACE_ENRICHMENT = {
           { label: "Wikipedia", url: "https://cs.wikipedia.org/wiki/Ales_stenar" },
           { label: "Visit Sweden", url: "https://visitskane.com/classic-attractions/ales-stones/" },
         ],
-        image: {
-          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Ales_stenar_2012.jpg/640px-Ales_stenar_2012.jpg",
-          alt: "Ales Stenar",
-          source: "Wikimedia Commons",
-          sourceUrl: "https://commons.wikimedia.org/wiki/File:Ales_stenar_2012.jpg",
-        },
+        image: commonsImage(COMMONS_FILES.ales, "Ales Stenar"),
       },
     ],
   },
@@ -337,85 +281,98 @@ with zipfile.ZipFile(sys.argv[1]) as z:
 
 const rows = readXlsx(xlsxPath);
 const dataRows = rows.slice(1).filter((r) => r[0] && !Number.isNaN(Number(r[0])));
-const days = [];
 
-const first = dataRows[0];
-days.push({
-  day: 1,
-  date: excelSerialToDate(first[0]),
-  weekday: first[1],
-  destination: "Hradec Králové → Rostock → Trelleborg",
-  km: Number(first[3]) || null,
-  lodging: "trajekt — kajuta",
-  logistics: sanitizeDetail(first.slice(6)) || "Odjezd trajektu 23:45",
-  program: "",
-  placeId: "trelleborg_ferry",
-  phase: "tam",
-  segmentIds: ["hk_rostock", "rostock_trelleborg_ferry"],
-  places: [
-    ...(PLACE_ENRICHMENT["Hradec Králové"]?.places || []),
-    { name: "Trajekt Rostock – Trelleborg", links: [{ label: "Scandlines", url: "https://www.scandlines.com/" }] },
-  ],
-});
+async function buildItinerary() {
+  const days = [];
 
-for (let i = 1; i < dataRows.length; i++) {
-  const r = dataRows[i];
-  const rawDest = normalizeDestination(r[2]) || normalizeDestination(r[6]) || "—";
-  const destination = rawDest === "250" ? "Junkerdal" : rawDest;
-  const enrich = getEnrichment(r[2]) || getEnrichment(destination);
-  const program = String(r[r.length - 1] || "").trim();
-  const detail = sanitizeDetail(r.slice(6, program ? -1 : undefined));
-  const lodging = sanitizeLodging(r);
-  const dayNum = i + 1;
-  const isReturn = dayNum >= 17;
-
-  let finalDest = destination;
-  let finalPlaceId = enrich.placeId;
-  let places = enrich.places || [];
-  let segmentIds = [];
-
-  if (dayNum === dataRows.length) {
-    finalDest = "Rostock → Hradec Králové";
-    finalPlaceId = "hradec_kralove";
-    places = PLACE_ENRICHMENT["Hradec Králové"]?.places || [];
-    segmentIds = ["rostock_hk"];
-  }
-
-  let finalProgram = program;
-  let finalLogistics = detail;
-  if (program && program.length < 40 && !/[.!]/.test(program) && dayNum <= 3) {
-    finalLogistics = [detail, program].filter(Boolean).join(" · ");
-    finalProgram = "";
-  }
-
+  const first = dataRows[0];
   days.push({
-    day: dayNum,
-    date: excelSerialToDate(r[0]),
-    weekday: r[1],
-    destination: finalDest,
-    km: Number(r[3]) || null,
-    lodging,
-    logistics: finalLogistics,
-    program: finalProgram,
-    placeId: finalPlaceId,
-    phase: isReturn ? "zpět" : "tam",
-    segmentIds,
-    places,
+    day: 1,
+    date: excelSerialToDate(first[0]),
+    weekday: first[1],
+    destination: "Hradec Králové → Rostock → Trelleborg",
+    km: Number(first[3]) || null,
+    lodging: "trajekt — kajuta",
+    logistics: sanitizeDetail(first.slice(6)) || "Odjezd trajektu 23:45",
+    program: "",
+    placeId: "trelleborg_ferry",
+    phase: "tam",
+    segmentIds: ["hk_rostock", "rostock_trelleborg_ferry"],
+    places: [
+      ...(PLACE_ENRICHMENT["Hradec Králové"]?.places || []),
+      { name: "Trajekt Rostock – Trelleborg", links: [{ label: "Scandlines", url: "https://www.scandlines.com/" }] },
+    ],
   });
+
+  for (let i = 1; i < dataRows.length; i++) {
+    const r = dataRows[i];
+    const rawDest = normalizeDestination(r[2]) || normalizeDestination(r[6]) || "—";
+    const destination = rawDest === "250" ? "Junkerdal" : rawDest;
+    const enrich = getEnrichment(r[2]) || getEnrichment(destination);
+    const program = String(r[r.length - 1] || "").trim();
+    const detail = sanitizeDetail(r.slice(6, program ? -1 : undefined));
+    const lodging = sanitizeLodging(r);
+    const dayNum = i + 1;
+    const isReturn = dayNum >= 17;
+
+    let finalDest = destination;
+    let finalPlaceId = enrich.placeId;
+    let places = enrich.places || [];
+    let segmentIds = [];
+
+    if (dayNum === dataRows.length) {
+      finalDest = "Rostock → Hradec Králové";
+      finalPlaceId = "hradec_kralove";
+      places = PLACE_ENRICHMENT["Hradec Králové"]?.places || [];
+      segmentIds = ["rostock_hk"];
+    }
+
+    let finalProgram = program;
+    let finalLogistics = detail;
+    if (program && program.length < 40 && !/[.!]/.test(program) && dayNum <= 3) {
+      finalLogistics = [detail, program].filter(Boolean).join(" · ");
+      finalProgram = "";
+    }
+
+    days.push({
+      day: dayNum,
+      date: excelSerialToDate(r[0]),
+      weekday: r[1],
+      destination: finalDest,
+      km: Number(r[3]) || null,
+      lodging,
+      logistics: finalLogistics,
+      program: finalProgram,
+      placeId: finalPlaceId,
+      phase: isReturn ? "zpět" : "tam",
+      segmentIds,
+      places,
+    });
+  }
+
+  for (const day of days) {
+    day.places = await resolvePlacesImages(day.places);
+    await new Promise((r) => setTimeout(r, 200));
+  }
+
+  const itinerary = {
+    meta: {
+      title: "Norsko-Švédsko 2026",
+      origin: "Hradec Králové",
+      destination: "Hradec Králové",
+      totalDays: days.length,
+      totalKmExcel: 5207,
+      note: "Silniční trasy vypočteny z OpenStreetMap přes OSRM.",
+    },
+    days,
+  };
+
+  fs.mkdirSync(outDir, { recursive: true });
+  fs.writeFileSync(path.join(outDir, "itinerary.json"), JSON.stringify(itinerary, null, 2), "utf8");
+  console.log(`Wrote ${days.length} days to src/data/itinerary.json`);
 }
 
-const itinerary = {
-  meta: {
-    title: "Norsko-Švédsko 2026",
-    origin: "Hradec Králové",
-    destination: "Hradec Králové",
-    totalDays: days.length,
-    totalKmExcel: 5207,
-    note: "Silniční trasy vypočteny z OpenStreetMap přes OSRM.",
-  },
-  days,
-};
-
-fs.mkdirSync(outDir, { recursive: true });
-fs.writeFileSync(path.join(outDir, "itinerary.json"), JSON.stringify(itinerary, null, 2), "utf8");
-console.log(`Wrote ${days.length} days to src/data/itinerary.json`);
+buildItinerary().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

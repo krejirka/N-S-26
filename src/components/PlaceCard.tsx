@@ -11,6 +11,10 @@ export default function PlaceCard({ place }: { place: EnrichedPlace }) {
             alt={place.image.alt}
             className="h-44 w-full object-cover transition hover:opacity-95"
             loading="lazy"
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
           />
         </a>
       )}
