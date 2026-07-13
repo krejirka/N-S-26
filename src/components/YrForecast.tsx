@@ -6,11 +6,6 @@ interface YrForecastProps {
   lng: number;
 }
 
-function formatPrecip(mm: number) {
-  if (mm <= 0) return "bez srážek";
-  return `${mm} mm`;
-}
-
 export default function YrForecast({ lat, lng }: YrForecastProps) {
   const [days, setDays] = useState<DayForecast[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -82,7 +77,15 @@ export default function YrForecast({ lat, lng }: YrForecastProps) {
                 <span>
                   noc <span className="text-foreground">{day.tempNight} °C</span>
                 </span>
-                <span className={day.precipMm > 0 ? "text-blue-700" : ""}>{formatPrecip(day.precipMm)}</span>
+                <span
+                  className={
+                    day.precipMm > 0 || day.precipLabel.includes("možné")
+                      ? "text-blue-700"
+                      : ""
+                  }
+                >
+                  {day.precipLabel}
+                </span>
               </div>
             </div>
           </li>
