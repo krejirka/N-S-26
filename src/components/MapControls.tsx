@@ -1,21 +1,83 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useMap } from "react-leaflet";
-import type { RouteSegment } from "@/types/trip";
+import type { PlacesData, RouteSegment } from "@/types/trip";
 
-/** Tighter fit on the route — more zoom, less empty margin. */
-export function FitRouteBounds({ segments }: { segments: RouteSegment[] }) {
+function boundsSpan(points: [number, number][]) {
+  const lats = points.map(([lat]) => lat);
+  const lngs = points.map(([, lng]) => lng);
+  return {
+    latSpan: Math.max(...lats) - Math.min(...lats),
+    lngSpan: Math.max(...lngs) - Math.min(...lngs),
+  };
+}
+
+function maxZoomForDay(points: [number, number][]) {
+  if (points.length <= 1) return 9;
+  const { latSpan, lngSpan } = boundsSpan(points);
+  const span = Math.max(latSpan, lngSpan);
+  if (span < 0.4) return 10;
+  if (span < 1.2) return 8;
+  if (span < 4) return 7;
+  if (span < 10) return 6;
+  return 5;
+}
+
+/** Zoom map to the active day's route and stops. */
+export function FitDayBounds({
+  segments,
+  daySegments,
+  day,
+  places,
+  selectedPlaceId,
+}: {
+  segments: RouteSegment[];
+  daySegments: Record<string, string[]>;
+  day: number;
+  places: PlacesData["places"];
+  selectedPlaceId: string;
+}) {
   const map = useMap();
+  const activeSegmentIds = useMemo(
+    () => new Set(daySegments[String(day)] || []),
+    [daySegments, day]
+  );
 
   useEffect(() => {
-    if (!segments.length) return;
-    const all = segments.flatMap((s) => s.geometry.map(([lng, lat]) => [lat, lng] as [number, number]));
-    if (!all.length) return;
+    const points: [number, number][] = [];
 
-    map.fitBounds(all, {
-      padding: [20, 20],
-      maxZoom: 6,
+    for (const seg of segments) {
+      if (!activeSegmentIds.has(seg.id)) continue;
+      for (const [lng, lat] of seg.geometry) {
+        points.push([lat, lng]);
+      }
+    }
+
+    for (const seg of segments) {
+      if (!activeSegmentIds.has(seg.id)) continue;
+      const from = places[seg.from];
+      const to = places[seg.to];
+      if (from) points.push([from.lat, from.lng]);
+      if (to) points.push([to.lat, to.lng]);
+    }
+
+    const selected = places[selectedPlaceId];
+    if (selected) points.push([selected.lat, selected.lng]);
+
+    if (!points.length) return;
+
+    const maxZoom = maxZoomForDay(points);
+
+    if (points.length === 1) {
+      map.setView(points[0], maxZoom, { animate: true });
+      return;
+    }
+
+    map.fitBounds(points, {
+      padding: [36, 36],
+      maxZoom,
+      animate: true,
     });
-  }, [map, segments]);
+  }, [map, segments, activeSegmentIds, places, selectedPlaceId, day]);
 
   return null;
 }

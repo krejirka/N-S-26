@@ -17,6 +17,7 @@ export function useRadarAnimation(enabled: boolean) {
   const [playMode, setPlayMode] = useState<RadarPlayMode>(null);
   const [loading, setLoading] = useState(true);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const autoPlayDoneRef = useRef(false);
 
   const clearTimer = useCallback(() => {
     if (timerRef.current) {
@@ -99,6 +100,13 @@ export function useRadarAnimation(enabled: boolean) {
       cancelled = true;
     };
   }, [enabled]);
+
+  useEffect(() => {
+    if (!enabled || loading || !frames.length || autoPlayDoneRef.current) return;
+    const { historyStart, historyEnd } = getRadarSliceIndices(frames);
+    playRange(historyStart, historyEnd, "history");
+    autoPlayDoneRef.current = true;
+  }, [enabled, frames, loading, playRange]);
 
   useEffect(() => () => clearTimer(), [clearTimer]);
 

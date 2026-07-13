@@ -5,7 +5,7 @@ import type { RadarFrame } from "@/lib/rainviewer";
 import { makeFlagIcon } from "@/lib/flagMarker";
 import RadarPrecipitationLayer from "./RadarPrecipitationLayer";
 import PlacePopup from "./PlacePopup";
-import { FitRouteBounds, MapScrollBehavior } from "./MapControls";
+import { FitDayBounds, MapScrollBehavior } from "./MapControls";
 import "leaflet/dist/leaflet.css";
 
 interface TripMapProps {
@@ -74,7 +74,13 @@ export default function TripMap({
           <RadarPrecipitationLayer tileUrl={currentFrame.tileUrl} opacity={0.5} />
         )}
         <MapScrollBehavior />
-        <FitRouteBounds segments={segments} />
+        <FitDayBounds
+          segments={segments}
+          daySegments={daySegments}
+          day={day.day}
+          places={places}
+          selectedPlaceId={selectedPlaceId}
+        />
         {segments.map((seg) => {
           const active = activeSegmentIds.has(seg.id);
           const positions = seg.geometry.map(([lng, lat]) => [lat, lng] as [number, number]);
