@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from "react";
+import { latLngBounds } from "leaflet";
 import { useMap } from "react-leaflet";
 import type { PlacesData, RouteSegment } from "@/types/trip";
 
@@ -29,27 +30,43 @@ function maxZoomForDay(points: [number, number][], radarLimited: boolean) {
   return radarLimited ? Math.min(zoom, 6) : zoom;
 }
 
-/** Initial view — entire route visible after load/refresh. */
+/** Initial view — entire trip (waypoints only, tight framing). */
 export function FitRouteBounds({
-  segments,
+  places,
   enabled,
 }: {
-  segments: RouteSegment[];
+  places: PlacesData["places"];
   enabled: boolean;
 }) {
   const map = useMap();
 
-  useEffect(() => {
-    if (!enabled || !segments.length) return;
-    const all = segments.flatMap((s) => s.geometry.map(([lng, lat]) => [lat, lng] as [number, number]));
-    if (!all.length) return;
+  const bounds = useMemo(() => {
+    const pts = Object.values(places).map((p) => [p.lat, p.lng] as [number, number]);
+    if (!pts.length) return null;
+    return latLngBounds(pts).pad(0.08);
+  }, [places]);
 
-    map.fitBounds(all, {
-      padding: [24, 24],
-      maxZoom: 6,
-      animate: false,
-    });
-  }, [map, segments, enabled]);
+  useEffect(() => {
+    if (!enabled || !bounds) return;
+
+    const fit = () => {
+      map.invalidateSize({ animate: false });
+      map.fitBounds(bounds, {
+        padding: [28, 28],
+        maxZoom: 7,
+        animate: false,
+      });
+      // Wide map panels can under-zoom; keep Scandinavia+CZ in frame, not Turkey/Russia.
+      if (map.getZoom() < 5) {
+        map.setView(bounds.getCenter(), 5, { animate: false });
+      }
+      map.setMaxBounds(bounds.pad(0.25));
+    };
+
+    fit();
+    const retry = window.setTimeout(fit, 150);
+    return () => window.clearTimeout(retry);
+  }, [map, bounds, enabled]);
 
   return null;
 }

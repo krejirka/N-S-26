@@ -63,6 +63,7 @@ export default function TripMap({
       <MapContainer
         center={center}
         zoom={5}
+        minZoom={5}
         maxZoom={radarLimited ? RADAR_MAX_ZOOM : 18}
         className="h-full w-full"
         scrollWheelZoom={false}
@@ -77,7 +78,7 @@ export default function TripMap({
           <RadarPrecipitationLayer tileUrl={currentFrame.tileUrl} opacity={0.5} />
         )}
         <MapScrollBehavior radarLimited={radarLimited} />
-        <FitRouteBounds segments={segments} enabled={!zoomToDay} />
+        <FitRouteBounds places={places} enabled={!zoomToDay} />
         <FitDayBounds
           segments={segments}
           daySegments={daySegments}
