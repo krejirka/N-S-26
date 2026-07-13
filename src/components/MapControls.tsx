@@ -39,7 +39,7 @@ function clearMaxBounds(map: ReturnType<typeof useMap>) {
   );
 }
 
-/** Initial view — entire trip (waypoints only, tight framing). */
+/** Initial view — entire trip with comfortable margin around waypoints. */
 export function FitRouteBounds({
   places,
   enabled,
@@ -54,7 +54,7 @@ export function FitRouteBounds({
   const bounds = useMemo(() => {
     const pts = Object.values(places).map((p) => [p.lat, p.lng] as [number, number]);
     if (!pts.length) return null;
-    return latLngBounds(pts).pad(0.08);
+    return latLngBounds(pts).pad(0.22);
   }, [places]);
 
   useEffect(() => {
@@ -63,15 +63,15 @@ export function FitRouteBounds({
     const fit = () => {
       map.invalidateSize({ animate: false });
       map.fitBounds(bounds, {
-        padding: [28, 28],
-        maxZoom: radarLimited ? RADAR_MAX_ZOOM : 7,
+        padding: [64, 64],
+        maxZoom: 6,
         animate: false,
       });
-      if (map.getZoom() < 5) {
-        map.setView(bounds.getCenter(), 5, { animate: false });
+      if (map.getZoom() < 4) {
+        map.setView(bounds.getCenter(), 4, { animate: false });
       }
       if (radarLimited) {
-        map.setMaxBounds(bounds.pad(0.25));
+        map.setMaxBounds(bounds.pad(0.3));
       } else {
         clearMaxBounds(map);
       }
