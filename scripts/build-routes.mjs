@@ -16,13 +16,27 @@ const PLACES = {
   sundalsora: { name: "Sundalsora", lat: 62.2436, lng: 8.6136, country: "Norsko", dayLabel: "5" },
   trondheim: { name: "Trondheim", lat: 63.4305, lng: 10.3951, country: "Norsko", dayLabel: "6" },
   laksforsen: { name: "Laksforsen", lat: 65.6641, lng: 13.2694, country: "Norsko", dayLabel: "7" },
-  furoy: { name: "Furøy", lat: 66.5342, lng: 13.2844, country: "Norsko", dayLabel: "8–9" },
+  kilboghamn_ferry: { name: "Kilboghamn (trajekt)", lat: 66.4891, lng: 13.2275, country: "Norsko", dayLabel: "8" },
+  jektvik_ferry: { name: "Jektvik (trajekt)", lat: 66.6243, lng: 13.2853, country: "Norsko", dayLabel: "8" },
+  agskardet_ferry: { name: "Ågskardet (trajekt)", lat: 66.7193, lng: 13.4707, country: "Norsko", dayLabel: "8" },
+  foroy_ferry: { name: "Forøy (trajekt)", lat: 66.7386, lng: 13.5139, country: "Norsko", dayLabel: "8" },
+  furoy: { name: "Furøy Camping", lat: 66.73874, lng: 13.5012, country: "Norsko", dayLabel: "8–9" },
   junkerdal: { name: "Junkerdal", lat: 66.112, lng: 14.063, country: "Norsko", dayLabel: "10" },
   myrkulla: { name: "Myrkulla (Arvidsjaur)", lat: 65.9397278, lng: 18.8357806, country: "Švédsko", dayLabel: "11–14" },
   axmarbruk: { name: "Axmarbruk", lat: 61.3014, lng: 17.0167, country: "Švédsko", dayLabel: "15" },
   vimmerby: { name: "Vimmerby", lat: 57.6659, lng: 15.8557, country: "Švédsko", dayLabel: "16" },
   ales_stenar: { name: "Ales Stenar", lat: 55.3869, lng: 14.0534, country: "Švédsko", dayLabel: "17" },
 };
+
+/** Waypoints pinning Fv17 coastal route (avoid inland fjord bypass). */
+const FV17_COAST_WAYPOINTS = [
+  { lat: 65.838, lng: 13.208 },
+  { lat: 66.022, lng: 12.631 },
+  { lat: 66.1, lng: 12.7 },
+  { lat: 66.2, lng: 12.78 },
+  { lat: 66.3, lng: 12.95 },
+  { lat: 66.4, lng: 13.1 },
+];
 
 const SEGMENTS = [
   { id: "hk_rostock", from: "hradec_kralove", to: "rostock_ferry", kind: "road", phase: "tam", dayLabel: "1" },
@@ -33,7 +47,52 @@ const SEGMENTS = [
   { id: "rondane_sundalsora", from: "rondane", to: "sundalsora", kind: "road", phase: "tam", dayLabel: "5" },
   { id: "sundalsora_trondheim", from: "sundalsora", to: "trondheim", kind: "road", phase: "tam", dayLabel: "6" },
   { id: "trondheim_laksforsen", from: "trondheim", to: "laksforsen", kind: "road", phase: "tam", dayLabel: "7" },
-  { id: "laksforsen_furoy", from: "laksforsen", to: "furoy", kind: "road", phase: "tam", dayLabel: "8" },
+  {
+    id: "laksforsen_kilboghamn",
+    from: "laksforsen",
+    to: "kilboghamn_ferry",
+    kind: "road",
+    phase: "tam",
+    dayLabel: "8",
+    via: FV17_COAST_WAYPOINTS,
+    source: "Fv17 / OSRM (coastal waypoints)",
+  },
+  {
+    id: "kilboghamn_jektvik_ferry",
+    from: "kilboghamn_ferry",
+    to: "jektvik_ferry",
+    kind: "ferry",
+    phase: "tam",
+    dayLabel: "8",
+    name: "Kilboghamn → Jektvik (Fv17)",
+  },
+  {
+    id: "jektvik_agskardet",
+    from: "jektvik_ferry",
+    to: "agskardet_ferry",
+    kind: "road",
+    phase: "tam",
+    dayLabel: "8",
+    source: "Fv17 / OSRM",
+  },
+  {
+    id: "agskardet_foroy_ferry",
+    from: "agskardet_ferry",
+    to: "foroy_ferry",
+    kind: "ferry",
+    phase: "tam",
+    dayLabel: "8",
+    name: "Ågskardet → Forøy (Fv17)",
+  },
+  {
+    id: "foroy_furoy",
+    from: "foroy_ferry",
+    to: "furoy",
+    kind: "road",
+    phase: "tam",
+    dayLabel: "8",
+    source: "Fv17 / OSRM",
+  },
   { id: "furoy_junkerdal", from: "furoy", to: "junkerdal", kind: "road", phase: "tam", dayLabel: "10" },
   { id: "junkerdal_myrkulla", from: "junkerdal", to: "myrkulla", kind: "road", phase: "tam", dayLabel: "11" },
   { id: "myrkulla_axmarbruk", from: "myrkulla", to: "axmarbruk", kind: "road", phase: "zpět", dayLabel: "15" },
@@ -52,7 +111,13 @@ const DAY_SEGMENTS = {
   5: ["rondane_sundalsora"],
   6: ["sundalsora_trondheim"],
   7: ["trondheim_laksforsen"],
-  8: ["laksforsen_furoy"],
+  8: [
+    "laksforsen_kilboghamn",
+    "kilboghamn_jektvik_ferry",
+    "jektvik_agskardet",
+    "agskardet_foroy_ferry",
+    "foroy_furoy",
+  ],
   9: [],
   10: ["furoy_junkerdal"],
   11: ["junkerdal_myrkulla"],
@@ -82,8 +147,10 @@ function ferryLine(from, to, steps = 24) {
   return coords;
 }
 
-async function fetchOsrm(from, to) {
-  const url = `https://router.project-osrm.org/route/v1/driving/${from.lng},${from.lat};${to.lng},${to.lat}?overview=full&geometries=geojson`;
+async function fetchOsrm(from, to, via = []) {
+  const points = [from, ...via, to];
+  const coords = points.map((p) => `${p.lng},${p.lat}`).join(";");
+  const url = `https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`OSRM ${res.status} for ${from.name} -> ${to.name}`);
   const data = await res.json();
@@ -118,17 +185,17 @@ async function main() {
       };
     } else {
       await sleep(1200);
-      result = await fetchOsrm(from, to);
+      result = await fetchOsrm(from, to, seg.via ?? []);
     }
 
     totalDistanceKm += result.distanceKm;
     segments.push({
       ...seg,
-      name: `${from.name} → ${to.name}`,
+      name: seg.name ?? `${from.name} → ${to.name}`,
       distanceKm: result.distanceKm,
       durationHours: result.durationHours,
       geometry: result.geometry,
-      source: seg.kind === "ferry" ? "Ferry terminal connection" : "OSRM / OpenStreetMap",
+      source: seg.source ?? (seg.kind === "ferry" ? "Ferry terminal connection" : "OSRM / OpenStreetMap"),
     });
     console.log(`${result.distanceKm} km`);
   }

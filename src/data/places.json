@@ -63,10 +63,38 @@
       "country": "Norsko",
       "dayLabel": "7"
     },
+    "kilboghamn_ferry": {
+      "name": "Kilboghamn (trajekt)",
+      "lat": 66.4891,
+      "lng": 13.2275,
+      "country": "Norsko",
+      "dayLabel": "8"
+    },
+    "jektvik_ferry": {
+      "name": "Jektvik (trajekt)",
+      "lat": 66.6243,
+      "lng": 13.2853,
+      "country": "Norsko",
+      "dayLabel": "8"
+    },
+    "agskardet_ferry": {
+      "name": "Ågskardet (trajekt)",
+      "lat": 66.7193,
+      "lng": 13.4707,
+      "country": "Norsko",
+      "dayLabel": "8"
+    },
+    "foroy_ferry": {
+      "name": "Forøy (trajekt)",
+      "lat": 66.7386,
+      "lng": 13.5139,
+      "country": "Norsko",
+      "dayLabel": "8"
+    },
     "furoy": {
-      "name": "Furøy",
-      "lat": 66.5342,
-      "lng": 13.2844,
+      "name": "Furøy Camping",
+      "lat": 66.73874,
+      "lng": 13.5012,
       "country": "Norsko",
       "dayLabel": "8–9"
     },
@@ -130,7 +158,11 @@
       "trondheim_laksforsen"
     ],
     "8": [
-      "laksforsen_furoy"
+      "laksforsen_kilboghamn",
+      "kilboghamn_jektvik_ferry",
+      "jektvik_agskardet",
+      "agskardet_foroy_ferry",
+      "foroy_furoy"
     ],
     "9": [],
     "10": [
