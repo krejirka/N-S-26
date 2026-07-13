@@ -24,8 +24,8 @@ export default function Header({
 
   return (
     <header className="bg-card px-4 py-3 md:px-8">
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 md:flex-row md:items-start md:justify-between">
-        <div className="min-w-0">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-start gap-3 md:grid-cols-[auto_minmax(0,1fr)] md:gap-x-8 lg:gap-x-12">
+        <div className="min-w-0 shrink-0">
           <p className="text-sm font-medium uppercase tracking-wide text-primary">
             Cestovní plán
             <span className="ml-2 font-normal normal-case text-muted-foreground">
