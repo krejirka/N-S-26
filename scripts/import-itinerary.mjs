@@ -306,7 +306,7 @@ async function buildItinerary() {
     phase: "tam",
     segmentIds: ["hk_rostock", "rostock_trelleborg_ferry"],
     places: [
-      ...(PLACE_ENRICHMENT["Hradec Králové"]?.places || []),
+      ...(PLACE_ENRICHMENT["Hradec Králové"]?.places || []).map((p) => structuredClone(p)),
       { name: "Trajekt Rostock – Trelleborg", links: [{ label: "Scandlines", url: "https://www.scandlines.com/" }] },
     ],
   });
@@ -324,13 +324,13 @@ async function buildItinerary() {
 
     let finalDest = destination;
     let finalPlaceId = enrich.placeId;
-    let places = enrich.places || [];
+    let places = (enrich.places || []).map((p) => structuredClone(p));
     let segmentIds = [];
 
     if (dayNum === dataRows.length) {
       finalDest = "Rostock → Hradec Králové";
       finalPlaceId = "hradec_kralove";
-      places = PLACE_ENRICHMENT["Hradec Králové"]?.places || [];
+      places = (PLACE_ENRICHMENT["Hradec Králové"]?.places || []).map((p) => structuredClone(p));
       segmentIds = ["rostock_hk"];
     }
 
