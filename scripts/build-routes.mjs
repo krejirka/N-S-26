@@ -7,8 +7,8 @@ const root = path.join(__dirname, "..");
 const outDir = path.join(root, "src", "data");
 
 const PLACES = {
-  hradec_kralove: { name: "Hradec Králové", lat: 50.2092, lng: 15.8328, country: "Česko", dayLabel: "1·18" },
-  rostock_ferry: { name: "Rostock (trajekt)", lat: 54.1445881, lng: 12.0976681, country: "Německo", dayLabel: "1·17" },
+  hradec_kralove: { name: "Hradec Králové", lat: 50.2092, lng: 15.8328, country: "Česko", dayLabel: "1/18" },
+  rostock_ferry: { name: "Rostock (trajekt)", lat: 54.1445881, lng: 12.0976681, country: "Německo", dayLabel: "1/17" },
   trelleborg_ferry: { name: "Trelleborg (trajekt)", lat: 55.3699862, lng: 13.1503256, country: "Švédsko", dayLabel: "1·17" },
   oslo: { name: "Oslo", lat: 59.9139, lng: 10.7522, country: "Norsko", dayLabel: "2" },
   lillehammer: { name: "Lillehammer", lat: 61.1153, lng: 10.4662, country: "Norsko", dayLabel: "3" },

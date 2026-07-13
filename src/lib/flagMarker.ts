@@ -13,19 +13,18 @@ export function countryFlagCode(country: string) {
 
 export function makeFlagIcon(country: string, dayLabel: string, active: boolean) {
   const code = countryFlagCode(country);
-  const wide = dayLabel.length > 2;
-  const width = wide ? 44 : 40;
-  const height = 52;
+  const wide = dayLabel.length > 3;
+  const width = wide ? 30 : 24;
+  const height = 26;
 
   return L.divIcon({
     className: "",
     html: `<div class="trip-flag-marker${active ? " is-active" : ""}" style="width:${width}px">
-      <div class="flag-pole"></div>
-      <img class="flag-img" src="https://flagcdn.com/w80/${code}.png" width="28" height="19" alt="${country}" loading="lazy" />
+      <img class="flag-img" src="https://flagcdn.com/w20/${code}.png" width="14" height="10" alt="" loading="lazy" />
       ${dayLabel ? `<span class="day-badge">${dayLabel}</span>` : ""}
     </div>`,
     iconSize: [width, height],
     iconAnchor: [width / 2, height],
-    popupAnchor: [0, -height + 4],
+    popupAnchor: [0, -height + 2],
   });
 }
