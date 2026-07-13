@@ -10,6 +10,28 @@ function buildTileUrl(host: string, path: string) {
   return `${host}${path}/256/{z}/{x}/{y}/2/1_1.png`;
 }
 
+async function fetchLibreWxrNowcast(lastPastTime: number): Promise<RadarFrame[]> {
+  try {
+    const res = await fetch("https://api.librewxr.net/public/weather-maps.json");
+    if (!res.ok) return [];
+
+    const json = (await res.json()) as {
+      host: string;
+      radar?: { nowcast?: { time: number; path: string }[] };
+    };
+
+    return (json.radar?.nowcast ?? [])
+      .filter((f) => f.time > lastPastTime)
+      .map((f) => ({
+        time: f.time,
+        tileUrl: buildTileUrl(json.host, f.path),
+        kind: "nowcast" as const,
+      }));
+  } catch {
+    return [];
+  }
+}
+
 export async function fetchRadarFrames(): Promise<RadarFrame[]> {
   if (framesCache && Date.now() - framesCache.at < 5 * 60 * 1000) {
     return framesCache.data;
@@ -32,11 +54,19 @@ export async function fetchRadarFrames(): Promise<RadarFrame[]> {
     kind: "past",
   }));
 
-  const nowcast: RadarFrame[] = (json.radar.nowcast ?? []).map((f) => ({
-    time: f.time,
-    tileUrl: buildTileUrl(json.host, f.path),
-    kind: "nowcast",
-  }));
+  const lastPastTime = past[past.length - 1]?.time ?? 0;
+
+  let nowcast: RadarFrame[] = (json.radar.nowcast ?? [])
+    .filter((f) => f.time > lastPastTime)
+    .map((f) => ({
+      time: f.time,
+      tileUrl: buildTileUrl(json.host, f.path),
+      kind: "nowcast" as const,
+    }));
+
+  if (!nowcast.length) {
+    nowcast = await fetchLibreWxrNowcast(lastPastTime);
+  }
 
   const frames = [...past, ...nowcast];
   if (!frames.length) throw new Error("Žádná radarová data");

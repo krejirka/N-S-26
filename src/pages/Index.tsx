@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import DayList from "@/components/DayList";
 import DayDetail from "@/components/DayDetail";
 import TripMap from "@/components/TripMap";
-import FloatingDayNav from "@/components/FloatingDayNav";
 import RadarTimeline from "@/components/RadarTimeline";
 import { useRadarAnimation } from "@/hooks/useRadarAnimation";
 import itineraryData from "@/data/itinerary.json";
@@ -31,13 +30,14 @@ export default function Index() {
   return (
     <div className="flex h-screen flex-col overflow-hidden">
       <div className="shrink-0 border-b border-border bg-card shadow-sm">
-        <Header itinerary={itinerary} routes={routes} />
-        <FloatingDayNav
+        <Header
+          itinerary={itinerary}
+          routes={routes}
           day={currentDay}
-          hasPrev={dayIndex > 0}
-          hasNext={dayIndex < itinerary.days.length - 1}
-          onPrev={() => dayIndex > 0 && setSelectedDay(itinerary.days[dayIndex - 1].day)}
-          onNext={() =>
+          hasPrevDay={dayIndex > 0}
+          hasNextDay={dayIndex < itinerary.days.length - 1}
+          onPrevDay={() => dayIndex > 0 && setSelectedDay(itinerary.days[dayIndex - 1].day)}
+          onNextDay={() =>
             dayIndex < itinerary.days.length - 1 && setSelectedDay(itinerary.days[dayIndex + 1].day)
           }
         />
