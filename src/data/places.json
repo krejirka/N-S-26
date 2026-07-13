@@ -63,6 +63,13 @@
       "country": "Norsko",
       "dayLabel": "7"
     },
+    "utskarpen": {
+      "name": "Utskarpen (napojení Fv17)",
+      "lat": 66.2902,
+      "lng": 13.5793,
+      "country": "Norsko",
+      "dayLabel": "8"
+    },
     "kilboghamn_ferry": {
       "name": "Kilboghamn (trajekt)",
       "lat": 66.4891,

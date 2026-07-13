@@ -16,6 +16,7 @@ const PLACES = {
   sundalsora: { name: "Sundalsora", lat: 62.2436, lng: 8.6136, country: "Norsko", dayLabel: "5" },
   trondheim: { name: "Trondheim", lat: 63.4305, lng: 10.3951, country: "Norsko", dayLabel: "6" },
   laksforsen: { name: "Laksforsen", lat: 65.6641, lng: 13.2694, country: "Norsko", dayLabel: "7" },
+  utskarpen: { name: "Utskarpen (napojení Fv17)", lat: 66.2902, lng: 13.5793, country: "Norsko", dayLabel: "8" },
   kilboghamn_ferry: { name: "Kilboghamn (trajekt)", lat: 66.4891, lng: 13.2275, country: "Norsko", dayLabel: "8" },
   jektvik_ferry: { name: "Jektvik (trajekt)", lat: 66.6243, lng: 13.2853, country: "Norsko", dayLabel: "8" },
   agskardet_ferry: { name: "Ågskardet (trajekt)", lat: 66.7193, lng: 13.4707, country: "Norsko", dayLabel: "8" },
@@ -28,14 +29,10 @@ const PLACES = {
   ales_stenar: { name: "Ales Stenar", lat: 55.3869, lng: 14.0534, country: "Švédsko", dayLabel: "17" },
 };
 
-/** Waypoints pinning Fv17 coastal route (avoid inland fjord bypass). */
-const FV17_COAST_WAYPOINTS = [
-  { lat: 65.838, lng: 13.208 },
-  { lat: 66.022, lng: 12.631 },
-  { lat: 66.1, lng: 12.7 },
-  { lat: 66.2, lng: 12.78 },
-  { lat: 66.3, lng: 12.95 },
-  { lat: 66.4, lng: 13.1 },
+/** Fv17 north from Laksforsen via Utskarpen to Kilboghamn. */
+const LAKSFORSEN_KILBOGHAMN_VIA = [
+  { lat: 66.225, lng: 13.615 },
+  { lat: 66.2902, lng: 13.5793 },
 ];
 
 const SEGMENTS = [
@@ -46,7 +43,7 @@ const SEGMENTS = [
   { id: "lillehammer_rondane", from: "lillehammer", to: "rondane", kind: "road", phase: "tam", dayLabel: "4" },
   { id: "rondane_sundalsora", from: "rondane", to: "sundalsora", kind: "road", phase: "tam", dayLabel: "5" },
   { id: "sundalsora_trondheim", from: "sundalsora", to: "trondheim", kind: "road", phase: "tam", dayLabel: "6" },
-  { id: "trondheim_laksforsen", from: "trondheim", to: "laksforsen", kind: "road", phase: "tam", dayLabel: "7" },
+  { id: "trondheim_laksforsen", from: "trondheim", to: "laksforsen", kind: "road", phase: "tam", dayLabel: "7", source: "E6 / OSRM" },
   {
     id: "laksforsen_kilboghamn",
     from: "laksforsen",
@@ -54,8 +51,8 @@ const SEGMENTS = [
     kind: "road",
     phase: "tam",
     dayLabel: "8",
-    via: FV17_COAST_WAYPOINTS,
-    source: "Fv17 / OSRM (coastal waypoints)",
+    via: LAKSFORSEN_KILBOGHAMN_VIA,
+    source: "Fv17 přes Utskarpen / OSRM",
   },
   {
     id: "kilboghamn_jektvik_ferry",
