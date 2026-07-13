@@ -12,6 +12,9 @@ interface RadarTimelineProps {
   onStop: () => void;
 }
 
+const timelinePosition =
+  "absolute left-2 right-2 top-[7.5rem] z-[999] sm:top-[8.5rem]";
+
 export default function RadarTimeline({
   frames,
   currentIndex,
@@ -24,7 +27,9 @@ export default function RadarTimeline({
 }: RadarTimelineProps) {
   if (loading) {
     return (
-      <div className="absolute left-2 right-2 top-11 z-[1000] rounded-lg border border-border bg-card/95 px-3 py-2 text-[11px] text-muted-foreground shadow backdrop-blur-sm">
+      <div
+        className={`${timelinePosition} rounded-lg border border-border bg-card/95 px-3 py-2 text-[11px] text-muted-foreground shadow backdrop-blur-sm`}
+      >
         Načítám radar srážek…
       </div>
     );
@@ -38,7 +43,9 @@ export default function RadarTimeline({
   const isForecast = frame.kind === "nowcast";
 
   return (
-    <div className="absolute left-2 right-2 top-11 z-[1000] rounded-lg border border-border bg-card/95 px-3 py-2 shadow backdrop-blur-sm">
+    <div
+      className={`${timelinePosition} rounded-lg border border-border bg-card/95 px-3 py-2 shadow backdrop-blur-sm`}
+    >
       <div className="mb-1.5 flex items-center justify-between gap-2">
         <span className="text-[11px] font-semibold text-foreground">
           Srážky {isForecast ? "· predikce" : "· historie"}

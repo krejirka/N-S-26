@@ -1,4 +1,3 @@
-import { Tent, Home, Ship } from "lucide-react";
 import PlaceCard from "./PlaceCard";
 import YrForecast from "./YrForecast";
 import type { Place, TripDay } from "@/types/trip";
@@ -8,44 +7,10 @@ interface DayDetailProps {
   placeCoords: Place | null;
 }
 
-function formatFullDate(date: string, weekday: string) {
-  const d = new Date(date + "T12:00:00").toLocaleDateString("cs-CZ", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-  return d.charAt(0).toUpperCase() + d.slice(1).replace(weekday, weekday);
-}
-
-function LodgingIcon({ lodging }: { lodging: string | null }) {
-  if (!lodging) return null;
-  if (/stan/i.test(lodging)) return <Tent className="h-4 w-4" />;
-  if (/trajekt/i.test(lodging)) return <Ship className="h-4 w-4" />;
-  return <Home className="h-4 w-4" />;
-}
-
 export default function DayDetail({ day, placeCoords }: DayDetailProps) {
   return (
     <section className="flex h-full flex-col overflow-hidden bg-background">
       <div className="flex-1 overflow-y-auto p-4 md:p-6">
-        <div className="mb-4">
-          <p className="text-sm text-muted-foreground">{formatFullDate(day.date, day.weekday)}</p>
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Den {day.day}</p>
-          <h2 className="mt-1 text-xl font-bold">{day.destination}</h2>
-          <div className="mt-3 flex flex-wrap gap-2 text-sm">
-            {day.km != null && (
-              <span className="rounded-full bg-muted px-3 py-1">{day.km} km (plán)</span>
-            )}
-            {day.lodging && (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1 capitalize">
-                <LodgingIcon lodging={day.lodging} />
-                {day.lodging}
-              </span>
-            )}
-          </div>
-        </div>
-
         {day.logistics && (
           <div className="mb-4 rounded-xl border border-border bg-card p-4">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Logistika</h3>

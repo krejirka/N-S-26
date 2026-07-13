@@ -32,18 +32,12 @@ export default function Index() {
         </div>
 
         <div className="flex min-h-[360px] flex-col border-b border-border lg:min-h-[calc(100vh-120px)] lg:border-b-0 lg:border-r">
-          <div className="border-b border-border bg-card px-4 py-2">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Mapa trasy</h2>
-            <p className="text-xs text-muted-foreground">
-              Posun dvěma prsty scrolluje stránku · pinch zoomuje mapu
-            </p>
-          </div>
-          <div className="relative min-h-[320px] flex-1">
+          <div className="relative min-h-[360px] flex-1">
             <TripMap
               segments={routes.segments}
               places={places.places}
               daySegments={places.daySegments}
-              selectedDay={selectedDay}
+              day={currentDay}
               selectedPlaceId={currentDay.placeId}
               onPrevDay={() => dayIndex > 0 && setSelectedDay(itinerary.days[dayIndex - 1].day)}
               onNextDay={() => dayIndex < itinerary.days.length - 1 && setSelectedDay(itinerary.days[dayIndex + 1].day)}

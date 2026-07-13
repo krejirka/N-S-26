@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { MapContainer, TileLayer, Polyline, Marker } from "react-leaflet";
-import type { PlacesData, RouteSegment } from "@/types/trip";
+import type { PlacesData, RouteSegment, TripDay } from "@/types/trip";
 import { makeFlagIcon } from "@/lib/flagMarker";
 import RadarPrecipitationLayer from "./RadarPrecipitationLayer";
 import RadarTimeline from "./RadarTimeline";
@@ -14,7 +14,7 @@ interface TripMapProps {
   segments: RouteSegment[];
   places: PlacesData["places"];
   daySegments: Record<string, string[]>;
-  selectedDay: number;
+  day: TripDay;
   selectedPlaceId: string;
   onPrevDay: () => void;
   onNextDay: () => void;
@@ -32,7 +32,7 @@ export default function TripMap({
   segments,
   places,
   daySegments,
-  selectedDay,
+  day,
   selectedPlaceId,
   onPrevDay,
   onNextDay,
@@ -43,8 +43,8 @@ export default function TripMap({
   const radar = useRadarAnimation(showRadar);
 
   const activeSegmentIds = useMemo(
-    () => new Set(daySegments[String(selectedDay)] || []),
-    [daySegments, selectedDay]
+    () => new Set(daySegments[String(day.day)] || []),
+    [daySegments, day.day]
   );
 
   const activePlaceIds = useMemo(() => {
@@ -130,7 +130,7 @@ export default function TripMap({
       )}
 
       <FloatingDayNav
-        day={selectedDay}
+        day={day}
         hasPrev={hasPrevDay}
         hasNext={hasNextDay}
         onPrev={onPrevDay}
@@ -140,7 +140,7 @@ export default function TripMap({
       <button
         type="button"
         onClick={() => setShowRadar((v) => !v)}
-        className={`absolute left-2 top-2 z-[1000] rounded-lg px-2.5 py-1.5 text-[11px] font-medium shadow transition ${
+        className={`absolute bottom-2 left-2 z-[1000] rounded-lg px-2 py-1 text-[10px] font-medium shadow transition sm:px-2.5 sm:py-1.5 sm:text-[11px] ${
           showRadar
             ? "bg-sky-600 text-white hover:bg-sky-700"
             : "bg-white/95 text-gray-700 hover:bg-white"
