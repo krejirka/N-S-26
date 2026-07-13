@@ -1,9 +1,11 @@
 import { ChevronLeft, ChevronRight, Tent, Home, Ship } from "lucide-react";
 import PlaceCard from "./PlaceCard";
-import type { TripDay } from "@/types/trip";
+import YrForecast from "./YrForecast";
+import type { Place, TripDay } from "@/types/trip";
 
 interface DayDetailProps {
   day: TripDay;
+  placeCoords: Place | null;
   onPrev: () => void;
   onNext: () => void;
   hasPrev: boolean;
@@ -27,7 +29,7 @@ function LodgingIcon({ lodging }: { lodging: string | null }) {
   return <Home className="h-4 w-4" />;
 }
 
-export default function DayDetail({ day, onPrev, onNext, hasPrev, hasNext }: DayDetailProps) {
+export default function DayDetail({ day, placeCoords, onPrev, onNext, hasPrev, hasNext }: DayDetailProps) {
   return (
     <section className="flex h-full flex-col overflow-hidden bg-background">
       <div className="flex items-center justify-between border-b border-border bg-card px-4 py-3">
@@ -78,6 +80,12 @@ export default function DayDetail({ day, onPrev, onNext, hasPrev, hasNext }: Day
           <div className="mb-6 rounded-xl border border-border bg-card p-4">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Program</h3>
             <p className="mt-2 whitespace-pre-line text-sm leading-relaxed">{day.program}</p>
+          </div>
+        )}
+
+        {placeCoords && (
+          <div className="mb-6 rounded-xl border border-border bg-card p-4">
+            <YrForecast lat={placeCoords.lat} lng={placeCoords.lng} />
           </div>
         )}
 

@@ -62,15 +62,17 @@ export function parseThreeDayForecast(data: MetForecastResponse): DayForecast[] 
 
   const sorted = [...byDate.entries()].sort(([a], [b]) => a.localeCompare(b));
   return sorted.slice(0, 3).map(([date, bucket]) => {
+    const temps = bucket.temps.length ? bucket.temps : [0];
+    const wind = bucket.wind.length ? bucket.wind : [0];
     const d = new Date(date + "T12:00:00");
     return {
       date,
       label: d.toLocaleDateString("cs-CZ", { weekday: "short", day: "numeric", month: "numeric" }),
       symbol: bucket.symbol,
-      tempMin: Math.round(Math.min(...bucket.temps)),
-      tempMax: Math.round(Math.max(...bucket.temps)),
+      tempMin: Math.round(Math.min(...temps)),
+      tempMax: Math.round(Math.max(...temps)),
       precipMm: Math.round(bucket.precip * 10) / 10,
-      windMax: Math.round(Math.max(...bucket.wind, 0) * 10) / 10,
+      windMax: Math.round(Math.max(...wind) * 10) / 10,
     };
   });
 }
@@ -87,44 +89,4 @@ export async function fetchYrForecast(lat: number, lng: number): Promise<DayFore
   const days = parseThreeDayForecast(data);
   forecastCache.set(key, { at: Date.now(), data: days });
   return days;
-}
-
-export interface YrMapLayerMeta {
-  tileUrl: string;
-  bounds: [[number, number], [number, number]];
-  maxZoom: number;
-  updatedAt: string;
-}
-
-let precipMetaCache: { at: number; data: YrMapLayerMeta } | null = null;
-
-export async function fetchPrecipitationOverlay(): Promise<YrMapLayerMeta> {
-  if (precipMetaCache && Date.now() - precipMetaCache.at < 5 * 60 * 1000) {
-    return precipMetaCache.data;
-  }
-
-  const res = await fetch("https://beta.yr-maps.met.no/api/precipitation-nowcast/available.json");
-  if (!res.ok) throw new Error("Vrstva srážek yr.no nedostupná");
-
-  const json = (await res.json()) as {
-    bounds: [number, number, number, number];
-    maxzoom: number;
-    times: { time: string; tiles: { png: string } }[];
-  };
-
-  const latest = json.times[json.times.length - 1] ?? json.times[0];
-  if (!latest) throw new Error("Žádná data srážek");
-
-  const [west, south, east, north] = json.bounds;
-  const data: YrMapLayerMeta = {
-    tileUrl: latest.tiles.png,
-    bounds: [
-      [south, west],
-      [north, east],
-    ],
-    maxZoom: json.maxzoom,
-    updatedAt: latest.time,
-  };
-  precipMetaCache = { at: Date.now(), data };
-  return data;
 }

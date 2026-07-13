@@ -40,11 +40,25 @@ export default function YrForecast({ lat, lng }: YrForecastProps) {
     return <p className="mt-2 text-xs text-red-600">{error}</p>;
   }
 
-  if (!days?.length) return null;
+  if (!days?.length) {
+    return (
+      <p className="mt-2 text-xs text-gray-500">
+        Předpověď se nepodařilo načíst.{" "}
+        <a
+          href={`https://www.yr.no/en/forecast/daily-table/${lat},${lng}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline"
+        >
+          Otevřít na yr.no
+        </a>
+      </p>
+    );
+  }
 
   return (
-    <div className="mt-3 border-t border-gray-200 pt-2">
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
+    <div>
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
         Předpověď 3 dny ·{" "}
         <a href="https://www.yr.no/" target="_blank" rel="noopener noreferrer" className="underline">
           yr.no

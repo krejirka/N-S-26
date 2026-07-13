@@ -1,9 +1,9 @@
-import { useEffect, useMemo } from "react";
-import { MapContainer, TileLayer, Polyline, Marker, Popup, useMap } from "react-leaflet";
+import { useEffect, useMemo, useState } from "react";
+import { MapContainer, TileLayer, Polyline, Marker, useMap } from "react-leaflet";
 import type { PlacesData, RouteSegment } from "@/types/trip";
 import { makeFlagIcon } from "@/lib/flagMarker";
-import YrForecast from "./YrForecast";
-import YrPrecipitationLayer from "./YrPrecipitationLayer";
+import RadarPrecipitationLayer from "./RadarPrecipitationLayer";
+import PlacePopup from "./PlacePopup";
 import "leaflet/dist/leaflet.css";
 
 interface TripMapProps {
@@ -37,6 +37,8 @@ export default function TripMap({
   selectedDay,
   selectedPlaceId,
 }: TripMapProps) {
+  const [showRadar, setShowRadar] = useState(false);
+
   const activeSegmentIds = useMemo(
     () => new Set(daySegments[String(selectedDay)] || []),
     [daySegments, selectedDay]
@@ -67,7 +69,7 @@ export default function TripMap({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <YrPrecipitationLayer />
+        <RadarPrecipitationLayer visible={showRadar} opacity={0.5} />
         <FitBounds segments={segments} />
         {segments.map((seg) => {
           const active = activeSegmentIds.has(seg.id);
@@ -95,25 +97,23 @@ export default function TripMap({
               position={[place.lat, place.lng]}
               icon={makeFlagIcon(place.country, label, active)}
             >
-              <Popup minWidth={220}>
-                <strong>{place.name}</strong>
-                <br />
-                <span className="text-xs text-gray-600">{place.country}</span>
-                {label && (
-                  <>
-                    <br />
-                    <span className="text-xs text-gray-500">Den {label}</span>
-                  </>
-                )}
-                <YrForecast lat={place.lat} lng={place.lng} />
-              </Popup>
+              <PlacePopup place={place} dayLabel={label} />
             </Marker>
           );
         })}
       </MapContainer>
-      <div className="pointer-events-none absolute bottom-2 left-2 z-[1000] rounded-lg bg-white/90 px-2 py-1 text-[10px] text-gray-600 shadow">
-        Překryv srážek · yr.no nowcast
-      </div>
+      <button
+        type="button"
+        onClick={() => setShowRadar((v) => !v)}
+        className={`absolute bottom-2 left-2 z-[1000] rounded-lg px-2.5 py-1.5 text-[11px] font-medium shadow transition ${
+          showRadar
+            ? "bg-sky-600 text-white hover:bg-sky-700"
+            : "bg-white/95 text-gray-700 hover:bg-white"
+        }`}
+        title="Radar srážek (RainViewer) — doplňková vrstva"
+      >
+        {showRadar ? "Skrýt radar srážek" : "Zobrazit radar srážek"}
+      </button>
     </div>
   );
 }
