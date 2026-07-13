@@ -3,6 +3,9 @@ import Header from "@/components/Header";
 import DayList from "@/components/DayList";
 import DayDetail from "@/components/DayDetail";
 import TripMap from "@/components/TripMap";
+import FloatingDayNav from "@/components/FloatingDayNav";
+import RadarTimeline from "@/components/RadarTimeline";
+import { useRadarAnimation } from "@/hooks/useRadarAnimation";
 import itineraryData from "@/data/itinerary.json";
 import routesData from "@/data/routes.json";
 import placesData from "@/data/places.json";
@@ -14,6 +17,8 @@ const places = placesData as PlacesData;
 
 export default function Index() {
   const [selectedDay, setSelectedDay] = useState(1);
+  const [showRadar, setShowRadar] = useState(true);
+  const radar = useRadarAnimation(showRadar);
 
   const currentDay = useMemo(
     () => itinerary.days.find((d) => d.day === selectedDay) ?? itinerary.days[0],
@@ -24,36 +29,62 @@ export default function Index() {
   const placeCoords = places.places[currentDay.placeId] ?? null;
 
   return (
-    <div className="flex min-h-full flex-col">
-      <Header itinerary={itinerary} routes={routes} />
-      <div className="mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 lg:grid-cols-[260px_1.35fr_360px]">
-        <div className="max-h-[40vh] lg:max-h-none lg:min-h-[calc(100vh-120px)]">
-          <DayList days={itinerary.days} selectedDay={selectedDay} onSelect={setSelectedDay} />
-        </div>
+    <div className="flex h-screen flex-col overflow-hidden">
+      <div className="shrink-0 border-b border-border bg-card shadow-sm">
+        <Header itinerary={itinerary} routes={routes} />
+        <FloatingDayNav
+          day={currentDay}
+          hasPrev={dayIndex > 0}
+          hasNext={dayIndex < itinerary.days.length - 1}
+          onPrev={() => dayIndex > 0 && setSelectedDay(itinerary.days[dayIndex - 1].day)}
+          onNext={() =>
+            dayIndex < itinerary.days.length - 1 && setSelectedDay(itinerary.days[dayIndex + 1].day)
+          }
+        />
+        <RadarTimeline
+          frames={radar.frames}
+          currentIndex={radar.currentIndex}
+          referenceTime={radar.referenceTime}
+          isPlaying={radar.isPlaying}
+          playMode={radar.playMode}
+          loading={radar.loading}
+          hasForecast={radar.hasForecast}
+          showRadar={showRadar}
+          onPlayHistory={radar.playHistory}
+          onPlayForecast={radar.playForecast}
+          onToggleRadar={() => setShowRadar((v) => !v)}
+        />
+      </div>
 
-        <div className="flex min-h-[360px] flex-col border-b border-border lg:min-h-[calc(100vh-120px)] lg:border-b-0 lg:border-r">
-          <div className="relative min-h-[360px] flex-1">
-            <TripMap
-              segments={routes.segments}
-              places={places.places}
-              daySegments={places.daySegments}
-              day={currentDay}
-              selectedPlaceId={currentDay.placeId}
-              onPrevDay={() => dayIndex > 0 && setSelectedDay(itinerary.days[dayIndex - 1].day)}
-              onNextDay={() => dayIndex < itinerary.days.length - 1 && setSelectedDay(itinerary.days[dayIndex + 1].day)}
-              hasPrevDay={dayIndex > 0}
-              hasNextDay={dayIndex < itinerary.days.length - 1}
-            />
+      <div className="flex-1 overflow-y-auto">
+        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 lg:grid-cols-[260px_1.35fr_360px]">
+          <div>
+            <DayList days={itinerary.days} selectedDay={selectedDay} onSelect={setSelectedDay} />
+          </div>
+
+          <div className="flex min-h-[360px] flex-col border-b border-border lg:min-h-[480px] lg:border-b-0 lg:border-r">
+            <div className="relative min-h-[360px] flex-1 lg:min-h-[480px]">
+              <TripMap
+                segments={routes.segments}
+                places={places.places}
+                daySegments={places.daySegments}
+                day={currentDay}
+                selectedPlaceId={currentDay.placeId}
+                showRadar={showRadar}
+                currentFrame={radar.currentFrame}
+              />
+            </div>
+          </div>
+
+          <div className="min-h-[400px]">
+            <DayDetail day={currentDay} placeCoords={placeCoords} />
           </div>
         </div>
 
-        <div className="min-h-[400px] lg:min-h-[calc(100vh-120px)]">
-          <DayDetail day={currentDay} placeCoords={placeCoords} />
-        </div>
+        <footer className="border-t border-border bg-card px-4 py-3 text-center text-xs text-muted-foreground">
+          {itinerary.meta.title} · {itinerary.meta.highlights.join(" · ")}
+        </footer>
       </div>
-      <footer className="border-t border-border bg-card px-4 py-3 text-center text-xs text-muted-foreground">
-        {itinerary.meta.title} · {itinerary.meta.highlights.join(" · ")}
-      </footer>
     </div>
   );
 }

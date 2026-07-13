@@ -9,7 +9,7 @@ interface HeaderProps {
 export default function Header({ itinerary, routes }: HeaderProps) {
   const { meta } = itinerary;
   return (
-    <header className="border-b border-border bg-card px-4 py-5 shadow-sm md:px-8">
+    <header className="bg-card px-4 py-3 md:px-8">
       <div className="mx-auto flex max-w-7xl flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-sm font-medium uppercase tracking-wide text-primary">Cestovní plán</p>

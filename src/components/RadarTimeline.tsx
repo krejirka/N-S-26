@@ -1,87 +1,89 @@
 import { Pause, Play } from "lucide-react";
-import { formatRadarClock, formatRadarOffsetMinutes, type RadarFrame } from "@/lib/rainviewer";
+import { formatRadarOffsetMinutes, type RadarFrame } from "@/lib/rainviewer";
+import type { RadarPlayMode } from "@/hooks/useRadarAnimation";
 
 interface RadarTimelineProps {
   frames: RadarFrame[];
   currentIndex: number;
   referenceTime: number;
   isPlaying: boolean;
+  playMode: RadarPlayMode;
   loading: boolean;
-  onIndexChange: (index: number) => void;
-  onPlay: () => void;
-  onStop: () => void;
+  hasForecast: boolean;
+  showRadar: boolean;
+  onPlayHistory: () => void;
+  onPlayForecast: () => void;
+  onToggleRadar: () => void;
 }
-
-const timelinePosition =
-  "absolute left-2 right-2 top-[7.5rem] z-[999] sm:top-[8.5rem]";
 
 export default function RadarTimeline({
   frames,
   currentIndex,
   referenceTime,
   isPlaying,
+  playMode,
   loading,
-  onIndexChange,
-  onPlay,
-  onStop,
+  hasForecast,
+  showRadar,
+  onPlayHistory,
+  onPlayForecast,
+  onToggleRadar,
 }: RadarTimelineProps) {
-  if (loading) {
-    return (
-      <div
-        className={`${timelinePosition} rounded-lg border border-border bg-card/95 px-3 py-2 text-[11px] text-muted-foreground shadow backdrop-blur-sm`}
-      >
-        Načítám radar srážek…
-      </div>
-    );
-  }
-
-  if (!frames.length) return null;
-
   const frame = frames[currentIndex];
-  const offset = formatRadarOffsetMinutes(frame.time, referenceTime);
-  const clock = formatRadarClock(frame.time);
-  const isForecast = frame.kind === "nowcast";
+  const offset = frame ? formatRadarOffsetMinutes(frame.time, referenceTime) : "—";
 
   return (
-    <div
-      className={`${timelinePosition} rounded-lg border border-border bg-card/95 px-3 py-2 shadow backdrop-blur-sm`}
-    >
-      <div className="mb-1.5 flex items-center justify-between gap-2">
-        <span className="text-[11px] font-semibold text-foreground">
-          Srážky {isForecast ? "· predikce" : "· historie"}
-        </span>
-        <span className="text-[11px] tabular-nums text-muted-foreground">
-          {offset} · {clock}
-        </span>
-      </div>
+    <div className="flex flex-wrap items-center gap-2 border-t border-border px-3 py-1.5 text-[10px] sm:px-4">
+      <button
+        type="button"
+        onClick={onToggleRadar}
+        className={`rounded px-2 py-0.5 font-medium transition ${
+          showRadar ? "bg-sky-600 text-white hover:bg-sky-700" : "bg-muted text-foreground hover:bg-muted/80"
+        }`}
+        title="Radar srážek (RainViewer)"
+      >
+        Radar
+      </button>
 
-      <div className="flex items-center gap-2">
-        <button
-          type="button"
-          onClick={isPlaying ? onStop : onPlay}
-          className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-border bg-background text-foreground hover:bg-muted"
-          title={isPlaying ? "Pozastavit" : "Přehrát animaci"}
-          aria-label={isPlaying ? "Pozastavit animaci" : "Přehrát animaci"}
-        >
-          {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
-        </button>
+      {!showRadar ? null : loading ? (
+        <span className="text-muted-foreground">Načítám radar…</span>
+      ) : !frames.length ? (
+        <span className="text-muted-foreground">Radar nedostupný</span>
+      ) : (
+        <>
+          <button
+            type="button"
+            onClick={onPlayHistory}
+            className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded border border-border bg-background text-foreground hover:bg-muted"
+            title={isPlaying && playMode === "history" ? "Zastavit historii" : "Přehrát historii −120 → 0 min"}
+            aria-label={isPlaying && playMode === "history" ? "Zastavit historii" : "Přehrát historii"}
+          >
+            {isPlaying && playMode === "history" ? (
+              <Pause className="h-3 w-3" />
+            ) : (
+              <Play className="h-3 w-3" />
+            )}
+          </button>
 
-        <input
-          type="range"
-          min={0}
-          max={frames.length - 1}
-          value={currentIndex}
-          onChange={(e) => onIndexChange(Number(e.target.value))}
-          className="h-1.5 flex-1 cursor-pointer accent-sky-600"
-          aria-label="Čas radarové animace"
-        />
-      </div>
+          <span className="min-w-[4.5rem] tabular-nums font-medium text-foreground">{offset}</span>
 
-      <div className="mt-1 flex justify-between text-[10px] text-muted-foreground">
-        <span>{formatRadarOffsetMinutes(frames[0].time, referenceTime)}</span>
-        <span>teď</span>
-        <span>{formatRadarOffsetMinutes(frames[frames.length - 1].time, referenceTime)}</span>
-      </div>
+          <button
+            type="button"
+            onClick={onPlayForecast}
+            disabled={!hasForecast}
+            className="rounded border border-border bg-background px-2 py-0.5 font-medium text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
+            title={
+              hasForecast
+                ? isPlaying && playMode === "forecast"
+                  ? "Zastavit predikci"
+                  : "Predikce animace +60 min"
+                : "Predikce momentálně nedostupná"
+            }
+          >
+            {isPlaying && playMode === "forecast" ? "Zastavit" : "+60 min"}
+          </button>
+        </>
+      )}
     </div>
   );
 }

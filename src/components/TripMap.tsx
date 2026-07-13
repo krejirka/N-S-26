@@ -1,13 +1,11 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { MapContainer, TileLayer, Polyline, Marker } from "react-leaflet";
 import type { PlacesData, RouteSegment, TripDay } from "@/types/trip";
+import type { RadarFrame } from "@/lib/rainviewer";
 import { makeFlagIcon } from "@/lib/flagMarker";
 import RadarPrecipitationLayer from "./RadarPrecipitationLayer";
-import RadarTimeline from "./RadarTimeline";
 import PlacePopup from "./PlacePopup";
-import FloatingDayNav from "./FloatingDayNav";
 import { FitRouteBounds, MapScrollBehavior } from "./MapControls";
-import { useRadarAnimation } from "@/hooks/useRadarAnimation";
 import "leaflet/dist/leaflet.css";
 
 interface TripMapProps {
@@ -16,10 +14,8 @@ interface TripMapProps {
   daySegments: Record<string, string[]>;
   day: TripDay;
   selectedPlaceId: string;
-  onPrevDay: () => void;
-  onNextDay: () => void;
-  hasPrevDay: boolean;
-  hasNextDay: boolean;
+  showRadar: boolean;
+  currentFrame: RadarFrame | null;
 }
 
 const outboundColor = "#c2410c";
@@ -34,14 +30,9 @@ export default function TripMap({
   daySegments,
   day,
   selectedPlaceId,
-  onPrevDay,
-  onNextDay,
-  hasPrevDay,
-  hasNextDay,
+  showRadar,
+  currentFrame,
 }: TripMapProps) {
-  const [showRadar, setShowRadar] = useState(true);
-  const radar = useRadarAnimation(showRadar);
-
   const activeSegmentIds = useMemo(
     () => new Set(daySegments[String(day.day)] || []),
     [daySegments, day.day]
@@ -79,8 +70,8 @@ export default function TripMap({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {showRadar && radar.currentFrame && (
-          <RadarPrecipitationLayer tileUrl={radar.currentFrame.tileUrl} opacity={0.5} />
+        {showRadar && currentFrame && (
+          <RadarPrecipitationLayer tileUrl={currentFrame.tileUrl} opacity={0.5} />
         )}
         <MapScrollBehavior />
         <FitRouteBounds segments={segments} />
@@ -115,40 +106,6 @@ export default function TripMap({
           );
         })}
       </MapContainer>
-
-      {showRadar && (
-        <RadarTimeline
-          frames={radar.frames}
-          currentIndex={radar.currentIndex}
-          referenceTime={radar.referenceTime}
-          isPlaying={radar.isPlaying}
-          loading={radar.loading}
-          onIndexChange={radar.setCurrentIndex}
-          onPlay={radar.playManual}
-          onStop={radar.stop}
-        />
-      )}
-
-      <FloatingDayNav
-        day={day}
-        hasPrev={hasPrevDay}
-        hasNext={hasNextDay}
-        onPrev={onPrevDay}
-        onNext={onNextDay}
-      />
-
-      <button
-        type="button"
-        onClick={() => setShowRadar((v) => !v)}
-        className={`absolute bottom-2 left-2 z-[1000] rounded-lg px-2 py-1 text-[10px] font-medium shadow transition sm:px-2.5 sm:py-1.5 sm:text-[11px] ${
-          showRadar
-            ? "bg-sky-600 text-white hover:bg-sky-700"
-            : "bg-white/95 text-gray-700 hover:bg-white"
-        }`}
-        title="Radar srážek (RainViewer)"
-      >
-        {showRadar ? "Skrýt radar" : "Radar srážek"}
-      </button>
     </div>
   );
 }

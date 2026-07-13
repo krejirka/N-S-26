@@ -27,8 +27,8 @@ function LodgingIcon({ lodging }: { lodging: string }) {
 
 export default function FloatingDayNav({ day, hasPrev, hasNext, onPrev, onNext }: FloatingDayNavProps) {
   return (
-    <div className="pointer-events-none absolute inset-x-2 top-2 z-[1000] sm:inset-x-3">
-      <div className="pointer-events-auto rounded-xl border border-border bg-card/95 px-2 py-2 shadow-lg backdrop-blur-sm sm:px-3 sm:py-2.5">
+    <div className="border-t border-border px-3 py-2 sm:px-4">
+      <div className="mx-auto max-w-7xl">
         <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             type="button"

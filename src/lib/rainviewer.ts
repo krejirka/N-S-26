@@ -64,3 +64,29 @@ export function formatRadarClock(time: number) {
     minute: "2-digit",
   });
 }
+
+export function getRadarSliceIndices(frames: RadarFrame[]) {
+  let historyEnd = -1;
+  for (let i = 0; i < frames.length; i++) {
+    if (frames[i].kind === "past") historyEnd = i;
+  }
+
+  const referenceTime =
+    historyEnd >= 0 ? frames[historyEnd].time : frames[frames.length - 1]?.time ?? 0;
+
+  let forecastEnd = historyEnd >= 0 ? historyEnd : 0;
+  for (let i = historyEnd + 1; i < frames.length; i++) {
+    const offsetMin = (frames[i].time - referenceTime) / 60;
+    if (offsetMin > 0 && offsetMin <= 60) forecastEnd = i;
+    else if (offsetMin > 60) break;
+  }
+
+  return {
+    referenceTime,
+    historyStart: 0,
+    historyEnd: Math.max(historyEnd, 0),
+    forecastStart: Math.max(historyEnd, 0),
+    forecastEnd,
+    hasForecast: forecastEnd > historyEnd,
+  };
+}
