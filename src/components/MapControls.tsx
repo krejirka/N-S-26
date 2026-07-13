@@ -54,7 +54,16 @@ export function FitRouteBounds({
   const bounds = useMemo(() => {
     const pts = Object.values(places).map((p) => [p.lat, p.lng] as [number, number]);
     if (!pts.length) return null;
-    return latLngBounds(pts).pad(0.22);
+    const raw = latLngBounds(pts);
+    const latSpan = raw.getNorth() - raw.getSouth();
+    const lngSpan = raw.getEast() - raw.getWest();
+    const latPad = latSpan * 0.14;
+    const lngPad = lngSpan * 0.14;
+    const southPad = latSpan * 0.22;
+    return latLngBounds(
+      [raw.getSouth() - southPad, raw.getWest() - lngPad],
+      [raw.getNorth() + latPad, raw.getEast() + lngPad]
+    );
   }, [places]);
 
   useEffect(() => {
@@ -63,23 +72,33 @@ export function FitRouteBounds({
     const fit = () => {
       map.invalidateSize({ animate: false });
       map.fitBounds(bounds, {
-        padding: [64, 64],
-        maxZoom: 6,
+        paddingTopLeft: [48, 48],
+        paddingBottomRight: [48, 96],
+        maxZoom: 5,
         animate: false,
       });
       if (map.getZoom() < 4) {
         map.setView(bounds.getCenter(), 4, { animate: false });
       }
       if (radarLimited) {
-        map.setMaxBounds(bounds.pad(0.3));
+        map.setMaxBounds(bounds.pad(0.15));
       } else {
         clearMaxBounds(map);
       }
     };
 
     fit();
-    const retry = window.setTimeout(fit, 150);
-    return () => window.clearTimeout(retry);
+    const retry1 = window.setTimeout(fit, 150);
+    const retry2 = window.setTimeout(fit, 500);
+    const container = map.getContainer();
+    const resizeObserver = new ResizeObserver(() => fit());
+    resizeObserver.observe(container);
+
+    return () => {
+      window.clearTimeout(retry1);
+      window.clearTimeout(retry2);
+      resizeObserver.disconnect();
+    };
   }, [map, bounds, enabled, radarLimited]);
 
   return null;
