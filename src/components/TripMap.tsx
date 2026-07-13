@@ -3,9 +3,11 @@ import { MapContainer, TileLayer, Polyline, Marker } from "react-leaflet";
 import type { PlacesData, RouteSegment } from "@/types/trip";
 import { makeFlagIcon } from "@/lib/flagMarker";
 import RadarPrecipitationLayer from "./RadarPrecipitationLayer";
+import RadarTimeline from "./RadarTimeline";
 import PlacePopup from "./PlacePopup";
 import FloatingDayNav from "./FloatingDayNav";
 import { FitRouteBounds, MapScrollBehavior } from "./MapControls";
+import { useRadarAnimation } from "@/hooks/useRadarAnimation";
 import "leaflet/dist/leaflet.css";
 
 interface TripMapProps {
@@ -38,6 +40,7 @@ export default function TripMap({
   hasNextDay,
 }: TripMapProps) {
   const [showRadar, setShowRadar] = useState(true);
+  const radar = useRadarAnimation(showRadar);
 
   const activeSegmentIds = useMemo(
     () => new Set(daySegments[String(selectedDay)] || []),
@@ -76,7 +79,9 @@ export default function TripMap({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <RadarPrecipitationLayer visible={showRadar} opacity={0.5} />
+        {showRadar && radar.currentFrame && (
+          <RadarPrecipitationLayer tileUrl={radar.currentFrame.tileUrl} opacity={0.5} />
+        )}
         <MapScrollBehavior />
         <FitRouteBounds segments={segments} />
         {segments.map((seg) => {
@@ -110,6 +115,19 @@ export default function TripMap({
           );
         })}
       </MapContainer>
+
+      {showRadar && (
+        <RadarTimeline
+          frames={radar.frames}
+          currentIndex={radar.currentIndex}
+          referenceTime={radar.referenceTime}
+          isPlaying={radar.isPlaying}
+          loading={radar.loading}
+          onIndexChange={radar.setCurrentIndex}
+          onPlay={radar.playManual}
+          onStop={radar.stop}
+        />
+      )}
 
       <FloatingDayNav
         day={selectedDay}

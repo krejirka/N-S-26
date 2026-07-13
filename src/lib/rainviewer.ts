@@ -1,28 +1,66 @@
-export interface RadarLayerMeta {
+export interface RadarFrame {
+  time: number;
   tileUrl: string;
-  updatedAt: number;
+  kind: "past" | "nowcast";
 }
 
-let cache: { at: number; data: RadarLayerMeta } | null = null;
+let framesCache: { at: number; data: RadarFrame[] } | null = null;
 
-export async function fetchRadarOverlay(): Promise<RadarLayerMeta> {
-  if (cache && Date.now() - cache.at < 5 * 60 * 1000) return cache.data;
+function buildTileUrl(host: string, path: string) {
+  return `${host}${path}/256/{z}/{x}/{y}/2/1_1.png`;
+}
+
+export async function fetchRadarFrames(): Promise<RadarFrame[]> {
+  if (framesCache && Date.now() - framesCache.at < 5 * 60 * 1000) {
+    return framesCache.data;
+  }
 
   const res = await fetch("https://api.rainviewer.com/public/weather-maps.json");
   if (!res.ok) throw new Error("Radar nedostupný");
 
   const json = (await res.json()) as {
     host: string;
-    radar: { past: { time: number; path: string }[] };
+    radar: {
+      past: { time: number; path: string }[];
+      nowcast?: { time: number; path: string }[];
+    };
   };
 
-  const latest = json.radar.past[json.radar.past.length - 1];
-  if (!latest) throw new Error("Žádná radarová data");
+  const past: RadarFrame[] = json.radar.past.map((f) => ({
+    time: f.time,
+    tileUrl: buildTileUrl(json.host, f.path),
+    kind: "past",
+  }));
 
-  const data: RadarLayerMeta = {
-    tileUrl: `${json.host}${latest.path}/256/{z}/{x}/{y}/2/1_1.png`,
-    updatedAt: latest.time,
-  };
-  cache = { at: Date.now(), data };
-  return data;
+  const nowcast: RadarFrame[] = (json.radar.nowcast ?? []).map((f) => ({
+    time: f.time,
+    tileUrl: buildTileUrl(json.host, f.path),
+    kind: "nowcast",
+  }));
+
+  const frames = [...past, ...nowcast];
+  if (!frames.length) throw new Error("Žádná radarová data");
+
+  framesCache = { at: Date.now(), data: frames };
+  return frames;
+}
+
+/** Reference = latest observed (past) frame — offset 0 = „teď“. */
+export function getRadarReferenceTime(frames: RadarFrame[]) {
+  const past = frames.filter((f) => f.kind === "past");
+  return past[past.length - 1]?.time ?? frames[frames.length - 1].time;
+}
+
+export function formatRadarOffsetMinutes(frameTime: number, referenceTime: number) {
+  const diffMin = Math.round((frameTime - referenceTime) / 60);
+  if (diffMin === 0) return "teď";
+  if (diffMin > 0) return `+${diffMin} min`;
+  return `${diffMin} min`;
+}
+
+export function formatRadarClock(time: number) {
+  return new Date(time * 1000).toLocaleTimeString("cs-CZ", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
