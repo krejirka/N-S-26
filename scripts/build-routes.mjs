@@ -29,10 +29,12 @@ const PLACES = {
   ales_stenar: { name: "Ales Stenar", lat: 55.3869, lng: 14.0534, country: "Švédsko", dayLabel: "17" },
 };
 
-/** Fv17 north from Laksforsen via Utskarpen to Kilboghamn. */
+/** Pin Fv17 coastal route — avoid OSRM inland bypass via E6/Mo i Rana. */
 const LAKSFORSEN_KILBOGHAMN_VIA = [
-  { lat: 66.225, lng: 13.615 },
-  { lat: 66.2902, lng: 13.5793 },
+  { lat: 65.8, lng: 12.95 },
+  { lat: 66.05, lng: 12.8 },
+  { lat: 66.18, lng: 13.05 },
+  { lat: 66.29, lng: 13.58 },
 ];
 
 const SEGMENTS = [
@@ -52,7 +54,7 @@ const SEGMENTS = [
     phase: "tam",
     dayLabel: "8",
     via: LAKSFORSEN_KILBOGHAMN_VIA,
-    source: "Fv17 přes Utskarpen / OSRM",
+    source: "Fv17 pobřežní waypointy / OSRM",
   },
   {
     id: "kilboghamn_jektvik_ferry",
