@@ -6,7 +6,6 @@ import type { RadarPlayMode } from "@/hooks/useRadarAnimation";
 import { makeFlagIcon } from "@/lib/flagMarker";
 import RadarPrecipitationLayer from "./RadarPrecipitationLayer";
 import RadarTimeline from "./RadarTimeline";
-import DayNav from "./DayNav";
 import PlacePopup from "./PlacePopup";
 import { FitDayBounds, FitRouteBounds, MapScrollBehavior, RADAR_MAX_ZOOM } from "./MapControls";
 import "leaflet/dist/leaflet.css";
@@ -30,10 +29,6 @@ interface TripMapProps {
   onPlayHistory: () => void;
   onPlayForecast: () => void;
   onToggleRadar: () => void;
-  hasPrevDay: boolean;
-  hasNextDay: boolean;
-  onPrevDay: () => void;
-  onNextDay: () => void;
 }
 
 const outboundColor = "#c2410c";
@@ -61,10 +56,6 @@ export default function TripMap({
   onPlayHistory,
   onPlayForecast,
   onToggleRadar,
-  hasPrevDay,
-  hasNextDay,
-  onPrevDay,
-  onNextDay,
 }: TripMapProps) {
   const activeSegmentIds = useMemo(
     () => new Set(daySegments[String(day.day)] || []),
@@ -91,18 +82,6 @@ export default function TripMap({
 
   return (
     <div className="relative h-full w-full min-h-0">
-      <div className="pointer-events-none absolute left-1/2 top-2 z-[1000] -translate-x-1/2">
-        <div className="pointer-events-auto">
-          <DayNav
-            day={day}
-            hasPrev={hasPrevDay}
-            hasNext={hasNextDay}
-            onPrev={onPrevDay}
-            onNext={onNextDay}
-          />
-        </div>
-      </div>
-
       <div className="pointer-events-none absolute left-2 top-2 z-[1000]">
         <div className="pointer-events-auto">
           <RadarTimeline
