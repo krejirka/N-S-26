@@ -188,6 +188,17 @@ export function MapScrollBehavior({ radarLimited }: { radarLimited: boolean }) {
     }
   }, [map, radarLimited]);
 
+  // Recalculate tiles when the map container is revealed or resized
+  // (e.g. switching mobile tabs shows a previously display:none map).
+  useEffect(() => {
+    const container = map.getContainer();
+    const observer = new ResizeObserver(() => {
+      map.invalidateSize({ animate: false });
+    });
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [map]);
+
   useEffect(() => {
     map.scrollWheelZoom.disable();
 

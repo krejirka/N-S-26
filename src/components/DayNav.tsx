@@ -9,15 +9,14 @@ interface DayNavProps {
   onNext: () => void;
 }
 
-function formatDayLabel(date: string, weekday: string) {
+function formatDayLabel(date: string) {
   const formatted = new Date(date + "T12:00:00").toLocaleDateString("cs-CZ", {
     weekday: "long",
     day: "numeric",
     month: "long",
     year: "numeric",
   });
-  const capitalized = formatted.charAt(0).toUpperCase() + formatted.slice(1);
-  return capitalized.replace(weekday, weekday);
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 }
 
 function LodgingIcon({ lodging }: { lodging: string }) {
@@ -32,7 +31,7 @@ export default function DayNav({ day, hasPrev, hasNext, onPrev, onNext }: DayNav
       <div className="min-w-0 flex-1 px-2 text-center sm:px-4">
         <p className="text-sm font-bold uppercase tracking-wide text-foreground sm:text-base lg:text-lg">
           Den {day.day}{" "}
-          <span className="font-semibold normal-case">({formatDayLabel(day.date, day.weekday)})</span>
+          <span className="font-semibold normal-case">({formatDayLabel(day.date)})</span>
         </p>
         <h3 className="truncate text-base font-bold leading-tight text-foreground lg:text-lg xl:text-xl">
           {day.destination}

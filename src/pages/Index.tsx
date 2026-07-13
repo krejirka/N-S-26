@@ -13,10 +13,19 @@ const itinerary = itineraryData as Itinerary;
 const routes = routesData as RoutesData;
 const places = placesData as PlacesData;
 
+type MobileView = "list" | "map" | "detail";
+
+const MOBILE_TABS: { id: MobileView; label: string }[] = [
+  { id: "list", label: "Itinerář" },
+  { id: "map", label: "Mapa" },
+  { id: "detail", label: "Detail dne" },
+];
+
 export default function Index() {
   const [selectedDay, setSelectedDay] = useState(1);
   const [zoomToDay, setZoomToDay] = useState(false);
   const [showRadar, setShowRadar] = useState(true);
+  const [mobileView, setMobileView] = useState<MobileView>("map");
   const pendingRadarPlayRef = useRef(false);
   const radar = useRadarAnimation(showRadar);
 
@@ -25,6 +34,14 @@ export default function Index() {
     setZoomToDay(true);
     setShowRadar(false);
   }, []);
+
+  const selectDayFromList = useCallback(
+    (day: number) => {
+      selectDay(day);
+      setMobileView("map");
+    },
+    [selectDay]
+  );
 
   const handleToggleRadar = useCallback(() => {
     if (showRadar) {
@@ -68,13 +85,40 @@ export default function Index() {
         />
       </div>
 
+      <div className="shrink-0 border-b border-border bg-card lg:hidden">
+        <div className="flex">
+          {MOBILE_TABS.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setMobileView(tab.id)}
+              className={`flex-1 border-b-2 px-2 py-2 text-sm font-medium transition ${
+                mobileView === tab.id
+                  ? "border-primary text-primary"
+                  : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-        <div className="mx-auto grid h-full min-h-0 w-full max-w-[1920px] flex-1 grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)_380px]">
-          <div className="hidden h-full min-h-0 overflow-hidden lg:block">
-            <DayList days={itinerary.days} selectedDay={selectedDay} onSelect={selectDay} />
+        <div className="mx-auto grid h-full min-h-0 w-full max-w-[1920px] flex-1 grid-cols-1 grid-rows-[minmax(0,1fr)] lg:grid-cols-[240px_minmax(0,1fr)_380px]">
+          <div
+            className={`${
+              mobileView === "list" ? "block" : "hidden"
+            } h-full min-h-0 overflow-hidden lg:block`}
+          >
+            <DayList days={itinerary.days} selectedDay={selectedDay} onSelect={selectDayFromList} />
           </div>
 
-          <div className="h-full min-h-0 overflow-hidden border-b border-border lg:border-b-0 lg:border-r">
+          <div
+            className={`${
+              mobileView === "map" ? "block" : "hidden"
+            } h-full min-h-0 overflow-hidden lg:block lg:border-r lg:border-border`}
+          >
             <TripMap
               segments={routes.segments}
               places={places.places}
@@ -97,7 +141,11 @@ export default function Index() {
             />
           </div>
 
-          <div className="hidden h-full min-h-0 overflow-hidden lg:block">
+          <div
+            className={`${
+              mobileView === "detail" ? "block" : "hidden"
+            } h-full min-h-0 overflow-hidden lg:block`}
+          >
             <DayDetail day={currentDay} placeCoords={placeCoords} />
           </div>
         </div>
