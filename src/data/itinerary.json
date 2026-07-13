@@ -15,8 +15,8 @@
       "destination": "Hradec Králové → Rostock → Trelleborg",
       "km": 673,
       "lodging": "trajekt — kajuta",
-      "logistics": "odjezd 23:45",
-      "program": "",
+      "logistics": "Odjezd trajektu 23:45",
+      "program": "Vyrazit z Hradce Králové na sever do německého Rostocku a nastoupit na noční trajekt Scandlines do švédského Trelleborgu. Odjezd lodi ve 23:45.",
       "placeId": "trelleborg_ferry",
       "phase": "tam",
       "segmentIds": [
@@ -61,12 +61,31 @@
       "destination": "Oslo",
       "km": 596,
       "lodging": "ubytování",
-      "logistics": "Goteborg",
-      "program": "",
+      "logistics": "Trasa vede přes Göteborg (Göteborg)",
+      "program": "Pokračovat po švédských dálnicích přes Göteborg směrem na Oslo. Po příjezdu krátká večerní procházka po centru nebo odpočinek po dlouhé jízdě.",
       "placeId": "oslo",
       "phase": "tam",
       "segmentIds": [],
       "places": [
+        {
+          "name": "Göteborg",
+          "tips": [
+            "Haga – historická dřevěná čtvrť s kavárnami a řemeslnými obchody",
+            "Feskekôrka – ikonická rybí tržnice u kanálu",
+            "Liseberg – jeden z nejstarších zábavních parků v Evropě",
+            "Götaplatsen – náměstí s koncertní síní a muzeem umění"
+          ],
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/G%C3%B6teborg"
+            },
+            {
+              "label": "Visit Sweden",
+              "url": "https://www.goteborg.com/en/"
+            }
+          ]
+        },
         {
           "name": "Oslo",
           "links": [
@@ -84,7 +103,14 @@
             "alt": "Oslo",
             "source": "Wikimedia Commons",
             "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oslo%20Harbour.jpg"
-          }
+          },
+          "tips": [
+            "Vigelandsparken – 200+ soch Gustava Vigelanda, vstup zdarma",
+            "Akershus – středověká pevnost s výhledem na fjord",
+            "Operní dům – procházka po střeše a nábřeží Bjørvika",
+            "Munchmuseet – sbírka Edvarda Muncha včetně Výkřiku",
+            "Karl Johans gate – hlavní třída od nádraží ke královskému paláci"
+          ]
         }
       ]
     },
@@ -96,7 +122,7 @@
       "km": 187,
       "lodging": "stan",
       "logistics": "",
-      "program": "Dopoledne/odpoledne procházka v Oslu, přejezd do Lillehammeru",
+      "program": "Dopoledne věnovat procházce centrem Oslo – nábřeží, Vigelandsparken nebo Akershus. Odpoledne přejet na sever do Lillehammeru, olympijského města u Mjøsy.",
       "placeId": "lillehammer",
       "phase": "tam",
       "segmentIds": [],
@@ -118,7 +144,13 @@
             "alt": "Lillehammer",
             "source": "Wikimedia Commons",
             "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lillehammer.jpg"
-          }
+          },
+          "tips": [
+            "Maihaugen – skanzen s historickými selskými dvory",
+            "Olympijský bobová dráha – sjezd i letní boby",
+            "Lillehammer Art Museum – moderní norské umění",
+            "Procházka po břehu Mjøsy a centrem města"
+          ]
         }
       ]
     },
@@ -130,7 +162,7 @@
       "km": 123,
       "lodging": "stan",
       "logistics": "",
-      "program": "Tůra v NP (Peer Gynt Hytta, Vodopád) - árodní park Rondane nabízí pozvolné kopce a široké cesty. Zajeďte na zpoplatněné parkoviště Spranget. Odtud vede krásná, široká štěrková cesta k chatě Rondvassbu. Trasa má zhruba 7 km tam i zpět, téměř nulové převýšení a zabere asi 2 hodiny. Je to ideální lehká procházka pro teriéra. Pes zde musí být celoročně (resp. v létě do 20. srpna) striktně na vodítku kvůli volně žijícím sobům.",
+      "program": "Vykonat lehkou túru v národním parku Rondane. Zajet na placené parkoviště Spranget a po široké štěrkové cestě dojít k chatě Rondvassbu (cca 7 km tam a zpět, ~2 hodiny, minimální převýšení). Ideální terén pro psa na vodítku – v oblasti volně žijí sobí.",
       "placeId": "rondane",
       "phase": "tam",
       "segmentIds": [],
@@ -152,7 +184,12 @@
             "alt": "NP Rondane",
             "source": "Wikimedia Commons",
             "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rondane.jpg"
-          }
+          },
+          "tips": [
+            "Túra k Rondvassbu – nejoblíbenější rodinná trasa v parku",
+            "Vodopád v oblasti Peer Gynt Hytta",
+            "Pozorování sobů a vysokohorské tundry"
+          ]
         },
         {
           "name": "Rondvassbu",
@@ -173,7 +210,7 @@
       "km": 200,
       "lodging": "stan",
       "logistics": "",
-      "program": "Dovrefjell (Hjerkinn) - V oblasti Hjerkinn (Dovrefjell) se nachází ohromující pozorovací pavilon Viewpoint Snøhetta. Od parkoviště vede široká štěrková cesta (1,5 km, převýšení 120 m), jejíž zdolání trvá 15–20 minut. Architektonicky unikátní prosklená budova nabízí výhled na horu Snøhetta. Psa nelze vzít dovnitř, ale venku jsou úvazy. Při túře mějte oči na stopkách – žijí zde divocí pižmoni, od kterých musíte dodržet bezpečnou vzdálenost minimálně 200 metrů.",
+      "program": "Zastavit v oblasti Dovrefjell u Hjerkinnu a vystoupat k architektonickému pavilonu Viewpoint Snøhetta (1,5 km, +120 m, cca 15–20 minut). Uvnitř výhled na horu Snøhetta; psi venku na úvazech. Při pohybu v kraji dodržet odstup minimálně 200 m od divokých pižmonů.",
       "placeId": "sundalsora",
       "phase": "tam",
       "segmentIds": [],
@@ -191,12 +228,16 @@
             }
           ],
           "image": {
-            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Viewpoint%20Sn%C3%B8hetta.jpg?width=640",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Viewpoint_Sn%C3%B8hetta.jpg/960px-Viewpoint_Sn%C3%B8hetta.jpg",
             "alt": "Viewpoint Snøhetta",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Viewpoint%20Sn%C3%B8hetta.jpg",
-            "_filename": "Viewpoint Snøhetta.jpg"
-          }
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Viewpoint%20Sn%C3%B8hetta.jpg"
+          },
+          "tips": [
+            "Pavilon Snøhetta Viewpoint – ikonická architektura v horách",
+            "Museet Dovregubben – expozice o pižmonech a tundře",
+            "Snøhetta (2 286 m) – nejvyšší hora Dovrefjell"
+          ]
         }
       ]
     },
@@ -208,7 +249,7 @@
       "km": 166,
       "lodging": "stan",
       "logistics": "",
-      "program": "po cestě Innerdalen - nejkrásnější údolí v Norsku - Zaparkujte na vyhrazeném parkovišti v Nerdalenu (vjezd auty hlouběji je zakázán). Odtud vás čeká chůze klesajícím a stoupajícím terénem po farmářské cestě podél divoké řeky k chatě Renndølsetra. Trasa k chatě měří cca 3,5 až 4 km a zabere hodinu. V chatě pečou vyhlášené norské vafle, uvidíte volně se pasoucí zvířata a ikonickou horu Innerdalstårnet. Svačina, cesta zpět a fotopauzy zaberou celkem ideální 3 až 4 hodiny.\nNocleh a procházka  Trondheimu.",
+      "program": "Po cestě zastavit v Innerdalen, často označovaném jako „nejkrásnější údolí Norska“. Zaparkovat v Nerdalenu (vjezd auty hlouběji zakázán) a pěšky dojít k chatě Renndølsetra (3,5–4 km, ~1 hodina). Výhled na horu Innerdalstårnet, možnost vafle v chatě. Celkem počítat 3–4 hodiny včetně návratu.\n\nVečer přejet do Trondheimu a projít historické centrum.",
       "placeId": "trondheim",
       "phase": "tam",
       "segmentIds": [],
@@ -222,11 +263,17 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Innerdalen.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Innerdalen.jpg?width=640",
             "alt": "Innerdalen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Innerdalen.jpg"
-          }
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Innerdalen.jpg",
+            "_filename": "Innerdalen.jpg"
+          },
+          "tips": [
+            "Túra k Renndølsetra – klasická fjellvandring v alpském údolí",
+            "Innerdalstårnet – dominantní jehlová hora údolí",
+            "Fotogenní mosty a řeka Innerdalen"
+          ]
         },
         {
           "name": "Trondheim",
@@ -241,11 +288,19 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Trondheim.jpg/960px-Trondheim.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Trondheim.jpg?width=640",
             "alt": "Trondheim",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Trondheim.jpg"
-          }
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Trondheim.jpg",
+            "_filename": "Trondheim.jpg"
+          },
+          "tips": [
+            "Nidarosdomkirke – gotická katedrála sv. Olafa, patrona Norska",
+            "Bakklandet – barevné dřevěné domy nad řekou Nidelvou",
+            "Gamle Bybro – starý městský most s výhledem na skládky",
+            "Kristiansten festning – pevnost s panoramatem města",
+            "Rockheim – muzeum populární hudby v bývalém skladu"
+          ]
         }
       ]
     },
@@ -256,8 +311,8 @@
       "destination": "Laksforsen",
       "km": 379,
       "lodging": "ubytování",
-      "logistics": "Alternativa P4N: Gluggvasshaug E6 odpočívadlo zdarma",
-      "program": "Odpočinkový den plný úžasných scenérií a jízd lokálními trajekty přes fjordy. Záměrně se tak vyhnete přeplněnému Geirangerfjordu a masivnímu ruchu na jihozápadě. Zastavujte na vyhlídkách a užívejte si krátké procházky kolem pláží.",
+      "logistics": "Možnost bezplatného odpočinku na odpočívadle E6",
+      "program": "Odpočinkový den s přejezdem norského pobřeží – fjordy, pláže a krátké zastávky na vyhlídkách. Využít místní trajekty místo přeplněného Geirangerfjordu. Zastavit u vodopádu Laksforsen s vyhlídkovou terasou nad řekou Vefsna.",
       "placeId": "laksforsen",
       "phase": "tam",
       "segmentIds": [],
@@ -280,7 +335,12 @@
             "source": "Wikimedia Commons",
             "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laksforsen.jpg",
             "_filename": "Laksforsen.jpg"
-          }
+          },
+          "tips": [
+            "Vyhlídka přímo nad vodopádem – silný zážitek i za vysoké vody",
+            "Krátká procházka po okolních skalách a řece Vefsna",
+            "Fotografování z oficiální terasy u parkoviště"
+          ]
         }
       ]
     },
@@ -291,8 +351,8 @@
       "destination": "Furøy",
       "km": 262,
       "lodging": "ubytování",
-      "logistics": "30.7. · 2 trajekty na cestě",
-      "program": "",
+      "logistics": "2 trajekty na cestě",
+      "program": "Pokračovat na sever k pobřeží u Furøy. Cesta zahrnuje dva menší trajekty přes fjordy – počítat s delšími zastávkami a scenérií Lofotenského směru.",
       "placeId": "furoy",
       "phase": "tam",
       "segmentIds": [],
@@ -310,12 +370,15 @@
             }
           ],
           "image": {
-            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Svartisen.jpg?width=640",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Svartisen.jpg/960px-Svartisen.jpg",
             "alt": "Ledovec Svartisen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen.jpg",
-            "_filename": "Svartisen.jpg"
-          }
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen.jpg"
+          },
+          "tips": [
+            "Holandská káťa Svartisen – druhý největší ledovec Norska",
+            "Pobřežní výhledy na souostroví a fjordy"
+          ]
         }
       ]
     },
@@ -326,8 +389,8 @@
       "destination": "Furøy",
       "km": 26,
       "lodging": "ubytování",
-      "logistics": "30.7. · Shuttle Boat to Svartisen Glacier",
-      "program": "Modrý ledovec Svartisen - Z přístaviště jezdí přes fjord krátký lodní spoj (Isprins) k molu Engen brygge. Přeprava trvá asi 10-20 minut a pes má na loď přístup (cena za psa je cca 40–95 NOK, dospělý cca 315 NOK). Od přístaviště půjdete po rovinaté štěrkové cestě podél jezera (cca 5 km), teprve v samotném závěru (asi 1 km) cesta stoupá 200 výškových metrů po ohlazených kamenech až k modrému ledovci Engenbreen. S teriérem i rodinou se to dá bez potíží zvládnout tam i zpět do 4 hodin",
+      "logistics": "Lodní spoj k ledovci Engenbreen",
+      "program": "Vydat se k ledovci Svartisen: z přístaviště přejet lodí Isprins přes fjord k molu Engen brygge (10–20 minut, pes povolen). Dále pěšky po rovinaté cestě podél jezera (cca 5 km) a v závěru stoupání k modrému ledci Engenbreen. Celá trasa tam a zpět zabere asi 4 hodiny.",
       "placeId": "furoy",
       "phase": "tam",
       "segmentIds": [],
@@ -345,12 +408,16 @@
             }
           ],
           "image": {
-            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Svartisen.jpg?width=640",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Svartisen.jpg/960px-Svartisen.jpg",
             "alt": "Ledovec Svartisen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen.jpg",
-            "_filename": "Svartisen.jpg"
-          }
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen.jpg"
+          },
+          "tips": [
+            "Engenbreen – modrý ledovec přístupný pěšky z moře",
+            "Holandsvika – výchozí bod lodního spoje",
+            "Výhled na ledové pole a okolní vrcholy Saltfjellet"
+          ]
         }
       ]
     },
@@ -362,7 +429,7 @@
       "km": null,
       "lodging": "stan",
       "logistics": "Junkerdal",
-      "program": "Udělejte si pauzu v obci Storjord (Saltdal). Zde se nachází velmi nenáročný okruh k vodopádu Kjemåfossen (cca 5 km, převýšení jen 60 m, doba chůze něco málo přes hodinu). Údolí je geologicky výjimečné vápencovým podložím, díky kterému zde rostou extrémně vzácné druhy alpských rostlin.",
+      "program": "Zastavit v obci Storjord (Saltdal) a vykonat nenáročný okruh k vodopádu Kjemåfossen (cca 5 km, +60 m, přes hodinu). Údolí je geologicky výjimečné vápencovým podložím s vzácnou alpskou flórou.",
       "placeId": "junkerdal",
       "phase": "tam",
       "segmentIds": [],
@@ -374,6 +441,11 @@
               "label": "Visit Norway",
               "url": "https://www.visitnorway.com/places-to-go/northern-norway/saltdal/"
             }
+          ],
+          "tips": [
+            "Vodopád Kjemåfossen – jeden z nejvyšších v severním Norsku",
+            "Vápencové údolí se vzácnými druhy rostlin",
+            "Nenáročná okružní stezka vhodná pro odpočinkový den"
           ]
         },
         {
@@ -390,7 +462,11 @@
             "source": "Wikimedia Commons",
             "sourceUrl": "https://commons.wikimedia.org/wiki/File:Junkerdal.jpg",
             "_filename": "Junkerdal.jpg"
-          }
+          },
+          "tips": [
+            "Junkerdal naturreservat – arktická tundra a horské louky",
+            "Možnost kratších výšlapů v okolí Graddis"
+          ]
         }
       ]
     },
@@ -402,7 +478,7 @@
       "km": 217,
       "lodging": "ubytování",
       "logistics": "",
-      "program": "1200",
+      "program": "Přejet do švédského Myrkully u Arvidsjauru – odlehlé ubytování v laplandské přírodě. Den věnovat odpočinku, procházkám v okolí nebo kratším výletům po lesních cestách.",
       "placeId": "myrkulla",
       "phase": "tam",
       "segmentIds": [],
@@ -422,6 +498,10 @@
               "label": "Visit Sweden",
               "url": "https://visitsweden.com/where-to-go/middle/northern-sweden/arvidsjaur/"
             }
+          ],
+          "tips": [
+            "Ranní procházka po okolí chaty",
+            "Nákup zásob před delším přejezdem na jih"
           ]
         }
       ]
@@ -434,7 +514,7 @@
       "km": null,
       "lodging": "ubytování",
       "logistics": "",
-      "program": "1200",
+      "program": "Klidový den v Myrkulle – odpočinek, sauna, rybaření nebo kratší túra po okolí bez nutnosti přesunu.",
       "placeId": "myrkulla",
       "phase": "tam",
       "segmentIds": [],
@@ -454,6 +534,10 @@
               "label": "Visit Sweden",
               "url": "https://visitsweden.com/where-to-go/middle/northern-sweden/arvidsjaur/"
             }
+          ],
+          "tips": [
+            "Ranní procházka po okolí chaty",
+            "Nákup zásob před delším přejezdem na jih"
           ]
         }
       ]
@@ -466,7 +550,7 @@
       "km": null,
       "lodging": "ubytování",
       "logistics": "",
-      "program": "1200",
+      "program": "Další den odpočinku v Myrkulle – využít čas na regeneraci před delším přejezdem na jih.",
       "placeId": "myrkulla",
       "phase": "tam",
       "segmentIds": [],
@@ -486,6 +570,10 @@
               "label": "Visit Sweden",
               "url": "https://visitsweden.com/where-to-go/middle/northern-sweden/arvidsjaur/"
             }
+          ],
+          "tips": [
+            "Ranní procházka po okolí chaty",
+            "Nákup zásob před delším přejezdem na jih"
           ]
         }
       ]
@@ -498,7 +586,7 @@
       "km": null,
       "lodging": "ubytování",
       "logistics": "",
-      "program": "1200",
+      "program": "Poslední den v Myrkulle – připravit se na cestu zpět na jih Švédska.",
       "placeId": "myrkulla",
       "phase": "tam",
       "segmentIds": [],
@@ -518,6 +606,10 @@
               "label": "Visit Sweden",
               "url": "https://visitsweden.com/where-to-go/middle/northern-sweden/arvidsjaur/"
             }
+          ],
+          "tips": [
+            "Ranní procházka po okolí chaty",
+            "Nákup zásob před delším přejezdem na jih"
           ]
         }
       ]
@@ -530,7 +622,7 @@
       "km": 531,
       "lodging": "stan",
       "logistics": "",
-      "program": "Národní park Skuleskogen (oblast Höga Kusten): Zastávka na trase E4. Unikátní krajina s hlubokou pískovcovou štěrbinou (Slåttdalsskrevan) a výhledy na Baltské moře.",
+      "program": "Přejet na jih k pobřeží Höga Kusten a zastavit v národním parku Skuleskogen. Projít k pískovcové štěrbině Slåttdalsskrevan a vyjít na vyhlídky nad Baltským mořem.",
       "placeId": "axmarbruk",
       "phase": "tam",
       "segmentIds": [],
@@ -548,11 +640,17 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Sl%C3%A5ttdalsskrevan.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sl%C3%A5ttdalsskrevan.jpg?width=640",
             "alt": "Slåttdalsskrevan ve Skuleskogen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sl%C3%A5ttdalsskrevan.jpg"
-          }
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sl%C3%A5ttdalsskrevan.jpg",
+            "_filename": "Slåttdalsskrevan.jpg"
+          },
+          "tips": [
+            "Slåttdalsskrevan – 200 m hluboká pískovcová rokle",
+            "Skuleberget – hora s výhledem na souostroví",
+            "Túra Näskezaken – kombinace lesa, skal a moře"
+          ]
         }
       ]
     },
@@ -564,7 +662,7 @@
       "km": 512,
       "lodging": "stan",
       "logistics": "",
-      "program": "Astrid Lindgrens Värld (Vimmerby). Centrem parku je replika vily Vilekuly. Návštěva zabere minimálně 3–4 hodiny",
+      "program": "Navštívit Astrid Lindgrens Värld ve Vimmerby – zábavní park inspirovaný pohádkami (Villa Villekula, Ježíškovo muzeum). Počítat minimálně 3–4 hodiny.",
       "placeId": "vimmerby",
       "phase": "tam",
       "segmentIds": [],
@@ -580,6 +678,11 @@
               "label": "Wikipedia",
               "url": "https://cs.wikipedia.org/wiki/Astrid_Lindgren"
             }
+          ],
+          "tips": [
+            "Villa Villekula – replika slavného domečku",
+            "Živá divadla a postavy z knih Astrid Lindgren",
+            "Katthult a další kulisy z filmů o Emilovi ze Lönnebergy"
           ]
         }
       ]
@@ -591,8 +694,8 @@
       "destination": "Trelleborg-Rostock (DE)",
       "km": 412,
       "lodging": "ubytování",
-      "logistics": "",
-      "program": "Ales Stenar: megalitická památka (tzv. „švédské Stonehenge“), tvořenou 59 velkými kameny ve tvaru lodi na útesu nad mořem. Zastávka je logisticky nenáročná.",
+      "logistics": "Odjezd trajektu 23:00",
+      "program": "Zastavit u megalitické památky Ales Stenar na útesu nad mořem u Kåsebergy – „švédské Stonehenge“ z 59 kamenů ve tvaru lodi. Večer nastoupit na trajekt Trelleborg–Rostock (odjezd 23:00).",
       "placeId": "ales_stenar",
       "phase": "zpět",
       "segmentIds": [],
@@ -614,7 +717,12 @@
             "alt": "Ales Stenar",
             "source": "Wikimedia Commons",
             "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ales%20stenar.jpg"
-          }
+          },
+          "tips": [
+            "Ales stenar – kamenná loď z doby železné s výhledem na Øresund",
+            "Kåseberga – malebná rybářská vesnice pod památkou",
+            "Krátká túra po útesu a kolem majáku"
+          ]
         }
       ]
     },
@@ -626,7 +734,7 @@
       "km": null,
       "lodging": null,
       "logistics": "",
-      "program": "673",
+      "program": "Po vylodění v Rostocku pokračovat po silnicích domů do Hradce Králové – závěr cesty.",
       "placeId": "hradec_kralove",
       "phase": "zpět",
       "segmentIds": [

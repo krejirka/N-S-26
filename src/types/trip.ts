@@ -14,6 +14,7 @@ export interface EnrichedPlace {
   name: string;
   links?: PlaceLink[];
   image?: PlaceImage;
+  tips?: string[];
 }
 
 export interface TripDay {

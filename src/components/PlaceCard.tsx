@@ -20,6 +20,13 @@ export default function PlaceCard({ place }: { place: EnrichedPlace }) {
       )}
       <div className="p-4">
         <h4 className="font-semibold">{place.name}</h4>
+        {place.tips && place.tips.length > 0 && (
+          <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
+            {place.tips.map((tip) => (
+              <li key={tip}>{tip}</li>
+            ))}
+          </ul>
+        )}
         {place.links && place.links.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-2">
             {place.links.map((link) => (

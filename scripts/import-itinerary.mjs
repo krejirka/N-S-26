@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { execSync } from "node:child_process";
 import { commonsImage, COMMONS_FILES, resolvePlacesImages } from "./commons-image.mjs";
+import { applyDayContent } from "./day-content.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
@@ -195,6 +196,11 @@ function isPrice(val) {
   return /^\d{3,5}$/.test(s) || /Kč|NOK|€/.test(s);
 }
 
+function isGarbageProgram(text) {
+  const s = String(text || "").trim();
+  return !s || /^\d{3,5}$/.test(s) || isPrice(s);
+}
+
 function isUrl(val) {
   return /^https?:\/\//.test(String(val || ""));
 }
@@ -221,6 +227,7 @@ function sanitizeDetail(cols) {
     if (/^B$|^S$|^mail$/i.test(s)) continue;
     if (/do \d+\.\d+\./i.test(s)) continue;
     if (/^\d+$/.test(s) && s.length >= 3) continue;
+    if (/park4night|p4n|airbnb|furoycamp/i.test(s)) continue;
     parts.push(s);
   }
   return parts.join(" · ");
@@ -327,9 +334,9 @@ async function buildItinerary() {
       segmentIds = ["rostock_hk"];
     }
 
-    let finalProgram = program;
+    let finalProgram = isGarbageProgram(program) ? "" : program;
     let finalLogistics = detail;
-    if (program && program.length < 40 && !/[.!]/.test(program) && dayNum <= 3) {
+    if (program && !isGarbageProgram(program) && program.length < 40 && !/[.!]/.test(program) && dayNum <= 3) {
       finalLogistics = [detail, program].filter(Boolean).join(" · ");
       finalProgram = "";
     }
@@ -351,6 +358,7 @@ async function buildItinerary() {
   }
 
   for (const day of days) {
+    applyDayContent(day);
     day.places = await resolvePlacesImages(day.places);
     await new Promise((r) => setTimeout(r, 200));
   }

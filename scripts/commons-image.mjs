@@ -18,7 +18,8 @@ export async function resolveCommonsImage(image) {
     headers: { "User-Agent": "n-s-26/1.0" },
   });
   if (!res.ok) return { ...image, url: image.url };
-  const { _filename, ...rest } = image;
+  const { _filename: _f, ...rest } = image;
+  void _f;
   return { ...rest, url: res.url };
 }
 
