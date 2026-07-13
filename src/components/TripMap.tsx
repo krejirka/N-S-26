@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
-import { MapContainer, TileLayer, Polyline, Marker, useMap } from "react-leaflet";
+import { useMemo, useState } from "react";
+import { MapContainer, TileLayer, Polyline, Marker } from "react-leaflet";
 import type { PlacesData, RouteSegment } from "@/types/trip";
 import { makeFlagIcon } from "@/lib/flagMarker";
 import RadarPrecipitationLayer from "./RadarPrecipitationLayer";
 import PlacePopup from "./PlacePopup";
+import FloatingDayNav from "./FloatingDayNav";
+import { FitRouteBounds, MapScrollBehavior } from "./MapControls";
 import "leaflet/dist/leaflet.css";
 
 interface TripMapProps {
@@ -12,6 +14,10 @@ interface TripMapProps {
   daySegments: Record<string, string[]>;
   selectedDay: number;
   selectedPlaceId: string;
+  onPrevDay: () => void;
+  onNextDay: () => void;
+  hasPrevDay: boolean;
+  hasNextDay: boolean;
 }
 
 const outboundColor = "#c2410c";
@@ -20,22 +26,16 @@ const ferryColor = "#1d4ed8";
 const routeOpacity = 0.5;
 const activeOpacity = 1;
 
-function FitBounds({ segments }: { segments: RouteSegment[] }) {
-  const map = useMap();
-  useEffect(() => {
-    if (!segments.length) return;
-    const all = segments.flatMap((s) => s.geometry.map(([lng, lat]) => [lat, lng] as [number, number]));
-    if (all.length) map.fitBounds(all, { padding: [40, 40] });
-  }, [map, segments]);
-  return null;
-}
-
 export default function TripMap({
   segments,
   places,
   daySegments,
   selectedDay,
   selectedPlaceId,
+  onPrevDay,
+  onNextDay,
+  hasPrevDay,
+  hasNextDay,
 }: TripMapProps) {
   const [showRadar, setShowRadar] = useState(true);
 
@@ -64,13 +64,21 @@ export default function TripMap({
 
   return (
     <div className="relative h-full min-h-[280px] w-full">
-      <MapContainer center={center} zoom={5} className="h-full w-full" scrollWheelZoom>
+      <MapContainer
+        center={center}
+        zoom={5}
+        className="h-full w-full"
+        scrollWheelZoom={false}
+        touchZoom
+        doubleClickZoom
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <RadarPrecipitationLayer visible={showRadar} opacity={0.5} />
-        <FitBounds segments={segments} />
+        <MapScrollBehavior />
+        <FitRouteBounds segments={segments} />
         {segments.map((seg) => {
           const active = activeSegmentIds.has(seg.id);
           const positions = seg.geometry.map(([lng, lat]) => [lat, lng] as [number, number]);
@@ -102,17 +110,26 @@ export default function TripMap({
           );
         })}
       </MapContainer>
+
+      <FloatingDayNav
+        day={selectedDay}
+        hasPrev={hasPrevDay}
+        hasNext={hasNextDay}
+        onPrev={onPrevDay}
+        onNext={onNextDay}
+      />
+
       <button
         type="button"
         onClick={() => setShowRadar((v) => !v)}
-        className={`absolute bottom-2 left-2 z-[1000] rounded-lg px-2.5 py-1.5 text-[11px] font-medium shadow transition ${
+        className={`absolute left-2 top-2 z-[1000] rounded-lg px-2.5 py-1.5 text-[11px] font-medium shadow transition ${
           showRadar
             ? "bg-sky-600 text-white hover:bg-sky-700"
             : "bg-white/95 text-gray-700 hover:bg-white"
         }`}
-        title="Radar srážek (RainViewer) — doplňková vrstva"
+        title="Radar srážek (RainViewer)"
       >
-        {showRadar ? "Skrýt radar srážek" : "Zobrazit radar srážek"}
+        {showRadar ? "Skrýt radar" : "Radar srážek"}
       </button>
     </div>
   );

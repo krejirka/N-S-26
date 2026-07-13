@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Tent, Home, Ship } from "lucide-react";
+import { Tent, Home, Ship } from "lucide-react";
 import PlaceCard from "./PlaceCard";
 import YrForecast from "./YrForecast";
 import type { Place, TripDay } from "@/types/trip";
@@ -6,10 +6,6 @@ import type { Place, TripDay } from "@/types/trip";
 interface DayDetailProps {
   day: TripDay;
   placeCoords: Place | null;
-  onPrev: () => void;
-  onNext: () => void;
-  hasPrev: boolean;
-  hasNext: boolean;
 }
 
 function formatFullDate(date: string, weekday: string) {
@@ -29,32 +25,13 @@ function LodgingIcon({ lodging }: { lodging: string | null }) {
   return <Home className="h-4 w-4" />;
 }
 
-export default function DayDetail({ day, placeCoords, onPrev, onNext, hasPrev, hasNext }: DayDetailProps) {
+export default function DayDetail({ day, placeCoords }: DayDetailProps) {
   return (
     <section className="flex h-full flex-col overflow-hidden bg-background">
-      <div className="flex items-center justify-between border-b border-border bg-card px-4 py-3">
-        <button
-          type="button"
-          onClick={onPrev}
-          disabled={!hasPrev}
-          className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm disabled:opacity-40 hover:bg-muted"
-        >
-          <ChevronLeft className="h-4 w-4" /> Předchozí
-        </button>
-        <span className="text-sm font-medium text-muted-foreground">Den {day.day}</span>
-        <button
-          type="button"
-          onClick={onNext}
-          disabled={!hasNext}
-          className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm disabled:opacity-40 hover:bg-muted"
-        >
-          Další <ChevronRight className="h-4 w-4" />
-        </button>
-      </div>
-
       <div className="flex-1 overflow-y-auto p-4 md:p-6">
         <div className="mb-4">
           <p className="text-sm text-muted-foreground">{formatFullDate(day.date, day.weekday)}</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Den {day.day}</p>
           <h2 className="mt-1 text-xl font-bold">{day.destination}</h2>
           <div className="mt-3 flex flex-wrap gap-2 text-sm">
             {day.km != null && (
