@@ -1,4 +1,4 @@
-import { MapPin, Route } from "lucide-react";
+import { Route } from "lucide-react";
 import type { Itinerary, RoutesData } from "@/types/trip";
 
 interface HeaderProps {
@@ -14,9 +14,8 @@ export default function Header({ itinerary, routes }: HeaderProps) {
         <div>
           <p className="text-sm font-medium uppercase tracking-wide text-primary">Cestovní plán</p>
           <h1 className="mt-1 text-2xl font-extrabold tracking-tight md:text-3xl">{meta.title}</h1>
-          <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
-            <MapPin className="h-4 w-4 shrink-0" />
-            {meta.origin} → … → {meta.destination}
+          <p className="mt-1 text-sm text-muted-foreground">
+            {meta.highlights.join(" · ")}
           </p>
         </div>
         <div className="flex flex-wrap gap-3 text-sm">

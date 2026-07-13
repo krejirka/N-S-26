@@ -37,6 +37,7 @@ export interface Itinerary {
     title: string;
     origin: string;
     destination: string;
+    highlights: string[];
     totalDays: number;
     totalKmExcel: number;
     note: string;

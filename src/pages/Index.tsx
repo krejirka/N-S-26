@@ -57,7 +57,7 @@ export default function Index() {
         </div>
       </div>
       <footer className="border-t border-border bg-card px-4 py-3 text-center text-xs text-muted-foreground">
-        {itinerary.meta.title} · {itinerary.meta.origin} — {itinerary.meta.destination}
+        {itinerary.meta.title} · {itinerary.meta.highlights.join(" · ")}
       </footer>
     </div>
   );

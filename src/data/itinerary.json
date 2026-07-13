@@ -3,6 +3,13 @@
     "title": "Norsko-Švédsko 2026",
     "origin": "Hradec Králové",
     "destination": "Hradec Králové",
+    "highlights": [
+      "Oslo",
+      "Trondheim",
+      "Svartisen",
+      "Myrkulla",
+      "Höga Kusten"
+    ],
     "totalDays": 18,
     "totalKmExcel": 5207,
     "note": "Silniční trasy vypočteny z OpenStreetMap přes OSRM."
@@ -349,10 +356,11 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Laksforsen.jpg/960px-Laksforsen.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Laksforsen.jpg?width=640",
             "alt": "Vodopád Laksforsen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laksforsen.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laksforsen.jpg",
+            "_filename": "Laksforsen.jpg"
           },
           "tips": [
             "Vyhlídka nad vodopádem Laksforsen",
@@ -475,11 +483,10 @@
             }
           ],
           "image": {
-            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Svartisen.jpg?width=640",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Svartisen.jpg/960px-Svartisen.jpg",
             "alt": "Ledovec Svartisen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen.jpg",
-            "_filename": "Svartisen.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen.jpg"
           },
           "tips": [
             "Engenbreen — modrý ledovec přístupný z moře",
@@ -703,7 +710,7 @@
       "logistics": "",
       "program": "Přejezd na jih k pobřeží Höga Kusten. Zastávka v národním parku Skuleskogen — pískovcová štěrbina Slåttdalsskrevan a vyhlídky nad Baltským mořem.",
       "placeId": "axmarbruk",
-      "phase": "tam",
+      "phase": "zpět",
       "segmentIds": [],
       "places": [
         {
@@ -719,10 +726,11 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Sl%C3%A5ttdalsskrevan.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sl%C3%A5ttdalsskrevan.jpg?width=640",
             "alt": "Slåttdalsskrevan ve Skuleskogen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sl%C3%A5ttdalsskrevan.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sl%C3%A5ttdalsskrevan.jpg",
+            "_filename": "Slåttdalsskrevan.jpg"
           },
           "tips": [
             "Slåttdalsskrevan — 200 m hluboká pískovcová rokle",
@@ -742,7 +750,7 @@
       "logistics": "",
       "program": "Návštěva Astrid Lindgrens Värld ve Vimmerby — zábavní park s Villou Villekulou a kulisami z filmů. Doba návštěvy minimálně 3–4 hodiny.",
       "placeId": "vimmerby",
-      "phase": "tam",
+      "phase": "zpět",
       "segmentIds": [],
       "places": [
         {
@@ -791,11 +799,10 @@
             }
           ],
           "image": {
-            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ales%20stenar.jpg?width=640",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Ales_stenar.jpg/960px-Ales_stenar.jpg",
             "alt": "Ales Stenar",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ales%20stenar.jpg",
-            "_filename": "Ales stenar.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ales%20stenar.jpg"
           },
           "tips": [
             "Ales stenar — kamenná loď z doby železné",

@@ -58,13 +58,6 @@ export default function DayDetail({ day, onPrev, onNext, hasPrev, hasNext }: Day
             {day.km != null && (
               <span className="rounded-full bg-muted px-3 py-1">{day.km} km (plán)</span>
             )}
-            <span
-              className={`rounded-full px-3 py-1 ${
-                day.phase === "tam" ? "bg-orange-100 text-orange-800" : "bg-teal-100 text-teal-800"
-              }`}
-            >
-              Cesta {day.phase}
-            </span>
             {day.lodging && (
               <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1 capitalize">
                 <LodgingIcon lodging={day.lodging} />

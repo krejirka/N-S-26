@@ -33,11 +33,7 @@ export default function DayList({ days, selectedDay, onSelect }: DayListProps) {
             >
               <span
                 className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-                  active
-                    ? "bg-primary-foreground/20"
-                    : d.phase === "tam"
-                      ? "bg-orange-100 text-orange-700"
-                      : "bg-teal-100 text-teal-700"
+                  active ? "bg-primary-foreground/20" : "bg-muted text-foreground"
                 }`}
               >
                 {d.day}

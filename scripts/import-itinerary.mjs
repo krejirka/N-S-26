@@ -320,7 +320,7 @@ async function buildItinerary() {
     const detail = sanitizeDetail(r.slice(6, program ? -1 : undefined));
     const lodging = sanitizeLodging(r);
     const dayNum = i + 1;
-    const isReturn = dayNum >= 17;
+    const isReturn = dayNum >= 15;
 
     let finalDest = destination;
     let finalPlaceId = enrich.placeId;
@@ -368,6 +368,7 @@ async function buildItinerary() {
       title: "Norsko-Švédsko 2026",
       origin: "Hradec Králové",
       destination: "Hradec Králové",
+      highlights: ["Oslo", "Trondheim", "Svartisen", "Myrkulla", "Höga Kusten"],
       totalDays: days.length,
       totalKmExcel: 5207,
       note: "Silniční trasy vypočteny z OpenStreetMap přes OSRM.",
