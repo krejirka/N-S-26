@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import DayList from "@/components/DayList";
 import DayDetail from "@/components/DayDetail";
 import TripMap from "@/components/TripMap";
-import RadarTimeline from "@/components/RadarTimeline";
 import { useRadarAnimation } from "@/hooks/useRadarAnimation";
 import itineraryData from "@/data/itinerary.json";
 import routesData from "@/data/routes.json";
@@ -41,19 +40,6 @@ export default function Index() {
             dayIndex < itinerary.days.length - 1 && setSelectedDay(itinerary.days[dayIndex + 1].day)
           }
         />
-        <RadarTimeline
-          frames={radar.frames}
-          currentIndex={radar.currentIndex}
-          referenceTime={radar.referenceTime}
-          isPlaying={radar.isPlaying}
-          playMode={radar.playMode}
-          loading={radar.loading}
-          hasForecast={radar.hasForecast}
-          showRadar={showRadar}
-          onPlayHistory={radar.playHistory}
-          onPlayForecast={radar.playForecast}
-          onToggleRadar={() => setShowRadar((v) => !v)}
-        />
       </div>
 
       <div className="flex-1 overflow-y-auto">
@@ -77,7 +63,21 @@ export default function Index() {
           </div>
 
           <div className="min-h-[400px]">
-            <DayDetail day={currentDay} placeCoords={placeCoords} />
+            <DayDetail
+              day={currentDay}
+              placeCoords={placeCoords}
+              frames={radar.frames}
+              currentIndex={radar.currentIndex}
+              referenceTime={radar.referenceTime}
+              isPlaying={radar.isPlaying}
+              playMode={radar.playMode}
+              radarLoading={radar.loading}
+              hasForecast={radar.hasForecast}
+              showRadar={showRadar}
+              onPlayHistory={radar.playHistory}
+              onPlayForecast={radar.playForecast}
+              onToggleRadar={() => setShowRadar((v) => !v)}
+            />
           </div>
         </div>
 
