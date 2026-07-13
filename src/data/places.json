@@ -1,0 +1,145 @@
+{
+  "places": {
+    "hradec_kralove": {
+      "name": "Hradec Králové",
+      "lat": 50.2092,
+      "lng": 15.8328,
+      "country": "Česko"
+    },
+    "rostock_ferry": {
+      "name": "Rostock (trajekt)",
+      "lat": 54.1445881,
+      "lng": 12.0976681,
+      "country": "Německo"
+    },
+    "trelleborg_ferry": {
+      "name": "Trelleborg (trajekt)",
+      "lat": 55.3699862,
+      "lng": 13.1503256,
+      "country": "Švédsko"
+    },
+    "oslo": {
+      "name": "Oslo",
+      "lat": 59.9139,
+      "lng": 10.7522,
+      "country": "Norsko"
+    },
+    "lillehammer": {
+      "name": "Lillehammer",
+      "lat": 61.1153,
+      "lng": 10.4662,
+      "country": "Norsko"
+    },
+    "rondane": {
+      "name": "NP Rondane",
+      "lat": 62.0764,
+      "lng": 9.5828,
+      "country": "Norsko"
+    },
+    "sundalsora": {
+      "name": "Sundalsora",
+      "lat": 62.2436,
+      "lng": 8.6136,
+      "country": "Norsko"
+    },
+    "trondheim": {
+      "name": "Trondheim",
+      "lat": 63.4305,
+      "lng": 10.3951,
+      "country": "Norsko"
+    },
+    "laksforsen": {
+      "name": "Laksforsen",
+      "lat": 65.6641,
+      "lng": 13.2694,
+      "country": "Norsko"
+    },
+    "furoy": {
+      "name": "Furøy",
+      "lat": 66.5342,
+      "lng": 13.2844,
+      "country": "Norsko"
+    },
+    "junkerdal": {
+      "name": "Junkerdal",
+      "lat": 66.112,
+      "lng": 14.063,
+      "country": "Norsko"
+    },
+    "myrkulla": {
+      "name": "Myrkulla",
+      "lat": 58.403,
+      "lng": 12.955,
+      "country": "Švédsko"
+    },
+    "axmarbruk": {
+      "name": "Axmarbruk",
+      "lat": 61.3014,
+      "lng": 17.0167,
+      "country": "Švédsko"
+    },
+    "vimmerby": {
+      "name": "Vimmerby",
+      "lat": 57.6659,
+      "lng": 15.8557,
+      "country": "Švédsko"
+    },
+    "ales_stenar": {
+      "name": "Ales Stenar",
+      "lat": 55.3869,
+      "lng": 14.0534,
+      "country": "Švédsko"
+    }
+  },
+  "daySegments": {
+    "1": [
+      "hk_rostock",
+      "rostock_trelleborg_ferry"
+    ],
+    "2": [
+      "trelleborg_oslo"
+    ],
+    "3": [
+      "oslo_lillehammer"
+    ],
+    "4": [
+      "lillehammer_rondane"
+    ],
+    "5": [
+      "rondane_sundalsora"
+    ],
+    "6": [
+      "sundalsora_trondheim"
+    ],
+    "7": [
+      "trondheim_laksforsen"
+    ],
+    "8": [
+      "laksforsen_furoy"
+    ],
+    "9": [],
+    "10": [
+      "furoy_junkerdal"
+    ],
+    "11": [
+      "junkerdal_myrkulla"
+    ],
+    "12": [],
+    "13": [],
+    "14": [],
+    "15": [
+      "myrkulla_axmarbruk"
+    ],
+    "16": [
+      "axmarbruk_vimmerby"
+    ],
+    "17": [
+      "vimmerby_ales_stenar",
+      "ales_stenar_trelleborg",
+      "trelleborg_rostock_ferry"
+    ],
+    "18": [
+      "rostock_hk"
+    ]
+  }
+}

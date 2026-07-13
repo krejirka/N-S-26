@@ -1,0 +1,627 @@
+{
+  "meta": {
+    "title": "Norsko-Švédsko 2026",
+    "origin": "Hradec Králové",
+    "destination": "Hradec Králové",
+    "totalDays": 18,
+    "totalKmExcel": 5207,
+    "note": "Silniční trasy vypočteny z OpenStreetMap přes OSRM."
+  },
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-07-25",
+      "weekday": "sobota",
+      "destination": "Hradec Králové → Rostock → Trelleborg",
+      "km": 673,
+      "lodging": "trajekt — kajuta",
+      "logistics": "odjezd 23:45",
+      "program": "",
+      "placeId": "trelleborg_ferry",
+      "phase": "tam",
+      "segmentIds": [
+        "hk_rostock",
+        "rostock_trelleborg_ferry"
+      ],
+      "places": [
+        {
+          "name": "Hradec Králové",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Hradec_Kr%C3%A1lov%C3%A9"
+            },
+            {
+              "label": "Turistická informace",
+              "url": "https://www.hradeckralove.org/"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Hradec_Kralove_CZ_view_from_White_Tower_02.jpg/640px-Hradec_Kralove_CZ_view_from_White_Tower_02.jpg",
+            "alt": "Pohled na Hradec Králové",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hradec_Kralove_CZ_view_from_White_Tower_02.jpg"
+          }
+        },
+        {
+          "name": "Trajekt Rostock – Trelleborg",
+          "links": [
+            {
+              "label": "Scandlines",
+              "url": "https://www.scandlines.com/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-07-26",
+      "weekday": "neděle",
+      "destination": "Oslo",
+      "km": 596,
+      "lodging": "ubytování",
+      "logistics": "Goteborg",
+      "program": "",
+      "placeId": "oslo",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Oslo",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Oslo"
+            },
+            {
+              "label": "Visit Oslo",
+              "url": "https://www.visitoslo.com/"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Oslofjord_and_city_hall.jpg/640px-Oslofjord_and_city_hall.jpg",
+            "alt": "Oslo a Oslofjord",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oslofjord_and_city_hall.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-07-27",
+      "weekday": "pondělí",
+      "destination": "Lillehammer",
+      "km": 187,
+      "lodging": "stan",
+      "logistics": "",
+      "program": "Dopoledne/odpoledne procházka v Oslu, přejezd do Lillehammeru",
+      "placeId": "lillehammer",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Lillehammer",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Lillehammer"
+            },
+            {
+              "label": "Visit Norway",
+              "url": "https://www.visitnorway.com/places-to-go/eastern-norway/lillehammer/"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Lillehammer%2C_Norway.jpg/640px-Lillehammer%2C_Norway.jpg",
+            "alt": "Lillehammer",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lillehammer,_Norway.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "2026-07-28",
+      "weekday": "úterý",
+      "destination": "NP Rondane",
+      "km": 123,
+      "lodging": "stan",
+      "logistics": "",
+      "program": "Tůra v NP (Peer Gynt Hytta, Vodopád) - árodní park Rondane nabízí pozvolné kopce a široké cesty. Zajeďte na zpoplatněné parkoviště Spranget. Odtud vede krásná, široká štěrková cesta k chatě Rondvassbu. Trasa má zhruba 7 km tam i zpět, téměř nulové převýšení a zabere asi 2 hodiny. Je to ideální lehká procházka pro teriéra. Pes zde musí být celoročně (resp. v létě do 20. srpna) striktně na vodítku kvůli volně žijícím sobům.",
+      "placeId": "rondane",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Národní park Rondane",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Rondane"
+            },
+            {
+              "label": "Národní park",
+              "url": "https://www.nationalpark.no/parkene/rondane"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Rondane_National_Park.jpg/640px-Rondane_National_Park.jpg",
+            "alt": "NP Rondane",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rondane_National_Park.jpg"
+          }
+        },
+        {
+          "name": "Rondvassbu",
+          "links": [
+            {
+              "label": "DNT Rondvassbu",
+              "url": "https://www.dnt.no/turhytta/rondvassbu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "date": "2026-07-29",
+      "weekday": "středa",
+      "destination": "Sundalsora",
+      "km": 200,
+      "lodging": "stan",
+      "logistics": "",
+      "program": "Dovrefjell (Hjerkinn) - V oblasti Hjerkinn (Dovrefjell) se nachází ohromující pozorovací pavilon Viewpoint Snøhetta. Od parkoviště vede široká štěrková cesta (1,5 km, převýšení 120 m), jejíž zdolání trvá 15–20 minut. Architektonicky unikátní prosklená budova nabízí výhled na horu Snøhetta. Psa nelze vzít dovnitř, ale venku jsou úvazy. Při túře mějte oči na stopkách – žijí zde divocí pižmoni, od kterých musíte dodržet bezpečnou vzdálenost minimálně 200 metrů.",
+      "placeId": "sundalsora",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Viewpoint Snøhetta (Dovrefjell)",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://en.wikipedia.org/wiki/Sn%C3%B8hetta_(mountain)"
+            },
+            {
+              "label": "Visit Norway",
+              "url": "https://www.visitnorway.com/places-to-go/fjord-norway/the-northwest/the-snohetta-viewpoint/"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Sn%C3%B8hetta_viewpoint.jpg/640px-Sn%C3%B8hetta_viewpoint.jpg",
+            "alt": "Viewpoint Snøhetta",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sn%C3%B8hetta_viewpoint.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "date": "2026-07-30",
+      "weekday": "čtvrtek",
+      "destination": "Trondheim",
+      "km": 166,
+      "lodging": "stan",
+      "logistics": "",
+      "program": "po cestě Innerdalen - nejkrásnější údolí v Norsku - Zaparkujte na vyhrazeném parkovišti v Nerdalenu (vjezd auty hlouběji je zakázán). Odtud vás čeká chůze klesajícím a stoupajícím terénem po farmářské cestě podél divoké řeky k chatě Renndølsetra. Trasa k chatě měří cca 3,5 až 4 km a zabere hodinu. V chatě pečou vyhlášené norské vafle, uvidíte volně se pasoucí zvířata a ikonickou horu Innerdalstårnet. Svačina, cesta zpět a fotopauzy zaberou celkem ideální 3 až 4 hodiny.\nNocleh a procházka  Trondheimu.",
+      "placeId": "trondheim",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Innerdalen",
+          "links": [
+            {
+              "label": "Visit Norway",
+              "url": "https://www.visitnorway.com/places-to-go/fjord-norway/the-northwest/innerdalen/"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Innerdalen%2C_M%C3%B8re_og_Romsdal%2C_Norway.jpg/640px-Innerdalen%2C_M%C3%B8re_og_Romsdal%2C_Norway.jpg",
+            "alt": "Innerdalen",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Innerdalen,_M%C3%B8re_og_Romsdal,_Norway.jpg"
+          }
+        },
+        {
+          "name": "Trondheim",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Trondheim"
+            },
+            {
+              "label": "Visit Trondheim",
+              "url": "https://www.visittrondheim.no/"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Trondheim_from_Bakke_Bridge.jpg/640px-Trondheim_from_Bakke_Bridge.jpg",
+            "alt": "Trondheim",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Trondheim_from_Bakke_Bridge.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 7,
+      "date": "2026-07-31",
+      "weekday": "pátek",
+      "destination": "Laksforsen",
+      "km": 379,
+      "lodging": "ubytování",
+      "logistics": "Alternativa P4N: Gluggvasshaug E6 odpočívadlo zdarma",
+      "program": "Odpočinkový den plný úžasných scenérií a jízd lokálními trajekty přes fjordy. Záměrně se tak vyhnete přeplněnému Geirangerfjordu a masivnímu ruchu na jihozápadě. Zastavujte na vyhlídkách a užívejte si krátké procházky kolem pláží.",
+      "placeId": "laksforsen",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Laksforsen",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://no.wikipedia.org/wiki/Laksforsen"
+            },
+            {
+              "label": "Visit Norway",
+              "url": "https://www.visitnorway.com/listings/laksforsen-waterfall/177671/"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Laksforsen_waterfall.jpg/640px-Laksforsen_waterfall.jpg",
+            "alt": "Vodopád Laksforsen",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Laksforsen_waterfall.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 8,
+      "date": "2026-08-01",
+      "weekday": "sobota",
+      "destination": "Furøy",
+      "km": 262,
+      "lodging": "ubytování",
+      "logistics": "30.7. · 2 trajekty na cestě",
+      "program": "",
+      "placeId": "furoy",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Ledovec Svartisen",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Svartisen"
+            },
+            {
+              "label": "Visit Norway",
+              "url": "https://www.visitnorway.com/places-to-go/northern-norway/svartisen/"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Svartisen_glacier.jpg/640px-Svartisen_glacier.jpg",
+            "alt": "Ledovec Svartisen",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen_glacier.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 9,
+      "date": "2026-08-02",
+      "weekday": "neděle",
+      "destination": "Furøy",
+      "km": 26,
+      "lodging": "ubytování",
+      "logistics": "30.7. · Shuttle Boat to Svartisen Glacier",
+      "program": "Modrý ledovec Svartisen - Z přístaviště jezdí přes fjord krátký lodní spoj (Isprins) k molu Engen brygge. Přeprava trvá asi 10-20 minut a pes má na loď přístup (cena za psa je cca 40–95 NOK, dospělý cca 315 NOK). Od přístaviště půjdete po rovinaté štěrkové cestě podél jezera (cca 5 km), teprve v samotném závěru (asi 1 km) cesta stoupá 200 výškových metrů po ohlazených kamenech až k modrému ledovci Engenbreen. S teriérem i rodinou se to dá bez potíží zvládnout tam i zpět do 4 hodin",
+      "placeId": "furoy",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Ledovec Svartisen",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Svartisen"
+            },
+            {
+              "label": "Visit Norway",
+              "url": "https://www.visitnorway.com/places-to-go/northern-norway/svartisen/"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Svartisen_glacier.jpg/640px-Svartisen_glacier.jpg",
+            "alt": "Ledovec Svartisen",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen_glacier.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 10,
+      "date": "2026-08-03",
+      "weekday": "pondělí",
+      "destination": "Junkerdal",
+      "km": null,
+      "lodging": "stan",
+      "logistics": "Junkerdal",
+      "program": "Udělejte si pauzu v obci Storjord (Saltdal). Zde se nachází velmi nenáročný okruh k vodopádu Kjemåfossen (cca 5 km, převýšení jen 60 m, doba chůze něco málo přes hodinu). Údolí je geologicky výjimečné vápencovým podložím, díky kterému zde rostou extrémně vzácné druhy alpských rostlin.",
+      "placeId": "junkerdal",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Kjemåfossen",
+          "links": [
+            {
+              "label": "Visit Norway",
+              "url": "https://www.visitnorway.com/places-to-go/northern-norway/saltdal/"
+            }
+          ]
+        },
+        {
+          "name": "Junkerdal",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://no.wikipedia.org/wiki/Junkerdal"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Junkerdal_national_park.jpg/640px-Junkerdal_national_park.jpg",
+            "alt": "Junkerdal",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Junkerdal_national_park.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 11,
+      "date": "2026-08-04",
+      "weekday": "úterý",
+      "destination": "Myrkulla",
+      "km": 217,
+      "lodging": "ubytování",
+      "logistics": "",
+      "program": "1200",
+      "placeId": "myrkulla",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Myrkulla",
+          "links": [
+            {
+              "label": "Visit Sweden",
+              "url": "https://visitsweden.com/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 12,
+      "date": "2026-08-05",
+      "weekday": "středa",
+      "destination": "Myrkulla",
+      "km": null,
+      "lodging": "ubytování",
+      "logistics": "",
+      "program": "1200",
+      "placeId": "myrkulla",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Myrkulla",
+          "links": [
+            {
+              "label": "Visit Sweden",
+              "url": "https://visitsweden.com/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 13,
+      "date": "2026-08-06",
+      "weekday": "čtvrtek",
+      "destination": "Myrkulla",
+      "km": null,
+      "lodging": "ubytování",
+      "logistics": "",
+      "program": "1200",
+      "placeId": "myrkulla",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Myrkulla",
+          "links": [
+            {
+              "label": "Visit Sweden",
+              "url": "https://visitsweden.com/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 14,
+      "date": "2026-08-07",
+      "weekday": "pátek",
+      "destination": "Myrkulla",
+      "km": null,
+      "lodging": "ubytování",
+      "logistics": "",
+      "program": "1200",
+      "placeId": "myrkulla",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Myrkulla",
+          "links": [
+            {
+              "label": "Visit Sweden",
+              "url": "https://visitsweden.com/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 15,
+      "date": "2026-08-08",
+      "weekday": "sobota",
+      "destination": "Axmarbruk",
+      "km": 531,
+      "lodging": "stan",
+      "logistics": "",
+      "program": "Národní park Skuleskogen (oblast Höga Kusten): Zastávka na trase E4. Unikátní krajina s hlubokou pískovcovou štěrbinou (Slåttdalsskrevan) a výhledy na Baltské moře.",
+      "placeId": "axmarbruk",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Skuleskogen",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Skuleskogen"
+            },
+            {
+              "label": "Národní park",
+              "url": "https://www.nationalpark.se/skuleskogen/"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Slattdalsskrevan.jpg/640px-Slattdalsskrevan.jpg",
+            "alt": "Slåttdalsskrevan ve Skuleskogen",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Slattdalsskrevan.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 16,
+      "date": "2026-08-09",
+      "weekday": "neděle",
+      "destination": "Vimmerby",
+      "km": 512,
+      "lodging": "stan",
+      "logistics": "",
+      "program": "Astrid Lindgrens Värld (Vimmerby). Centrem parku je replika vily Vilekuly. Návštěva zabere minimálně 3–4 hodiny",
+      "placeId": "vimmerby",
+      "phase": "tam",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Astrid Lindgrens Värld",
+          "links": [
+            {
+              "label": "Oficiální web",
+              "url": "https://www.alv.se/"
+            },
+            {
+              "label": "Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Astrid_Lindgren"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Villa_Villekulla_in_Astrid_Lindgrens_World.jpg/640px-Villa_Villekulla_in_Astrid_Lindgrens_World.jpg",
+            "alt": "Villa Villekula",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Villa_Villekulla_in_Astrid_Lindgrens_World.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 17,
+      "date": "2026-08-10",
+      "weekday": "pondělí",
+      "destination": "Trelleborg-Rostock (DE)",
+      "km": 412,
+      "lodging": "ubytování",
+      "logistics": "",
+      "program": "Ales Stenar: megalitická památka (tzv. „švédské Stonehenge“), tvořenou 59 velkými kameny ve tvaru lodi na útesu nad mořem. Zastávka je logisticky nenáročná.",
+      "placeId": "ales_stenar",
+      "phase": "zpět",
+      "segmentIds": [],
+      "places": [
+        {
+          "name": "Ales Stenar",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Ales_stenar"
+            },
+            {
+              "label": "Visit Sweden",
+              "url": "https://visitskane.com/classic-attractions/ales-stones/"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Ales_stenar_2012.jpg/640px-Ales_stenar_2012.jpg",
+            "alt": "Ales Stenar",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ales_stenar_2012.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 18,
+      "date": "2026-08-11",
+      "weekday": "úterý",
+      "destination": "Rostock → Hradec Králové",
+      "km": null,
+      "lodging": null,
+      "logistics": "",
+      "program": "673",
+      "placeId": "hradec_kralove",
+      "phase": "zpět",
+      "segmentIds": [
+        "rostock_hk"
+      ],
+      "places": [
+        {
+          "name": "Hradec Králové",
+          "links": [
+            {
+              "label": "Wikipedia",
+              "url": "https://cs.wikipedia.org/wiki/Hradec_Kr%C3%A1lov%C3%A9"
+            },
+            {
+              "label": "Turistická informace",
+              "url": "https://www.hradeckralove.org/"
+            }
+          ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Hradec_Kralove_CZ_view_from_White_Tower_02.jpg/640px-Hradec_Kralove_CZ_view_from_White_Tower_02.jpg",
+            "alt": "Pohled na Hradec Králové",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hradec_Kralove_CZ_view_from_White_Tower_02.jpg"
+          }
+        }
+      ]
+    }
+  ]
+}
