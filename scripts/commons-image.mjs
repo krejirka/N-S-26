@@ -47,5 +47,5 @@ export const COMMONS_FILES = {
   skuleskogen: "Slåttdalsskrevan.jpg",
   ales: "Ales stenar.jpg",
   arvidsjaur: "Arvidsjaurs kyrka.jpg",
-  vimmerby: "Sagomuseet.jpg",
+  vimmerby: "Astrid Lindgrens Värld - Villa Villekulla.jpg",
 };

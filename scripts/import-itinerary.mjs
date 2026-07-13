@@ -167,6 +167,10 @@ const PLACE_ENRICHMENT = {
           { label: "Oficiální web", url: "https://www.alv.se/" },
           { label: "Wikipedia", url: "https://cs.wikipedia.org/wiki/Astrid_Lindgren" },
         ],
+        image: commonsImage(
+          COMMONS_FILES.vimmerby,
+          "Villa Villekulla – Astrid Lindgrens Värld, Vimmerby"
+        ),
       },
     ],
   },

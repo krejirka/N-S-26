@@ -420,11 +420,10 @@
             }
           ],
           "image": {
-            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Svartisen.jpg?width=640",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Svartisen.jpg/960px-Svartisen.jpg",
             "alt": "Ledovec Svartisen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen.jpg",
-            "_filename": "Svartisen.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen.jpg"
           },
           "tips": [
             "Příprava na zítřejší výlet k ledovci Engenbreen",
@@ -483,10 +482,11 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Svartisen.jpg/960px-Svartisen.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Svartisen.jpg?width=640",
             "alt": "Ledovec Svartisen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Svartisen.jpg",
+            "_filename": "Svartisen.jpg"
           },
           "tips": [
             "Engenbreen — modrý ledovec přístupný z moře",
@@ -726,11 +726,10 @@
             }
           ],
           "image": {
-            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sl%C3%A5ttdalsskrevan.jpg?width=640",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Sl%C3%A5ttdalsskrevan.jpg",
             "alt": "Slåttdalsskrevan ve Skuleskogen",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sl%C3%A5ttdalsskrevan.jpg",
-            "_filename": "Slåttdalsskrevan.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sl%C3%A5ttdalsskrevan.jpg"
           },
           "tips": [
             "Slåttdalsskrevan — 200 m hluboká pískovcová rokle",
@@ -765,6 +764,12 @@
               "url": "https://cs.wikipedia.org/wiki/Astrid_Lindgren"
             }
           ],
+          "image": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Astrid_Lindgrens_V%C3%A4rld_-_Villa_Villekulla.jpg/960px-Astrid_Lindgrens_V%C3%A4rld_-_Villa_Villekulla.jpg",
+            "alt": "Villa Villekulla – Astrid Lindgrens Värld, Vimmerby",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Astrid%20Lindgrens%20V%C3%A4rld%20-%20Villa%20Villekulla.jpg"
+          },
           "tips": [
             "Villa Villekula — replika slavného domečku",
             "Živá divadla a postavy z knih",
@@ -799,10 +804,11 @@
             }
           ],
           "image": {
-            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Ales_stenar.jpg/960px-Ales_stenar.jpg",
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ales%20stenar.jpg?width=640",
             "alt": "Ales Stenar",
             "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ales%20stenar.jpg"
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ales%20stenar.jpg",
+            "_filename": "Ales stenar.jpg"
           },
           "tips": [
             "Ales stenar — kamenná loď z doby železné",

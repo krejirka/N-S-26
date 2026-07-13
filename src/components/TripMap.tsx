@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { MapContainer, TileLayer, Polyline, Marker, Popup, useMap } from "react-leaflet";
-import L from "leaflet";
 import type { PlacesData, RouteSegment } from "@/types/trip";
+import { makeFlagIcon } from "@/lib/flagMarker";
 import YrForecast from "./YrForecast";
 import YrPrecipitationLayer from "./YrPrecipitationLayer";
 import "leaflet/dist/leaflet.css";
@@ -28,28 +28,6 @@ function FitBounds({ segments }: { segments: RouteSegment[] }) {
     if (all.length) map.fitBounds(all, { padding: [40, 40] });
   }, [map, segments]);
   return null;
-}
-
-function makeIcon(label: string, active: boolean) {
-  const wide = label.length > 2;
-  const size = wide ? 32 : 28;
-  return L.divIcon({
-    className: "",
-    html: `<div style="
-      background:${active ? "#0f766e" : "#fff"};
-      color:${active ? "#fff" : "#1b2431"};
-      border:2px solid ${active ? "#0f766e" : "#94a3b8"};
-      border-radius:999px;
-      min-width:${size}px;height:${size}px;
-      padding:0 4px;
-      display:flex;align-items:center;justify-content:center;
-      font-size:${wide ? "10px" : "12px"};font-weight:700;
-      box-shadow:0 2px 6px rgba(0,0,0,.15);
-      white-space:nowrap;
-    ">${label}</div>`,
-    iconSize: [size, size],
-    iconAnchor: [size / 2, size / 2],
-  });
 }
 
 export default function TripMap({
@@ -112,7 +90,11 @@ export default function TripMap({
           const active = activePlaceIds.has(id);
           const label = place.dayLabel ?? "";
           return (
-            <Marker key={id} position={[place.lat, place.lng]} icon={makeIcon(label, active)}>
+            <Marker
+              key={id}
+              position={[place.lat, place.lng]}
+              icon={makeFlagIcon(place.country, label, active)}
+            >
               <Popup minWidth={220}>
                 <strong>{place.name}</strong>
                 <br />
