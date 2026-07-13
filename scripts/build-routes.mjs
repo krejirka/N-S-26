@@ -29,11 +29,11 @@ const PLACES = {
   ales_stenar: { name: "Ales Stenar", lat: 55.3869, lng: 14.0534, country: "Švédsko", dayLabel: "17" },
 };
 
-/** Pin Fv17 coastal route — avoid OSRM inland bypass via E6/Mo i Rana. */
+/** Pin Fv17 coastal route — stay east, avoid Mo i Rana and west dead-ends. */
 const LAKSFORSEN_KILBOGHAMN_VIA = [
-  { lat: 65.8, lng: 12.95 },
-  { lat: 66.05, lng: 12.8 },
-  { lat: 66.18, lng: 13.05 },
+  { lat: 65.78, lng: 13.2 },
+  { lat: 65.95, lng: 13.15 },
+  { lat: 66.15, lng: 13.12 },
   { lat: 66.29, lng: 13.58 },
 ];
 
