@@ -33,7 +33,8 @@ export default function RadarTimeline({
   const offset = frame ? formatRadarOffsetMinutes(frame.time, referenceTime) : "—";
 
   return (
-    <div className="flex flex-wrap items-center gap-2 text-[10px]">
+    <div className="rounded-lg border border-border bg-card/95 px-2.5 py-1.5 shadow-md backdrop-blur-sm">
+      <div className="flex flex-wrap items-center gap-2 text-[10px]">
       <button
         type="button"
         onClick={onToggleRadar}
@@ -84,6 +85,7 @@ export default function RadarTimeline({
           </button>
         </>
       )}
+      </div>
     </div>
   );
 }

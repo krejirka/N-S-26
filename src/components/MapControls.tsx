@@ -17,26 +17,37 @@ function boundsSpan(points: [number, number][]) {
 
 function maxZoomForDay(points: [number, number][], radarLimited: boolean) {
   let zoom: number;
-  if (points.length <= 1) zoom = 9;
+  if (points.length <= 1) zoom = 11;
   else {
     const { latSpan, lngSpan } = boundsSpan(points);
     const span = Math.max(latSpan, lngSpan);
-    if (span < 0.4) zoom = 9;
-    else if (span < 1.2) zoom = 8;
-    else if (span < 4) zoom = 7;
-    else if (span < 10) zoom = 6;
-    else zoom = 5;
+    if (span < 0.4) zoom = 11;
+    else if (span < 1.2) zoom = 10;
+    else if (span < 4) zoom = 9;
+    else if (span < 10) zoom = 8;
+    else zoom = 7;
   }
-  return radarLimited ? Math.min(zoom, 6) : zoom;
+  return radarLimited ? Math.min(zoom, RADAR_MAX_ZOOM) : zoom;
+}
+
+function clearMaxBounds(map: ReturnType<typeof useMap>) {
+  map.setMaxBounds(
+    latLngBounds([
+      [40, -5],
+      [72, 35],
+    ])
+  );
 }
 
 /** Initial view — entire trip (waypoints only, tight framing). */
 export function FitRouteBounds({
   places,
   enabled,
+  radarLimited,
 }: {
   places: PlacesData["places"];
   enabled: boolean;
+  radarLimited: boolean;
 }) {
   const map = useMap();
 
@@ -53,20 +64,23 @@ export function FitRouteBounds({
       map.invalidateSize({ animate: false });
       map.fitBounds(bounds, {
         padding: [28, 28],
-        maxZoom: 7,
+        maxZoom: radarLimited ? RADAR_MAX_ZOOM : 7,
         animate: false,
       });
-      // Wide map panels can under-zoom; keep Scandinavia+CZ in frame, not Turkey/Russia.
       if (map.getZoom() < 5) {
         map.setView(bounds.getCenter(), 5, { animate: false });
       }
-      map.setMaxBounds(bounds.pad(0.25));
+      if (radarLimited) {
+        map.setMaxBounds(bounds.pad(0.25));
+      } else {
+        clearMaxBounds(map);
+      }
     };
 
     fit();
     const retry = window.setTimeout(fit, 150);
     return () => window.clearTimeout(retry);
-  }, [map, bounds, enabled]);
+  }, [map, bounds, enabled, radarLimited]);
 
   return null;
 }
@@ -120,6 +134,8 @@ export function FitDayBounds({
 
     if (!points.length) return;
 
+    clearMaxBounds(map);
+
     const maxZoom = maxZoomForDay(points, radarLimited);
 
     if (points.length === 1) {
@@ -146,6 +162,11 @@ export function MapScrollBehavior({ radarLimited }: { radarLimited: boolean }) {
 
   useEffect(() => {
     map.setMaxZoom(radarLimited ? RADAR_MAX_ZOOM : 18);
+    if (!radarLimited) {
+      map.setMinZoom(4);
+    } else {
+      map.setMinZoom(5);
+    }
   }, [map, radarLimited]);
 
   useEffect(() => {

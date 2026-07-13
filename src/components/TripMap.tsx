@@ -2,8 +2,10 @@ import { useMemo } from "react";
 import { MapContainer, TileLayer, Polyline, Marker } from "react-leaflet";
 import type { PlacesData, RouteSegment, TripDay } from "@/types/trip";
 import type { RadarFrame } from "@/lib/rainviewer";
+import type { RadarPlayMode } from "@/hooks/useRadarAnimation";
 import { makeFlagIcon } from "@/lib/flagMarker";
 import RadarPrecipitationLayer from "./RadarPrecipitationLayer";
+import RadarTimeline from "./RadarTimeline";
 import PlacePopup from "./PlacePopup";
 import { FitDayBounds, FitRouteBounds, MapScrollBehavior, RADAR_MAX_ZOOM } from "./MapControls";
 import "leaflet/dist/leaflet.css";
@@ -17,6 +19,16 @@ interface TripMapProps {
   showRadar: boolean;
   currentFrame: RadarFrame | null;
   zoomToDay: boolean;
+  frames: RadarFrame[];
+  currentIndex: number;
+  referenceTime: number;
+  isPlaying: boolean;
+  playMode: RadarPlayMode;
+  radarLoading: boolean;
+  hasForecast: boolean;
+  onPlayHistory: () => void;
+  onPlayForecast: () => void;
+  onToggleRadar: () => void;
 }
 
 const outboundColor = "#c2410c";
@@ -34,6 +46,16 @@ export default function TripMap({
   showRadar,
   currentFrame,
   zoomToDay,
+  frames,
+  currentIndex,
+  referenceTime,
+  isPlaying,
+  playMode,
+  radarLoading,
+  hasForecast,
+  onPlayHistory,
+  onPlayForecast,
+  onToggleRadar,
 }: TripMapProps) {
   const activeSegmentIds = useMemo(
     () => new Set(daySegments[String(day.day)] || []),
@@ -60,10 +82,28 @@ export default function TripMap({
 
   return (
     <div className="relative h-full w-full min-h-0">
+      <div className="pointer-events-none absolute left-2 top-2 z-[1000]">
+        <div className="pointer-events-auto">
+          <RadarTimeline
+            frames={frames}
+            currentIndex={currentIndex}
+            referenceTime={referenceTime}
+            isPlaying={isPlaying}
+            playMode={playMode}
+            loading={radarLoading}
+            hasForecast={hasForecast}
+            showRadar={showRadar}
+            onPlayHistory={onPlayHistory}
+            onPlayForecast={onPlayForecast}
+            onToggleRadar={onToggleRadar}
+          />
+        </div>
+      </div>
+
       <MapContainer
         center={center}
         zoom={5}
-        minZoom={5}
+        minZoom={radarLimited ? 5 : 4}
         maxZoom={radarLimited ? RADAR_MAX_ZOOM : 18}
         className="h-full w-full"
         scrollWheelZoom={false}
@@ -78,7 +118,7 @@ export default function TripMap({
           <RadarPrecipitationLayer tileUrl={currentFrame.tileUrl} opacity={0.5} />
         )}
         <MapScrollBehavior radarLimited={radarLimited} />
-        <FitRouteBounds places={places} enabled={!zoomToDay} />
+        <FitRouteBounds places={places} enabled={!zoomToDay} radarLimited={radarLimited} />
         <FitDayBounds
           segments={segments}
           daySegments={daySegments}

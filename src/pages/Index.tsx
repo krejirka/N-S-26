@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Header from "@/components/Header";
 import DayList from "@/components/DayList";
 import DayDetail from "@/components/DayDetail";
@@ -17,12 +17,32 @@ export default function Index() {
   const [selectedDay, setSelectedDay] = useState(1);
   const [zoomToDay, setZoomToDay] = useState(false);
   const [showRadar, setShowRadar] = useState(true);
+  const pendingRadarPlayRef = useRef(false);
   const radar = useRadarAnimation(showRadar);
 
   const selectDay = useCallback((day: number) => {
     setSelectedDay(day);
     setZoomToDay(true);
+    setShowRadar(false);
   }, []);
+
+  const handleToggleRadar = useCallback(() => {
+    if (showRadar) {
+      setShowRadar(false);
+      return;
+    }
+    setZoomToDay(false);
+    setShowRadar(true);
+    pendingRadarPlayRef.current = true;
+  }, [showRadar]);
+
+  useEffect(() => {
+    if (!showRadar || zoomToDay || radar.loading || !radar.frames.length || !pendingRadarPlayRef.current) {
+      return;
+    }
+    pendingRadarPlayRef.current = false;
+    radar.playHistory();
+  }, [showRadar, zoomToDay, radar.loading, radar.frames.length, radar.playHistory]);
 
   const currentDay = useMemo(
     () => itinerary.days.find((d) => d.day === selectedDay) ?? itinerary.days[0],
@@ -45,17 +65,6 @@ export default function Index() {
           onNextDay={() =>
             dayIndex < itinerary.days.length - 1 && selectDay(itinerary.days[dayIndex + 1].day)
           }
-          frames={radar.frames}
-          currentIndex={radar.currentIndex}
-          referenceTime={radar.referenceTime}
-          isPlaying={radar.isPlaying}
-          playMode={radar.playMode}
-          radarLoading={radar.loading}
-          hasForecast={radar.hasForecast}
-          showRadar={showRadar}
-          onPlayHistory={radar.playHistory}
-          onPlayForecast={radar.playForecast}
-          onToggleRadar={() => setShowRadar((v) => !v)}
         />
       </div>
 
@@ -75,6 +84,16 @@ export default function Index() {
               showRadar={showRadar}
               currentFrame={radar.currentFrame}
               zoomToDay={zoomToDay}
+              frames={radar.frames}
+              currentIndex={radar.currentIndex}
+              referenceTime={radar.referenceTime}
+              isPlaying={radar.isPlaying}
+              playMode={radar.playMode}
+              radarLoading={radar.loading}
+              hasForecast={radar.hasForecast}
+              onPlayHistory={radar.playHistory}
+              onPlayForecast={radar.playForecast}
+              onToggleRadar={handleToggleRadar}
             />
           </div>
 

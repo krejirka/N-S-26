@@ -27,7 +27,7 @@ function LodgingIcon({ lodging }: { lodging: string }) {
 
 export default function DayNav({ day, hasPrev, hasNext, onPrev, onNext }: DayNavProps) {
   return (
-    <div className="w-full min-w-0">
+    <div className="w-full min-w-0 md:max-w-2xl md:flex-1">
       <div className="flex w-full items-center gap-2 sm:gap-3">
         <button
           type="button"
@@ -51,7 +51,7 @@ export default function DayNav({ day, hasPrev, hasNext, onPrev, onNext }: DayNav
           onClick={onNext}
           disabled={!hasNext}
           aria-label="Další den"
-          className="inline-flex shrink-0 items-center gap-1 self-center rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium hover:bg-muted disabled:opacity-40 md:absolute md:right-0 md:top-3"
+          className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium hover:bg-muted disabled:opacity-40"
         >
           <span className="hidden sm:inline">Další</span>
           <ChevronRight className="h-4 w-4" />
