@@ -39,6 +39,17 @@ export default function Index() {
           onNextDay={() =>
             dayIndex < itinerary.days.length - 1 && setSelectedDay(itinerary.days[dayIndex + 1].day)
           }
+          frames={radar.frames}
+          currentIndex={radar.currentIndex}
+          referenceTime={radar.referenceTime}
+          isPlaying={radar.isPlaying}
+          playMode={radar.playMode}
+          radarLoading={radar.loading}
+          hasForecast={radar.hasForecast}
+          showRadar={showRadar}
+          onPlayHistory={radar.playHistory}
+          onPlayForecast={radar.playForecast}
+          onToggleRadar={() => setShowRadar((v) => !v)}
         />
       </div>
 
@@ -63,21 +74,7 @@ export default function Index() {
           </div>
 
           <div className="min-h-[400px]">
-            <DayDetail
-              day={currentDay}
-              placeCoords={placeCoords}
-              frames={radar.frames}
-              currentIndex={radar.currentIndex}
-              referenceTime={radar.referenceTime}
-              isPlaying={radar.isPlaying}
-              playMode={radar.playMode}
-              radarLoading={radar.loading}
-              hasForecast={radar.hasForecast}
-              showRadar={showRadar}
-              onPlayHistory={radar.playHistory}
-              onPlayForecast={radar.playForecast}
-              onToggleRadar={() => setShowRadar((v) => !v)}
-            />
+            <DayDetail day={currentDay} placeCoords={placeCoords} />
           </div>
         </div>
 
