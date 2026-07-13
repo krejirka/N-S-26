@@ -2,6 +2,9 @@ import { useEffect, useMemo } from "react";
 import { useMap } from "react-leaflet";
 import type { PlacesData, RouteSegment } from "@/types/trip";
 
+/** RainViewer free tier + LibreWXR radar tiles support up to zoom 7. */
+export const RADAR_MAX_ZOOM = 7;
+
 function boundsSpan(points: [number, number][]) {
   const lats = points.map(([lat]) => lat);
   const lngs = points.map(([, lng]) => lng);
@@ -11,30 +14,63 @@ function boundsSpan(points: [number, number][]) {
   };
 }
 
-function maxZoomForDay(points: [number, number][]) {
-  if (points.length <= 1) return 9;
-  const { latSpan, lngSpan } = boundsSpan(points);
-  const span = Math.max(latSpan, lngSpan);
-  if (span < 0.4) return 10;
-  if (span < 1.2) return 8;
-  if (span < 4) return 7;
-  if (span < 10) return 6;
-  return 5;
+function maxZoomForDay(points: [number, number][], radarLimited: boolean) {
+  let zoom: number;
+  if (points.length <= 1) zoom = 9;
+  else {
+    const { latSpan, lngSpan } = boundsSpan(points);
+    const span = Math.max(latSpan, lngSpan);
+    if (span < 0.4) zoom = 9;
+    else if (span < 1.2) zoom = 8;
+    else if (span < 4) zoom = 7;
+    else if (span < 10) zoom = 6;
+    else zoom = 5;
+  }
+  return radarLimited ? Math.min(zoom, 6) : zoom;
 }
 
-/** Zoom map to the active day's route and stops. */
+/** Initial view — entire route visible after load/refresh. */
+export function FitRouteBounds({
+  segments,
+  enabled,
+}: {
+  segments: RouteSegment[];
+  enabled: boolean;
+}) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!enabled || !segments.length) return;
+    const all = segments.flatMap((s) => s.geometry.map(([lng, lat]) => [lat, lng] as [number, number]));
+    if (!all.length) return;
+
+    map.fitBounds(all, {
+      padding: [24, 24],
+      maxZoom: 6,
+      animate: false,
+    });
+  }, [map, segments, enabled]);
+
+  return null;
+}
+
+/** Zoom map to the active day's route and stops (after user picks a day). */
 export function FitDayBounds({
   segments,
   daySegments,
   day,
   places,
   selectedPlaceId,
+  enabled,
+  radarLimited,
 }: {
   segments: RouteSegment[];
   daySegments: Record<string, string[]>;
   day: number;
   places: PlacesData["places"];
   selectedPlaceId: string;
+  enabled: boolean;
+  radarLimited: boolean;
 }) {
   const map = useMap();
   const activeSegmentIds = useMemo(
@@ -43,6 +79,8 @@ export function FitDayBounds({
   );
 
   useEffect(() => {
+    if (!enabled) return;
+
     const points: [number, number][] = [];
 
     for (const seg of segments) {
@@ -65,7 +103,7 @@ export function FitDayBounds({
 
     if (!points.length) return;
 
-    const maxZoom = maxZoomForDay(points);
+    const maxZoom = maxZoomForDay(points, radarLimited);
 
     if (points.length === 1) {
       map.setView(points[0], maxZoom, { animate: true });
@@ -73,11 +111,11 @@ export function FitDayBounds({
     }
 
     map.fitBounds(points, {
-      padding: [36, 36],
+      padding: [40, 40],
       maxZoom,
       animate: true,
     });
-  }, [map, segments, activeSegmentIds, places, selectedPlaceId, day]);
+  }, [map, segments, activeSegmentIds, places, selectedPlaceId, day, enabled, radarLimited]);
 
   return null;
 }
@@ -86,8 +124,12 @@ export function FitDayBounds({
  * Touchpad two-finger scroll passes through to the page.
  * Pinch (ctrl+wheel) zooms the map while the pointer is over it.
  */
-export function MapScrollBehavior() {
+export function MapScrollBehavior({ radarLimited }: { radarLimited: boolean }) {
   const map = useMap();
+
+  useEffect(() => {
+    map.setMaxZoom(radarLimited ? RADAR_MAX_ZOOM : 18);
+  }, [map, radarLimited]);
 
   useEffect(() => {
     map.scrollWheelZoom.disable();

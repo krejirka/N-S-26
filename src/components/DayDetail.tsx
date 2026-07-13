@@ -9,8 +9,8 @@ interface DayDetailProps {
 
 export default function DayDetail({ day, placeCoords }: DayDetailProps) {
   return (
-    <section className="flex h-full flex-col overflow-hidden bg-background">
-      <div className="flex-1 overflow-y-auto p-4 md:p-6">
+    <section className="flex h-full min-h-0 flex-col overflow-hidden bg-background">
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain p-4 md:p-5">
         {day.logistics && (
           <div className="mb-4 rounded-xl border border-border bg-card p-4">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Logistika</h3>

@@ -5,7 +5,7 @@ import type { RadarFrame } from "@/lib/rainviewer";
 import { makeFlagIcon } from "@/lib/flagMarker";
 import RadarPrecipitationLayer from "./RadarPrecipitationLayer";
 import PlacePopup from "./PlacePopup";
-import { FitDayBounds, MapScrollBehavior } from "./MapControls";
+import { FitDayBounds, FitRouteBounds, MapScrollBehavior, RADAR_MAX_ZOOM } from "./MapControls";
 import "leaflet/dist/leaflet.css";
 
 interface TripMapProps {
@@ -16,6 +16,7 @@ interface TripMapProps {
   selectedPlaceId: string;
   showRadar: boolean;
   currentFrame: RadarFrame | null;
+  zoomToDay: boolean;
 }
 
 const outboundColor = "#c2410c";
@@ -32,6 +33,7 @@ export default function TripMap({
   selectedPlaceId,
   showRadar,
   currentFrame,
+  zoomToDay,
 }: TripMapProps) {
   const activeSegmentIds = useMemo(
     () => new Set(daySegments[String(day.day)] || []),
@@ -50,17 +52,18 @@ export default function TripMap({
   }, [segments, activeSegmentIds, selectedPlaceId]);
 
   const center: [number, number] = useMemo(() => {
-    const p = places[selectedPlaceId];
-    if (p) return [p.lat, p.lng];
     const hk = places.hradec_kralove;
     return hk ? [hk.lat, hk.lng] : [55, 12];
-  }, [places, selectedPlaceId]);
+  }, [places]);
+
+  const radarLimited = showRadar;
 
   return (
-    <div className="relative h-full min-h-[280px] w-full">
+    <div className="relative h-full w-full min-h-0">
       <MapContainer
         center={center}
         zoom={5}
+        maxZoom={radarLimited ? RADAR_MAX_ZOOM : 18}
         className="h-full w-full"
         scrollWheelZoom={false}
         touchZoom
@@ -73,13 +76,16 @@ export default function TripMap({
         {showRadar && currentFrame && (
           <RadarPrecipitationLayer tileUrl={currentFrame.tileUrl} opacity={0.5} />
         )}
-        <MapScrollBehavior />
+        <MapScrollBehavior radarLimited={radarLimited} />
+        <FitRouteBounds segments={segments} enabled={!zoomToDay} />
         <FitDayBounds
           segments={segments}
           daySegments={daySegments}
           day={day.day}
           places={places}
           selectedPlaceId={selectedPlaceId}
+          enabled={zoomToDay}
+          radarLimited={radarLimited}
         />
         {segments.map((seg) => {
           const active = activeSegmentIds.has(seg.id);

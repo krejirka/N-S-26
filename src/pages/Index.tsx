@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Header from "@/components/Header";
 import DayList from "@/components/DayList";
 import DayDetail from "@/components/DayDetail";
@@ -15,8 +15,14 @@ const places = placesData as PlacesData;
 
 export default function Index() {
   const [selectedDay, setSelectedDay] = useState(1);
+  const [zoomToDay, setZoomToDay] = useState(false);
   const [showRadar, setShowRadar] = useState(true);
   const radar = useRadarAnimation(showRadar);
+
+  const selectDay = useCallback((day: number) => {
+    setSelectedDay(day);
+    setZoomToDay(true);
+  }, []);
 
   const currentDay = useMemo(
     () => itinerary.days.find((d) => d.day === selectedDay) ?? itinerary.days[0],
@@ -35,9 +41,9 @@ export default function Index() {
           day={currentDay}
           hasPrevDay={dayIndex > 0}
           hasNextDay={dayIndex < itinerary.days.length - 1}
-          onPrevDay={() => dayIndex > 0 && setSelectedDay(itinerary.days[dayIndex - 1].day)}
+          onPrevDay={() => dayIndex > 0 && selectDay(itinerary.days[dayIndex - 1].day)}
           onNextDay={() =>
-            dayIndex < itinerary.days.length - 1 && setSelectedDay(itinerary.days[dayIndex + 1].day)
+            dayIndex < itinerary.days.length - 1 && selectDay(itinerary.days[dayIndex + 1].day)
           }
           frames={radar.frames}
           currentIndex={radar.currentIndex}
@@ -53,34 +59,29 @@ export default function Index() {
         />
       </div>
 
-      <div className="flex-1 overflow-y-auto">
-        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 lg:grid-cols-[260px_1.35fr_360px]">
-          <div>
-            <DayList days={itinerary.days} selectedDay={selectedDay} onSelect={setSelectedDay} />
+      <div className="min-h-0 flex-1 overflow-hidden">
+        <div className="mx-auto grid h-full w-full max-w-[1920px] grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)_380px]">
+          <div className="hidden h-full min-h-0 overflow-hidden lg:block">
+            <DayList days={itinerary.days} selectedDay={selectedDay} onSelect={selectDay} />
           </div>
 
-          <div className="flex min-h-[360px] flex-col border-b border-border lg:min-h-[480px] lg:border-b-0 lg:border-r">
-            <div className="relative min-h-[360px] flex-1 lg:min-h-[480px]">
-              <TripMap
-                segments={routes.segments}
-                places={places.places}
-                daySegments={places.daySegments}
-                day={currentDay}
-                selectedPlaceId={currentDay.placeId}
-                showRadar={showRadar}
-                currentFrame={radar.currentFrame}
-              />
-            </div>
+          <div className="h-full min-h-0 border-b border-border lg:border-b-0 lg:border-r">
+            <TripMap
+              segments={routes.segments}
+              places={places.places}
+              daySegments={places.daySegments}
+              day={currentDay}
+              selectedPlaceId={currentDay.placeId}
+              showRadar={showRadar}
+              currentFrame={radar.currentFrame}
+              zoomToDay={zoomToDay}
+            />
           </div>
 
-          <div className="min-h-[400px]">
+          <div className="hidden h-full min-h-0 overflow-hidden lg:block">
             <DayDetail day={currentDay} placeCoords={placeCoords} />
           </div>
         </div>
-
-        <footer className="border-t border-border bg-card px-4 py-3 text-center text-xs text-muted-foreground">
-          {itinerary.meta.title} · {itinerary.meta.highlights.join(" · ")}
-        </footer>
       </div>
     </div>
   );

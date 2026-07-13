@@ -15,11 +15,11 @@ function formatDate(date: string) {
 
 export default function DayList({ days, selectedDay, onSelect }: DayListProps) {
   return (
-    <aside className="flex h-full flex-col border-r border-border bg-card">
-      <div className="border-b border-border px-4 py-3">
+    <aside className="flex h-full min-h-0 flex-col overflow-hidden border-r border-border bg-card">
+      <div className="shrink-0 border-b border-border px-4 py-3">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Itinerář</h2>
       </div>
-      <div className="flex-1 overflow-y-auto p-2">
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain p-2">
         {days.map((d) => {
           const active = d.day === selectedDay;
           return (

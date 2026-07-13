@@ -12,7 +12,9 @@ export default function RadarPrecipitationLayer({ tileUrl, opacity = 0.5 }: Rada
       url={tileUrl}
       opacity={opacity}
       zIndex={250}
-      attribution='Radar <a href="https://www.rainviewer.com/">RainViewer</a>'
+      maxZoom={7}
+      maxNativeZoom={7}
+      attribution='Radar <a href="https://www.rainviewer.com/">RainViewer</a> · predikce <a href="https://librewxr.net/">LibreWXR</a>'
     />
   );
 }
