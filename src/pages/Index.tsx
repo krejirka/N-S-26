@@ -55,17 +55,7 @@ export default function Index() {
   return (
     <div className="flex h-[100dvh] flex-col overflow-hidden">
       <div className="shrink-0 border-b border-border bg-card shadow-sm">
-        <Header
-          itinerary={itinerary}
-          routes={routes}
-          day={currentDay}
-          hasPrevDay={dayIndex > 0}
-          hasNextDay={dayIndex < itinerary.days.length - 1}
-          onPrevDay={() => dayIndex > 0 && selectDay(itinerary.days[dayIndex - 1].day)}
-          onNextDay={() =>
-            dayIndex < itinerary.days.length - 1 && selectDay(itinerary.days[dayIndex + 1].day)
-          }
-        />
+        <Header itinerary={itinerary} routes={routes} />
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -94,6 +84,12 @@ export default function Index() {
               onPlayHistory={radar.playHistory}
               onPlayForecast={radar.playForecast}
               onToggleRadar={handleToggleRadar}
+              hasPrevDay={dayIndex > 0}
+              hasNextDay={dayIndex < itinerary.days.length - 1}
+              onPrevDay={() => dayIndex > 0 && selectDay(itinerary.days[dayIndex - 1].day)}
+              onNextDay={() =>
+                dayIndex < itinerary.days.length - 1 && selectDay(itinerary.days[dayIndex + 1].day)
+              }
             />
           </div>
 
