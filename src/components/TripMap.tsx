@@ -37,7 +37,7 @@ export default function TripMap({
   selectedDay,
   selectedPlaceId,
 }: TripMapProps) {
-  const [showRadar, setShowRadar] = useState(false);
+  const [showRadar, setShowRadar] = useState(true);
 
   const activeSegmentIds = useMemo(
     () => new Set(daySegments[String(selectedDay)] || []),
