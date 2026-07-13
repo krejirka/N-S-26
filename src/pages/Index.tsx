@@ -53,7 +53,7 @@ export default function Index() {
   const placeCoords = places.places[currentDay.placeId] ?? null;
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="flex h-[100dvh] flex-col overflow-hidden">
       <div className="shrink-0 border-b border-border bg-card shadow-sm">
         <Header
           itinerary={itinerary}
@@ -68,13 +68,13 @@ export default function Index() {
         />
       </div>
 
-      <div className="min-h-0 flex-1 overflow-hidden">
-        <div className="mx-auto grid h-full w-full max-w-[1920px] grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)_380px]">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+        <div className="mx-auto grid h-full min-h-0 w-full max-w-[1920px] flex-1 grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)_380px]">
           <div className="hidden h-full min-h-0 overflow-hidden lg:block">
             <DayList days={itinerary.days} selectedDay={selectedDay} onSelect={selectDay} />
           </div>
 
-          <div className="h-full min-h-0 border-b border-border lg:border-b-0 lg:border-r">
+          <div className="h-full min-h-0 overflow-hidden border-b border-border lg:border-b-0 lg:border-r">
             <TripMap
               segments={routes.segments}
               places={places.places}
