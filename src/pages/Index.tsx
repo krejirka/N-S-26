@@ -33,7 +33,7 @@ export default function Index() {
         <div className="flex min-h-[320px] flex-col border-b border-border lg:min-h-[calc(100vh-120px)] lg:border-b-0 lg:border-r">
           <div className="border-b border-border bg-card px-4 py-2">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Mapa trasy</h2>
-            <p className="text-xs text-muted-foreground">Silnice dle OSRM · trajekty přerušovaně</p>
+            <p className="text-xs text-muted-foreground">Silnice dle OSRM · počasí yr.no</p>
           </div>
           <div className="min-h-[280px] flex-1">
             <TripMap

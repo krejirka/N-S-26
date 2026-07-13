@@ -7,21 +7,21 @@ const root = path.join(__dirname, "..");
 const outDir = path.join(root, "src", "data");
 
 const PLACES = {
-  hradec_kralove: { name: "Hradec Králové", lat: 50.2092, lng: 15.8328, country: "Česko" },
-  rostock_ferry: { name: "Rostock (trajekt)", lat: 54.1445881, lng: 12.0976681, country: "Německo" },
-  trelleborg_ferry: { name: "Trelleborg (trajekt)", lat: 55.3699862, lng: 13.1503256, country: "Švédsko" },
-  oslo: { name: "Oslo", lat: 59.9139, lng: 10.7522, country: "Norsko" },
-  lillehammer: { name: "Lillehammer", lat: 61.1153, lng: 10.4662, country: "Norsko" },
-  rondane: { name: "NP Rondane", lat: 62.0764, lng: 9.5828, country: "Norsko" },
-  sundalsora: { name: "Sundalsora", lat: 62.2436, lng: 8.6136, country: "Norsko" },
-  trondheim: { name: "Trondheim", lat: 63.4305, lng: 10.3951, country: "Norsko" },
-  laksforsen: { name: "Laksforsen", lat: 65.6641, lng: 13.2694, country: "Norsko" },
-  furoy: { name: "Furøy", lat: 66.5342, lng: 13.2844, country: "Norsko" },
-  junkerdal: { name: "Junkerdal", lat: 66.112, lng: 14.063, country: "Norsko" },
-  myrkulla: { name: "Myrkulla (Arvidsjaur)", lat: 65.9397278, lng: 18.8357806, country: "Švédsko" },
-  axmarbruk: { name: "Axmarbruk", lat: 61.3014, lng: 17.0167, country: "Švédsko" },
-  vimmerby: { name: "Vimmerby", lat: 57.6659, lng: 15.8557, country: "Švédsko" },
-  ales_stenar: { name: "Ales Stenar", lat: 55.3869, lng: 14.0534, country: "Švédsko" },
+  hradec_kralove: { name: "Hradec Králové", lat: 50.2092, lng: 15.8328, country: "Česko", dayLabel: "1·18" },
+  rostock_ferry: { name: "Rostock (trajekt)", lat: 54.1445881, lng: 12.0976681, country: "Německo", dayLabel: "1·17" },
+  trelleborg_ferry: { name: "Trelleborg (trajekt)", lat: 55.3699862, lng: 13.1503256, country: "Švédsko", dayLabel: "1·17" },
+  oslo: { name: "Oslo", lat: 59.9139, lng: 10.7522, country: "Norsko", dayLabel: "2" },
+  lillehammer: { name: "Lillehammer", lat: 61.1153, lng: 10.4662, country: "Norsko", dayLabel: "3" },
+  rondane: { name: "NP Rondane", lat: 62.0764, lng: 9.5828, country: "Norsko", dayLabel: "4" },
+  sundalsora: { name: "Sundalsora", lat: 62.2436, lng: 8.6136, country: "Norsko", dayLabel: "5" },
+  trondheim: { name: "Trondheim", lat: 63.4305, lng: 10.3951, country: "Norsko", dayLabel: "6" },
+  laksforsen: { name: "Laksforsen", lat: 65.6641, lng: 13.2694, country: "Norsko", dayLabel: "7" },
+  furoy: { name: "Furøy", lat: 66.5342, lng: 13.2844, country: "Norsko", dayLabel: "8–9" },
+  junkerdal: { name: "Junkerdal", lat: 66.112, lng: 14.063, country: "Norsko", dayLabel: "10" },
+  myrkulla: { name: "Myrkulla (Arvidsjaur)", lat: 65.9397278, lng: 18.8357806, country: "Švédsko", dayLabel: "11–14" },
+  axmarbruk: { name: "Axmarbruk", lat: 61.3014, lng: 17.0167, country: "Švédsko", dayLabel: "15" },
+  vimmerby: { name: "Vimmerby", lat: 57.6659, lng: 15.8557, country: "Švédsko", dayLabel: "16" },
+  ales_stenar: { name: "Ales Stenar", lat: 55.3869, lng: 14.0534, country: "Švédsko", dayLabel: "17" },
 };
 
 const SEGMENTS = [

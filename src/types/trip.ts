@@ -50,6 +50,7 @@ export interface Place {
   lat: number;
   lng: number;
   country: string;
+  dayLabel?: string;
 }
 
 export interface RouteSegment {
