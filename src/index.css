@@ -56,6 +56,12 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 1px;
+  transform-origin: bottom center;
+  transition: transform 0.2s ease;
+}
+
+.trip-flag-marker.is-active {
+  transform: scale(1.33);
 }
 
 .trip-flag-marker .flag-img {
