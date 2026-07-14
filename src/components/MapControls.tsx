@@ -67,10 +67,15 @@ export function FitRouteBounds({
       // with setView(bounds.getCenter()) (arithmetic center sits too far
       // south in Mercator and clips the north end of the route).
       map.fitBounds(bounds, {
-        padding: [48, 48],
+        padding: [12, 12],
         maxZoom: radarLimited ? RADAR_MAX_ZOOM : 18,
         animate: false,
       });
+      // Never open zoomed-out to all of Europe: hold zoom 5 (route fills
+      // the frame); keep the pixel-space center fitBounds just computed.
+      if (map.getZoom() < 5) {
+        map.setZoom(5, { animate: false });
+      }
       if (radarLimited) {
         // Generous pad so maxBounds never shifts the freshly fitted view.
         map.setMaxBounds(bounds.pad(0.5));
