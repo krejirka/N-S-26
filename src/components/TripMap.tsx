@@ -82,7 +82,7 @@ export default function TripMap({
 
   return (
     <div className="relative h-full w-full min-h-0">
-      <div className="pointer-events-none absolute left-2 top-2 z-[1000]">
+      <div className="pointer-events-none absolute left-14 top-2 z-[1000]">
         <div className="pointer-events-auto">
           <RadarTimeline
             frames={frames}
