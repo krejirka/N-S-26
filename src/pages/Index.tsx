@@ -21,7 +21,11 @@ const MOBILE_TABS: { id: MobileView; label: string }[] = [
   { id: "detail", label: "Detail dne" },
 ];
 
-export default function Index() {
+interface IndexProps {
+  showDates: boolean;
+}
+
+export default function Index({ showDates }: IndexProps) {
   const [selectedDay, setSelectedDay] = useState(1);
   const [zoomToDay, setZoomToDay] = useState(false);
   const [showRadar, setShowRadar] = useState(true);
@@ -76,6 +80,7 @@ export default function Index() {
           itinerary={itinerary}
           routes={routes}
           day={currentDay}
+          showDates={showDates}
           hasPrevDay={dayIndex > 0}
           hasNextDay={dayIndex < itinerary.days.length - 1}
           onPrevDay={() => dayIndex > 0 && selectDay(itinerary.days[dayIndex - 1].day)}
@@ -111,7 +116,12 @@ export default function Index() {
               mobileView === "list" ? "block" : "hidden"
             } h-full min-h-0 overflow-hidden lg:block`}
           >
-            <DayList days={itinerary.days} selectedDay={selectedDay} onSelect={selectDayFromList} />
+            <DayList
+              days={itinerary.days}
+              selectedDay={selectedDay}
+              onSelect={selectDayFromList}
+              showDates={showDates}
+            />
           </div>
 
           <div

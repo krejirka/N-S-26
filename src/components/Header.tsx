@@ -5,6 +5,7 @@ interface HeaderProps {
   itinerary: Itinerary;
   routes: RoutesData;
   day: TripDay;
+  showDates: boolean;
   hasPrevDay: boolean;
   hasNextDay: boolean;
   onPrevDay: () => void;
@@ -15,6 +16,7 @@ export default function Header({
   itinerary,
   routes,
   day,
+  showDates,
   hasPrevDay,
   hasNextDay,
   onPrevDay,
@@ -38,6 +40,7 @@ export default function Header({
 
         <DayNav
           day={day}
+          showDates={showDates}
           hasPrev={hasPrevDay}
           hasNext={hasNextDay}
           onPrev={onPrevDay}

@@ -5,6 +5,7 @@ interface DayListProps {
   days: TripDay[];
   selectedDay: number;
   onSelect: (day: number) => void;
+  showDates: boolean;
 }
 
 function formatDate(date: string) {
@@ -14,7 +15,7 @@ function formatDate(date: string) {
   });
 }
 
-export default function DayList({ days, selectedDay, onSelect }: DayListProps) {
+export default function DayList({ days, selectedDay, onSelect, showDates }: DayListProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -51,7 +52,7 @@ export default function DayList({ days, selectedDay, onSelect }: DayListProps) {
               </span>
               <span className="min-w-0">
                 <span className="block text-xs opacity-80">
-                  {formatDate(d.date)} · {d.weekday}
+                  {showDates ? `${formatDate(d.date)} · ${d.weekday}` : d.weekday}
                 </span>
                 <span className="block truncate font-medium">{d.destination}</span>
                 {d.km != null && (

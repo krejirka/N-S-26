@@ -178,7 +178,15 @@ export function parseFiveDayForecast(data: MetForecastResponse): DayForecast[] {
     }
   }
 
-  const sorted = [...byDate.entries()].sort(([a], [b]) => a.localeCompare(b));
+  // Timeseries begins with trailing hours of the previous UTC day; start from today (local).
+  const now = new Date();
+  const todayLocal = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(
+    now.getDate()
+  ).padStart(2, "0")}`;
+
+  const sorted = [...byDate.entries()]
+    .filter(([date]) => date >= todayLocal)
+    .sort(([a], [b]) => a.localeCompare(b));
   return sorted.slice(0, FORECAST_DAYS).map(([date, bucket]) => {
     const allTemps = [...bucket.dayTemps, ...bucket.nightTemps];
     const dayTemps = bucket.dayTemps.length ? bucket.dayTemps : allTemps;

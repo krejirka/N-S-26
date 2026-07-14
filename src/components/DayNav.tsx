@@ -3,6 +3,7 @@ import type { TripDay } from "@/types/trip";
 
 interface DayNavProps {
   day: TripDay;
+  showDates: boolean;
   hasPrev: boolean;
   hasNext: boolean;
   onPrev: () => void;
@@ -25,13 +26,15 @@ function LodgingIcon({ lodging }: { lodging: string }) {
   return <Home className="h-3.5 w-3.5 shrink-0" />;
 }
 
-export default function DayNav({ day, hasPrev, hasNext, onPrev, onNext }: DayNavProps) {
+export default function DayNav({ day, showDates, hasPrev, hasNext, onPrev, onNext }: DayNavProps) {
   return (
     <div className="flex w-full min-w-0 flex-1 items-start gap-3 lg:gap-4">
       <div className="min-w-0 flex-1 px-2 text-center sm:px-4">
         <p className="text-sm font-bold uppercase tracking-wide text-foreground sm:text-base lg:text-lg">
           Den {day.day}{" "}
-          <span className="font-semibold normal-case">({formatDayLabel(day.date)})</span>
+          <span className="font-semibold normal-case">
+            {showDates ? `(${formatDayLabel(day.date)})` : `– ${day.weekday}`}
+          </span>
         </p>
         <h3 className="truncate text-base font-bold leading-tight text-foreground lg:text-lg xl:text-xl">
           {day.destination}
