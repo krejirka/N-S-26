@@ -54,16 +54,7 @@ export function FitRouteBounds({
   const bounds = useMemo(() => {
     const pts = Object.values(places).map((p) => [p.lat, p.lng] as [number, number]);
     if (!pts.length) return null;
-    const raw = latLngBounds(pts);
-    const latSpan = raw.getNorth() - raw.getSouth();
-    const lngSpan = raw.getEast() - raw.getWest();
-    const latPad = latSpan * 0.14;
-    const lngPad = lngSpan * 0.14;
-    const southPad = latSpan * 0.22;
-    return latLngBounds(
-      [raw.getSouth() - southPad, raw.getWest() - lngPad],
-      [raw.getNorth() + latPad, raw.getEast() + lngPad]
-    );
+    return latLngBounds(pts);
   }, [places]);
 
   useEffect(() => {
@@ -71,32 +62,31 @@ export function FitRouteBounds({
 
     const fit = () => {
       map.invalidateSize({ animate: false });
+      // fitBounds centers in projected (pixel) space, which is the only
+      // correct way for a route spanning 50°N–67°N — never override it
+      // with setView(bounds.getCenter()) (arithmetic center sits too far
+      // south in Mercator and clips the north end of the route).
       map.fitBounds(bounds, {
-        paddingTopLeft: [48, 48],
-        paddingBottomRight: [48, 96],
-        maxZoom: 5,
+        padding: [48, 48],
+        maxZoom: radarLimited ? RADAR_MAX_ZOOM : 18,
         animate: false,
       });
-      if (map.getZoom() < 4) {
-        map.setView(bounds.getCenter(), 4, { animate: false });
-      }
       if (radarLimited) {
-        map.setMaxBounds(bounds.pad(0.15));
+        // Generous pad so maxBounds never shifts the freshly fitted view.
+        map.setMaxBounds(bounds.pad(0.5));
       } else {
         clearMaxBounds(map);
       }
     };
 
     fit();
-    const retry1 = window.setTimeout(fit, 150);
-    const retry2 = window.setTimeout(fit, 500);
+    const retry = window.setTimeout(fit, 200);
     const container = map.getContainer();
     const resizeObserver = new ResizeObserver(() => fit());
     resizeObserver.observe(container);
 
     return () => {
-      window.clearTimeout(retry1);
-      window.clearTimeout(retry2);
+      window.clearTimeout(retry);
       resizeObserver.disconnect();
     };
   }, [map, bounds, enabled, radarLimited]);
@@ -181,11 +171,9 @@ export function MapScrollBehavior({ radarLimited }: { radarLimited: boolean }) {
 
   useEffect(() => {
     map.setMaxZoom(radarLimited ? RADAR_MAX_ZOOM : 18);
-    if (!radarLimited) {
-      map.setMinZoom(4);
-    } else {
-      map.setMinZoom(5);
-    }
+    // Keep minZoom low enough that the full route always fits;
+    // a higher minZoom would make fitBounds clip the route edges.
+    map.setMinZoom(4);
   }, [map, radarLimited]);
 
   // Recalculate tiles when the map container is revealed or resized

@@ -103,7 +103,7 @@ export default function TripMap({
       <MapContainer
         center={center}
         zoom={5}
-        minZoom={radarLimited ? 5 : 4}
+        minZoom={4}
         maxZoom={radarLimited ? RADAR_MAX_ZOOM : 18}
         className="h-full w-full"
         scrollWheelZoom={false}
