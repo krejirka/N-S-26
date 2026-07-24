@@ -119,10 +119,10 @@
       "country": "Švédsko",
       "dayLabel": "11–14"
     },
-    "axmarbruk": {
-      "name": "Axmarbruk",
-      "lat": 61.3014,
-      "lng": 17.0167,
+    "valkalampi": {
+      "name": "Valkalampi (Jädraås)",
+      "lat": 60.8447,
+      "lng": 16.4371,
       "country": "Švédsko",
       "dayLabel": "15"
     },
@@ -182,10 +182,10 @@
     "13": [],
     "14": [],
     "15": [
-      "myrkulla_axmarbruk"
+      "myrkulla_valkalampi"
     ],
     "16": [
-      "axmarbruk_vimmerby"
+      "valkalampi_vimmerby"
     ],
     "17": [
       "vimmerby_ales_stenar",

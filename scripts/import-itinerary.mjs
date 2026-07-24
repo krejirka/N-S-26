@@ -149,7 +149,7 @@ const PLACE_ENRICHMENT = {
     ],
   },
   Axmarbruk: {
-    placeId: "axmarbruk",
+    placeId: "valkalampi",
     places: [
       {
         name: "Skuleskogen",
@@ -158,6 +158,33 @@ const PLACE_ENRICHMENT = {
           { label: "Národní park", url: "https://www.nationalpark.se/skuleskogen/" },
         ],
         image: commonsImage(COMMONS_FILES.skuleskogen, "Slåttdalsskrevan ve Skuleskogen"),
+      },
+      {
+        name: "Valkalampi (Jädraås)",
+        links: [
+          { label: "Jädraås FVF – Valkalampi", url: "http://www.jfvf.se/adelfiskevatten/valkalampi/" },
+          { label: "Fiskekort (iFiske)", url: "https://www.ifiske.se/en/fishing-permit-jadraas-fvf.htm" },
+        ],
+      },
+    ],
+  },
+  "Valkalampi (Jädraås)": {
+    placeId: "valkalampi",
+    places: [
+      {
+        name: "Skuleskogen",
+        links: [
+          { label: "Wikipedia", url: "https://cs.wikipedia.org/wiki/Skuleskogen" },
+          { label: "Národní park", url: "https://www.nationalpark.se/skuleskogen/" },
+        ],
+        image: commonsImage(COMMONS_FILES.skuleskogen, "Slåttdalsskrevan ve Skuleskogen"),
+      },
+      {
+        name: "Valkalampi (Jädraås)",
+        links: [
+          { label: "Jädraås FVF – Valkalampi", url: "http://www.jfvf.se/adelfiskevatten/valkalampi/" },
+          { label: "Fiskekort (iFiske)", url: "https://www.ifiske.se/en/fishing-permit-jadraas-fvf.htm" },
+        ],
       },
     ],
   },

@@ -710,12 +710,12 @@
       "day": 15,
       "date": "2026-08-08",
       "weekday": "sobota",
-      "destination": "Axmarbruk",
-      "km": 531,
+      "destination": "Valkalampi (Jädraås)",
+      "km": 753,
       "lodging": "stan",
-      "logistics": "",
-      "program": "Přejezd na jih k pobřeží Höga Kusten. Zastávka v národním parku Skuleskogen — pískovcová štěrbina Slåttdalsskrevan a vyhlídky nad Baltským mořem.",
-      "placeId": "axmarbruk",
+      "logistics": "816 91 Jädraås · catch and take pstruzi",
+      "program": "Přejezd na jih k pobřeží Höga Kusten. Zastávka v národním parku Skuleskogen — pískovcová štěrbina Slåttdalsskrevan a vyhlídky nad Baltským mořem. Nocleh u jezera Valkalampi u Jädraås — put and take / catch and take pstruhů (duhový, siven).",
+      "placeId": "valkalampi",
       "phase": "zpět",
       "segmentIds": [],
       "places": [
@@ -742,6 +742,26 @@
             "Skuleberget — hora s výhledem na souostroví",
             "Túra Näskezaken — les, skály a moře"
           ]
+        },
+        {
+          "name": "Valkalampi (Jädraås)",
+          "links": [
+            {
+              "label": "Jädraås FVF – Valkalampi",
+              "url": "http://www.jfvf.se/adelfiskevatten/valkalampi/"
+            },
+            {
+              "label": "Fiskekort (iFiske)",
+              "url": "https://www.ifiske.se/en/fishing-permit-jadraas-fvf.htm"
+            }
+          ],
+          "tips": [
+            "Catch and take / put and take — pstruh duhový a siven (röding)",
+            "Povolenka (fiskekort) u automatu na místě nebo přes iFiske — max 3 ryby / karta",
+            "6 větrných přístřešků (vindskydd), místo pro karavan a stan",
+            "Písčitá pláž — v koupací zóně zákaz rybaření",
+            "Adresa: 816 91 Jädraås"
+          ]
         }
       ]
     },
@@ -750,7 +770,7 @@
       "date": "2026-08-09",
       "weekday": "neděle",
       "destination": "Vimmerby",
-      "km": 512,
+      "km": 452,
       "lodging": "stan",
       "logistics": "",
       "program": "Návštěva Astrid Lindgrens Värld ve Vimmerby — zábavní park s Villou Villekulou a kulisami z filmů. Doba návštěvy minimálně 3–4 hodiny.",

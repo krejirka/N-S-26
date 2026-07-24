@@ -240,13 +240,22 @@ export const DAY_CONTENT = {
     },
   },
   15: {
+    destination: "Valkalampi (Jädraås)",
+    logistics: "816 91 Jädraås · catch and take pstruzi",
     program:
-      "Přejezd na jih k pobřeží Höga Kusten. Zastávka v národním parku Skuleskogen — pískovcová štěrbina Slåttdalsskrevan a vyhlídky nad Baltským mořem.",
+      "Přejezd na jih k pobřeží Höga Kusten. Zastávka v národním parku Skuleskogen — pískovcová štěrbina Slåttdalsskrevan a vyhlídky nad Baltským mořem. Nocleh u jezera Valkalampi u Jädraås — put and take / catch and take pstruhů (duhový, siven).",
     placeTips: {
       Skuleskogen: [
         "Slåttdalsskrevan — 200 m hluboká pískovcová rokle",
         "Skuleberget — hora s výhledem na souostroví",
         "Túra Näskezaken — les, skály a moře",
+      ],
+      "Valkalampi (Jädraås)": [
+        "Catch and take / put and take — pstruh duhový a siven (röding)",
+        "Povolenka (fiskekort) u automatu na místě nebo přes iFiske — max 3 ryby / karta",
+        "6 větrných přístřešků (vindskydd), místo pro karavan a stan",
+        "Písčitá pláž — v koupací zóně zákaz rybaření",
+        "Adresa: 816 91 Jädraås",
       ],
     },
   },
