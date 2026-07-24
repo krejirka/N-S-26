@@ -35,14 +35,25 @@ const MOBILE_TABS: { id: MobileView; label: string }[] = [
   { id: "detail", label: "Detail dne" },
 ];
 
-/** Pick itinerary day for "today" in Europe/Prague. */
-function dayForToday(days: Itinerary["days"]): number {
-  const today = new Intl.DateTimeFormat("en-CA", {
+/** Today's date as YYYY-MM-DD in Europe/Prague. */
+function pragueToday(): string {
+  return new Intl.DateTimeFormat("en-CA", {
     timeZone: "Europe/Prague",
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  }).format(new Date()); // YYYY-MM-DD
+  }).format(new Date());
+}
+
+/** True when today is before the first itinerary day. */
+function tripNotStartedYet(days: Itinerary["days"]): boolean {
+  if (!days.length) return true;
+  return pragueToday() < days[0].date;
+}
+
+/** Pick itinerary day for "today" in Europe/Prague. */
+function dayForToday(days: Itinerary["days"]): number {
+  const today = pragueToday();
 
   if (!days.length) return 1;
   if (today < days[0].date) return days[0].day;
@@ -57,8 +68,10 @@ interface IndexProps {
 
 export default function Index({ showDates }: IndexProps) {
   const initialDay = useMemo(() => dayForToday(itinerary.days), []);
+  const startWithFullCircuit = useMemo(() => tripNotStartedYet(itinerary.days), []);
   const [selectedDay, setSelectedDay] = useState(initialDay);
-  const [zoomToDay, setZoomToDay] = useState(true);
+  /** Before departure: full-circuit preview; once the trip runs, zoom to today's day. */
+  const [zoomToDay, setZoomToDay] = useState(!startWithFullCircuit);
   const [showRadar, setShowRadar] = useState(false);
   const [mobileView, setMobileView] = useState<MobileView>("map");
   const pendingRadarPlayRef = useRef(false);
@@ -174,7 +187,7 @@ export default function Index({ showDates }: IndexProps) {
               shops={shops}
               lodgings={lodgings}
               corridorPois={corridorPois}
-              trafficIncidents={dayIncidents.incidents}
+              trafficIncidents={zoomToDay ? dayIncidents.incidents : []}
               showRadar={showRadar}
               currentFrame={radar.currentFrame}
               zoomToDay={zoomToDay}

@@ -77,10 +77,11 @@ export default function TripMap({
   onPlayForecast,
   onToggleRadar,
 }: TripMapProps) {
-  const activeSegmentIds = useMemo(
-    () => new Set(daySegments[String(day.day)] || []),
-    [daySegments, day.day]
-  );
+  const activeSegmentIds = useMemo(() => {
+    // Full-circuit preview: treat every segment as active so the whole loop reads evenly
+    if (!zoomToDay) return new Set(segments.map((s) => s.id));
+    return new Set(daySegments[String(day.day)] || []);
+  }, [daySegments, day.day, segments, zoomToDay]);
 
   const lodgingPlaceIds = useMemo(
     () => new Set(lodgings.map((l) => l.placeId).filter(Boolean) as string[]),
@@ -88,6 +89,9 @@ export default function TripMap({
   );
 
   const activePlaceIds = useMemo(() => {
+    if (!zoomToDay) {
+      return new Set(Object.keys(places));
+    }
     const ids = new Set<string>([selectedPlaceId]);
     for (const seg of segments) {
       if (activeSegmentIds.has(seg.id)) {
@@ -96,7 +100,7 @@ export default function TripMap({
       }
     }
     return ids;
-  }, [segments, activeSegmentIds, selectedPlaceId]);
+  }, [segments, activeSegmentIds, selectedPlaceId, zoomToDay, places]);
 
   const center: [number, number] = useMemo(() => {
     const hk = places.hradec_kralove;
