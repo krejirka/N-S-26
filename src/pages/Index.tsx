@@ -4,6 +4,7 @@ import DayList from "@/components/DayList";
 import DayDetail from "@/components/DayDetail";
 import TripMap from "@/components/TripMap";
 import { useRadarAnimation } from "@/hooks/useRadarAnimation";
+import { useDayIncidents } from "@/hooks/useDayIncidents";
 import itineraryData from "@/data/itinerary.json";
 import routesData from "@/data/routes.json";
 import placesData from "@/data/places.json";
@@ -100,6 +101,8 @@ export default function Index({ showDates }: IndexProps) {
     [selectedDay]
   );
 
+  const dayIncidents = useDayIncidents(currentDay, routes.segments, places.daySegments);
+
   const dayIndex = itinerary.days.findIndex((d) => d.day === selectedDay);
   const placeCoords = places.places[currentDay.placeId] ?? null;
 
@@ -171,6 +174,7 @@ export default function Index({ showDates }: IndexProps) {
               shops={shops}
               lodgings={lodgings}
               corridorPois={corridorPois}
+              trafficIncidents={dayIncidents.incidents}
               showRadar={showRadar}
               currentFrame={radar.currentFrame}
               zoomToDay={zoomToDay}
@@ -198,6 +202,7 @@ export default function Index({ showDates }: IndexProps) {
               places={places.places}
               segments={routes.segments}
               daySegments={places.daySegments}
+              incidents={dayIncidents}
             />
           </div>
         </div>

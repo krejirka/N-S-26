@@ -17,6 +17,8 @@ import RadarTimeline from "./RadarTimeline";
 import PlacePopup from "./PlacePopup";
 import LodgingMarkers from "./LodgingMarkers";
 import CorridorPoiMarkers from "./CorridorPoiMarkers";
+import TrafficIncidentMarkers from "./TrafficIncidentMarkers";
+import type { TrafficIncident } from "@/hooks/useDayIncidents";
 import { FitDayBounds, FitRouteBounds, MapScrollBehavior, RADAR_MAX_ZOOM } from "./MapControls";
 import "leaflet/dist/leaflet.css";
 
@@ -29,6 +31,7 @@ interface TripMapProps {
   shops: ShopPoi[];
   lodgings: LodgingPoi[];
   corridorPois: CorridorPoi[];
+  trafficIncidents?: TrafficIncident[];
   showRadar: boolean;
   currentFrame: RadarFrame | null;
   zoomToDay: boolean;
@@ -59,6 +62,7 @@ export default function TripMap({
   shops,
   lodgings,
   corridorPois,
+  trafficIncidents = [],
   showRadar,
   currentFrame,
   zoomToDay,
@@ -193,6 +197,7 @@ export default function TripMap({
           corridorPois={corridorPois}
           shops={shops}
         />
+        <TrafficIncidentMarkers incidents={trafficIncidents} />
       </MapContainer>
     </div>
   );

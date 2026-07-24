@@ -3,6 +3,7 @@ import YrForecast from "./YrForecast";
 import { ExternalLink } from "lucide-react";
 import { navigationUrl } from "@/lib/navLink";
 import { useDayTraffic } from "@/hooks/useDayTraffic";
+import type { DayIncidentsSummary } from "@/hooks/useDayIncidents";
 import { formatDayKm } from "@/lib/dayDistance";
 import type { Place, PlacesData, RouteSegment, TripDay } from "@/types/trip";
 
@@ -12,6 +13,7 @@ interface DayDetailProps {
   places: PlacesData["places"];
   segments: RouteSegment[];
   daySegments: Record<string, string[]>;
+  incidents?: DayIncidentsSummary;
 }
 
 export default function DayDetail({
@@ -20,6 +22,7 @@ export default function DayDetail({
   places,
   segments,
   daySegments,
+  incidents,
 }: DayDetailProps) {
   const destNav =
     placeCoords != null ? navigationUrl(placeCoords.lat, placeCoords.lng, placeCoords.name || day.destination) : null;
@@ -48,6 +51,18 @@ export default function DayDetail({
                     <span className="ml-1 text-xs">· načítám provoz…</span>
                   ) : travel.delayLabel ? (
                     <span className="ml-1 text-xs">· {travel.delayLabel}</span>
+                  ) : null}
+                  {incidents?.loading ? (
+                    <span className="ml-1 text-xs">· stavby…</span>
+                  ) : incidents?.liveIncidents && incidents.roadworksCount > 0 ? (
+                    <span className="ml-1 text-xs font-medium text-amber-700 dark:text-amber-400">
+                      · {incidents.roadworksCount}× stavební práce na mapě
+                    </span>
+                  ) : incidents?.liveIncidents &&
+                    (incidents.closedCount > 0 || incidents.accidentCount > 0) ? (
+                    <span className="ml-1 text-xs">
+                      · {incidents.closedCount + incidents.accidentCount}× uzavírka/nehoda na mapě
+                    </span>
                   ) : null}
                 </>
               ) : (

@@ -1,10 +1,14 @@
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import {
+  fetchIncidentsAlongPath,
+  parsePathParam,
+} from "./server/tomtomIncidents.mjs";
 
 const MET_USER_AGENT = "n-s-26.ironknot.cz/1.0 github.com/krejirka/N-S-26";
 
-/** Local /api/traffic → TomTom (same contract as api/traffic.js on Vercel). */
+/** Local /api/traffic + /api/incidents → TomTom (same as Vercel api/). */
 function tomtomTrafficPlugin(apiKey: string | undefined): Plugin {
   const key = apiKey?.trim();
   return {
@@ -77,6 +81,51 @@ function tomtomTrafficPlugin(apiKey: string | undefined): Plugin {
           res.statusCode = 500;
           res.setHeader("Content-Type", "application/json");
           res.end(JSON.stringify({ error: String(err), liveTraffic: false }));
+        }
+      });
+
+      server.middlewares.use("/api/incidents", async (req, res, next) => {
+        if (req.method !== "GET") return next();
+        try {
+          if (!key) {
+            res.statusCode = 503;
+            res.setHeader("Content-Type", "application/json");
+            res.end(
+              JSON.stringify({
+                liveIncidents: false,
+                incidents: [],
+                error: "TOMTOM_API_KEY not configured",
+              })
+            );
+            return;
+          }
+          const url = new URL(req.url || "", "http://localhost");
+          const points = parsePathParam(url.searchParams.get("path") || "");
+          if (points.length < 2) {
+            res.statusCode = 400;
+            res.setHeader("Content-Type", "application/json");
+            res.end(
+              JSON.stringify({
+                error: "path required as lng,lat;lng,lat;...",
+                liveIncidents: false,
+                incidents: [],
+              })
+            );
+            return;
+          }
+          const result = await fetchIncidentsAlongPath(key, points, { language: "cs-CZ" });
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify(result));
+        } catch (err) {
+          res.statusCode = 500;
+          res.setHeader("Content-Type", "application/json");
+          res.end(
+            JSON.stringify({
+              error: String(err),
+              liveIncidents: false,
+              incidents: [],
+            })
+          );
         }
       });
     },
