@@ -109,6 +109,7 @@ export default function Index({ showDates }: IndexProps) {
         <Header
           itinerary={itinerary}
           routes={routes}
+          daySegments={places.daySegments}
           day={currentDay}
           showDates={showDates}
           hasPrevDay={dayIndex > 0}
@@ -151,6 +152,8 @@ export default function Index({ showDates }: IndexProps) {
               selectedDay={selectedDay}
               onSelect={selectDayFromList}
               showDates={showDates}
+              segments={routes.segments}
+              daySegments={places.daySegments}
             />
           </div>
 

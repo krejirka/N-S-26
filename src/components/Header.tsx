@@ -1,9 +1,11 @@
-import type { Itinerary, RoutesData, TripDay } from "@/types/trip";
+import type { Itinerary, PlacesData, RoutesData, TripDay } from "@/types/trip";
 import DayNav from "@/components/DayNav";
+import { dayRoadDistanceKm } from "@/lib/dayDistance";
 
 interface HeaderProps {
   itinerary: Itinerary;
   routes: RoutesData;
+  daySegments: PlacesData["daySegments"];
   day: TripDay;
   showDates: boolean;
   hasPrevDay: boolean;
@@ -15,6 +17,7 @@ interface HeaderProps {
 export default function Header({
   itinerary,
   routes,
+  daySegments,
   day,
   showDates,
   hasPrevDay,
@@ -23,6 +26,7 @@ export default function Header({
   onNextDay,
 }: HeaderProps) {
   const { meta } = itinerary;
+  const roadKm = dayRoadDistanceKm(day, routes.segments, daySegments);
 
   return (
     <header className="bg-card px-4 py-2 md:px-6 lg:px-8">
@@ -45,6 +49,7 @@ export default function Header({
           hasNext={hasNextDay}
           onPrev={onPrevDay}
           onNext={onNextDay}
+          roadKm={roadKm}
         />
       </div>
     </header>

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Place, RouteSegment, TripDay } from "@/types/trip";
 import { formatDurationHours, hoursAtMaxSpeed, MAX_SPEED_KMH } from "@/lib/corridorFilter";
+import { dayRoadDistanceKm } from "@/lib/dayDistance";
 
 export interface DayTravelSummary {
   distanceKm: number;
@@ -11,21 +12,6 @@ export interface DayTravelSummary {
   delayLabel: string | null;
   loading: boolean;
   error: string | null;
-}
-
-function dayDistanceKm(
-  day: TripDay,
-  segments: RouteSegment[],
-  daySegments: Record<string, string[]>
-): number {
-  const ids = daySegments[String(day.day)] || [];
-  if (!ids.length) return day.km ?? 0;
-  let sum = 0;
-  for (const id of ids) {
-    const seg = segments.find((s) => s.id === id);
-    if (seg && seg.kind === "road") sum += seg.distanceKm;
-  }
-  return Math.round(sum * 10) / 10 || day.km || 0;
 }
 
 function dayEndpoints(
@@ -54,10 +40,11 @@ export function useDayTraffic(
   segments: RouteSegment[],
   daySegments: Record<string, string[]>
 ): DayTravelSummary {
-  const distanceKm = useMemo(
-    () => dayDistanceKm(day, segments, daySegments),
-    [day, segments, daySegments]
-  );
+  const distanceKm = useMemo(() => dayRoadDistanceKm(day, segments, daySegments) ?? 0, [
+    day,
+    segments,
+    daySegments,
+  ]);
 
   const endpoints = useMemo(
     () => dayEndpoints(day, places, segments, daySegments),

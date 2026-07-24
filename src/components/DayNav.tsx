@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, Tent, Home, Ship } from "lucide-react";
 import type { TripDay } from "@/types/trip";
+import { formatDayKm } from "@/lib/dayDistance";
 
 interface DayNavProps {
   day: TripDay;
@@ -8,6 +9,8 @@ interface DayNavProps {
   hasNext: boolean;
   onPrev: () => void;
   onNext: () => void;
+  /** OSRM silniční km (má přednost před day.km) */
+  roadKm?: number | null;
 }
 
 function formatDayLabel(date: string) {
@@ -26,7 +29,17 @@ function LodgingIcon({ lodging }: { lodging: string }) {
   return <Home className="h-3.5 w-3.5 shrink-0" />;
 }
 
-export default function DayNav({ day, showDates, hasPrev, hasNext, onPrev, onNext }: DayNavProps) {
+export default function DayNav({
+  day,
+  showDates,
+  hasPrev,
+  hasNext,
+  onPrev,
+  onNext,
+  roadKm,
+}: DayNavProps) {
+  const kmLabel = formatDayKm(roadKm ?? day.km);
+
   return (
     <div className="flex w-full min-w-0 flex-1 items-start gap-3 lg:gap-4">
       <div className="min-w-0 flex-1 px-2 text-center sm:px-4">
@@ -40,10 +53,10 @@ export default function DayNav({ day, showDates, hasPrev, hasNext, onPrev, onNex
           {day.destination}
         </h3>
 
-        {(day.km != null || day.lodging || day.logistics) && (
+        {(kmLabel || day.lodging || day.logistics) && (
           <div className="mt-1 flex flex-wrap items-center justify-center gap-1.5 text-xs lg:text-sm">
-            {day.km != null && (
-              <span className="shrink-0 rounded-full bg-muted px-2.5 py-0.5">{day.km} km</span>
+            {kmLabel && (
+              <span className="shrink-0 rounded-full bg-muted px-2.5 py-0.5">{kmLabel} km</span>
             )}
             {day.lodging && (
               <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-muted px-2.5 py-0.5 capitalize">

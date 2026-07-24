@@ -1,11 +1,14 @@
 import { useEffect, useRef } from "react";
-import type { TripDay } from "@/types/trip";
+import type { RouteSegment, TripDay } from "@/types/trip";
+import { dayRoadDistanceKm, formatDayKm } from "@/lib/dayDistance";
 
 interface DayListProps {
   days: TripDay[];
   selectedDay: number;
   onSelect: (day: number) => void;
   showDates: boolean;
+  segments: RouteSegment[];
+  daySegments: Record<string, string[]>;
 }
 
 function formatDate(date: string) {
@@ -15,7 +18,14 @@ function formatDate(date: string) {
   });
 }
 
-export default function DayList({ days, selectedDay, onSelect, showDates }: DayListProps) {
+export default function DayList({
+  days,
+  selectedDay,
+  onSelect,
+  showDates,
+  segments,
+  daySegments,
+}: DayListProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,6 +43,7 @@ export default function DayList({ days, selectedDay, onSelect, showDates }: DayL
       <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain p-2">
         {days.map((d) => {
           const active = d.day === selectedDay;
+          const kmLabel = formatDayKm(dayRoadDistanceKm(d, segments, daySegments));
           return (
             <button
               key={d.day}
@@ -55,9 +66,9 @@ export default function DayList({ days, selectedDay, onSelect, showDates }: DayL
                   {showDates ? `${formatDate(d.date)} · ${d.weekday}` : d.weekday}
                 </span>
                 <span className="block truncate font-medium">{d.destination}</span>
-                {d.km != null && (
+                {kmLabel && (
                   <span className={`mt-0.5 block text-xs ${active ? "opacity-80" : "text-muted-foreground"}`}>
-                    {d.km} km
+                    {kmLabel} km
                   </span>
                 )}
               </span>

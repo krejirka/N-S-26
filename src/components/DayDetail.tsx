@@ -3,6 +3,7 @@ import YrForecast from "./YrForecast";
 import { ExternalLink } from "lucide-react";
 import { navigationUrl } from "@/lib/navLink";
 import { useDayTraffic } from "@/hooks/useDayTraffic";
+import { formatDayKm } from "@/lib/dayDistance";
 import type { Place, PlacesData, RouteSegment, TripDay } from "@/types/trip";
 
 interface DayDetailProps {
@@ -39,7 +40,7 @@ export default function DayDetail({
             <div className="text-sm text-muted-foreground">
               {travel.distanceKm > 0 ? (
                 <>
-                  <span className="font-medium text-foreground">{travel.distanceKm} km</span>
+                  <span className="font-medium text-foreground">{formatDayKm(travel.distanceKm)} km</span>
                   {" · "}
                   <span>~{travel.hoursLabel}</span>
                   <span className="text-xs"> (max {110} km/h)</span>
