@@ -1,5 +1,5 @@
 import { Pause, Play } from "lucide-react";
-import { formatRadarOffsetMinutes, type RadarFrame } from "@/lib/rainviewer";
+import { formatRadarOffsetMinutes, RADAR_FORECAST_MINUTES, RADAR_HISTORY_MINUTES, type RadarFrame } from "@/lib/rainviewer";
 import type { RadarPlayMode } from "@/hooks/useRadarAnimation";
 
 interface RadarTimelineProps {
@@ -31,6 +31,8 @@ export default function RadarTimeline({
 }: RadarTimelineProps) {
   const frame = frames[currentIndex];
   const offset = frame ? formatRadarOffsetMinutes(frame.time, referenceTime) : "—";
+  const histLabel = `−${RADAR_HISTORY_MINUTES / 60} h`;
+  const forecastLabel = `+${RADAR_FORECAST_MINUTES} min`;
 
   return (
     <div className="rounded-lg border border-border bg-card/95 px-2.5 py-1.5 shadow-md backdrop-blur-sm">
@@ -41,7 +43,7 @@ export default function RadarTimeline({
         className={`rounded px-2 py-0.5 font-medium transition ${
           showRadar ? "bg-sky-600 text-white hover:bg-sky-700" : "bg-muted text-foreground hover:bg-muted/80"
         }`}
-        title="Radar srážek (RainViewer)"
+        title="Radar srážek (RainViewer + LibreWXR)"
       >
         Radar
       </button>
@@ -56,7 +58,11 @@ export default function RadarTimeline({
             type="button"
             onClick={onPlayHistory}
             className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded border border-border bg-background text-foreground hover:bg-muted"
-            title={isPlaying && playMode === "history" ? "Zastavit historii" : "Přehrát historii −120 → 0 min"}
+            title={
+              isPlaying && playMode === "history"
+                ? "Zastavit historii"
+                : `Přehrát historii ${histLabel} → teď`
+            }
             aria-label={isPlaying && playMode === "history" ? "Zastavit historii" : "Přehrát historii"}
           >
             {isPlaying && playMode === "history" ? (
@@ -77,11 +83,11 @@ export default function RadarTimeline({
               hasForecast
                 ? isPlaying && playMode === "forecast"
                   ? "Zastavit predikci"
-                  : "Predikce animace +60 min"
+                  : `Predikce animace ${forecastLabel}`
                 : "Predikce momentálně nedostupná"
             }
           >
-            {isPlaying && playMode === "forecast" ? "Zastavit" : "+60 min"}
+            {isPlaying && playMode === "forecast" ? "Zastavit" : forecastLabel}
           </button>
         </>
       )}

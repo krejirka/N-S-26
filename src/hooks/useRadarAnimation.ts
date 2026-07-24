@@ -6,7 +6,7 @@ import {
   type RadarFrame,
 } from "@/lib/rainviewer";
 
-const FRAME_MS = 500;
+const FRAME_MS = 450;
 
 export type RadarPlayMode = "history" | "forecast" | null;
 
@@ -15,7 +15,7 @@ export function useRadarAnimation(enabled: boolean) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playMode, setPlayMode] = useState<RadarPlayMode>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const autoPlayDoneRef = useRef(false);
 
@@ -77,7 +77,15 @@ export function useRadarAnimation(enabled: boolean) {
   }, [frames, isPlaying, playMode, playRange, stop]);
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      autoPlayDoneRef.current = false;
+      clearTimer();
+      setIsPlaying(false);
+      setPlayMode(null);
+      setLoading(false);
+      return;
+    }
+
     let cancelled = false;
     setLoading(true);
 
@@ -99,7 +107,7 @@ export function useRadarAnimation(enabled: boolean) {
     return () => {
       cancelled = true;
     };
-  }, [enabled]);
+  }, [enabled, clearTimer]);
 
   useEffect(() => {
     if (!enabled || loading || !frames.length || autoPlayDoneRef.current) return;

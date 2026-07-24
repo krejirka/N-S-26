@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Header from "@/components/Header";
 import DayList from "@/components/DayList";
 import DayDetail from "@/components/DayDetail";
@@ -70,17 +70,15 @@ export default function Index({ showDates }: IndexProps) {
   const initialDay = useMemo(() => dayForToday(itinerary.days), []);
   const startWithFullCircuit = useMemo(() => tripNotStartedYet(itinerary.days), []);
   const [selectedDay, setSelectedDay] = useState(initialDay);
-  /** Before departure: full-circuit preview; once the trip runs, zoom to today's day. */
-  const [zoomToDay, setZoomToDay] = useState(!startWithFullCircuit);
-  const [showRadar, setShowRadar] = useState(false);
+  /** Radar on load: overview + history animation. Day zoom only after picking a day (or turning radar off). */
+  const [zoomToDay, setZoomToDay] = useState(false);
+  const [showRadar, setShowRadar] = useState(true);
   const [mobileView, setMobileView] = useState<MobileView>("map");
-  const pendingRadarPlayRef = useRef(false);
   const radar = useRadarAnimation(showRadar);
 
   const selectDay = useCallback((day: number) => {
     setSelectedDay(day);
     setZoomToDay(true);
-    setShowRadar(false);
   }, []);
 
   const selectDayFromList = useCallback(
@@ -94,20 +92,13 @@ export default function Index({ showDates }: IndexProps) {
   const handleToggleRadar = useCallback(() => {
     if (showRadar) {
       setShowRadar(false);
+      // Restore day zoom once trip has started; keep full circuit before departure
+      setZoomToDay(!startWithFullCircuit);
       return;
     }
     setZoomToDay(false);
     setShowRadar(true);
-    pendingRadarPlayRef.current = true;
-  }, [showRadar]);
-
-  useEffect(() => {
-    if (!showRadar || zoomToDay || radar.loading || !radar.frames.length || !pendingRadarPlayRef.current) {
-      return;
-    }
-    pendingRadarPlayRef.current = false;
-    radar.playHistory();
-  }, [showRadar, zoomToDay, radar.loading, radar.frames.length, radar.playHistory]);
+  }, [showRadar, startWithFullCircuit]);
 
   const currentDay = useMemo(
     () => itinerary.days.find((d) => d.day === selectedDay) ?? itinerary.days[0],
