@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Marker, useMap, useMapEvents } from "react-leaflet";
 import { makeCorridorPoiIcon, makeShopIcon } from "@/lib/shopMarker";
 import { dayRouteGeometry, filterByCorridor } from "@/lib/corridorFilter";
+import { hoverPopupHandlers } from "@/lib/hoverPopup";
 import type { CorridorPoi, RouteSegment, ShopPoi } from "@/types/trip";
 import { CorridorPoiPopup, ShopCorridorPopup } from "./CorridorPoiPopup";
 
@@ -82,7 +83,7 @@ export default function CorridorPoiMarkers({
             key={shop.id}
             position={[shop.lat, shop.lng]}
             icon={makeShopIcon(shop.kind)}
-            eventHandlers={{ mouseover: (e) => e.target.openPopup() }}
+            eventHandlers={hoverPopupHandlers()}
             zIndexOffset={-180}
           >
             <ShopCorridorPopup shop={shop} />
@@ -94,7 +95,7 @@ export default function CorridorPoiMarkers({
             key={poi.id}
             position={[poi.lat, poi.lng]}
             icon={makeCorridorPoiIcon("fuel")}
-            eventHandlers={{ mouseover: (e) => e.target.openPopup() }}
+            eventHandlers={hoverPopupHandlers()}
             zIndexOffset={-220}
           >
             <CorridorPoiPopup poi={poi} />
@@ -106,7 +107,7 @@ export default function CorridorPoiMarkers({
             key={poi.id}
             position={[poi.lat, poi.lng]}
             icon={makeCorridorPoiIcon("hospital")}
-            eventHandlers={{ mouseover: (e) => e.target.openPopup() }}
+            eventHandlers={hoverPopupHandlers()}
             zIndexOffset={-210}
           >
             <CorridorPoiPopup poi={poi} />
@@ -118,7 +119,7 @@ export default function CorridorPoiMarkers({
             key={poi.id}
             position={[poi.lat, poi.lng]}
             icon={makeCorridorPoiIcon("veterinary")}
-            eventHandlers={{ mouseover: (e) => e.target.openPopup() }}
+            eventHandlers={hoverPopupHandlers()}
             zIndexOffset={-210}
           >
             <CorridorPoiPopup poi={poi} />
