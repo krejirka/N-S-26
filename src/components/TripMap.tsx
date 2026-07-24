@@ -1,13 +1,22 @@
 import { useMemo } from "react";
 import { MapContainer, TileLayer, Polyline, Marker } from "react-leaflet";
-import type { PlacesData, RouteSegment, ShopPoi, TripDay } from "@/types/trip";
+import type {
+  CorridorPoi,
+  LodgingPoi,
+  PlacesData,
+  RouteSegment,
+  ShopPoi,
+  TripDay,
+} from "@/types/trip";
 import type { RadarFrame } from "@/lib/rainviewer";
 import type { RadarPlayMode } from "@/hooks/useRadarAnimation";
 import { makeFlagIcon } from "@/lib/flagMarker";
+import { makeFerryIcon } from "@/lib/ferryMarker";
 import RadarPrecipitationLayer from "./RadarPrecipitationLayer";
 import RadarTimeline from "./RadarTimeline";
 import PlacePopup from "./PlacePopup";
-import ShopMarkers from "./ShopMarkers";
+import LodgingMarkers from "./LodgingMarkers";
+import CorridorPoiMarkers from "./CorridorPoiMarkers";
 import { FitDayBounds, FitRouteBounds, MapScrollBehavior, RADAR_MAX_ZOOM } from "./MapControls";
 import "leaflet/dist/leaflet.css";
 
@@ -18,6 +27,8 @@ interface TripMapProps {
   day: TripDay;
   selectedPlaceId: string;
   shops: ShopPoi[];
+  lodgings: LodgingPoi[];
+  corridorPois: CorridorPoi[];
   showRadar: boolean;
   currentFrame: RadarFrame | null;
   zoomToDay: boolean;
@@ -46,6 +57,8 @@ export default function TripMap({
   day,
   selectedPlaceId,
   shops,
+  lodgings,
+  corridorPois,
   showRadar,
   currentFrame,
   zoomToDay,
@@ -63,6 +76,11 @@ export default function TripMap({
   const activeSegmentIds = useMemo(
     () => new Set(daySegments[String(day.day)] || []),
     [daySegments, day.day]
+  );
+
+  const lodgingPlaceIds = useMemo(
+    () => new Set(lodgings.map((l) => l.placeId).filter(Boolean) as string[]),
+    [lodgings]
   );
 
   const activePlaceIds = useMemo(() => {
@@ -149,22 +167,32 @@ export default function TripMap({
           );
         })}
         {Object.entries(places).map(([id, place]) => {
+          // Lodging nights use the house pin instead of the flag
+          if (lodgingPlaceIds.has(id)) return null;
           const active = activePlaceIds.has(id);
           const label = place.dayLabel ?? "";
+          const isFerry = place.markerKind === "ferry" || id.includes("_ferry");
           return (
             <Marker
               key={id}
               position={[place.lat, place.lng]}
-              icon={makeFlagIcon(place.country, label, active)}
+              icon={isFerry ? makeFerryIcon() : makeFlagIcon(place.country, label, active)}
               eventHandlers={{
                 mouseover: (e) => e.target.openPopup(),
               }}
+              zIndexOffset={isFerry ? 300 : 100}
             >
-              <PlacePopup place={place} dayLabel={label} />
+              <PlacePopup place={place} dayLabel={isFerry ? "" : label} />
             </Marker>
           );
         })}
-        <ShopMarkers shops={shops} />
+        <LodgingMarkers lodgings={lodgings} />
+        <CorridorPoiMarkers
+          segments={segments}
+          activeSegmentIds={activeSegmentIds}
+          corridorPois={corridorPois}
+          shops={shops}
+        />
       </MapContainer>
     </div>
   );

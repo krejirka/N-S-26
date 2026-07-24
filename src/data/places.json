@@ -9,24 +9,29 @@
     },
     "rostock_ferry": {
       "name": "Rostock (trajekt)",
-      "lat": 54.1445881,
-      "lng": 12.0976681,
+      "lat": 54.15168,
+      "lng": 12.10058,
       "country": "Německo",
-      "dayLabel": "1/17"
+      "dayLabel": "1/17",
+      "address": "Überseehafen, Zum Fährterminal 1, 18147 Rostock",
+      "markerKind": "ferry"
     },
     "trelleborg_ferry": {
       "name": "Trelleborg (trajekt)",
-      "lat": 55.3699862,
-      "lng": 13.1503256,
+      "lat": 55.37342,
+      "lng": 13.14212,
       "country": "Švédsko",
-      "dayLabel": "1/17"
+      "dayLabel": "1/17",
+      "address": "Port of TT Line Check In, Norra Nyhamnsgatan 1b, 231 61 Trelleborg",
+      "markerKind": "ferry"
     },
-    "oslo": {
-      "name": "Oslo",
-      "lat": 59.9139,
-      "lng": 10.7522,
+    "baerum": {
+      "name": "Bærum (Airbnb)",
+      "lat": 59.91772,
+      "lng": 10.46122,
       "country": "Norsko",
-      "dayLabel": "2"
+      "dayLabel": "2",
+      "address": "Tunheimbakken 12C, 1340 Bærum"
     },
     "lillehammer": {
       "name": "Lillehammer",
@@ -100,10 +105,11 @@
     },
     "furoy": {
       "name": "Furøy Camping",
-      "lat": 66.73874,
-      "lng": 13.5012,
+      "lat": 66.73898,
+      "lng": 13.50291,
       "country": "Norsko",
-      "dayLabel": "8–9"
+      "dayLabel": "8–9",
+      "address": "Furøy 6, 8178 Halsa"
     },
     "graddis": {
       "name": "Graddis Fjellstue, Camping & Bobilutleie",
@@ -147,10 +153,10 @@
       "rostock_trelleborg_ferry"
     ],
     "2": [
-      "trelleborg_oslo"
+      "trelleborg_baerum"
     ],
     "3": [
-      "oslo_lillehammer"
+      "baerum_lillehammer"
     ],
     "4": [
       "lillehammer_rondane"

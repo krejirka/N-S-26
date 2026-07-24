@@ -25,6 +25,12 @@ export default function PlacePopup({ place, dayLabel }: PlacePopupProps) {
       <strong>{place.name}</strong>
       <br />
       <span className="text-xs text-gray-600">{place.country}</span>
+      {place.address && (
+        <>
+          <br />
+          <span className="text-xs text-gray-700">{place.address}</span>
+        </>
+      )}
       {dayLabel && (
         <>
           <br />

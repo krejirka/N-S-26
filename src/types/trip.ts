@@ -51,6 +51,8 @@ export interface Place {
   lng: number;
   country: string;
   dayLabel?: string;
+  address?: string;
+  markerKind?: "ferry" | "flag";
 }
 
 export type ShopKind = "ikea" | "dollarstore";
@@ -69,6 +71,43 @@ export interface ShopsData {
   note?: string;
   generatedAt?: string;
   shops: ShopPoi[];
+}
+
+export interface LodgingPoi {
+  id: string;
+  title: string;
+  dateLabel: string;
+  name: string;
+  address: string;
+  country: string;
+  lat: number;
+  lng: number;
+  notes?: string[];
+  placeId?: string;
+}
+
+export interface LodgingsData {
+  note?: string;
+  lodgings: LodgingPoi[];
+}
+
+export type CorridorPoiKind = "fuel" | "hospital" | "veterinary";
+
+export interface CorridorPoi {
+  id: string;
+  kind: CorridorPoiKind;
+  name: string;
+  address?: string;
+  lat: number;
+  lng: number;
+  emergency?: boolean;
+  fuel95?: boolean;
+}
+
+export interface CorridorPoisData {
+  note?: string;
+  generatedAt?: string | null;
+  pois: CorridorPoi[];
 }
 
 export interface RouteSegment {

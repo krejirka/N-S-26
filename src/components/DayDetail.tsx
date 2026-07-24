@@ -2,29 +2,57 @@ import PlaceCard from "./PlaceCard";
 import YrForecast from "./YrForecast";
 import { ExternalLink } from "lucide-react";
 import { navigationUrl } from "@/lib/navLink";
-import type { Place, TripDay } from "@/types/trip";
+import { useDayTraffic } from "@/hooks/useDayTraffic";
+import type { Place, PlacesData, RouteSegment, TripDay } from "@/types/trip";
 
 interface DayDetailProps {
   day: TripDay;
   placeCoords: Place | null;
+  places: PlacesData["places"];
+  segments: RouteSegment[];
+  daySegments: Record<string, string[]>;
 }
 
-export default function DayDetail({ day, placeCoords }: DayDetailProps) {
+export default function DayDetail({
+  day,
+  placeCoords,
+  places,
+  segments,
+  daySegments,
+}: DayDetailProps) {
   const destNav =
     placeCoords != null ? navigationUrl(placeCoords.lat, placeCoords.lng, placeCoords.name || day.destination) : null;
+  const travel = useDayTraffic(day, places, segments, daySegments);
 
   return (
     <section className="flex h-full min-h-0 flex-col overflow-hidden bg-background">
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain p-4 md:p-5">
         {destNav && (
-          <div className="mb-4">
+          <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
             <a
               href={destNav}
-              className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-sm font-medium text-primary-foreground hover:opacity-90"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-sm font-medium text-primary-foreground hover:opacity-90"
             >
               Navigovat na cíl dne
               <ExternalLink className="h-3.5 w-3.5" />
             </a>
+            <div className="text-sm text-muted-foreground">
+              {travel.distanceKm > 0 ? (
+                <>
+                  <span className="font-medium text-foreground">{travel.distanceKm} km</span>
+                  {" · "}
+                  <span>~{travel.hoursLabel}</span>
+                  <span className="text-xs"> (max {110} km/h)</span>
+                  {travel.loading ? (
+                    <span className="ml-1 text-xs">· načítám provoz…</span>
+                  ) : travel.delayLabel ? (
+                    <span className="ml-1 text-xs">· {travel.delayLabel}</span>
+                  ) : null}
+                </>
+              ) : (
+                <span className="text-xs">Bez silničního přejezdu dnes</span>
+              )}
+            </div>
           </div>
         )}
 

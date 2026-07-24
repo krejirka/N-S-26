@@ -8,12 +8,23 @@ import itineraryData from "@/data/itinerary.json";
 import routesData from "@/data/routes.json";
 import placesData from "@/data/places.json";
 import shopsData from "@/data/shops.json";
-import type { Itinerary, PlacesData, RoutesData, ShopsData } from "@/types/trip";
+import lodgingsData from "@/data/lodgings.json";
+import corridorPoisData from "@/data/corridor-pois.json";
+import type {
+  CorridorPoisData,
+  Itinerary,
+  LodgingsData,
+  PlacesData,
+  RoutesData,
+  ShopsData,
+} from "@/types/trip";
 
 const itinerary = itineraryData as Itinerary;
 const routes = routesData as RoutesData;
 const places = placesData as PlacesData;
 const shops = (shopsData as ShopsData).shops;
+const lodgings = (lodgingsData as LodgingsData).lodgings;
+const corridorPois = (corridorPoisData as CorridorPoisData).pois ?? [];
 
 type MobileView = "list" | "map" | "detail";
 
@@ -23,14 +34,31 @@ const MOBILE_TABS: { id: MobileView; label: string }[] = [
   { id: "detail", label: "Detail dne" },
 ];
 
+/** Pick itinerary day for "today" in Europe/Prague. */
+function dayForToday(days: Itinerary["days"]): number {
+  const today = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Prague",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date()); // YYYY-MM-DD
+
+  if (!days.length) return 1;
+  if (today < days[0].date) return days[0].day;
+  if (today > days[days.length - 1].date) return days[days.length - 1].day;
+  const match = days.find((d) => d.date === today);
+  return match?.day ?? days[0].day;
+}
+
 interface IndexProps {
   showDates: boolean;
 }
 
 export default function Index({ showDates }: IndexProps) {
-  const [selectedDay, setSelectedDay] = useState(1);
-  const [zoomToDay, setZoomToDay] = useState(false);
-  const [showRadar, setShowRadar] = useState(true);
+  const initialDay = useMemo(() => dayForToday(itinerary.days), []);
+  const [selectedDay, setSelectedDay] = useState(initialDay);
+  const [zoomToDay, setZoomToDay] = useState(true);
+  const [showRadar, setShowRadar] = useState(false);
   const [mobileView, setMobileView] = useState<MobileView>("map");
   const pendingRadarPlayRef = useRef(false);
   const radar = useRadarAnimation(showRadar);
@@ -138,6 +166,8 @@ export default function Index({ showDates }: IndexProps) {
               day={currentDay}
               selectedPlaceId={currentDay.placeId}
               shops={shops}
+              lodgings={lodgings}
+              corridorPois={corridorPois}
               showRadar={showRadar}
               currentFrame={radar.currentFrame}
               zoomToDay={zoomToDay}
@@ -159,7 +189,13 @@ export default function Index({ showDates }: IndexProps) {
               mobileView === "detail" ? "block" : "hidden"
             } h-full min-h-0 overflow-hidden lg:block`}
           >
-            <DayDetail day={currentDay} placeCoords={placeCoords} />
+            <DayDetail
+              day={currentDay}
+              placeCoords={placeCoords}
+              places={places.places}
+              segments={routes.segments}
+              daySegments={places.daySegments}
+            />
           </div>
         </div>
       </div>

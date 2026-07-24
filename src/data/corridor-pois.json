@@ -1,0 +1,286 @@
+{
+  "note": "Seed POI u klíčových zastávek (Nominatim). Plný koridor: npm run fetch:pois",
+  "generatedAt": "2026-07-24T08:47:43.303Z",
+  "pois": [
+    {
+      "id": "fuel-1",
+      "kind": "fuel",
+      "name": "Circle K",
+      "address": "Circle K, Spårvägen, Akka, Trelleborg, Trelleborgs kommun, Skåne län, 231 44, Sverige",
+      "lat": 55.3759,
+      "lng": 13.16205,
+      "emergency": false,
+      "fuel95": true
+    },
+    {
+      "id": "fuel-2",
+      "kind": "fuel",
+      "name": "Circle K",
+      "address": "Circle K, Eddagatan, Bellevuegården, Väster, Malmö, Malmö kommun, Skåne län, 217 67, Sverige",
+      "lat": 55.58608,
+      "lng": 12.96985,
+      "emergency": false,
+      "fuel95": true
+    },
+    {
+      "id": "fuel-3",
+      "kind": "fuel",
+      "name": "Circle K",
+      "address": "Circle K, Dammgårdsgatan, Brunnsbo, Hisingen, Göteborg, Göteborgs Stad, Västra Götalands län, 422 44, Sverige",
+      "lat": 57.73029,
+      "lng": 11.98196,
+      "emergency": false,
+      "fuel95": true
+    },
+    {
+      "id": "fuel-4",
+      "kind": "fuel",
+      "name": "Circle K Sandvika",
+      "address": "Circle K Sandvika, Hamangskogen, Jong, Sandvika, Bærum, Akershus, 1338, Norge",
+      "lat": 59.89355,
+      "lng": 10.51379,
+      "emergency": false,
+      "fuel95": true
+    },
+    {
+      "id": "fuel-5",
+      "kind": "fuel",
+      "name": "Circle K Strandtorget",
+      "address": "Circle K Strandtorget, Strandpromenaden, Busmoen, Vingnes, Lillehammer, Innlandet, 2619, Norge",
+      "lat": 61.11586,
+      "lng": 10.44698,
+      "emergency": false,
+      "fuel95": true
+    },
+    {
+      "id": "fuel-6",
+      "kind": "fuel",
+      "name": "Circle K Nardo",
+      "address": "Circle K Nardo, Torbjørn Bratts veg, Nardoskrenten, Steindal, Nardo, Lerkendal, Trondheim, Trøndelag, 7051, Norge",
+      "lat": 63.41061,
+      "lng": 10.41783,
+      "emergency": false,
+      "fuel95": true
+    },
+    {
+      "id": "fuel-7",
+      "kind": "fuel",
+      "name": "Circle K Mo i Rana",
+      "address": "Circle K Mo i Rana, Svortdalen, Mo Industripark, Langmoheia, Langneset, Mo i Rana, Rana, Nordland, 8622, Norge",
+      "lat": 66.3078,
+      "lng": 14.15072,
+      "emergency": false,
+      "fuel95": true
+    },
+    {
+      "id": "fuel-8",
+      "kind": "fuel",
+      "name": "Circle K",
+      "address": "Circle K, E 4, Stureborg, Höjersdal, Gävle kommun, Gävleborgs län, 802 70, Sverige",
+      "lat": 60.64919,
+      "lng": 17.11982,
+      "emergency": false,
+      "fuel95": true
+    },
+    {
+      "id": "fuel-9",
+      "kind": "fuel",
+      "name": "Circle K",
+      "address": "Circle K, 2, Storgatan, Åbro, Vimmerby, Vimmerby kommun, Kalmar län, 598 37, Sverige",
+      "lat": 57.66622,
+      "lng": 15.84682,
+      "emergency": false,
+      "fuel95": true
+    },
+    {
+      "id": "fuel-10",
+      "kind": "fuel",
+      "name": "OKQ8",
+      "address": "OKQ8, 313, Valbovägen, Ängsberg, Valbo, Gävle kommun, Gävleborgs län, 818 35, Sverige",
+      "lat": 60.63203,
+      "lng": 16.98895,
+      "emergency": false,
+      "fuel95": true
+    },
+    {
+      "id": "hospital-1",
+      "kind": "hospital",
+      "name": "Fakultní nemocnice Hradec Králové",
+      "address": "Fakultní nemocnice Hradec Králové, Nemocnice, Třebeš, Hradec Králové, okres Hradec Králové, Královéhradecký kraj, 500 02, Česko",
+      "lat": 50.20134,
+      "lng": 15.82654,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "hospital-2",
+      "kind": "hospital",
+      "name": "Universitätsmedizin Rostock",
+      "address": "Universitätsmedizin Rostock, 35, Schillingallee, Sportforum, Thünenviertel, Hansaviertel, Rostock, Mecklenburg-Vorpommern, 18057, Deutschland",
+      "lat": 54.0846,
+      "lng": 12.10135,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "hospital-3",
+      "kind": "hospital",
+      "name": "Sahlgrenska Universitetssjukhuset",
+      "address": "Sahlgrenska Universitetssjukhuset, Per Dubbsgatan, Medicinareberget, Änggården, Centrum, Göteborg, Göteborgs Stad, Västra Götalands län, 413 46, Sverige",
+      "lat": 57.68165,
+      "lng": 11.96099,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "hospital-4",
+      "kind": "hospital",
+      "name": "Sykehuset Innlandet HF Lillehammer",
+      "address": "Sykehuset Innlandet HF Lillehammer, Maihaugvegen, Nybu, Vingnes, Lillehammer, Innlandet, 2609, Norge",
+      "lat": 61.1124,
+      "lng": 10.47394,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "hospital-5",
+      "kind": "hospital",
+      "name": "St. Olavs Hospital",
+      "address": "St. Olavs Hospital, Vangslunds gate, Gløshaugen, Elgeseter, Midtbyen, Trondheim, Trøndelag, 7030, Norge",
+      "lat": 63.42001,
+      "lng": 10.38882,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "hospital-6",
+      "kind": "hospital",
+      "name": "Helgelandssykehuset Mo i Rana",
+      "address": "Helgelandssykehuset Mo i Rana, Sjøforsgata, Heia, Selfors, Mo i Rana, Rana, Nordland, 8613, Norge",
+      "lat": 66.32602,
+      "lng": 14.18593,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "hospital-7",
+      "kind": "hospital",
+      "name": "Sunderby sjukhus",
+      "address": "Sunderby sjukhus, Kretsloppet, Bränslan, Luleå, Luleå kommun, Norrbottens län, 971 80, Sverige",
+      "lat": 65.67213,
+      "lng": 21.92964,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "hospital-8",
+      "kind": "hospital",
+      "name": "Gävle sjukhus",
+      "address": "Gävle sjukhus, 5, Lasarettsvägen, Villastan, Gävle, Gävle kommun, Gävleborgs län, 803 24, Sverige",
+      "lat": 60.67774,
+      "lng": 17.11753,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "veterinary-1",
+      "kind": "veterinary",
+      "name": "Tierklinik",
+      "address": "Tierklinik, 19, Thierfelderstraße, Thünenviertel, Hansaviertel, Rostock, Mecklenburg-Vorpommern, 18059, Deutschland",
+      "lat": 54.07805,
+      "lng": 12.09707,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "veterinary-2",
+      "kind": "veterinary",
+      "name": "Evidensia Djursjukhuset Göteborg",
+      "address": "Evidensia Djursjukhuset Göteborg, 6, Ingeborgsgatan, Prästgårdsängen, Lunden, Centrum, Göteborg, Göteborgs Stad, Västra Götalands län, 416 59, Sverige",
+      "lat": 57.70982,
+      "lng": 12.00573,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "veterinary-3",
+      "kind": "veterinary",
+      "name": "AniCura",
+      "address": "AniCura, Hoffsveien, Nedre Smestad, Hoff, Ullern, Oslo, 0377, Norge",
+      "lat": 59.93394,
+      "lng": 10.6762,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "veterinary-4",
+      "kind": "veterinary",
+      "name": "Lillehammer dyreklinikk",
+      "address": "Lillehammer dyreklinikk, Even Langseths veg, Busmoen, Lillehammer, Innlandet, 2615, Norge",
+      "lat": 61.12468,
+      "lng": 10.45635,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "fuel-11",
+      "kind": "fuel",
+      "name": "Benzina - Bratří Štefanů",
+      "address": "Benzina - Bratří Štefanů, Bratří Štefanů, Nad jezem, Slezské Předměstí - jih, Malšova Lhota, Hradec Králové, okres Hradec Králové, Královéhradecký kraj, 500 03, Česko",
+      "lat": 50.21769,
+      "lng": 15.87801,
+      "emergency": false,
+      "fuel95": true
+    },
+    {
+      "id": "fuel-12",
+      "kind": "fuel",
+      "name": "Aral",
+      "address": "Aral, 68, Tessiner Straße, Riekdahl, Brinckmansdorf, Ortsbeirat 15 : Brinckmansdorf, Rostock, Mecklenburg-Vorpommern, 18055, Deutschland",
+      "lat": 54.08129,
+      "lng": 12.19417,
+      "emergency": false,
+      "fuel95": true
+    },
+    {
+      "id": "hospital-9",
+      "kind": "hospital",
+      "name": "Ullevål sykehus",
+      "address": "Ullevål sykehus, Kirkeveien, Lindern, Adamstuen, St. Hanshaugen, Oslo, 0451, Norge",
+      "lat": 59.93902,
+      "lng": 10.74013,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "hospital-10",
+      "kind": "hospital",
+      "name": "Västerviks sjukhus",
+      "address": "Västerviks sjukhus, 48, Östra Kyrkogatan, Reginelund, Ludvigsborg, Västervik, Västerviks kommun, Kalmar län, 593 30, Sverige",
+      "lat": 57.75493,
+      "lng": 16.63467,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "veterinary-5",
+      "kind": "veterinary",
+      "name": "Evidensia Djursjukhuset Malmö",
+      "address": "Evidensia Djursjukhuset Malmö, 11, Cypressvägen, Hindby, Söder, Malmö, Malmö kommun, Skåne län, 213 75, Sverige",
+      "lat": 55.57089,
+      "lng": 13.04497,
+      "emergency": true,
+      "fuel95": false
+    },
+    {
+      "id": "veterinary-6",
+      "kind": "veterinary",
+      "name": "Gävle Djurklinik",
+      "address": "Gävle Djurklinik, 56, Bomhusvägen, Sjöäng, Gävle, Gävle kommun, Gävleborgs län, 804 29, Sverige",
+      "lat": 60.67127,
+      "lng": 17.19961,
+      "emergency": true,
+      "fuel95": false
+    }
+  ]
+}

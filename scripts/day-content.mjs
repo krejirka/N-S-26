@@ -38,20 +38,22 @@ export const DAY_CONTENT = {
   },
   2: {
     destination: "Oslo (Bærum)",
-    lodging: "ubytování",
+    lodging: "Airbnb — Tunheimbakken 12C",
     program:
-      "Přejezd přes Göteborg do oblasti Oslofjordu. Ubytování v Bærum — západní předměstí Oslo s rychlým spojením do centra (metro/lokálka). Večer volitelná krátká procházka po Oslo.",
-    logistics: "Trasa přes Göteborg · ubytování v Bærum",
+      "Přejezd přes Göteborg do Bærumu (Airbnb). Večer volitelná cesta do Osla veřejnou dopravou (Ruter: bus 240 → Sandvika → vlak, cca 30 min). Psi vítáni.",
+    logistics: "Trasa přes Göteborg · Airbnb Tunheimbakken 12C, 1340 Bærum",
     extraPlaces: [
       {
         name: "Bærum",
         tips: [
-          "Sandvika – obchodní centrum a nádraží, výchozí bod do Oslo",
-          "Fornebu – pobřežní promenáda u fjordu",
-          "Kolbotn nebo Lysaker – další stanice směrem do centra Oslo",
+          "Airbnb Tunheimbakken 12C, 1340 Bærum — auto u domu do cca 16:00 v den odjezdu (Esther)",
+          "Do Osla: bus 240 ze zastávky ~1 min od domu → Sandvika → vlak (~30 min)",
+          "Aplikace Ruter; psi vítáni v autobuse i vlaku (větší pes = malý poplatek)",
+          "Sandvika – obchodní centrum a nádraží",
         ],
         links: [
           { label: "Wikipedia", url: "https://no.wikipedia.org/wiki/B%C3%A6rum" },
+          { label: "Ruter", url: "https://ruter.no/" },
           { label: "Visit Oslo", url: "https://www.visitoslo.com/" },
         ],
       },
@@ -193,6 +195,7 @@ export const DAY_CONTENT = {
       "Přejezd do Myrkully u Arvidsjauru — odlehlé ubytování v laplandské přírodě. Odpočinek, rybaření na soukromých jezerech nebo kratší výlet po okolí.",
     placeTips: {
       "Myrkulla (Arvidsjaur)": [
+        "Blåbärsstuga — 550 SEK/noc; cash EUR/SEK nebo kartou",
         "Rybaření na třech soukromých jezerech Myrkully (pro hosty zdarma)",
         "Půjčení lodi s veslem nebo motorovým pohonem",
         "Výlet do Arvidsjauru — Lappstaden (největší zákoněná samiijská osada ve Švédsku)",

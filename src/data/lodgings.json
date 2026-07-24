@@ -1,0 +1,52 @@
+{
+  "note": "Noclehy s Airbnb-style pinem. Další lze doplnit sem.",
+  "lodgings": [
+    {
+      "id": "baerum",
+      "title": "Tvůj pobyt",
+      "dateLabel": "26. 7. – 28. 7.",
+      "name": "Pokoj v Bærum (Airbnb)",
+      "address": "Tunheimbakken 12C, 1340 Bærum, Akershus",
+      "country": "Norsko",
+      "lat": 59.91772,
+      "lng": 10.46122,
+      "notes": [
+        "Hostitelka Esther: auto u nemovitosti do cca 16:00 v den odjezdu",
+        "Do Osla: bus 240 → Sandvika (~1 min chůze), pak vlak (~30 min)",
+        "Aplikace Ruter; psi vítáni (větší pes = malý poplatek)"
+      ],
+      "placeId": "baerum"
+    },
+    {
+      "id": "furoy_kaihytte",
+      "title": "Tvůj pobyt",
+      "dateLabel": "1. 8. – 3. 8.",
+      "name": "Furøy Camping – Kaihytte",
+      "address": "Furøy 6, 8178 Halsa, Norway",
+      "country": "Norsko",
+      "lat": 66.73898,
+      "lng": 13.50291,
+      "notes": [
+        "Rezervace mailem / přes stránky Furøy Camping",
+        "Chata Kaihytte s výhledem na moře"
+      ],
+      "placeId": "furoy"
+    },
+    {
+      "id": "myrkulla_blabar",
+      "title": "Tvůj pobyt",
+      "dateLabel": "4. 8. – 8. 8.",
+      "name": "Blåbärsstuga (Myrkulla)",
+      "address": "Myrkulla, 933 99 Arvidsjaur, Schweden",
+      "country": "Švédsko",
+      "lat": 65.93973,
+      "lng": 18.83578,
+      "notes": [
+        "550 SEK/noc",
+        "Platba: cash EUR/SEK nebo kartou",
+        "Rezervace mailem"
+      ],
+      "placeId": "myrkulla"
+    }
+  ]
+}

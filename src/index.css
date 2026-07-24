@@ -98,34 +98,109 @@ body {
   border-color: #0f766e;
 }
 
-/* Minimal shop pins — recognizable color only, not readable logos */
+/* Minimal shop pins — visually distinct */
 .shop-marker-wrap {
   background: transparent !important;
   border: none !important;
 }
 
 .shop-marker {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
-  opacity: 0.8;
+  opacity: 0.9;
   pointer-events: auto;
-  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.2);
 }
 
 .shop-marker-ikea {
-  width: 8px;
-  height: 5px;
+  width: 12px;
+  height: 8px;
   background: #ffda1a;
-  border: 1px solid #0051ba;
-  border-radius: 0.5px;
+  border: 1.5px solid #0051ba;
+  border-radius: 1px;
+  position: relative;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.15);
+}
+
+.shop-marker-ikea .ikea-bar {
+  display: block;
+  width: 2px;
+  height: 100%;
+  background: #0051ba;
+  margin-left: 2px;
 }
 
 .shop-marker-dollarstore {
-  width: 6px;
-  height: 6px;
-  background: #f5c518;
-  border: 1px solid #111;
+  width: 12px;
+  height: 12px;
+  background: #111;
+  color: #f5c518;
+  border: 1.5px solid #f5c518;
   border-radius: 50%;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.2);
+}
+
+/* Airbnb-style lodging pin */
+.lodging-marker-wrap {
+  background: transparent !important;
+  border: none !important;
+}
+
+.lodging-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 96px;
+  pointer-events: auto;
+}
+
+.lodging-pin {
+  line-height: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+}
+
+.lodging-label {
+  margin-top: 1px;
+  text-align: center;
+  line-height: 1.15;
+  max-width: 96px;
+}
+
+.lodging-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: #111;
+  text-shadow: 0 0 3px #fff, 0 0 6px #fff;
+}
+
+.lodging-dates {
+  font-size: 9px;
+  font-weight: 500;
+  color: #333;
+  text-shadow: 0 0 3px #fff, 0 0 6px #fff;
+}
+
+.ferry-marker-wrap,
+.corridor-marker-wrap {
+  background: transparent !important;
+  border: none !important;
+}
+
+.ferry-marker {
+  line-height: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.corridor-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.9));
 }
 
 .leaflet-popup-content-wrapper {

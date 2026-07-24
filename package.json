@@ -9,6 +9,8 @@
     "preview": "vite preview",
     "import:itinerary": "node scripts/import-itinerary.mjs",
     "build:routes": "node scripts/build-routes.mjs",
+    "fetch:pois": "node scripts/fetch-corridor-pois.mjs",
+    "seed:pois": "node scripts/seed-corridor-pois.mjs",
     "data": "npm run import:itinerary && npm run build:routes"
   },
   "dependencies": {

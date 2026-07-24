@@ -25,7 +25,20 @@ const PLACE_ENRICHMENT = {
     ],
   },
   Oslo: {
-    placeId: "oslo",
+    placeId: "baerum",
+    places: [
+      {
+        name: "Oslo",
+        links: [
+          { label: "Wikipedia", url: "https://cs.wikipedia.org/wiki/Oslo" },
+          { label: "Visit Oslo", url: "https://www.visitoslo.com/" },
+        ],
+        image: commonsImage(COMMONS_FILES.oslo, "Oslo"),
+      },
+    ],
+  },
+  "Oslo (Bærum)": {
+    placeId: "baerum",
     places: [
       {
         name: "Oslo",

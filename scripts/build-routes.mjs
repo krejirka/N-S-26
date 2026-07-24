@@ -8,9 +8,32 @@ const outDir = path.join(root, "src", "data");
 
 const PLACES = {
   hradec_kralove: { name: "Hradec Králové", lat: 50.2092, lng: 15.8328, country: "Česko", dayLabel: "1/18" },
-  rostock_ferry: { name: "Rostock (trajekt)", lat: 54.1445881, lng: 12.0976681, country: "Německo", dayLabel: "1/17" },
-  trelleborg_ferry: { name: "Trelleborg (trajekt)", lat: 55.3699862, lng: 13.1503256, country: "Švédsko", dayLabel: "1/17" },
-  oslo: { name: "Oslo", lat: 59.9139, lng: 10.7522, country: "Norsko", dayLabel: "2" },
+  rostock_ferry: {
+    name: "Rostock (trajekt)",
+    lat: 54.15168,
+    lng: 12.10058,
+    country: "Německo",
+    dayLabel: "1/17",
+    address: "Überseehafen, Zum Fährterminal 1, 18147 Rostock",
+    markerKind: "ferry",
+  },
+  trelleborg_ferry: {
+    name: "Trelleborg (trajekt)",
+    lat: 55.37342,
+    lng: 13.14212,
+    country: "Švédsko",
+    dayLabel: "1/17",
+    address: "Port of TT Line Check In, Norra Nyhamnsgatan 1b, 231 61 Trelleborg",
+    markerKind: "ferry",
+  },
+  baerum: {
+    name: "Bærum (Airbnb)",
+    lat: 59.91772,
+    lng: 10.46122,
+    country: "Norsko",
+    dayLabel: "2",
+    address: "Tunheimbakken 12C, 1340 Bærum",
+  },
   lillehammer: { name: "Lillehammer", lat: 61.1153, lng: 10.4662, country: "Norsko", dayLabel: "3" },
   rondane: { name: "NP Rondane", lat: 62.0764, lng: 9.5828, country: "Norsko", dayLabel: "4" },
   sundalsora: { name: "Sundalsora", lat: 62.2436, lng: 8.6136, country: "Norsko", dayLabel: "5" },
@@ -21,7 +44,7 @@ const PLACES = {
   jektvik_ferry: { name: "Jektvik (trajekt)", lat: 66.6243, lng: 13.2853, country: "Norsko", dayLabel: "8" },
   agskardet_ferry: { name: "Ågskardet (trajekt)", lat: 66.7193, lng: 13.4707, country: "Norsko", dayLabel: "8" },
   foroy_ferry: { name: "Forøy (trajekt)", lat: 66.7386, lng: 13.5139, country: "Norsko", dayLabel: "8" },
-  furoy: { name: "Furøy Camping", lat: 66.73874, lng: 13.5012, country: "Norsko", dayLabel: "8–9" },
+  furoy: { name: "Furøy Camping", lat: 66.73898, lng: 13.50291, country: "Norsko", dayLabel: "8–9", address: "Furøy 6, 8178 Halsa" },
   graddis: {
     name: "Graddis Fjellstue, Camping & Bobilutleie",
     lat: 66.74232,
@@ -52,8 +75,8 @@ const LAKSFORSEN_KILBOGHAMN_VIA = [
 const SEGMENTS = [
   { id: "hk_rostock", from: "hradec_kralove", to: "rostock_ferry", kind: "road", phase: "tam", dayLabel: "1" },
   { id: "rostock_trelleborg_ferry", from: "rostock_ferry", to: "trelleborg_ferry", kind: "ferry", phase: "tam", dayLabel: "1" },
-  { id: "trelleborg_oslo", from: "trelleborg_ferry", to: "oslo", kind: "road", phase: "tam", dayLabel: "2" },
-  { id: "oslo_lillehammer", from: "oslo", to: "lillehammer", kind: "road", phase: "tam", dayLabel: "3" },
+  { id: "trelleborg_baerum", from: "trelleborg_ferry", to: "baerum", kind: "road", phase: "tam", dayLabel: "2" },
+  { id: "baerum_lillehammer", from: "baerum", to: "lillehammer", kind: "road", phase: "tam", dayLabel: "3" },
   { id: "lillehammer_rondane", from: "lillehammer", to: "rondane", kind: "road", phase: "tam", dayLabel: "4" },
   { id: "rondane_sundalsora", from: "rondane", to: "sundalsora", kind: "road", phase: "tam", dayLabel: "5" },
   { id: "sundalsora_trondheim", from: "sundalsora", to: "trondheim", kind: "road", phase: "tam", dayLabel: "6" },
@@ -116,8 +139,8 @@ const SEGMENTS = [
 
 const DAY_SEGMENTS = {
   1: ["hk_rostock", "rostock_trelleborg_ferry"],
-  2: ["trelleborg_oslo"],
-  3: ["oslo_lillehammer"],
+  2: ["trelleborg_baerum"],
+  3: ["baerum_lillehammer"],
   4: ["lillehammer_rondane"],
   5: ["rondane_sundalsora"],
   6: ["sundalsora_trondheim"],
