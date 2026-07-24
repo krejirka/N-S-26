@@ -32,3 +32,14 @@ npm run preview
 ## Nasazení
 
 Aplikace běží na [n-s-26.ironknot.cz](https://n-s-26.ironknot.cz) (Vercel).
+
+## Live provoz (TomTom)
+
+Mapy Google/Waze neposkytují live data zdarma bez vlastního API klíče. Používáme **TomTom Routing** (freemium, bez karty).
+
+1. Registrace: [developer.tomtom.com](https://developer.tomtom.com/)
+2. Dashboard → **API Keys** → zkopíruj klíč (např. „My first API key“)
+3. Lokálně: `cp .env.example .env.local` a doplň `TOMTOM_API_KEY=...`, pak `npm run dev`
+4. Produkce (Vercel): Project → Settings → Environment Variables → `TOMTOM_API_KEY` → Redeploy
+
+Bez klíče se zobrazí jen odhad km a času při max 110 km/h.

@@ -123,12 +123,11 @@ export function useDayTraffic(
   let delayLabel: string | null = null;
   if (live.liveTraffic && live.delaySec >= 60) {
     const mins = Math.round(live.delaySec / 60);
-    delayLabel = `+${mins} min zdržení (live provoz)`;
+    delayLabel = `+${mins} min zdržení (live)`;
   } else if (live.liveTraffic) {
-    delayLabel = "Bez hlášených komplikací";
-  } else if (!live.loading) {
-    delayLabel = "Live provoz nedostupný (chybí TomTom klíč)";
+    delayLabel = "bez hlášeného zdržení";
   }
+  // Bez klíče: žádná chyba v UI — stačí odhad km / 110 km/h
 
   return {
     distanceKm,
