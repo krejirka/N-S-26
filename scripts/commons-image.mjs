@@ -43,7 +43,7 @@ export const COMMONS_FILES = {
   trondheim: "Trondheim.jpg",
   laksforsen: "Laksforsen.jpg",
   svartisen: "Svartisen.jpg",
-  junkerdal: "Junkerdal.jpg",
+  graddis: "Junkerdal.jpg",
   skuleskogen: "Slåttdalsskrevan.jpg",
   ales: "Ales stenar.jpg",
   arvidsjaur: "Arvidsjaurs kyrka.jpg",

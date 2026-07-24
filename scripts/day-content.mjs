@@ -173,16 +173,18 @@ export const DAY_CONTENT = {
   },
   10: {
     program:
-      "Zastávka v obci Storjord (Saltdal). Nenáročný okruh k vodopádu Kjemåfossen (cca 5 km, +60 m, přes hodinu). Vápencové podloží s vzácnou alpskou flórou.",
+      "Přejezd k Graddis Fjellstue u švédské hranice (Saltdal) — Saltdals nejstarší turistický podnik (od 1867). Camping a stan. Výchozí bod do Junkerdal a Saltfjellet–Svartisen NP. Volitelně zastávka ve Storjordu a nenáročný okruh k vodopádu Kjemåfossen (cca 5 km, +60 m).",
     placeTips: {
+      "Graddis Fjellstue, Camping & Bobilutleie": [
+        "Camping a stan u švédské hranice — výchozí bod do Junkerdal NP",
+        "Methusalem — téměř 1000 let stará borovice u fjellstue",
+        "Turistické stezky a kratší výšlapy přímo z Graddis",
+        "Nordland Nasjonalparksenter ve Storjordu (krátká cesta)",
+      ],
       Kjemåfossen: [
         "Vodopád Kjemåfossen — jeden z nejvyšších v severním Norsku",
         "Vápencové údolí se vzácnými rostlinami",
-        "Nenáročná okružní stezka",
-      ],
-      Junkerdal: [
-        "Junkerdal naturreservat — arktická tundra",
-        "Kratší výšlapy v okolí Graddis",
+        "Nenáročná okružní stezka (cca 5 km, +60 m)",
       ],
     },
   },

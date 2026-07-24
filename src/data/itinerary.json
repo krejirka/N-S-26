@@ -500,15 +500,41 @@
       "day": 10,
       "date": "2026-08-03",
       "weekday": "pondělí",
-      "destination": "Junkerdal",
-      "km": null,
+      "destination": "Graddis Fjellstue, Camping & Bobilutleie",
+      "km": 261,
       "lodging": "stan",
-      "logistics": "Junkerdal",
-      "program": "Zastávka v obci Storjord (Saltdal). Nenáročný okruh k vodopádu Kjemåfossen (cca 5 km, +60 m, přes hodinu). Vápencové podloží s vzácnou alpskou flórou.",
-      "placeId": "junkerdal",
+      "logistics": "Graddis Fjellstue — camping / stan",
+      "program": "Přejezd k Graddis Fjellstue u švédské hranice (Saltdal) — Saltdals nejstarší turistický podnik (od 1867). Camping a stan. Výchozí bod do Junkerdal a Saltfjellet–Svartisen NP. Volitelně zastávka ve Storjordu a nenáročný okruh k vodopádu Kjemåfossen (cca 5 km, +60 m).",
+      "placeId": "graddis",
       "phase": "tam",
       "segmentIds": [],
       "places": [
+        {
+          "name": "Graddis Fjellstue, Camping & Bobilutleie",
+          "links": [
+            {
+              "label": "Graddis Fjellstue",
+              "url": "https://www.graddis-fjellstue.no/"
+            },
+            {
+              "label": "Junkerdal NP – Wikipedia",
+              "url": "https://no.wikipedia.org/wiki/Junkerdal_nasjonalpark"
+            }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Junkerdal.jpg?width=640",
+            "alt": "Junkerdal / Graddis — horská krajina u švédské hranice",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Junkerdal.jpg",
+            "_filename": "Junkerdal.jpg"
+          },
+          "tips": [
+            "Camping a stan u švédské hranice — výchozí bod do Junkerdal NP",
+            "Methusalem — téměř 1000 let stará borovice u fjellstue",
+            "Turistické stezky a kratší výšlapy přímo z Graddis",
+            "Nordland Nasjonalparksenter ve Storjordu (krátká cesta)"
+          ]
+        },
         {
           "name": "Kjemåfossen",
           "links": [
@@ -520,27 +546,7 @@
           "tips": [
             "Vodopád Kjemåfossen — jeden z nejvyšších v severním Norsku",
             "Vápencové údolí se vzácnými rostlinami",
-            "Nenáročná okružní stezka"
-          ]
-        },
-        {
-          "name": "Junkerdal",
-          "links": [
-            {
-              "label": "Wikipedia",
-              "url": "https://no.wikipedia.org/wiki/Junkerdal"
-            }
-          ],
-          "image": {
-            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Junkerdal.jpg?width=640",
-            "alt": "Junkerdal",
-            "source": "Wikimedia Commons",
-            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Junkerdal.jpg",
-            "_filename": "Junkerdal.jpg"
-          },
-          "tips": [
-            "Junkerdal naturreservat — arktická tundra",
-            "Kratší výšlapy v okolí Graddis"
+            "Nenáročná okružní stezka (cca 5 km, +60 m)"
           ]
         }
       ]
@@ -550,7 +556,7 @@
       "date": "2026-08-04",
       "weekday": "úterý",
       "destination": "Myrkulla",
-      "km": 217,
+      "km": 202,
       "lodging": "ubytování",
       "logistics": "",
       "program": "Přejezd do Myrkully u Arvidsjauru — odlehlé ubytování v laplandské přírodě. Odpočinek, rybaření na soukromých jezerech nebo kratší výlet po okolí.",

@@ -122,14 +122,17 @@ const PLACE_ENRICHMENT = {
     ],
   },
   "250": {
-    placeId: "junkerdal",
+    placeId: "graddis",
     places: [
-      { name: "Kjemåfossen", links: [{ label: "Visit Norway", url: "https://www.visitnorway.com/places-to-go/northern-norway/saltdal/" }] },
       {
-        name: "Junkerdal",
-        links: [{ label: "Wikipedia", url: "https://no.wikipedia.org/wiki/Junkerdal" }],
-        image: commonsImage(COMMONS_FILES.junkerdal, "Junkerdal"),
+        name: "Graddis Fjellstue, Camping & Bobilutleie",
+        links: [
+          { label: "Graddis Fjellstue", url: "https://www.graddis-fjellstue.no/" },
+          { label: "Junkerdal NP – Wikipedia", url: "https://no.wikipedia.org/wiki/Junkerdal_nasjonalpark" },
+        ],
+        image: commonsImage(COMMONS_FILES.graddis, "Junkerdal / Graddis — horská krajina u švédské hranice"),
       },
+      { name: "Kjemåfossen", links: [{ label: "Visit Norway", url: "https://www.visitnorway.com/places-to-go/northern-norway/saltdal/" }] },
     ],
   },
   Myrkulla: {
@@ -318,7 +321,7 @@ async function buildItinerary() {
   for (let i = 1; i < dataRows.length; i++) {
     const r = dataRows[i];
     const rawDest = normalizeDestination(r[2]) || normalizeDestination(r[6]) || "—";
-    const destination = rawDest === "250" ? "Junkerdal" : rawDest;
+    const destination = rawDest === "250" ? "Graddis Fjellstue, Camping & Bobilutleie" : rawDest;
     const enrich = getEnrichment(r[2]) || getEnrichment(destination);
     const program = String(r[r.length - 1] || "").trim();
     const detail = sanitizeDetail(r.slice(6, program ? -1 : undefined));

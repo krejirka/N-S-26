@@ -105,10 +105,10 @@
       "country": "Norsko",
       "dayLabel": "8–9"
     },
-    "junkerdal": {
-      "name": "Junkerdal",
-      "lat": 66.112,
-      "lng": 14.063,
+    "graddis": {
+      "name": "Graddis Fjellstue, Camping & Bobilutleie",
+      "lat": 66.74232,
+      "lng": 15.73838,
       "country": "Norsko",
       "dayLabel": "10"
     },
@@ -173,10 +173,10 @@
     ],
     "9": [],
     "10": [
-      "furoy_junkerdal"
+      "furoy_graddis"
     ],
     "11": [
-      "junkerdal_myrkulla"
+      "graddis_myrkulla"
     ],
     "12": [],
     "13": [],
