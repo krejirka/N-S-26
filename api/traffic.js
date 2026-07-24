@@ -3,7 +3,7 @@
  * Without key returns 503 so client can fall back to OSRM distance + 110 km/h estimate.
  */
 export default async function handler(req, res) {
-  const key = process.env.TOMTOM_API_KEY;
+  const key = String(process.env.TOMTOM_API_KEY || "").trim();
   if (!key) {
     return res.status(503).json({
       error: "TOMTOM_API_KEY not configured",
@@ -20,52 +20,54 @@ export default async function handler(req, res) {
   const url =
     `https://api.tomtom.com/routing/1/calculateRoute/${encodeURIComponent(locations)}/json` +
     `?key=${encodeURIComponent(key)}&traffic=true&travelMode=car&routeType=fastest` +
-    `&computeBestOrder=false&sectionType=traffic`;
+    `&departAt=now&sectionType=traffic`;
 
   const response = await fetch(url);
   if (!response.ok) {
     const text = await response.text();
-    return res.status(response.status).send(text);
+    return res.status(response.status).json({
+      error: "TomTom request failed",
+      liveTraffic: false,
+      status: response.status,
+      detail: text.slice(0, 300),
+    });
   }
 
   const data = await response.json();
   const route = data.routes?.[0];
   const summary = route?.summary;
   if (!summary) {
-    return res.status(502).json({ error: "No route from TomTom" });
+    return res.status(502).json({ error: "No route from TomTom", liveTraffic: false });
   }
 
   const distanceKm = Math.round((summary.lengthInMeters / 1000) * 10) / 10;
   const durationSec = summary.travelTimeInSeconds;
-  const durationTrafficSec = summary.trafficDelayInSeconds != null
-    ? summary.travelTimeInSeconds
-    : summary.travelTimeInSeconds;
   const delaySec = summary.trafficDelayInSeconds || 0;
-  const noTrafficSec = durationSec - delaySec;
+  const trafficLengthKm = summary.trafficLengthInMeters
+    ? Math.round((summary.trafficLengthInMeters / 1000) * 10) / 10
+    : 0;
 
   const incidents = [];
   for (const leg of route.legs || []) {
     for (const section of leg.sections || []) {
-      if (section.sectionType === "TRAFFIC" || section.simpleCategory) {
+      if (section.sectionType === "TRAFFIC" || section.simpleCategory || section.magnitudeOfDelay != null) {
         incidents.push({
           category: section.simpleCategory || section.sectionType || "traffic",
-          delaySec: section.effectiveSpeedInKmh
-            ? Math.max(0, Math.round(((section.endPointIndex - section.startPointIndex) || 0) * 2))
-            : undefined,
           magnitude: section.magnitudeOfDelay,
         });
       }
     }
   }
 
-  res.setHeader("Cache-Control", "public, s-maxage=120, stale-while-revalidate=60");
+  res.setHeader("Cache-Control", "public, s-maxage=60, stale-while-revalidate=30");
   return res.status(200).json({
     liveTraffic: true,
     distanceKm,
     durationSec,
-    durationTrafficSec,
+    durationTrafficSec: durationSec,
     delaySec,
-    noTrafficSec,
+    noTrafficSec: Math.max(0, durationSec - delaySec),
+    trafficLengthKm,
     incidents,
   });
 }

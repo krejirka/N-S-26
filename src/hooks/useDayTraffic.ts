@@ -56,13 +56,14 @@ export function useDayTraffic(
   const [live, setLive] = useState<{
     delaySec: number;
     liveTraffic: boolean;
+    trafficLengthKm: number;
     loading: boolean;
     error: string | null;
-  }>({ delaySec: 0, liveTraffic: false, loading: false, error: null });
+  }>({ delaySec: 0, liveTraffic: false, trafficLengthKm: 0, loading: false, error: null });
 
   useEffect(() => {
     if (!endpoints || !distanceKm) {
-      setLive({ delaySec: 0, liveTraffic: false, loading: false, error: null });
+      setLive({ delaySec: 0, liveTraffic: false, trafficLengthKm: 0, loading: false, error: null });
       return;
     }
     let cancelled = false;
@@ -74,19 +75,23 @@ export function useDayTraffic(
 
     fetch(url)
       .then(async (res) => {
-        if (res.status === 503) {
-          return { liveTraffic: false, delaySec: 0 };
+        const data = await res.json().catch(() => ({}));
+        if (res.status === 503 || data.liveTraffic === false) {
+          return { liveTraffic: false, delaySec: 0, trafficLengthKm: 0, error: data.error || null };
         }
-        if (!res.ok) throw new Error(`traffic ${res.status}`);
-        return res.json();
+        if (!res.ok) {
+          throw new Error(data.error || `traffic ${res.status}`);
+        }
+        return data;
       })
       .then((data) => {
         if (cancelled) return;
         setLive({
           delaySec: data.delaySec || 0,
           liveTraffic: !!data.liveTraffic,
+          trafficLengthKm: data.trafficLengthKm || 0,
           loading: false,
-          error: null,
+          error: data.error || null,
         });
       })
       .catch((err) => {
@@ -94,6 +99,7 @@ export function useDayTraffic(
         setLive({
           delaySec: 0,
           liveTraffic: false,
+          trafficLengthKm: 0,
           loading: false,
           error: err.message || "traffic unavailable",
         });
@@ -110,11 +116,12 @@ export function useDayTraffic(
   let delayLabel: string | null = null;
   if (live.liveTraffic && live.delaySec >= 60) {
     const mins = Math.round(live.delaySec / 60);
-    delayLabel = `+${mins} min zdržení (live)`;
+    const jam =
+      live.trafficLengthKm >= 1 ? ` · ${live.trafficLengthKm} km v koloně` : "";
+    delayLabel = `+${mins} min zdržení (live)${jam}`;
   } else if (live.liveTraffic) {
-    delayLabel = "bez hlášeného zdržení";
+    delayLabel = "bez hlášeného zdržení (live)";
   }
-  // Bez klíče: žádná chyba v UI — stačí odhad km / 110 km/h
 
   return {
     distanceKm,
