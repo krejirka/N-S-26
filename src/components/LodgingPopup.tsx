@@ -1,11 +1,9 @@
 import { Popup } from "react-leaflet";
-import { ExternalLink } from "lucide-react";
-import { formatCoords, navigationUrl } from "@/lib/navLink";
+import NavigateButton from "./NavigateButton";
+import { formatCoords } from "@/lib/navLink";
 import type { LodgingPoi } from "@/types/trip";
 
 export default function LodgingPopup({ lodging }: { lodging: LodgingPoi }) {
-  const navHref = navigationUrl(lodging.lat, lodging.lng, lodging.name);
-
   return (
     <Popup minWidth={240}>
       <strong>{lodging.name}</strong>
@@ -24,13 +22,7 @@ export default function LodgingPopup({ lodging }: { lodging: LodgingPoi }) {
           ))}
         </ul>
       ) : null}
-      <a
-        href={navHref}
-        className="mt-1.5 inline-flex items-center gap-1 text-xs font-semibold text-teal-700 underline"
-      >
-        Navigovat
-        <ExternalLink className="h-3 w-3" />
-      </a>
+      <NavigateButton lat={lodging.lat} lng={lodging.lng} label={lodging.name} variant="link" />
     </Popup>
   );
 }
