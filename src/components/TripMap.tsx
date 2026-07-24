@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { MapContainer, TileLayer, Polyline, Marker } from "react-leaflet";
 import type {
   CorridorPoi,
+  FishingSpot,
   LodgingPoi,
   PlacesData,
   RouteSegment,
@@ -17,8 +18,10 @@ import RadarTimeline from "./RadarTimeline";
 import PlacePopup from "./PlacePopup";
 import LodgingMarkers from "./LodgingMarkers";
 import CorridorPoiMarkers from "./CorridorPoiMarkers";
+import FishingSpotMarkers from "./FishingSpotMarkers";
 import TrafficIncidentMarkers from "./TrafficIncidentMarkers";
 import type { TrafficIncident } from "@/hooks/useDayIncidents";
+import { hoverPopupHandlers } from "@/lib/hoverPopup";
 import { FitDayBounds, FitRouteBounds, MapScrollBehavior, RADAR_MAX_ZOOM } from "./MapControls";
 import "leaflet/dist/leaflet.css";
 
@@ -31,6 +34,7 @@ interface TripMapProps {
   shops: ShopPoi[];
   lodgings: LodgingPoi[];
   corridorPois: CorridorPoi[];
+  fishingSpots: FishingSpot[];
   trafficIncidents?: TrafficIncident[];
   showRadar: boolean;
   currentFrame: RadarFrame | null;
@@ -62,6 +66,7 @@ export default function TripMap({
   shops,
   lodgings,
   corridorPois,
+  fishingSpots,
   trafficIncidents = [],
   showRadar,
   currentFrame,
@@ -185,9 +190,7 @@ export default function TripMap({
               key={id}
               position={[place.lat, place.lng]}
               icon={isFerry ? makeFerryIcon() : makeFlagIcon(place.country, label, active)}
-              eventHandlers={{
-                mouseover: (e) => e.target.openPopup(),
-              }}
+              eventHandlers={hoverPopupHandlers()}
               zIndexOffset={isFerry ? 300 : 100}
             >
               <PlacePopup place={place} dayLabel={isFerry ? "" : label} />
@@ -200,6 +203,11 @@ export default function TripMap({
           activeSegmentIds={activeSegmentIds}
           corridorPois={corridorPois}
           shops={shops}
+        />
+        <FishingSpotMarkers
+          segments={segments}
+          activeSegmentIds={activeSegmentIds}
+          spots={fishingSpots}
         />
         <TrafficIncidentMarkers incidents={trafficIncidents} />
       </MapContainer>

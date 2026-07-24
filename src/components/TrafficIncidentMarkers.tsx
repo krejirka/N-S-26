@@ -1,5 +1,6 @@
 import { Marker, Popup } from "react-leaflet";
 import { makeIncidentIcon } from "@/lib/incidentMarker";
+import { hoverPopupHandlers } from "@/lib/hoverPopup";
 import type { TrafficIncident } from "@/hooks/useDayIncidents";
 
 interface TrafficIncidentMarkersProps {
@@ -22,9 +23,7 @@ export default function TrafficIncidentMarkers({ incidents }: TrafficIncidentMar
             position={[inc.lat, inc.lng]}
             icon={makeIncidentIcon(inc.category)}
             zIndexOffset={400}
-            eventHandlers={{
-              mouseover: (e) => e.target.openPopup(),
-            }}
+            eventHandlers={hoverPopupHandlers()}
           >
             <Popup>
               <div className="min-w-[160px] text-sm">

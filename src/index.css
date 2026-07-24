@@ -186,9 +186,19 @@ body {
 
 .ferry-marker-wrap,
 .corridor-marker-wrap,
-.incident-marker-wrap {
+.incident-marker-wrap,
+.fish-marker-wrap {
   background: transparent !important;
   border: none !important;
+}
+
+.fish-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.95)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+  pointer-events: auto;
 }
 
 .incident-marker {

@@ -110,6 +110,23 @@ export interface CorridorPoisData {
   pois: CorridorPoi[];
 }
 
+export interface FishingSpot {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+  country: string;
+  species?: string[];
+  tip: string;
+  permitLabel: string;
+  permitUrl: string;
+}
+
+export interface FishingSpotsData {
+  note?: string;
+  spots: FishingSpot[];
+}
+
 export interface RouteSegment {
   id: string;
   from: string;
