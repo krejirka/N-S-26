@@ -243,7 +243,7 @@ export const DAY_CONTENT = {
     destination: "Valkalampi (Jädraås)",
     logistics: "816 91 Jädraås · catch and take pstruzi",
     program:
-      "Přejezd na jih k pobřeží Höga Kusten. Zastávka v národním parku Skuleskogen — pískovcová štěrbina Slåttdalsskrevan a vyhlídky nad Baltským mořem. Nocleh u jezera Valkalampi u Jädraås — put and take / catch and take pstruhů (duhový, siven).",
+      "Přejezd na jih k pobřeží Höga Kusten. Zastávka v národním parku Skuleskogen — pískovcová štěrbina Slåttdalsskrevan a vyhlídky nad Baltským mořem. Nocleh u jezera Valkalampi u Jädraås (Jädraås FVF) — klasický Put & Take revír, zarybňovaný pstruhem duhovým a sivenem.\n\nLov pstruhů — strategie „na těžko“ (švédsky bottenmete):\nDominuje tu stacionární lov „na těžko“, protože umožňuje přesně a stabilně prezentovat nástrahu v hloubce, kde ryby přirozeně hlídkují. Klíčem není nechat nástrahu ležet na dně, ale vznést ji do vodního sloupce.\n\nProč přívlač často selhává, zatímco „na těžko“ funguje: vysazený pstruh duhový nereaguje primárně na imitaci přirozené potravy, ale na spouštěče agresivity nebo zvědavosti. Typické příčiny neúspěchu — míjení zóny záběru (ryby u dna / termoklina, přívlač příliš vysoko), příliš rychlé monotónní vedení (ryba nestihne dobrat) a absence pachové stopy (fixace na pelety a aromata).\n\nOptimalizace: razantně zpomalit prezentaci a dostat se do správné hloubky. Při uváznutí a utržení nástrahy ihned rutinně převázat u vody, ať se neztratí aktivní interval ryb.",
     placeTips: {
       Skuleskogen: [
         "Slåttdalsskrevan — 200 m hluboká pískovcová rokle",
@@ -251,11 +251,20 @@ export const DAY_CONTENT = {
         "Túra Näskezaken — les, skály a moře",
       ],
       "Valkalampi (Jädraås)": [
-        "Catch and take / put and take — pstruh duhový a siven (röding)",
+        "Put & Take / catch and take — pstruh duhový a siven (röding); správa Jädraås FVF",
         "Povolenka (fiskekort) u automatu na místě nebo přes iFiske — max 3 ryby / karta",
         "6 větrných přístřešků (vindskydd), místo pro karavan a stan",
         "Písčitá pláž — v koupací zóně zákaz rybaření",
         "Adresa: 816 91 Jädraås",
+        "Strategie „na těžko“ (bottenmete) — nástrahu nevznést jen na dno, ale do sloupce nad ním",
+        "Nástrahy (Trout Area): plandavky 2–5 g asymetrické — průzkum a propad jako dezorientovaná kořist",
+        "Gumové nymfy / smáčci — měkký silikon, silné sýrové/česnekové aroma; extrémně pomalu u dna",
+        "Rotačky vel. 1–2 s těžším tělem (wolfram/mosaz) — aktivní ryby ve sloupci bez rychlého navíjení",
+        "Barvy: ráno / zataženo — UV a fluo (růžová, chartreuse, oranžová); slunce a čistá voda — tlumené (černá, hnědá, matná zelená)",
+        "Countdown: po náhozu počítat propad (5, pak 8…) a systematicky propátrat sloupec odshora dolů",
+        "Stop & Go: 2–3 s pomalu navíjet, 1–2 s stát — většina záběrů při propadu",
+        "Bottom bouncing: nymfa na wolframové hlavičce 0,5–1,5 g na dně, drobné poskoky špičkou, pauzy i 5 s — kombinace přívlače a „na těžko“",
+        "Při uváznutí ihned převázat u vody — neztratit aktivní okno ryb",
       ],
     },
   },
