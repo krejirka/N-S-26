@@ -12,6 +12,8 @@ interface HeaderProps {
   hasNextDay: boolean;
   onPrevDay: () => void;
   onNextDay: () => void;
+  fullRouteLocked: boolean;
+  onToggleFullRoute: () => void;
 }
 
 export default function Header({
@@ -24,6 +26,8 @@ export default function Header({
   hasNextDay,
   onPrevDay,
   onNextDay,
+  fullRouteLocked,
+  onToggleFullRoute,
 }: HeaderProps) {
   const { meta } = itinerary;
   const roadKm = dayRoadDistanceKm(day, routes.segments, daySegments);
@@ -49,6 +53,8 @@ export default function Header({
           hasNext={hasNextDay}
           onPrev={onPrevDay}
           onNext={onNextDay}
+          fullRouteLocked={fullRouteLocked}
+          onToggleFullRoute={onToggleFullRoute}
           roadKm={roadKm}
         />
       </div>

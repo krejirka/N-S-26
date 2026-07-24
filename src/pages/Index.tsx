@@ -48,6 +48,14 @@ function pragueToday(): string {
   }).format(new Date());
 }
 
+/** before / after trip → full route; during trip on a matching date → day detail. */
+function initialZoomToDay(days: Itinerary["days"]): boolean {
+  if (!days.length) return false;
+  const today = pragueToday();
+  if (today < days[0].date || today > days[days.length - 1].date) return false;
+  return days.some((d) => d.date === today);
+}
+
 /** Pick itinerary day for "today" in Europe/Prague. */
 function dayForToday(days: Itinerary["days"]): number {
   const today = pragueToday();
@@ -66,8 +74,8 @@ interface IndexProps {
 export default function Index({ showDates }: IndexProps) {
   const initialDay = useMemo(() => dayForToday(itinerary.days), []);
   const [selectedDay, setSelectedDay] = useState(initialDay);
-  /** Default: day detail + radar (fit capped at z7). Zoom past z7 auto-disables radar. */
-  const [zoomToDay, setZoomToDay] = useState(true);
+  /** false = full-route overview (lock); true = fit selected day. */
+  const [zoomToDay, setZoomToDay] = useState(() => initialZoomToDay(itinerary.days));
   const [showRadar, setShowRadar] = useState(true);
   const [fitNonce, setFitNonce] = useState(0);
   const [mobileView, setMobileView] = useState<MobileView>("map");
@@ -86,13 +94,15 @@ export default function Index({ showDates }: IndexProps) {
     [selectDay]
   );
 
+  const handleToggleFullRoute = useCallback(() => {
+    setZoomToDay((dayZoom) => !dayZoom);
+  }, []);
+
   const handleToggleRadar = useCallback(() => {
     if (showRadar) {
       setShowRadar(false);
       return;
     }
-    // Re-enable: snap day view back to radar-safe zoom
-    setZoomToDay(true);
     setFitNonce((n) => n + 1);
     setShowRadar(true);
   }, [showRadar]);
@@ -110,6 +120,7 @@ export default function Index({ showDates }: IndexProps) {
 
   const dayIndex = itinerary.days.findIndex((d) => d.day === selectedDay);
   const placeCoords = places.places[currentDay.placeId] ?? null;
+  const fullRouteLocked = !zoomToDay;
 
   return (
     <div className="flex h-[100dvh] flex-col overflow-hidden">
@@ -126,6 +137,8 @@ export default function Index({ showDates }: IndexProps) {
           onNextDay={() =>
             dayIndex < itinerary.days.length - 1 && selectDay(itinerary.days[dayIndex + 1].day)
           }
+          fullRouteLocked={fullRouteLocked}
+          onToggleFullRoute={handleToggleFullRoute}
         />
       </div>
 

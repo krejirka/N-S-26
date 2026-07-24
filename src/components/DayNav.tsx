@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Tent, Home, Ship } from "lucide-react";
+import { ChevronLeft, ChevronRight, Map, Tent, Home, Ship } from "lucide-react";
 import type { TripDay } from "@/types/trip";
 import { formatDayKm } from "@/lib/dayDistance";
 
@@ -9,6 +9,9 @@ interface DayNavProps {
   hasNext: boolean;
   onPrev: () => void;
   onNext: () => void;
+  /** Full-route map overview locked (zoom to entire trip). */
+  fullRouteLocked: boolean;
+  onToggleFullRoute: () => void;
   /** OSRM silniční km (má přednost před day.km) */
   roadKm?: number | null;
 }
@@ -36,6 +39,8 @@ export default function DayNav({
   hasNext,
   onPrev,
   onNext,
+  fullRouteLocked,
+  onToggleFullRoute,
   roadKm,
 }: DayNavProps) {
   const kmLabel = formatDayKm(roadKm ?? day.km);
@@ -71,7 +76,7 @@ export default function DayNav({
         )}
       </div>
 
-      <div className="flex shrink-0 items-center gap-2 self-center">
+      <div className="flex shrink-0 items-center gap-1.5 self-center sm:gap-2">
         <button
           type="button"
           onClick={onPrev}
@@ -81,6 +86,20 @@ export default function DayNav({
         >
           <ChevronLeft className="h-4 w-4" />
           <span className="hidden sm:inline">Předchozí</span>
+        </button>
+        <button
+          type="button"
+          onClick={onToggleFullRoute}
+          aria-label={fullRouteLocked ? "Zpět na detail dne" : "Zobrazit celou trasu"}
+          aria-pressed={fullRouteLocked}
+          title={fullRouteLocked ? "Odemknout — detail dne" : "Zamknout — celá trasa"}
+          className={`inline-flex items-center justify-center rounded-lg border px-2.5 py-1.5 text-sm font-medium transition lg:px-3 lg:py-2 ${
+            fullRouteLocked
+              ? "border-primary bg-primary text-primary-foreground"
+              : "border-border bg-background hover:bg-muted"
+          }`}
+        >
+          <Map className="h-4 w-4" />
         </button>
         <button
           type="button"
