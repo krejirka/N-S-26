@@ -53,6 +53,24 @@ export interface Place {
   dayLabel?: string;
 }
 
+export type ShopKind = "ikea" | "dollarstore";
+
+export interface ShopPoi {
+  id: string;
+  kind: ShopKind;
+  name: string;
+  address: string;
+  country: string;
+  lat: number;
+  lng: number;
+}
+
+export interface ShopsData {
+  note?: string;
+  generatedAt?: string;
+  shops: ShopPoi[];
+}
+
 export interface RouteSegment {
   id: string;
   from: string;

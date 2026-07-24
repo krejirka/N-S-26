@@ -7,11 +7,13 @@ import { useRadarAnimation } from "@/hooks/useRadarAnimation";
 import itineraryData from "@/data/itinerary.json";
 import routesData from "@/data/routes.json";
 import placesData from "@/data/places.json";
-import type { Itinerary, PlacesData, RoutesData } from "@/types/trip";
+import shopsData from "@/data/shops.json";
+import type { Itinerary, PlacesData, RoutesData, ShopsData } from "@/types/trip";
 
 const itinerary = itineraryData as Itinerary;
 const routes = routesData as RoutesData;
 const places = placesData as PlacesData;
+const shops = (shopsData as ShopsData).shops;
 
 type MobileView = "list" | "map" | "detail";
 
@@ -135,6 +137,7 @@ export default function Index({ showDates }: IndexProps) {
               daySegments={places.daySegments}
               day={currentDay}
               selectedPlaceId={currentDay.placeId}
+              shops={shops}
               showRadar={showRadar}
               currentFrame={radar.currentFrame}
               zoomToDay={zoomToDay}

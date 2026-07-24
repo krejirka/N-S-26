@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Popup } from "react-leaflet";
+import { ExternalLink } from "lucide-react";
 import YrForecast from "./YrForecast";
+import { formatCoords, navigationUrl } from "@/lib/navLink";
 import type { Place } from "@/types/trip";
 
 interface PlacePopupProps {
@@ -10,6 +12,7 @@ interface PlacePopupProps {
 
 export default function PlacePopup({ place, dayLabel }: PlacePopupProps) {
   const [open, setOpen] = useState(false);
+  const navHref = navigationUrl(place.lat, place.lng, place.name);
 
   return (
     <Popup
@@ -28,6 +31,16 @@ export default function PlacePopup({ place, dayLabel }: PlacePopupProps) {
           <span className="text-xs text-gray-500">Den {dayLabel}</span>
         </>
       )}
+      <br />
+      <span className="text-xs text-gray-500">{formatCoords(place.lat, place.lng)}</span>
+      <br />
+      <a
+        href={navHref}
+        className="mt-1.5 inline-flex items-center gap-1 text-xs font-semibold text-teal-700 underline"
+      >
+        Navigovat
+        <ExternalLink className="h-3 w-3" />
+      </a>
       {open && <YrForecast lat={place.lat} lng={place.lng} />}
     </Popup>
   );

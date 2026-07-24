@@ -1,0 +1,438 @@
+{
+  "note": "IKEA a Dollarstore v navštívených zemích. Další adresy lze doplnit sem; regenerace: node scripts/geocode-shops.mjs",
+  "generatedAt": "2026-07-24T07:39:15.779Z",
+  "shops": [
+    {
+      "id": "dollarstore-1",
+      "kind": "dollarstore",
+      "name": "Dollarstore Arvidsjaur",
+      "address": "Järnvägsgatan 131, 933 34 Arvidsjaur",
+      "country": "Švédsko",
+      "lat": 65.58009,
+      "lng": 19.20637
+    },
+    {
+      "id": "dollarstore-2",
+      "kind": "dollarstore",
+      "name": "Dollarstore Boden",
+      "address": "Boden",
+      "country": "Švédsko",
+      "lat": 65.82521,
+      "lng": 21.66323
+    },
+    {
+      "id": "dollarstore-3",
+      "kind": "dollarstore",
+      "name": "Dollarstore Gävle",
+      "address": "Ingenjörsgatan 16, Gävle",
+      "country": "Švédsko",
+      "lat": 60.64434,
+      "lng": 17.14774
+    },
+    {
+      "id": "dollarstore-4",
+      "kind": "dollarstore",
+      "name": "Dollarstore Helsingborg",
+      "address": "Helsingborg",
+      "country": "Švédsko",
+      "lat": 56.02287,
+      "lng": 12.71774
+    },
+    {
+      "id": "dollarstore-5",
+      "kind": "dollarstore",
+      "name": "Dollarstore Hudiksvall",
+      "address": "Hudiksvall",
+      "country": "Švédsko",
+      "lat": 61.73337,
+      "lng": 17.09523
+    },
+    {
+      "id": "dollarstore-6",
+      "kind": "dollarstore",
+      "name": "Dollarstore Jönköping",
+      "address": "Jönköping",
+      "country": "Švédsko",
+      "lat": 57.76109,
+      "lng": 14.17754
+    },
+    {
+      "id": "dollarstore-7",
+      "kind": "dollarstore",
+      "name": "Dollarstore Kalmar",
+      "address": "Kalmar",
+      "country": "Švédsko",
+      "lat": 56.68702,
+      "lng": 16.31938
+    },
+    {
+      "id": "dollarstore-8",
+      "kind": "dollarstore",
+      "name": "Dollarstore Linköping Tornby",
+      "address": "Tornby, Linköping",
+      "country": "Švédsko",
+      "lat": 58.43338,
+      "lng": 15.606
+    },
+    {
+      "id": "dollarstore-9",
+      "kind": "dollarstore",
+      "name": "Dollarstore Luleå",
+      "address": "Luleå",
+      "country": "Švédsko",
+      "lat": 65.61922,
+      "lng": 22.04823
+    },
+    {
+      "id": "dollarstore-10",
+      "kind": "dollarstore",
+      "name": "Dollarstore Malmö",
+      "address": "Sallerupsvägen, Malmö",
+      "country": "Švédsko",
+      "lat": 55.5955,
+      "lng": 13.09892
+    },
+    {
+      "id": "dollarstore-11",
+      "kind": "dollarstore",
+      "name": "Dollarstore Norrköping",
+      "address": "Norrköping",
+      "country": "Švédsko",
+      "lat": 58.62256,
+      "lng": 16.15662
+    },
+    {
+      "id": "dollarstore-12",
+      "kind": "dollarstore",
+      "name": "Dollarstore Sandviken",
+      "address": "Sandviken",
+      "country": "Švédsko",
+      "lat": 60.6268,
+      "lng": 16.77113
+    },
+    {
+      "id": "dollarstore-13",
+      "kind": "dollarstore",
+      "name": "Dollarstore Skellefteå",
+      "address": "Skellefteå",
+      "country": "Švédsko",
+      "lat": 64.73406,
+      "lng": 20.97136
+    },
+    {
+      "id": "dollarstore-14",
+      "kind": "dollarstore",
+      "name": "Dollarstore Söderhamn",
+      "address": "Söderhamn",
+      "country": "Švédsko",
+      "lat": 61.2965,
+      "lng": 17.01464
+    },
+    {
+      "id": "dollarstore-15",
+      "kind": "dollarstore",
+      "name": "Dollarstore Trelleborg",
+      "address": "Trelleborg",
+      "country": "Švédsko",
+      "lat": 55.38386,
+      "lng": 13.11992
+    },
+    {
+      "id": "dollarstore-16",
+      "kind": "dollarstore",
+      "name": "Dollarstore Umeå Strömpilen",
+      "address": "Tegelbruksvägen, Strömpilen, Umeå",
+      "country": "Švédsko",
+      "lat": 63.80008,
+      "lng": 20.30178
+    },
+    {
+      "id": "dollarstore-17",
+      "kind": "dollarstore",
+      "name": "Dollarstore Uppsala Gränby",
+      "address": "Gränby, Uppsala",
+      "country": "Švédsko",
+      "lat": 59.88453,
+      "lng": 17.67457
+    },
+    {
+      "id": "dollarstore-18",
+      "kind": "dollarstore",
+      "name": "Dollarstore Växjö",
+      "address": "Växjö",
+      "country": "Švédsko",
+      "lat": 56.88138,
+      "lng": 14.76593
+    },
+    {
+      "id": "dollarstore-19",
+      "kind": "dollarstore",
+      "name": "Dollarstore Vimmerby",
+      "address": "Bolagsgatan 3, 598 40 Vimmerby",
+      "country": "Švédsko",
+      "lat": 57.65881,
+      "lng": 15.85176
+    },
+    {
+      "id": "ikea-1",
+      "kind": "ikea",
+      "name": "IKEA Åsane",
+      "address": "Åsane, Bergen",
+      "country": "Norsko",
+      "lat": 60.47616,
+      "lng": 5.33187
+    },
+    {
+      "id": "ikea-2",
+      "kind": "ikea",
+      "name": "IKEA Barkarby",
+      "address": "Folkungavägen 50, Järfälla",
+      "country": "Švédsko",
+      "lat": 59.42246,
+      "lng": 17.85802
+    },
+    {
+      "id": "ikea-3",
+      "kind": "ikea",
+      "name": "IKEA Berlin-Lichtenberg",
+      "address": "Landsberger Allee 364, 10365 Berlin",
+      "country": "Německo",
+      "lat": 52.53384,
+      "lng": 13.51458
+    },
+    {
+      "id": "ikea-4",
+      "kind": "ikea",
+      "name": "IKEA Brno",
+      "address": "Skandinávská 4a, 619 00 Brno",
+      "country": "Česko",
+      "lat": 49.15551,
+      "lng": 16.62744
+    },
+    {
+      "id": "ikea-5",
+      "kind": "ikea",
+      "name": "IKEA Forus",
+      "address": "Grenseveien, Forus, Sandnes",
+      "country": "Norsko",
+      "lat": 58.88731,
+      "lng": 5.72094
+    },
+    {
+      "id": "ikea-6",
+      "kind": "ikea",
+      "name": "IKEA Furuset",
+      "address": "Strømsveien 303, 1081 Oslo",
+      "country": "Norsko",
+      "lat": 59.93346,
+      "lng": 10.87176
+    },
+    {
+      "id": "ikea-7",
+      "kind": "ikea",
+      "name": "IKEA Gävle (Valbo)",
+      "address": "Valbovägen 307, 818 32 Valbo",
+      "country": "Švédsko",
+      "lat": 60.63333,
+      "lng": 16.98956
+    },
+    {
+      "id": "ikea-8",
+      "kind": "ikea",
+      "name": "IKEA Göteborg Bäckebol",
+      "address": "Transportgatan 23, 422 46 Hisings Backa",
+      "country": "Švédsko",
+      "lat": 57.77451,
+      "lng": 12.00122
+    },
+    {
+      "id": "ikea-9",
+      "kind": "ikea",
+      "name": "IKEA Göteborg Kållered",
+      "address": "Ekenleden 2, 428 36 Kållered",
+      "country": "Švédsko",
+      "lat": 57.60623,
+      "lng": 12.04626
+    },
+    {
+      "id": "ikea-10",
+      "kind": "ikea",
+      "name": "IKEA Hamburg-Moorfleet",
+      "address": "Unterer Landweg 77, 22113 Hamburg",
+      "country": "Německo",
+      "lat": 53.51078,
+      "lng": 10.09296
+    },
+    {
+      "id": "ikea-11",
+      "kind": "ikea",
+      "name": "IKEA Haparanda",
+      "address": "Norrskensvägen 2, Haparanda",
+      "country": "Švédsko",
+      "lat": 65.84343,
+      "lng": 24.13184
+    },
+    {
+      "id": "ikea-12",
+      "kind": "ikea",
+      "name": "IKEA Helsingborg",
+      "address": "Väla Centrum, 260 36 Ödåkra",
+      "country": "Švédsko",
+      "lat": 56.09213,
+      "lng": 12.76273
+    },
+    {
+      "id": "ikea-13",
+      "kind": "ikea",
+      "name": "IKEA Jönköping",
+      "address": "A6 Center, Jönköping",
+      "country": "Švédsko",
+      "lat": 57.67765,
+      "lng": 14.16477
+    },
+    {
+      "id": "ikea-14",
+      "kind": "ikea",
+      "name": "IKEA Kalmar",
+      "address": "Bilbyggarvägen 6, Kalmar",
+      "country": "Švédsko",
+      "lat": 56.68502,
+      "lng": 16.32125
+    },
+    {
+      "id": "ikea-15",
+      "kind": "ikea",
+      "name": "IKEA Karlstad",
+      "address": "Bergviksvägen, Karlstad",
+      "country": "Švédsko",
+      "lat": 59.37961,
+      "lng": 13.42042
+    },
+    {
+      "id": "ikea-16",
+      "kind": "ikea",
+      "name": "IKEA Kungens Kurva",
+      "address": "Modulvägen 1, Skärholmen",
+      "country": "Švédsko",
+      "lat": 59.27142,
+      "lng": 17.91729
+    },
+    {
+      "id": "ikea-17",
+      "kind": "ikea",
+      "name": "IKEA Leangen",
+      "address": "Landbruksvegen 2, 7048 Trondheim",
+      "country": "Norsko",
+      "lat": 63.42895,
+      "lng": 10.47286
+    },
+    {
+      "id": "ikea-18",
+      "kind": "ikea",
+      "name": "IKEA Linköping",
+      "address": "Linköping",
+      "country": "Švédsko",
+      "lat": 58.43339,
+      "lng": 15.58672
+    },
+    {
+      "id": "ikea-19",
+      "kind": "ikea",
+      "name": "IKEA Malmö",
+      "address": "Kulthusgatan 1, 215 86 Malmö",
+      "country": "Švédsko",
+      "lat": 55.55284,
+      "lng": 12.98635
+    },
+    {
+      "id": "ikea-20",
+      "kind": "ikea",
+      "name": "IKEA Örebro",
+      "address": "Kundvägen 2, Örebro",
+      "country": "Švédsko",
+      "lat": 59.21156,
+      "lng": 15.13454
+    },
+    {
+      "id": "ikea-21",
+      "kind": "ikea",
+      "name": "IKEA Ostrava",
+      "address": "Rudná 3115/111, 700 30 Ostrava",
+      "country": "Česko",
+      "lat": 49.81208,
+      "lng": 18.31128
+    },
+    {
+      "id": "ikea-22",
+      "kind": "ikea",
+      "name": "IKEA Praha – Černý Most",
+      "address": "Chlumecká 664/10, 198 00 Praha",
+      "country": "Česko",
+      "lat": 50.10431,
+      "lng": 14.58713
+    },
+    {
+      "id": "ikea-23",
+      "kind": "ikea",
+      "name": "IKEA Ringsaker",
+      "address": "Kortgaardvegen 2, 2390 Moelv",
+      "country": "Norsko",
+      "lat": 60.84033,
+      "lng": 11.05778
+    },
+    {
+      "id": "ikea-24",
+      "kind": "ikea",
+      "name": "IKEA Slependen",
+      "address": "Nesøyveien, 1396 Billingstad",
+      "country": "Norsko",
+      "lat": 59.87603,
+      "lng": 10.50041
+    },
+    {
+      "id": "ikea-25",
+      "kind": "ikea",
+      "name": "IKEA Sørlandet",
+      "address": "Kristiansand",
+      "country": "Norsko",
+      "lat": 58.18726,
+      "lng": 8.15959
+    },
+    {
+      "id": "ikea-26",
+      "kind": "ikea",
+      "name": "IKEA Sundsvall",
+      "address": "Gesällvägen 3, Sundsvall",
+      "country": "Švédsko",
+      "lat": 62.44551,
+      "lng": 17.33606
+    },
+    {
+      "id": "ikea-27",
+      "kind": "ikea",
+      "name": "IKEA Umeå",
+      "address": "Strömpilsplatsen, Umeå",
+      "country": "Švédsko",
+      "lat": 63.80784,
+      "lng": 20.25544
+    },
+    {
+      "id": "ikea-28",
+      "kind": "ikea",
+      "name": "IKEA Uppsala",
+      "address": "Rapsgatan, Uppsala",
+      "country": "Švédsko",
+      "lat": 59.84701,
+      "lng": 17.69383
+    },
+    {
+      "id": "ikea-29",
+      "kind": "ikea",
+      "name": "IKEA Västerås",
+      "address": "Stormaktsvägen, Västerås",
+      "country": "Švédsko",
+      "lat": 59.60943,
+      "lng": 16.45672
+    }
+  ]
+}

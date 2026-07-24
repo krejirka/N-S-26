@@ -1,12 +1,13 @@
 import { useMemo } from "react";
 import { MapContainer, TileLayer, Polyline, Marker } from "react-leaflet";
-import type { PlacesData, RouteSegment, TripDay } from "@/types/trip";
+import type { PlacesData, RouteSegment, ShopPoi, TripDay } from "@/types/trip";
 import type { RadarFrame } from "@/lib/rainviewer";
 import type { RadarPlayMode } from "@/hooks/useRadarAnimation";
 import { makeFlagIcon } from "@/lib/flagMarker";
 import RadarPrecipitationLayer from "./RadarPrecipitationLayer";
 import RadarTimeline from "./RadarTimeline";
 import PlacePopup from "./PlacePopup";
+import ShopMarkers from "./ShopMarkers";
 import { FitDayBounds, FitRouteBounds, MapScrollBehavior, RADAR_MAX_ZOOM } from "./MapControls";
 import "leaflet/dist/leaflet.css";
 
@@ -16,6 +17,7 @@ interface TripMapProps {
   daySegments: Record<string, string[]>;
   day: TripDay;
   selectedPlaceId: string;
+  shops: ShopPoi[];
   showRadar: boolean;
   currentFrame: RadarFrame | null;
   zoomToDay: boolean;
@@ -43,6 +45,7 @@ export default function TripMap({
   daySegments,
   day,
   selectedPlaceId,
+  shops,
   showRadar,
   currentFrame,
   zoomToDay,
@@ -153,11 +156,15 @@ export default function TripMap({
               key={id}
               position={[place.lat, place.lng]}
               icon={makeFlagIcon(place.country, label, active)}
+              eventHandlers={{
+                mouseover: (e) => e.target.openPopup(),
+              }}
             >
               <PlacePopup place={place} dayLabel={label} />
             </Marker>
           );
         })}
+        <ShopMarkers shops={shops} />
       </MapContainer>
     </div>
   );

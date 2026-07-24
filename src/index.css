@@ -98,6 +98,36 @@ body {
   border-color: #0f766e;
 }
 
+/* Minimal shop pins — recognizable color only, not readable logos */
+.shop-marker-wrap {
+  background: transparent !important;
+  border: none !important;
+}
+
+.shop-marker {
+  display: block;
+  box-sizing: border-box;
+  opacity: 0.8;
+  pointer-events: auto;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.2);
+}
+
+.shop-marker-ikea {
+  width: 8px;
+  height: 5px;
+  background: #ffda1a;
+  border: 1px solid #0051ba;
+  border-radius: 0.5px;
+}
+
+.shop-marker-dollarstore {
+  width: 6px;
+  height: 6px;
+  background: #f5c518;
+  border: 1px solid #111;
+  border-radius: 50%;
+}
+
 .leaflet-popup-content-wrapper {
   border-radius: 10px;
 }
