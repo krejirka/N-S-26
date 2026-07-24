@@ -1,6 +1,6 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { latLngBounds } from "leaflet";
-import { useMap } from "react-leaflet";
+import { useMap, useMapEvents } from "react-leaflet";
 import type { PlacesData, RouteSegment } from "@/types/trip";
 
 /** RainViewer free tier + LibreWXR radar tiles support up to zoom 7. */
@@ -108,6 +108,7 @@ export function FitDayBounds({
   selectedPlaceId,
   enabled,
   radarLimited,
+  fitNonce = 0,
 }: {
   segments: RouteSegment[];
   daySegments: Record<string, string[]>;
@@ -116,12 +117,16 @@ export function FitDayBounds({
   selectedPlaceId: string;
   enabled: boolean;
   radarLimited: boolean;
+  /** Bump to force re-fit (e.g. after re-enabling radar). */
+  fitNonce?: number;
 }) {
   const map = useMap();
   const activeSegmentIds = useMemo(
     () => new Set(daySegments[String(day)] || []),
     [daySegments, day]
   );
+  const radarLimitedRef = useRef(radarLimited);
+  radarLimitedRef.current = radarLimited;
 
   useEffect(() => {
     if (!enabled) return;
@@ -150,7 +155,7 @@ export function FitDayBounds({
 
     clearMaxBounds(map);
 
-    const maxZoom = maxZoomForDay(points, radarLimited);
+    const maxZoom = maxZoomForDay(points, radarLimitedRef.current);
 
     if (points.length === 1) {
       map.setView(points[0], maxZoom, { animate: true });
@@ -162,7 +167,9 @@ export function FitDayBounds({
       maxZoom,
       animate: true,
     });
-  }, [map, segments, activeSegmentIds, places, selectedPlaceId, day, enabled, radarLimited]);
+    // Intentionally omit radarLimited from deps: auto-disabling radar on zoom-in
+    // must not snap the view back to day bounds.
+  }, [map, segments, activeSegmentIds, places, selectedPlaceId, day, enabled, fitNonce]);
 
   return null;
 }
@@ -170,16 +177,15 @@ export function FitDayBounds({
 /**
  * Touchpad two-finger scroll passes through to the page.
  * Pinch (ctrl+wheel) zooms the map while the pointer is over it.
+ * Max zoom is never locked by radar — zooming past RADAR_MAX_ZOOM auto-disables radar elsewhere.
  */
-export function MapScrollBehavior({ radarLimited }: { radarLimited: boolean }) {
+export function MapScrollBehavior() {
   const map = useMap();
 
   useEffect(() => {
-    map.setMaxZoom(radarLimited ? RADAR_MAX_ZOOM : 18);
-    // Keep minZoom low enough that the full route always fits;
-    // a higher minZoom would make fitBounds clip the route edges.
+    map.setMaxZoom(18);
     map.setMinZoom(4);
-  }, [map, radarLimited]);
+  }, [map]);
 
   // Recalculate tiles when the map container is revealed or resized
   // (e.g. switching mobile tabs shows a previously display:none map).
@@ -206,6 +212,26 @@ export function MapScrollBehavior({ radarLimited }: { radarLimited: boolean }) {
     container.addEventListener("wheel", onWheel, { passive: false });
     return () => container.removeEventListener("wheel", onWheel);
   }, [map]);
+
+  return null;
+}
+
+/** When user zooms past radar tile limit, turn radar off so further zoom works. */
+export function RadarAutoDisable({
+  showRadar,
+  onDisable,
+}: {
+  showRadar: boolean;
+  onDisable: () => void;
+}) {
+  const map = useMap();
+
+  useMapEvents({
+    zoomend: () => {
+      if (!showRadar) return;
+      if (map.getZoom() > RADAR_MAX_ZOOM) onDisable();
+    },
+  });
 
   return null;
 }

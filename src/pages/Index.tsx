@@ -48,12 +48,6 @@ function pragueToday(): string {
   }).format(new Date());
 }
 
-/** True when today is before the first itinerary day. */
-function tripNotStartedYet(days: Itinerary["days"]): boolean {
-  if (!days.length) return true;
-  return pragueToday() < days[0].date;
-}
-
 /** Pick itinerary day for "today" in Europe/Prague. */
 function dayForToday(days: Itinerary["days"]): number {
   const today = pragueToday();
@@ -71,11 +65,11 @@ interface IndexProps {
 
 export default function Index({ showDates }: IndexProps) {
   const initialDay = useMemo(() => dayForToday(itinerary.days), []);
-  const startWithFullCircuit = useMemo(() => tripNotStartedYet(itinerary.days), []);
   const [selectedDay, setSelectedDay] = useState(initialDay);
-  /** Radar on load: overview + history animation. Day zoom only after picking a day (or turning radar off). */
-  const [zoomToDay, setZoomToDay] = useState(false);
+  /** Default: day detail + radar (fit capped at z7). Zoom past z7 auto-disables radar. */
+  const [zoomToDay, setZoomToDay] = useState(true);
   const [showRadar, setShowRadar] = useState(true);
+  const [fitNonce, setFitNonce] = useState(0);
   const [mobileView, setMobileView] = useState<MobileView>("map");
   const radar = useRadarAnimation(showRadar);
 
@@ -95,13 +89,17 @@ export default function Index({ showDates }: IndexProps) {
   const handleToggleRadar = useCallback(() => {
     if (showRadar) {
       setShowRadar(false);
-      // Restore day zoom once trip has started; keep full circuit before departure
-      setZoomToDay(!startWithFullCircuit);
       return;
     }
-    setZoomToDay(false);
+    // Re-enable: snap day view back to radar-safe zoom
+    setZoomToDay(true);
+    setFitNonce((n) => n + 1);
     setShowRadar(true);
-  }, [showRadar, startWithFullCircuit]);
+  }, [showRadar]);
+
+  const handleRadarAutoDisable = useCallback(() => {
+    setShowRadar(false);
+  }, []);
 
   const currentDay = useMemo(
     () => itinerary.days.find((d) => d.day === selectedDay) ?? itinerary.days[0],
@@ -196,6 +194,8 @@ export default function Index({ showDates }: IndexProps) {
               onPlayHistory={radar.playHistory}
               onPlayForecast={radar.playForecast}
               onToggleRadar={handleToggleRadar}
+              onRadarAutoDisable={handleRadarAutoDisable}
+              fitNonce={fitNonce}
             />
           </div>
 
@@ -211,6 +211,8 @@ export default function Index({ showDates }: IndexProps) {
               segments={routes.segments}
               daySegments={places.daySegments}
               incidents={dayIncidents}
+              corridorPois={corridorPois}
+              fishingSpots={fishingSpots}
             />
           </div>
         </div>

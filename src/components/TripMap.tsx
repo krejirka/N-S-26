@@ -22,7 +22,12 @@ import FishingSpotMarkers from "./FishingSpotMarkers";
 import TrafficIncidentMarkers from "./TrafficIncidentMarkers";
 import type { TrafficIncident } from "@/hooks/useDayIncidents";
 import { hoverPopupHandlers } from "@/lib/hoverPopup";
-import { FitDayBounds, FitRouteBounds, MapScrollBehavior, RADAR_MAX_ZOOM } from "./MapControls";
+import {
+  FitDayBounds,
+  FitRouteBounds,
+  MapScrollBehavior,
+  RadarAutoDisable,
+} from "./MapControls";
 import "leaflet/dist/leaflet.css";
 
 interface TripMapProps {
@@ -49,6 +54,8 @@ interface TripMapProps {
   onPlayHistory: () => void;
   onPlayForecast: () => void;
   onToggleRadar: () => void;
+  onRadarAutoDisable?: () => void;
+  fitNonce?: number;
 }
 
 const outboundColor = "#c2410c";
@@ -81,6 +88,8 @@ export default function TripMap({
   onPlayHistory,
   onPlayForecast,
   onToggleRadar,
+  onRadarAutoDisable,
+  fitNonce = 0,
 }: TripMapProps) {
   const activeSegmentIds = useMemo(() => {
     // Full-circuit preview: treat every segment as active so the whole loop reads evenly
@@ -138,7 +147,7 @@ export default function TripMap({
         center={center}
         zoom={5}
         minZoom={4}
-        maxZoom={radarLimited ? RADAR_MAX_ZOOM : 18}
+        maxZoom={18}
         className="h-full w-full"
         scrollWheelZoom={false}
         touchZoom
@@ -151,7 +160,10 @@ export default function TripMap({
         {showRadar && currentFrame && (
           <RadarPrecipitationLayer tileUrl={currentFrame.tileUrl} opacity={0.5} />
         )}
-        <MapScrollBehavior radarLimited={radarLimited} />
+        <MapScrollBehavior />
+        {onRadarAutoDisable && (
+          <RadarAutoDisable showRadar={showRadar} onDisable={onRadarAutoDisable} />
+        )}
         <FitRouteBounds places={places} enabled={!zoomToDay} radarLimited={radarLimited} />
         <FitDayBounds
           segments={segments}
@@ -161,6 +173,7 @@ export default function TripMap({
           selectedPlaceId={selectedPlaceId}
           enabled={zoomToDay}
           radarLimited={radarLimited}
+          fitNonce={fitNonce}
         />
         {segments.map((seg) => {
           const active = activeSegmentIds.has(seg.id);

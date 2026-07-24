@@ -110,7 +110,9 @@
       "lat": 50.20134,
       "lng": 15.82654,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+420 495 831 111",
+      "website": "https://www.fnhk.cz/"
     },
     {
       "id": "hospital-2",
@@ -120,7 +122,9 @@
       "lat": 54.0846,
       "lng": 12.10135,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+49 381 494-0",
+      "website": "https://www.med.uni-rostock.de/"
     },
     {
       "id": "hospital-3",
@@ -130,7 +134,9 @@
       "lat": 57.68165,
       "lng": 11.96099,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+46 31 342 10 00",
+      "website": "https://www.sahlgrenska.se/"
     },
     {
       "id": "hospital-4",
@@ -140,7 +146,9 @@
       "lat": 61.1124,
       "lng": 10.47394,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+47 61 05 70 00",
+      "website": "https://sykehuset-innlandet.no/"
     },
     {
       "id": "hospital-5",
@@ -150,7 +158,9 @@
       "lat": 63.42001,
       "lng": 10.38882,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+47 72 57 20 00",
+      "website": "https://stolav.no/"
     },
     {
       "id": "hospital-6",
@@ -160,7 +170,9 @@
       "lat": 66.32602,
       "lng": 14.18593,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+47 75 12 50 00",
+      "website": "https://www.helgelandssykehuset.no/"
     },
     {
       "id": "hospital-7",
@@ -170,7 +182,9 @@
       "lat": 65.67213,
       "lng": 21.92964,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+46 920 28 20 00",
+      "website": "https://www.norrbotten.se/"
     },
     {
       "id": "hospital-8",
@@ -180,7 +194,9 @@
       "lat": 60.67774,
       "lng": 17.11753,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+46 26 15 40 00",
+      "website": "https://www.regiongavleborg.se/"
     },
     {
       "id": "veterinary-1",
@@ -190,7 +206,9 @@
       "lat": 54.07805,
       "lng": 12.09707,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+49 381 4008-0",
+      "website": "https://www.tierklinik-rostock.de/"
     },
     {
       "id": "veterinary-2",
@@ -200,7 +218,9 @@
       "lat": 57.70982,
       "lng": 12.00573,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+46 31 339 00 00",
+      "website": "https://evidensia.se/"
     },
     {
       "id": "veterinary-3",
@@ -210,7 +230,9 @@
       "lat": 59.93394,
       "lng": 10.6762,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+47 22 50 60 50",
+      "website": "https://www.anicura.no/"
     },
     {
       "id": "veterinary-4",
@@ -220,7 +242,9 @@
       "lat": 61.12468,
       "lng": 10.45635,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+47 61 26 00 00",
+      "website": "https://www.lillehammerdyreklinikk.no/"
     },
     {
       "id": "fuel-11",
@@ -250,7 +274,9 @@
       "lat": 59.93902,
       "lng": 10.74013,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+47 23 01 80 80",
+      "website": "https://www.oslo-universitetssykehus.no/"
     },
     {
       "id": "hospital-10",
@@ -260,7 +286,9 @@
       "lat": 57.75493,
       "lng": 16.63467,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+46 10 358 50 00",
+      "website": "https://www.regionkalmar.se/"
     },
     {
       "id": "veterinary-5",
@@ -270,7 +298,9 @@
       "lat": 55.57089,
       "lng": 13.04497,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+46 40 680 70 00",
+      "website": "https://evidensia.se/"
     },
     {
       "id": "veterinary-6",
@@ -280,7 +310,9 @@
       "lat": 60.67127,
       "lng": 17.19961,
       "emergency": true,
-      "fuel95": false
+      "fuel95": false,
+      "phone": "+46 26 65 00 00",
+      "website": "https://www.gavledjurklinik.se/"
     }
   ]
 }

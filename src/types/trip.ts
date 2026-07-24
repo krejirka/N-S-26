@@ -102,6 +102,8 @@ export interface CorridorPoi {
   lng: number;
   emergency?: boolean;
   fuel95?: boolean;
+  phone?: string;
+  website?: string;
 }
 
 export interface CorridorPoisData {

@@ -1,10 +1,18 @@
 import PlaceCard from "./PlaceCard";
 import YrForecast from "./YrForecast";
 import NavigateButton from "./NavigateButton";
+import DayServicesPanel from "./DayServicesPanel";
 import { useDayTraffic } from "@/hooks/useDayTraffic";
 import type { DayIncidentsSummary } from "@/hooks/useDayIncidents";
 import { formatDayKm } from "@/lib/dayDistance";
-import type { Place, PlacesData, RouteSegment, TripDay } from "@/types/trip";
+import type {
+  CorridorPoi,
+  FishingSpot,
+  Place,
+  PlacesData,
+  RouteSegment,
+  TripDay,
+} from "@/types/trip";
 
 interface DayDetailProps {
   day: TripDay;
@@ -13,6 +21,8 @@ interface DayDetailProps {
   segments: RouteSegment[];
   daySegments: Record<string, string[]>;
   incidents?: DayIncidentsSummary;
+  corridorPois: CorridorPoi[];
+  fishingSpots: FishingSpot[];
 }
 
 export default function DayDetail({
@@ -22,6 +32,8 @@ export default function DayDetail({
   segments,
   daySegments,
   incidents,
+  corridorPois,
+  fishingSpots,
 }: DayDetailProps) {
   const travel = useDayTraffic(day, places, segments, daySegments);
   const destLabel = placeCoords?.name || day.destination;
@@ -65,6 +77,14 @@ export default function DayDetail({
             </div>
           </div>
         )}
+
+        <DayServicesPanel
+          day={day}
+          segments={segments}
+          daySegments={daySegments}
+          corridorPois={corridorPois}
+          fishingSpots={fishingSpots}
+        />
 
         {day.logistics && (
           <div className="mb-4 rounded-xl border border-border bg-card p-4">

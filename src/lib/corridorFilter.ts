@@ -75,6 +75,23 @@ export function filterByCorridor<T extends { lat: number; lng: number }>(
   return items.filter((item) => distanceToPolylineKm(item.lat, item.lng, sampled) <= maxKm);
 }
 
+/** Corridor filter + distanceKm, sorted nearest-first. */
+export function rankByCorridor<T extends { lat: number; lng: number }>(
+  items: T[],
+  geometry: [number, number][],
+  maxKm: number
+): (T & { distanceKm: number })[] {
+  if (!geometry.length) return [];
+  const sampled = geometry.filter((_, i) => i % 5 === 0 || i === geometry.length - 1);
+  return items
+    .map((item) => ({
+      ...item,
+      distanceKm: Math.round(distanceToPolylineKm(item.lat, item.lng, sampled) * 10) / 10,
+    }))
+    .filter((item) => item.distanceKm <= maxKm)
+    .sort((a, b) => a.distanceKm - b.distanceKm);
+}
+
 export const MAX_SPEED_KMH = 110;
 
 export function hoursAtMaxSpeed(distanceKm: number, maxKmh = MAX_SPEED_KMH): number {
