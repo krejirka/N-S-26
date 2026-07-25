@@ -8,11 +8,11 @@
       "dayLabel": "1/18"
     },
     "rostock_ferry": {
-      "name": "Rostock (trajekt)",
+      "name": "Rostock — přístaviště TT Lines",
       "lat": 54.15168,
       "lng": 12.10058,
       "country": "Německo",
-      "dayLabel": "1/17",
+      "dayLabel": "1",
       "address": "Überseehafen, Zum Fährterminal 1, 18147 Rostock",
       "markerKind": "ferry"
     },
@@ -21,7 +21,7 @@
       "lat": 55.37342,
       "lng": 13.14212,
       "country": "Švédsko",
-      "dayLabel": "1/17",
+      "dayLabel": "2/17",
       "address": "Port of TT Line Check In, Norra Nyhamnsgatan 1b, 231 61 Trelleborg",
       "markerKind": "ferry"
     },
