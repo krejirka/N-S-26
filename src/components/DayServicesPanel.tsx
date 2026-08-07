@@ -1,6 +1,7 @@
 import { useMemo, useState, type ReactNode } from "react";
 import { ExternalLink, Fish, Hospital, PawPrint, Phone, X } from "lucide-react";
 import NavigateButton from "./NavigateButton";
+import InlineRichText from "./InlineRichText";
 import { dayRouteGeometry, rankByCorridor } from "@/lib/corridorFilter";
 import type { CorridorPoi, FishingSpot, RouteSegment, TripDay } from "@/types/trip";
 
@@ -109,7 +110,9 @@ export default function DayServicesPanel({
                   {spot.species?.length ? (
                     <div className="mt-0.5 text-xs text-teal-800">{spot.species.join(", ")}</div>
                   ) : null}
-                  <p className="mt-1 text-xs leading-snug text-foreground/90">{spot.tip}</p>
+                  <p className="mt-1 text-xs leading-snug text-foreground/90">
+                    <InlineRichText text={spot.tip} />
+                  </p>
                 </div>
               </div>
               <div className="mt-1.5 flex flex-wrap items-center gap-2">

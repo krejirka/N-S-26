@@ -1,5 +1,6 @@
 import { Popup } from "react-leaflet";
 import NavigateButton from "./NavigateButton";
+import InlineRichText from "./InlineRichText";
 import { formatCoords } from "@/lib/navLink";
 import type { FishingSpot } from "@/types/trip";
 
@@ -17,7 +18,7 @@ export default function FishingSpotPopup({ spot }: { spot: FishingSpot }) {
           <span className="text-xs text-teal-800">{species}</span>
         </>
       )}
-      <p className="mt-1.5 text-xs leading-snug text-gray-700">{spot.tip}</p>
+      <InlineRichText text={spot.tip} as="p" className="mt-1.5 text-xs leading-snug text-gray-700" />
       <span className="text-xs text-gray-500">{formatCoords(spot.lat, spot.lng)}</span>
       <div className="mt-1.5 flex flex-col gap-1">
         <a

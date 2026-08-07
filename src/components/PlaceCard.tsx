@@ -1,4 +1,5 @@
 import { ExternalLink } from "lucide-react";
+import InlineRichText from "./InlineRichText";
 import type { EnrichedPlace } from "@/types/trip";
 
 export default function PlaceCard({ place }: { place: EnrichedPlace }) {
@@ -23,7 +24,9 @@ export default function PlaceCard({ place }: { place: EnrichedPlace }) {
         {place.tips && place.tips.length > 0 && (
           <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
             {place.tips.map((tip) => (
-              <li key={tip}>{tip}</li>
+              <li key={tip}>
+                <InlineRichText text={tip} />
+              </li>
             ))}
           </ul>
         )}

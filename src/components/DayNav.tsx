@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, Map, Tent, Home, Ship } from "lucide-react";
 import type { TripDay } from "@/types/trip";
 import { formatDayKm } from "@/lib/dayDistance";
+import InlineRichText from "./InlineRichText";
 
 interface DayNavProps {
   day: TripDay;
@@ -70,7 +71,9 @@ export default function DayNav({
               </span>
             )}
             {day.logistics && (
-              <span className="max-w-full truncate rounded-full bg-muted px-2.5 py-0.5">{day.logistics}</span>
+              <span className="max-w-full truncate rounded-full bg-muted px-2.5 py-0.5">
+                <InlineRichText text={day.logistics} />
+              </span>
             )}
           </div>
         )}
