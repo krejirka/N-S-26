@@ -24,7 +24,7 @@ export function dayRoadDistanceKm(
 
 /**
  * Odhad jízdní doby z OSRM (sum durationHours silničních segmentů).
- * Respektuje rychlostní limity a typ silnice — ne „max 110 km/h“.
+ * Respektuje limity a typ silnice; osobní strop 110 km/h se aplikuje zvlášť.
  */
 export function dayRoadDurationHours(
   day: TripDay,

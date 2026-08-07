@@ -92,11 +92,34 @@ export function rankByCorridor<T extends { lat: number; lng: number }>(
     .sort((a, b) => a.distanceKm - b.distanceKm);
 }
 
+/** Osobní strop rychlosti — ne průměr. Kde silnice dovolí víc, počítáme max tolik. */
 export const MAX_SPEED_KMH = 110;
 
 export function hoursAtMaxSpeed(distanceKm: number, maxKmh = MAX_SPEED_KMH): number {
   if (!distanceKm || distanceKm <= 0) return 0;
   return distanceKm / maxKmh;
+}
+
+/**
+ * Jízdní doba: OSRM (limity/typ silnice) + strop maxKmh.
+ * 110 km/h není průměr — jen horní mez tam, kde OSRM počítá vyšší rychlost
+ * (dálnice 120/130). Na pomalejších úsecích zůstává delší OSRM doba.
+ */
+export function hoursWithMaxSpeedCap(
+  distanceKm: number,
+  osrmHours: number | null | undefined,
+  maxKmh = MAX_SPEED_KMH
+): { hours: number; capped: boolean; usedOsrm: boolean } {
+  const floorHours = hoursAtMaxSpeed(distanceKm, maxKmh);
+  if (osrmHours != null && osrmHours > 0) {
+    const hours = Math.max(osrmHours, floorHours);
+    return {
+      hours,
+      capped: hours > osrmHours + 1e-9,
+      usedOsrm: true,
+    };
+  }
+  return { hours: floorHours, capped: false, usedOsrm: false };
 }
 
 export function formatDurationHours(hours: number): string {

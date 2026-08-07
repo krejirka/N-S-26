@@ -42,4 +42,4 @@ Mapy Google/Waze neposkytují live data zdarma bez vlastního API klíče. Použ
 3. Lokálně: `cp .env.example .env.local` a doplň `TOMTOM_API_KEY=...`, pak `npm run dev`
 4. Produkce (Vercel): Project → Settings → Environment Variables → `TOMTOM_API_KEY` → Redeploy
 
-Bez klíče se zobrazí odhad km a času z OSRM (limity silnic); fallback jen při chybějící době v datech je max 110 km/h.
+Bez klíče se zobrazí odhad z OSRM (limity/typ silnice). **110 km/h je osobní strop rychlosti** (ne průměr) — uplatní se jen tam, kde by trasa počítala vyšší rychlost.
