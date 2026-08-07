@@ -4,9 +4,11 @@ import { fetchYrForecast, weatherIconUrl, type DayForecast } from "@/lib/metno";
 interface YrForecastProps {
   lat: number;
   lng: number;
+  /** Cíl dne — předpověď je vždy pro placeId/cíl daného dne. */
+  locationLabel?: string;
 }
 
-export default function YrForecast({ lat, lng }: YrForecastProps) {
+export default function YrForecast({ lat, lng, locationLabel }: YrForecastProps) {
   const [days, setDays] = useState<DayForecast[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -59,7 +61,14 @@ export default function YrForecast({ lat, lng }: YrForecastProps) {
   return (
     <div>
       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-        Předpověď 5 dní ·{" "}
+        Předpověď 5 dní
+        {locationLabel ? (
+          <>
+            {" · "}
+            <span className="normal-case tracking-normal text-foreground">{locationLabel}</span>
+          </>
+        ) : null}
+        {" · "}
         <a href="https://www.yr.no/" target="_blank" rel="noopener noreferrer" className="underline">
           yr.no
         </a>

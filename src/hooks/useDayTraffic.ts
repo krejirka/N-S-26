@@ -1,12 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Place, RouteSegment, TripDay } from "@/types/trip";
 import { formatDurationHours, hoursAtMaxSpeed, MAX_SPEED_KMH } from "@/lib/corridorFilter";
-import { dayRoadDistanceKm } from "@/lib/dayDistance";
+import { dayRoadDistanceKm, dayRoadDurationHours } from "@/lib/dayDistance";
 
 export interface DayTravelSummary {
   distanceKm: number;
+  /** Celková doba včetně live zdržení (pokud je). */
   hoursAt110: number;
   hoursLabel: string;
+  /** Zdroj základního odhadu: OSRM trasa vs. fallback max rychlost. */
+  durationSource: "osrm" | "maxSpeed";
+  durationSourceLabel: string;
   liveTraffic: boolean;
   delaySec: number;
   delayLabel: string | null;
@@ -46,12 +50,22 @@ export function useDayTraffic(
     daySegments,
   ]);
 
+  const osrmHours = useMemo(
+    () => dayRoadDurationHours(day, segments, daySegments),
+    [day, segments, daySegments]
+  );
+
   const endpoints = useMemo(
     () => dayEndpoints(day, places, segments, daySegments),
     [day, places, segments, daySegments]
   );
 
-  const baseHours = hoursAtMaxSpeed(distanceKm, MAX_SPEED_KMH);
+  const durationSource: "osrm" | "maxSpeed" =
+    osrmHours != null && osrmHours > 0 ? "osrm" : "maxSpeed";
+  const baseHours =
+    durationSource === "osrm" ? osrmHours! : hoursAtMaxSpeed(distanceKm, MAX_SPEED_KMH);
+  const durationSourceLabel =
+    durationSource === "osrm" ? "odhad OSRM" : `max ${MAX_SPEED_KMH} km/h`;
 
   const [live, setLive] = useState<{
     delaySec: number;
@@ -127,6 +141,8 @@ export function useDayTraffic(
     distanceKm,
     hoursAt110: totalHours,
     hoursLabel: formatDurationHours(totalHours),
+    durationSource,
+    durationSourceLabel,
     liveTraffic: live.liveTraffic,
     delaySec: live.delaySec,
     delayLabel,

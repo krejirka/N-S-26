@@ -52,7 +52,7 @@ export default function DayDetail({
                   <span className="font-medium text-foreground">{formatDayKm(travel.distanceKm)} km</span>
                   {" · "}
                   <span>~{travel.hoursLabel}</span>
-                  <span className="text-xs"> (max {110} km/h)</span>
+                  <span className="text-xs"> ({travel.durationSourceLabel})</span>
                   {travel.loading ? (
                     <span className="ml-1 text-xs">· načítám provoz…</span>
                   ) : travel.delayLabel ? (
@@ -102,7 +102,11 @@ export default function DayDetail({
 
         {placeCoords && (
           <div className="mb-6 rounded-xl border border-border bg-card p-4">
-            <YrForecast lat={placeCoords.lat} lng={placeCoords.lng} />
+            <YrForecast
+              lat={placeCoords.lat}
+              lng={placeCoords.lng}
+              locationLabel={placeCoords.name || day.destination}
+            />
           </div>
         )}
 
