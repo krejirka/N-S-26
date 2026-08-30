@@ -55,6 +55,10 @@ export function navigationOptions(lat: number, lng: number, label: string): NavO
   ];
 }
 
+export function mapyCzTouristUrl(lat: number, lng: number, zoom = 14): string {
+  return `https://mapy.cz/turisticka?x=${lng}&y=${lat}&z=${zoom}`;
+}
+
 /** Human-readable coordinates for popups. */
 export function formatCoords(lat: number, lng: number): string {
   return `${lat.toFixed(5)}, ${lng.toFixed(5)}`;

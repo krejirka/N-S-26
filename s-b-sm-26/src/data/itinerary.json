@@ -224,7 +224,8 @@
             "Z Jastrebce cca 3 h výstup / 2 h 15 min sestup"
           ],
           "links": [
-            { "label": "Wikipedia", "url": "https://cs.wikipedia.org/wiki/Musala" }
+            { "label": "Wikipedia", "url": "https://cs.wikipedia.org/wiki/Musala" },
+            { "label": "Mapy.cz turistická", "url": "https://mapy.cz/turisticka?x=23.58305&y=42.20306&z=14" }
           ],
           "image": {
             "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Musala.jpg?width=640",

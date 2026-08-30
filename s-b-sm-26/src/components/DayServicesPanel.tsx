@@ -1,19 +1,22 @@
 import { useMemo, useState, type ReactNode } from "react";
-import { ExternalLink, Fish, Hospital, PawPrint, Phone, X } from "lucide-react";
+import { ExternalLink, Fish, Fuel, Hospital, PawPrint, Phone, X, Zap } from "lucide-react";
 import NavigateButton from "./NavigateButton";
 import { dayRouteGeometry, rankByCorridor } from "@/lib/corridorFilter";
-import type { CorridorPoi, FishingSpot, RouteSegment, TripDay } from "@/types/trip";
+import type { CorridorPoi, EvCharger, FishingSpot, RouteSegment, TripDay } from "@/types/trip";
 
 const FISH_KM = 20;
 const SERVICE_KM = 50;
+const CHARGER_KM = 25;
+const FUEL_KM = 20;
 
-type PanelKind = "fish" | "hospital" | "vet" | null;
+type PanelKind = "fish" | "hospital" | "vet" | "charger" | "fuel" | null;
 
 interface DayServicesPanelProps {
   day: TripDay;
   segments: RouteSegment[];
   daySegments: Record<string, string[]>;
   corridorPois: CorridorPoi[];
+  evChargers?: EvCharger[];
   fishingSpots: FishingSpot[];
 }
 
@@ -22,6 +25,7 @@ export default function DayServicesPanel({
   segments,
   daySegments,
   corridorPois,
+  evChargers = [],
   fishingSpots,
 }: DayServicesPanelProps) {
   const [open, setOpen] = useState<PanelKind>(null);
@@ -34,6 +38,21 @@ export default function DayServicesPanel({
   const fish = useMemo(
     () => rankByCorridor(fishingSpots, geometry, FISH_KM),
     [fishingSpots, geometry]
+  );
+
+  const fuels = useMemo(
+    () =>
+      rankByCorridor(
+        corridorPois.filter((p) => p.kind === "fuel"),
+        geometry,
+        FUEL_KM
+      ),
+    [corridorPois, geometry]
+  );
+
+  const chargers = useMemo(
+    () => rankByCorridor(evChargers, geometry, CHARGER_KM),
+    [evChargers, geometry]
   );
 
   const hospitals = useMemo(
@@ -58,7 +77,12 @@ export default function DayServicesPanel({
 
   const toggle = (kind: PanelKind) => setOpen((cur) => (cur === kind ? null : kind));
 
-  const hasAny = fish.length > 0 || hospitals.length > 0 || vets.length > 0;
+  const hasAny =
+    fish.length > 0 ||
+    hospitals.length > 0 ||
+    vets.length > 0 ||
+    chargers.length > 0 ||
+    fuels.length > 0;
   if (!hasAny && !geometry.length) return null;
 
   return (
@@ -72,6 +96,26 @@ export default function DayServicesPanel({
             onClick={() => toggle("fish")}
           >
             <Fish className="h-4 w-4" />
+          </IconToggle>
+        )}
+        {chargers.length > 0 && (
+          <IconToggle
+            active={open === "charger"}
+            label={`Nabíjení (${chargers.length})`}
+            title="DC / Tesla nabíječky podél trasy"
+            onClick={() => toggle("charger")}
+          >
+            <Zap className="h-4 w-4" />
+          </IconToggle>
+        )}
+        {fuels.length > 0 && (
+          <IconToggle
+            active={open === "fuel"}
+            label={`Benzínky (${fuels.length})`}
+            title="Čerpací stanice podél trasy"
+            onClick={() => toggle("fuel")}
+          >
+            <Fuel className="h-4 w-4" />
           </IconToggle>
         )}
         {hospitals.length > 0 && (
@@ -125,6 +169,47 @@ export default function DayServicesPanel({
                 <NavigateButton lat={spot.lat} lng={spot.lng} label={spot.name} variant="link" />
               </div>
             </li>
+          ))}
+        </ServiceList>
+      )}
+
+      {open === "charger" && (
+        <ServiceList title="Nabíjení elektromobilu (≤25 km, DC / Tesla)" onClose={() => setOpen(null)}>
+          {chargers.map((c) => (
+            <li key={c.id} className="border-b border-border py-2.5 last:border-0">
+              <div className="text-sm font-semibold">{c.name}</div>
+              <div className="text-xs text-muted-foreground">
+                {c.distanceKm} km · {c.powerLabel}
+                {c.tesla ? " · Tesla" : ""}
+              </div>
+              {c.sockets ? <div className="mt-0.5 text-xs text-foreground/80">{c.sockets}</div> : null}
+              <div className="mt-0.5 text-xs text-foreground/90">Otevírací doba: {c.openingHoursLabel}</div>
+              {c.address ? <div className="mt-0.5 text-xs text-foreground/80">{c.address}</div> : null}
+              <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
+                {c.website ? (
+                  <a
+                    href={c.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-teal-700 underline"
+                  >
+                    Web
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                ) : null}
+                <NavigateButton lat={c.lat} lng={c.lng} label={c.name} variant="link">
+                  Navigovat k nabíječce
+                </NavigateButton>
+              </div>
+            </li>
+          ))}
+        </ServiceList>
+      )}
+
+      {open === "fuel" && (
+        <ServiceList title="Čerpací stanice (≤20 km)" onClose={() => setOpen(null)}>
+          {fuels.map((poi) => (
+            <ServicePoiRow key={poi.id} poi={poi} />
           ))}
         </ServiceList>
       )}

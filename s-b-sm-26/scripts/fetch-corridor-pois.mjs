@@ -135,7 +135,6 @@ async function fetchAround(kind, filterExpr, radiusM) {
   }
 }
 
-await fetchAround("fuel", '["amenity"="fuel"]', 20000);
 await fetchAround("hospital", '["amenity"="hospital"]["emergency"="yes"]', 50000);
 await fetchAround("veterinary", '["amenity"="veterinary"]', 50000);
 

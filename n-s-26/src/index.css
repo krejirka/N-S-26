@@ -226,3 +226,13 @@ body {
 .leaflet-popup-content-wrapper {
   border-radius: 10px;
 }
+
+.zoll-marker-wrap {
+  background: transparent !important;
+  border: none !important;
+}
+
+.zoll-marker {
+  display: flex;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+}

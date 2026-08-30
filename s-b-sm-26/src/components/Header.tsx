@@ -35,7 +35,7 @@ export default function Header({
   return (
     <header className="bg-card px-4 py-2 md:px-6 lg:px-8">
       <div className="mx-auto flex w-full max-w-[1920px] flex-col gap-2 md:flex-row md:items-center md:gap-6 lg:gap-8">
-        <div className="min-w-0 shrink-0 md:max-w-[340px] lg:max-w-[380px]">
+        <div className="shrink-0">
           <p className="text-sm font-medium uppercase tracking-wide text-primary">
             <a href="/" className="hover:underline">
               Cestovní plán
@@ -44,8 +44,10 @@ export default function Header({
               · {meta.totalDays} dní / {routes.totalDistanceKm.toLocaleString("cs-CZ")} km
             </span>
           </p>
-          <h1 className="mt-0.5 truncate text-xl font-extrabold tracking-tight lg:text-2xl">{meta.title}</h1>
-          <p className="truncate text-xs text-muted-foreground lg:text-sm">{meta.highlights.join(" · ")}</p>
+          <h1 className="mt-0.5 whitespace-nowrap text-lg font-extrabold tracking-tight lg:text-xl">
+            {meta.title}
+          </h1>
+          <p className="text-xs text-muted-foreground lg:text-sm">{meta.highlights.join(" · ")}</p>
         </div>
 
         <DayNav

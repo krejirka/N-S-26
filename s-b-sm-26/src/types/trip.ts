@@ -116,6 +116,28 @@ export interface CorridorPoisData {
   pois: CorridorPoi[];
 }
 
+export interface EvCharger {
+  id: string;
+  name: string;
+  operator?: string | null;
+  tesla?: boolean;
+  lat: number;
+  lng: number;
+  maxKw?: number | null;
+  powerLabel: string;
+  sockets?: string | null;
+  openingHours?: string | null;
+  openingHoursLabel: string;
+  address?: string;
+  website?: string | null;
+}
+
+export interface EvChargersData {
+  note?: string;
+  generatedAt?: string | null;
+  chargers: EvCharger[];
+}
+
 export interface FishingSpot {
   id: string;
   name: string;
@@ -131,6 +153,37 @@ export interface FishingSpot {
 export interface FishingSpotsData {
   note?: string;
   spots: FishingSpot[];
+}
+
+export interface BorderCrossingAlt {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+  nearPlannedId?: string;
+  nearPlannedName?: string;
+  airKm: number;
+  detourMin: number;
+  pair?: string;
+  openingHours?: string | null;
+  openingHoursLabel: string;
+  website?: string | null;
+  note?: string | null;
+}
+
+export interface PlannedBorderCrossing {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+  openingHoursLabel?: string;
+}
+
+export interface BorderCrossingsData {
+  note?: string;
+  generatedAt?: string | null;
+  planned: PlannedBorderCrossing[];
+  alternatives: BorderCrossingAlt[];
 }
 
 export interface RouteSegment {
@@ -156,4 +209,57 @@ export interface RoutesData {
 export interface PlacesData {
   places: Record<string, Place>;
   daySegments: Record<string, string[]>;
+}
+
+export type HikePoiKind = "peak" | "hut" | "shelter" | "station" | "poi";
+
+export interface HikePoi {
+  id: string;
+  kind: HikePoiKind;
+  name: string;
+  lat: number;
+  lng: number;
+  ele: number | null;
+}
+
+export interface HikeElevationSample {
+  km: number;
+  ele: number;
+  lat: number;
+  lng: number;
+}
+
+export interface HikeProfileLabel {
+  id: string;
+  name: string;
+  km: number;
+  ele: number;
+  kind: HikePoiKind | "start" | "end";
+}
+
+export interface HikeElevationProfile {
+  source: string;
+  ascentM: number;
+  descentM: number;
+  minEle: number;
+  maxEle: number;
+  samples: HikeElevationSample[];
+  labels: HikeProfileLabel[];
+}
+
+/** Foot track; `track` is GeoJSON [lng, lat] like route segments. */
+export interface HikingRoute {
+  id: string;
+  day: number;
+  name: string;
+  fromPlaceId: string;
+  toPlaceId: string;
+  placeIds: string[];
+  distanceKm: number;
+  source: string;
+  generatedAt: string;
+  note?: string;
+  track: [number, number][];
+  pois: HikePoi[];
+  profile?: HikeElevationProfile;
 }

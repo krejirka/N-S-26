@@ -2,7 +2,7 @@
  * TomTom Incident Details along a day route path.
  * Query: path=lng,lat;lng,lat;... (sampled corridor points)
  */
-import { fetchIncidentsAlongPath, parsePathParam } from "../server/tomtomIncidents.mjs";
+import { fetchIncidentsAlongPath, parsePathParam } from "./_tomtomIncidents.js";
 
 export default async function handler(req, res) {
   const key = String(process.env.TOMTOM_API_KEY || "").trim();

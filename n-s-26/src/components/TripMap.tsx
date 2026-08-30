@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { MapContainer, TileLayer, Polyline, Marker } from "react-leaflet";
 import type {
+  BorderCrossingAlt,
   CorridorPoi,
   FishingSpot,
   LodgingPoi,
@@ -20,8 +21,11 @@ import LodgingMarkers from "./LodgingMarkers";
 import CorridorPoiMarkers from "./CorridorPoiMarkers";
 import FishingSpotMarkers from "./FishingSpotMarkers";
 import TrafficIncidentMarkers from "./TrafficIncidentMarkers";
+import BorderCrossingMarkers from "./BorderCrossingMarkers";
 import type { TrafficIncident } from "@/hooks/useDayIncidents";
 import { hoverPopupHandlers } from "@/lib/hoverPopup";
+import { MAP_POI_LAYERS_OFF, type MapPoiLayer } from "@/lib/mapPoiLayers";
+import MapPoiLayerToggles from "./MapPoiLayerToggles";
 import {
   FitDayBounds,
   FitRouteBounds,
@@ -40,6 +44,7 @@ interface TripMapProps {
   lodgings: LodgingPoi[];
   corridorPois: CorridorPoi[];
   fishingSpots: FishingSpot[];
+  borderCrossings?: BorderCrossingAlt[];
   trafficIncidents?: TrafficIncident[];
   showRadar: boolean;
   currentFrame: RadarFrame | null;
@@ -74,6 +79,7 @@ export default function TripMap({
   lodgings,
   corridorPois,
   fishingSpots,
+  borderCrossings = [],
   trafficIncidents = [],
   showRadar,
   currentFrame,
@@ -112,6 +118,17 @@ export default function TripMap({
     return ids;
   }, [segments, activeSegmentIds, selectedPlaceId]);
 
+  const [poiLayers, setPoiLayers] = useState(MAP_POI_LAYERS_OFF);
+  const availablePoiLayers = useMemo(
+    () => ({
+      fuel: corridorPois.some((p) => p.kind === "fuel"),
+      hospital: corridorPois.some((p) => p.kind === "hospital"),
+      charger: false,
+      vet: corridorPois.some((p) => p.kind === "veterinary"),
+    }),
+    [corridorPois]
+  );
+
   const center: [number, number] = useMemo(() => {
     const hk = places.hradec_kralove;
     return hk ? [hk.lat, hk.lng] : [55, 12];
@@ -121,7 +138,7 @@ export default function TripMap({
 
   return (
     <div className="relative h-full w-full min-h-0">
-      <div className="pointer-events-none absolute left-14 top-2 z-[1000]">
+      <div className="pointer-events-none absolute left-14 top-2 z-[1000] flex flex-col gap-1.5">
         <div className="pointer-events-auto">
           <RadarTimeline
             frames={frames}
@@ -135,6 +152,13 @@ export default function TripMap({
             onPlayHistory={onPlayHistory}
             onPlayForecast={onPlayForecast}
             onToggleRadar={onToggleRadar}
+          />
+        </div>
+        <div className="pointer-events-auto flex flex-wrap gap-1.5">
+          <MapPoiLayerToggles
+            layers={poiLayers}
+            available={availablePoiLayers}
+            onToggle={(id: MapPoiLayer) => setPoiLayers((s) => ({ ...s, [id]: !s[id] }))}
           />
         </div>
       </div>
@@ -212,12 +236,14 @@ export default function TripMap({
           activeSegmentIds={activeSegmentIds}
           corridorPois={corridorPois}
           shops={shops}
+          layers={poiLayers}
         />
         <FishingSpotMarkers
           segments={segments}
           activeSegmentIds={activeSegmentIds}
           spots={fishingSpots}
         />
+        <BorderCrossingMarkers crossings={borderCrossings} />
         <TrafficIncidentMarkers incidents={trafficIncidents} />
       </MapContainer>
     </div>

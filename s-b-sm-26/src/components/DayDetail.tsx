@@ -2,11 +2,14 @@ import PlaceCard from "./PlaceCard";
 import YrForecast from "./YrForecast";
 import NavigateButton from "./NavigateButton";
 import DayServicesPanel from "./DayServicesPanel";
+import HikingDayPanel from "./HikingDayPanel";
 import { useDayTraffic } from "@/hooks/useDayTraffic";
+import { hikeForDay } from "@/lib/hikes";
 import type { DayIncidentsSummary } from "@/hooks/useDayIncidents";
 import { formatDayKm } from "@/lib/dayDistance";
 import type {
   CorridorPoi,
+  EvCharger,
   FishingSpot,
   Place,
   PlacesData,
@@ -22,6 +25,7 @@ interface DayDetailProps {
   daySegments: Record<string, string[]>;
   incidents?: DayIncidentsSummary;
   corridorPois: CorridorPoi[];
+  evChargers?: EvCharger[];
   fishingSpots: FishingSpot[];
 }
 
@@ -33,11 +37,13 @@ export default function DayDetail({
   daySegments,
   incidents,
   corridorPois,
+  evChargers = [],
   fishingSpots,
 }: DayDetailProps) {
   const travel = useDayTraffic(day, places, segments, daySegments);
   const navPlace = places[day.navPlaceId ?? day.placeId] ?? placeCoords;
   const destLabel = navPlace?.name || day.destination;
+  const hike = hikeForDay(day.day);
 
   return (
     <section className="flex h-full min-h-0 flex-col overflow-hidden bg-background">
@@ -84,8 +90,11 @@ export default function DayDetail({
           segments={segments}
           daySegments={daySegments}
           corridorPois={corridorPois}
+          evChargers={evChargers}
           fishingSpots={fishingSpots}
         />
+
+        {hike && <HikingDayPanel hike={hike} />}
 
         {day.logistics && (
           <div className="mb-4 rounded-xl border border-border bg-card p-4">

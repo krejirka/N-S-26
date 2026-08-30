@@ -1,10 +1,11 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Header from "@/components/Header";
 import DayList from "@/components/DayList";
 import DayDetail from "@/components/DayDetail";
 import TripMap from "@/components/TripMap";
 import { useRadarAnimation } from "@/hooks/useRadarAnimation";
 import { useDayIncidents } from "@/hooks/useDayIncidents";
+import { hikeForDay } from "@/lib/hikes";
 import itineraryData from "@/data/itinerary.json";
 import routesData from "@/data/routes.json";
 import placesData from "@/data/places.json";
@@ -12,8 +13,12 @@ import shopsData from "@/data/shops.json";
 import lodgingsData from "@/data/lodgings.json";
 import corridorPoisData from "@/data/corridor-pois.json";
 import fishingSpotsData from "@/data/fishing-spots.json";
+import borderCrossingsData from "@/data/border-crossings.json";
+import evChargersData from "@/data/ev-chargers.json";
 import type {
+  BorderCrossingsData,
   CorridorPoisData,
+  EvChargersData,
   FishingSpotsData,
   Itinerary,
   LodgingsData,
@@ -29,6 +34,8 @@ const shops = (shopsData as ShopsData).shops;
 const lodgings = (lodgingsData as LodgingsData).lodgings;
 const corridorPois = (corridorPoisData as CorridorPoisData).pois ?? [];
 const fishingSpots = (fishingSpotsData as FishingSpotsData).spots ?? [];
+const borderCrossings = (borderCrossingsData as BorderCrossingsData).alternatives ?? [];
+const evChargers = (evChargersData as EvChargersData).chargers ?? [];
 
 type MobileView = "list" | "map" | "detail";
 
@@ -84,6 +91,7 @@ export default function Index({ showDates }: IndexProps) {
   const selectDay = useCallback((day: number) => {
     setSelectedDay(day);
     setZoomToDay(true);
+    if (hikeForDay(day)) setShowRadar(false);
   }, []);
 
   const selectDayFromList = useCallback(
@@ -115,6 +123,10 @@ export default function Index({ showDates }: IndexProps) {
     () => itinerary.days.find((d) => d.day === selectedDay) ?? itinerary.days[0],
     [selectedDay]
   );
+
+  useEffect(() => {
+    if (zoomToDay && hikeForDay(selectedDay)) setShowRadar(false);
+  }, [selectedDay, zoomToDay]);
 
   const dayIncidents = useDayIncidents(currentDay, routes.segments, places.daySegments);
 
@@ -192,7 +204,9 @@ export default function Index({ showDates }: IndexProps) {
               shops={shops}
               lodgings={lodgings}
               corridorPois={corridorPois}
+              evChargers={evChargers}
               fishingSpots={fishingSpots}
+              borderCrossings={borderCrossings}
               trafficIncidents={zoomToDay ? dayIncidents.incidents : []}
               showRadar={showRadar}
               currentFrame={radar.currentFrame}
@@ -225,6 +239,7 @@ export default function Index({ showDates }: IndexProps) {
               daySegments={places.daySegments}
               incidents={dayIncidents}
               corridorPois={corridorPois}
+              evChargers={evChargers}
               fishingSpots={fishingSpots}
             />
           </div>

@@ -12,7 +12,9 @@ import shopsData from "@/data/shops.json";
 import lodgingsData from "@/data/lodgings.json";
 import corridorPoisData from "@/data/corridor-pois.json";
 import fishingSpotsData from "@/data/fishing-spots.json";
+import borderCrossingsData from "@/data/border-crossings.json";
 import type {
+  BorderCrossingsData,
   CorridorPoisData,
   FishingSpotsData,
   Itinerary,
@@ -29,6 +31,7 @@ const shops = (shopsData as ShopsData).shops;
 const lodgings = (lodgingsData as LodgingsData).lodgings;
 const corridorPois = (corridorPoisData as CorridorPoisData).pois ?? [];
 const fishingSpots = (fishingSpotsData as FishingSpotsData).spots ?? [];
+const borderCrossings = (borderCrossingsData as BorderCrossingsData).alternatives ?? [];
 
 type MobileView = "list" | "map" | "detail";
 
@@ -193,6 +196,7 @@ export default function Index({ showDates }: IndexProps) {
               lodgings={lodgings}
               corridorPois={corridorPois}
               fishingSpots={fishingSpots}
+              borderCrossings={borderCrossings}
               trafficIncidents={zoomToDay ? dayIncidents.incidents : []}
               showRadar={showRadar}
               currentFrame={radar.currentFrame}

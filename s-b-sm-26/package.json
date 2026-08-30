@@ -10,6 +10,11 @@
     "import:itinerary": "node scripts/import-itinerary.mjs",
     "build:routes": "node scripts/build-routes.mjs",
     "fetch:pois": "node scripts/fetch-corridor-pois.mjs",
+    "fetch:chargers": "node scripts/fetch-ev-chargers.mjs",
+    "fetch:hike": "node scripts/fetch-hike-musala.mjs && node scripts/fetch-hike-elevation.mjs",
+    "fetch:hike-elevation": "node scripts/fetch-hike-elevation.mjs",
+    "fetch:fuel": "node scripts/fetch-fuel.mjs",
+    "fetch:borders": "node ../scripts/fetch-border-crossings.mjs",
     "seed:pois": "node scripts/seed-corridor-pois.mjs",
     "data": "npm run import:itinerary && npm run build:routes"
   },

@@ -1,0 +1,50 @@
+{
+  "note": "Alternativní clo/přechody: ≤100 km vzdušnou čarou od plánovaného, zajížďka ≤120 min (OSRM).",
+  "generatedAt": "2026-08-30T13:17:34.790Z",
+  "planned": [
+    {
+      "id": "junkerdal",
+      "name": "Junkerdal / Graddis",
+      "lat": 66.74232,
+      "lng": 15.73838,
+      "pair": "NO-SE",
+      "openingHoursLabel": "Nonstop (clo; Schengen bez pasové kontroly)"
+    },
+    {
+      "id": "svinesund",
+      "name": "Svinesund (E6)",
+      "lat": 59.09686,
+      "lng": 11.2651,
+      "pair": "NO-SE",
+      "openingHoursLabel": "Nonstop (clo; Schengen bez pasové kontroly)"
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "kornsjo",
+      "name": "Kornsjø / Nordby",
+      "lat": 58.93193,
+      "lng": 11.6451,
+      "pair": "NO-SE",
+      "nearPlannedId": "svinesund",
+      "nearPlannedName": "Svinesund (E6)",
+      "airKm": 28.5,
+      "detourMin": 61,
+      "openingHoursLabel": "Otevírací doba cla ověřte na tolletaten.no",
+      "note": null
+    },
+    {
+      "id": "orje",
+      "name": "Ørje / Töcksfors",
+      "lat": 59.48023,
+      "lng": 11.66016,
+      "pair": "NO-SE",
+      "nearPlannedId": "svinesund",
+      "nearPlannedName": "Svinesund (E6)",
+      "airKm": 48.2,
+      "detourMin": 115,
+      "openingHoursLabel": "Nonstop (clo; Schengen bez pasové kontroly)",
+      "note": null
+    }
+  ]
+}

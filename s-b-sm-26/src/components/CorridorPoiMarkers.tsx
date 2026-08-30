@@ -1,14 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
 import { Marker, useMap, useMapEvents } from "react-leaflet";
 import { makeCorridorPoiIcon, makeShopIcon } from "@/lib/shopMarker";
+import { makeChargerIcon } from "@/lib/evChargerMarker";
 import { dayRouteGeometry, filterByCorridor } from "@/lib/corridorFilter";
 import { hoverPopupHandlers } from "@/lib/hoverPopup";
-import type { CorridorPoi, RouteSegment, ShopPoi } from "@/types/trip";
+import type { MapPoiLayerState } from "@/lib/mapPoiLayers";
+import type { CorridorPoi, EvCharger, RouteSegment, ShopPoi } from "@/types/trip";
 import { CorridorPoiPopup, ShopCorridorPopup } from "./CorridorPoiPopup";
+import EvChargerPopup from "./EvChargerPopup";
 
 const MIN_ZOOM_SHOPS = 6;
+const MIN_ZOOM_CHARGERS = 6;
 const MIN_ZOOM_SERVICES = 7;
-const FUEL_KM = 20;
+const CHARGER_KM = 25;
 const SERVICE_KM = 50;
 const SHOP_KM = 50;
 
@@ -17,6 +21,8 @@ interface CorridorPoiMarkersProps {
   activeSegmentIds: Set<string>;
   corridorPois: CorridorPoi[];
   shops: ShopPoi[];
+  evChargers?: EvCharger[];
+  layers: MapPoiLayerState;
 }
 
 export default function CorridorPoiMarkers({
@@ -24,6 +30,8 @@ export default function CorridorPoiMarkers({
   activeSegmentIds,
   corridorPois,
   shops,
+  evChargers = [],
+  layers,
 }: CorridorPoiMarkersProps) {
   const map = useMap();
   const [zoom, setZoom] = useState(map.getZoom());
@@ -46,9 +54,14 @@ export default function CorridorPoiMarkers({
       filterByCorridor(
         corridorPois.filter((p) => p.kind === "fuel"),
         geometry,
-        FUEL_KM
+        20
       ),
     [corridorPois, geometry]
+  );
+
+  const chargers = useMemo(
+    () => filterByCorridor(evChargers, geometry, CHARGER_KM),
+    [evChargers, geometry]
   );
 
   const hospitals = useMemo(
@@ -89,7 +102,21 @@ export default function CorridorPoiMarkers({
             <ShopCorridorPopup shop={shop} />
           </Marker>
         ))}
-      {zoom >= MIN_ZOOM_SERVICES &&
+      {layers.charger &&
+        zoom >= MIN_ZOOM_CHARGERS &&
+        chargers.map((charger) => (
+          <Marker
+            key={charger.id}
+            position={[charger.lat, charger.lng]}
+            icon={makeChargerIcon(charger.tesla)}
+            eventHandlers={hoverPopupHandlers()}
+            zIndexOffset={-160}
+          >
+            <EvChargerPopup charger={charger} />
+          </Marker>
+        ))}
+      {layers.fuel &&
+        zoom >= MIN_ZOOM_SERVICES &&
         fuels.map((poi) => (
           <Marker
             key={poi.id}
@@ -101,7 +128,8 @@ export default function CorridorPoiMarkers({
             <CorridorPoiPopup poi={poi} />
           </Marker>
         ))}
-      {zoom >= MIN_ZOOM_SERVICES &&
+      {layers.hospital &&
+        zoom >= MIN_ZOOM_SERVICES &&
         hospitals.map((poi) => (
           <Marker
             key={poi.id}
@@ -113,7 +141,8 @@ export default function CorridorPoiMarkers({
             <CorridorPoiPopup poi={poi} />
           </Marker>
         ))}
-      {zoom >= MIN_ZOOM_SERVICES &&
+      {layers.vet &&
+        zoom >= MIN_ZOOM_SERVICES &&
         vets.map((poi) => (
           <Marker
             key={poi.id}

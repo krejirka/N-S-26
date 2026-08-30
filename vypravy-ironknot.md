@@ -23,8 +23,8 @@ vypravy.ironknot.cz/          ← git root, Vercel root, název projektu
     traffic.js
     incidents.js
   scripts/
-    catalog.mjs               ← seznam výprav pro úvodní stránku
-    assemble-dist.mjs         ← složí dist/<slug>/ + dist/index.html
+    catalog.mjs               ← seznam výprav (složky, které se zabalí do dist)
+    assemble-dist.mjs         ← složí dist/<slug>/ + prázdný dist/index.html
   n-s-26/                     ← kompletní Vite/React aplikace
   s-b-sm-26/                  ← další kompletní Vite/React aplikace
   vypravy-ironknot.md         ← tento soubor
@@ -36,7 +36,7 @@ Sdílené na úrovni portálu:
 
 - **API** na `https://vypravy.ironknot.cz/api/...` (klient volá `/api/forecast` z originu, ne z base path).
 - **TomTom klíč** (`TOMTOM_API_KEY`) v `.env.local` u výpravy a ve Vercel Environment Variables.
-- **Úvodní stránka** `https://vypravy.ironknot.cz/` se seznamem výprav.
+- **Kořen** `https://vypravy.ironknot.cz/` je prázdný (bez rozcestníku). Adresy výprav se nesdílejí z úvodní stránky.
 
 Původní adresa `https://n-s-26.ironknot.cz` se přesměruje na `https://vypravy.ironknot.cz/n-s-26` (`vercel.json` → `redirects` podle hostitele).
 
@@ -71,7 +71,10 @@ Hesla se v bundlu neukládají v plaintextu, jen salted SHA-256. Pro novou *priv
 | `places.json` | Souřadnice všech bodů + `daySegments` (které úseky patří kterému dni) |
 | `routes.json` | Geometrie silnic z OSRM (a případně trajektů) |
 | `lodgings.json` | Ubytování — dům na mapě, adresa, navigace |
-| `corridor-pois.json` | Benzínky / nemocnice / veterina podél trasy (Overpass) |
+| `corridor-pois.json` | Benzínky / nemocnice / veterina podél trasy (Overpass). Na mapě defaultně skryté. |
+| `ev-chargers.json` | Volitelné DC / Tesla nabíječky (s-b-sm-26). Na mapě defaultně skryté. |
+| `border-crossings.json` | Alternativní hraniční přechody (≤100 km / ≤120 min) |
+| `hike-*.json` | Pěší trasa + výškový profil (OSM + Open-Meteo). Jen dny bez silnice. |
 | `shops.json` | Volitelné obchody podél koridoru (např. IKEA). Není povinné. |
 | `fishing-spots.json` | Volitelná rybářská místa. Není povinné. |
 
@@ -132,6 +135,12 @@ Potom:
 cd <slug>
 npm run build:routes    # OSRM, ~1,2 s pauza mezi úseky
 npm run fetch:pois      # Overpass: fuel 20 km, hospital/vet 50 km
+npm run fetch:borders   # alternativní ZOLL přechody
+# volitelně u EV výpravy:
+npm run fetch:chargers
+npm run fetch:fuel      # benzínky, pokud fetch:pois fuel vynechal
+# volitelně pěší den:
+npm run fetch:hike      # OSM trasa + výškový profil
 ```
 
 OSRM: `https://router.project-osrm.org/route/v1/driving/{lng,lat;…}?overview=full&geometries=geojson`.
@@ -144,10 +153,11 @@ Ubytování zadej se **přesnou adresou** a souřadnicemi (Nominatim / mapy). St
 
 ### Mapa a trasa
 
-- OpenStreetMap dlaždice, Leaflet.
+- OpenStreetMap dlaždice, Leaflet. U pěšího dne: OpenTopoMap + overlay Waymarked Trails (ne scrapovat Mapy.cz).
 - Silnice z OSRM, aktivní den silnější čára; `tam` / `zpět` barvy; trajekt přerušovaně + ikona lodi.
 - **Zámek celé trasy** (tlačítko mapy mezi Předchozí / Další): před začátkem a po konci výpravy se ukáže celý okruh; během výpravy se podle dne v Europe/Prague zoomuje na den.
 - Pinch zoom, kolečko jen s Ctrl; na mobilu záložky Itinerář / Mapa / Detail dne.
+- Trek: červená OSM trasa, GPX ke stažení, tlačítko GPS (poloha telefonu), výškový profil s popisky start / cíl / POI.
 
 ### Body a navigace
 
@@ -181,9 +191,12 @@ Do `flagMarker.ts` doplň nové země: `Srbsko: "rs"`, `Bulharsko: "bg"`, `Sever
 
 ### Služby podél trasy (koridor)
 
-- Runtime filtr: benzínky ≤ 20 km od čáry dne, nemocnice a veterina ≤ 50 km.
-- Na mapě od zoomu 7; v detailu dne tlačítka Nemocnice / Veterina (a Rybaření, pokud jsou data).
+- Runtime filtr: benzínky ≤ 20 km od čáry dne, nabíječky ≤ 25 km, nemocnice a veterina ≤ 50 km.
+- **Na mapě defaultně vypnuté** — zapínají se tlačítky Benzínky / Nabíjení / Nemocnice / Veterina vedle radaru. Bez zapnutí mapa zůstane čistá (trasa, vlajky, ubytování).
+- V detailu dne stejné služby jako rozbalovací seznamy (nejsou nakreslené na mapě, dokud uživatel vrstvu nezapne).
 - Navigace a telefon z Overpass tagů; tísňová 112 jako fallback.
+- Alternativní hraniční přechody: ikona ZOLL/DOUANE, ≤ 100 km vzdušnou čarou od plánovaného přechodu na trase, zajížďka ≤ 120 min (OSRM). Hover: plánování cesty + otevírací doba. `npm run fetch:borders`.
+- EV (s-b-sm-26): Tesla Supercharger + DC, Overpass `overpass.openstreetmap.fr`. n-s-26 má benzínky, ne nabíječky.
 
 ### Obchody a rybaření (volitelné)
 

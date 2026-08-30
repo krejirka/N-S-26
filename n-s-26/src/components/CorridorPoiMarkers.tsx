@@ -3,6 +3,7 @@ import { Marker, useMap, useMapEvents } from "react-leaflet";
 import { makeCorridorPoiIcon, makeShopIcon } from "@/lib/shopMarker";
 import { dayRouteGeometry, filterByCorridor } from "@/lib/corridorFilter";
 import { hoverPopupHandlers } from "@/lib/hoverPopup";
+import type { MapPoiLayerState } from "@/lib/mapPoiLayers";
 import type { CorridorPoi, RouteSegment, ShopPoi } from "@/types/trip";
 import { CorridorPoiPopup, ShopCorridorPopup } from "./CorridorPoiPopup";
 
@@ -17,6 +18,7 @@ interface CorridorPoiMarkersProps {
   activeSegmentIds: Set<string>;
   corridorPois: CorridorPoi[];
   shops: ShopPoi[];
+  layers: MapPoiLayerState;
 }
 
 export default function CorridorPoiMarkers({
@@ -24,6 +26,7 @@ export default function CorridorPoiMarkers({
   activeSegmentIds,
   corridorPois,
   shops,
+  layers,
 }: CorridorPoiMarkersProps) {
   const map = useMap();
   const [zoom, setZoom] = useState(map.getZoom());
@@ -89,7 +92,8 @@ export default function CorridorPoiMarkers({
             <ShopCorridorPopup shop={shop} />
           </Marker>
         ))}
-      {zoom >= MIN_ZOOM_SERVICES &&
+      {layers.fuel &&
+        zoom >= MIN_ZOOM_SERVICES &&
         fuels.map((poi) => (
           <Marker
             key={poi.id}
@@ -101,7 +105,8 @@ export default function CorridorPoiMarkers({
             <CorridorPoiPopup poi={poi} />
           </Marker>
         ))}
-      {zoom >= MIN_ZOOM_SERVICES &&
+      {layers.hospital &&
+        zoom >= MIN_ZOOM_SERVICES &&
         hospitals.map((poi) => (
           <Marker
             key={poi.id}
@@ -113,7 +118,8 @@ export default function CorridorPoiMarkers({
             <CorridorPoiPopup poi={poi} />
           </Marker>
         ))}
-      {zoom >= MIN_ZOOM_SERVICES &&
+      {layers.vet &&
+        zoom >= MIN_ZOOM_SERVICES &&
         vets.map((poi) => (
           <Marker
             key={poi.id}

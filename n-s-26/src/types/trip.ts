@@ -133,6 +133,37 @@ export interface FishingSpotsData {
   spots: FishingSpot[];
 }
 
+export interface BorderCrossingAlt {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+  nearPlannedId?: string;
+  nearPlannedName?: string;
+  airKm: number;
+  detourMin: number;
+  pair?: string;
+  openingHours?: string | null;
+  openingHoursLabel: string;
+  website?: string | null;
+  note?: string | null;
+}
+
+export interface PlannedBorderCrossing {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+  openingHoursLabel?: string;
+}
+
+export interface BorderCrossingsData {
+  note?: string;
+  generatedAt?: string | null;
+  planned: PlannedBorderCrossing[];
+  alternatives: BorderCrossingAlt[];
+}
+
 export interface RouteSegment {
   id: string;
   from: string;

@@ -16,7 +16,8 @@ function boundsSpan(points: [number, number][]) {
   };
 }
 
-function maxZoomForDay(points: [number, number][], radarLimited: boolean) {
+function maxZoomForDay(points: [number, number][], radarLimited: boolean, hikeView: boolean) {
+  if (hikeView) return 14;
   let zoom: number;
   if (points.length <= 1) zoom = 11;
   else {
@@ -105,6 +106,8 @@ export function FitDayBounds({
   enabled,
   radarLimited,
   fitNonce = 0,
+  extraPoints,
+  hikeView = false,
 }: {
   segments: RouteSegment[];
   daySegments: Record<string, string[]>;
@@ -115,6 +118,8 @@ export function FitDayBounds({
   radarLimited: boolean;
   /** Bump to force re-fit (e.g. after re-enabling radar). */
   fitNonce?: number;
+  extraPoints?: [number, number][];
+  hikeView?: boolean;
 }) {
   const map = useMap();
   const activeSegmentIds = useMemo(
@@ -146,12 +151,13 @@ export function FitDayBounds({
 
     const selected = places[selectedPlaceId];
     if (selected) points.push([selected.lat, selected.lng]);
+    if (extraPoints?.length) points.push(...extraPoints);
 
     if (!points.length) return;
 
     clearMaxBounds(map);
 
-    const maxZoom = maxZoomForDay(points, radarLimitedRef.current);
+    const maxZoom = maxZoomForDay(points, radarLimitedRef.current, hikeView);
 
     if (points.length === 1) {
       map.setView(points[0], maxZoom, { animate: true });
@@ -165,7 +171,7 @@ export function FitDayBounds({
     });
     // Intentionally omit radarLimited from deps: auto-disabling radar on zoom-in
     // must not snap the view back to day bounds.
-  }, [map, segments, activeSegmentIds, places, selectedPlaceId, day, enabled, fitNonce]);
+  }, [map, segments, activeSegmentIds, places, selectedPlaceId, day, enabled, fitNonce, extraPoints, hikeView]);
 
   return null;
 }
