@@ -1,11 +1,7 @@
 import { ExternalLink } from "lucide-react";
-<<<<<<< HEAD:n-s-26/src/components/PlaceCard.tsx
 import NavigateButton from "./NavigateButton";
-import type { EnrichedPlace, Place } from "@/types/trip";
-=======
 import InlineRichText from "./InlineRichText";
-import type { EnrichedPlace } from "@/types/trip";
->>>>>>> 5a5181252b2025b29ce660492519b230de5656dc:src/components/PlaceCard.tsx
+import type { EnrichedPlace, Place } from "@/types/trip";
 
 export default function PlaceCard({
   place,
