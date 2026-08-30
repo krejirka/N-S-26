@@ -244,9 +244,9 @@ export const DAY_CONTENT = {
   },
   15: {
     destination: "Valkalampi (Jädraås)",
-    logistics: "816 91 Jädraås · catch and take pstruzi",
+    logistics: "816 91 Jädraås · **put and take** pstruzi",
     program:
-      "Přejezd na jih k pobřeží Höga Kusten. Zastávka v národním parku Skuleskogen — pískovcová štěrbina Slåttdalsskrevan a vyhlídky nad Baltským mořem. Nocleh u jezera Valkalampi u Jädraås (Jädraås FVF) — klasický Put & Take revír, zarybňovaný pstruhem duhovým a sivenem.\n\nLov pstruhů — strategie „na těžko“ (švédsky bottenmete):\nDominuje tu stacionární lov „na těžko“, protože umožňuje přesně a stabilně prezentovat nástrahu v hloubce, kde ryby přirozeně hlídkují. Klíčem není nechat nástrahu ležet na dně, ale vznést ji do vodního sloupce.\n\nProč přívlač často selhává, zatímco „na těžko“ funguje: vysazený pstruh duhový nereaguje primárně na imitaci přirozené potravy, ale na spouštěče agresivity nebo zvědavosti. Typické příčiny neúspěchu — míjení zóny záběru (ryby u dna / termoklina, přívlač příliš vysoko), příliš rychlé monotónní vedení (ryba nestihne dobrat) a absence pachové stopy (fixace na pelety a aromata).\n\nOptimalizace: razantně zpomalit prezentaci a dostat se do správné hloubky. Při uváznutí a utržení nástrahy ihned rutinně převázat u vody, ať se neztratí aktivní interval ryb.",
+      "Přejezd na jih k pobřeží Höga Kusten. Zastávka v národním parku Skuleskogen — pískovcová štěrbina Slåttdalsskrevan a vyhlídky nad Baltským mořem. Nocleh u jezera Valkalampi u Jädraås (Jädraås FVF) — klasický **put and take** revír, zarybňovaný pstruhem duhovým a sivenem.\n\nLov pstruhů — strategie „na těžko“ (švédsky bottenmete):\nDominuje tu stacionární lov „na těžko“, protože umožňuje přesně a stabilně prezentovat nástrahu v hloubce, kde ryby přirozeně hlídkují. Klíčem není nechat nástrahu ležet na dně, ale vznést ji do vodního sloupce.\n\nProč přívlač často selhává, zatímco „na těžko“ funguje: vysazený pstruh duhový nereaguje primárně na imitaci přirozené potravy, ale na spouštěče agresivity nebo zvědavosti. Typické příčiny neúspěchu — míjení zóny záběru (ryby u dna / termoklina, přívlač příliš vysoko), příliš rychlé monotónní vedení (ryba nestihne dobrat) a absence pachové stopy (fixace na pelety a aromata).\n\nOptimalizace: razantně zpomalit prezentaci a dostat se do správné hloubky. Při uváznutí a utržení nástrahy ihned rutinně převázat u vody, ať se neztratí aktivní interval ryb.",
     placeTips: {
       Skuleskogen: [
         "Slåttdalsskrevan — 200 m hluboká pískovcová rokle",
@@ -254,7 +254,7 @@ export const DAY_CONTENT = {
         "Túra Näskezaken — les, skály a moře",
       ],
       "Valkalampi (Jädraås)": [
-        "Put & Take / catch and take — pstruh duhový a siven (röding); správa Jädraås FVF",
+        "**put and take** — pstruh duhový a siven (röding); správa Jädraås FVF",
         "Povolenka (fiskekort) u automatu na místě nebo přes iFiske — max 3 ryby / karta",
         "6 větrných přístřešků (vindskydd), místo pro karavan a stan",
         "Písčitá pláž — v koupací zóně zákaz rybaření",

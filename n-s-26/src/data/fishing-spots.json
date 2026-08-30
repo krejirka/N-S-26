@@ -7,7 +7,12 @@
       "lat": 61.115,
       "lng": 10.466,
       "country": "Norsko",
-      "species": ["okoun", "štika", "candát", "pstruh"],
+      "species": [
+        "okoun",
+        "štika",
+        "candát",
+        "pstruh"
+      ],
       "tip": "Největší norské jezero u Lillehammeru — přívlač a feeder z břehu i lodi. Sladkovoda = povinná místní povolenka (inatur).",
       "permitLabel": "Koupit povolenku (inatur.no)",
       "permitUrl": "https://www.inatur.no/"
@@ -18,7 +23,10 @@
       "lat": 62.08,
       "lng": 9.58,
       "country": "Norsko",
-      "species": ["pstruh", "siven"],
+      "species": [
+        "pstruh",
+        "siven"
+      ],
       "tip": "Horská jezera v NP — krátké vycházky od silnice. Chladná voda, klasika na mušku / přívlač. Ověř místní revír na inatur.",
       "permitLabel": "Koupit povolenku (inatur.no)",
       "permitUrl": "https://www.inatur.no/"
@@ -29,7 +37,11 @@
       "lat": 63.43,
       "lng": 10.39,
       "country": "Norsko",
-      "species": ["treska", "okoun mořský", "makrela"],
+      "species": [
+        "treska",
+        "okoun mořský",
+        "makrela"
+      ],
       "tip": "Mořský lov ze břehu/mola u Trondheimu. S ruční udicí často bez slané povolenky — dodrž kvóty a minimální velikosti (Fiskeridirektoratet).",
       "permitLabel": "Pravidla mořského lovu (Fiskeridirektoratet)",
       "permitUrl": "https://www.fiskeridir.no/Fritidsfiske"
@@ -40,7 +52,10 @@
       "lat": 65.625,
       "lng": 13.29,
       "country": "Norsko",
-      "species": ["losos", "pstruh mořský"],
+      "species": [
+        "losos",
+        "pstruh mořský"
+      ],
       "tip": "Klasický lososí úsek Helgelandu. Přísná sezóna a omezení — vždy řeš aktuální kartu a pravidla před nahozením.",
       "permitLabel": "Povolenka Helgeland / inatur",
       "permitUrl": "https://www.inatur.no/"
@@ -51,7 +66,11 @@
       "lat": 66.739,
       "lng": 13.503,
       "country": "Norsko",
-      "species": ["treska", "sei", "okoun mořský"],
+      "species": [
+        "treska",
+        "sei",
+        "okoun mořský"
+      ],
       "tip": "Pobřežní rybaření u kempu — klidné fjordové vody, večerní lov ze skal a mol. Mořský ruční lov dle národních pravidel.",
       "permitLabel": "Pravidla mořského lovu (Fiskeridirektoratet)",
       "permitUrl": "https://www.fiskeridir.no/Fritidsfiske"
@@ -62,7 +81,11 @@
       "lat": 66.74,
       "lng": 15.74,
       "country": "Norsko",
-      "species": ["pstruh", "siven", "okoun"],
+      "species": [
+        "pstruh",
+        "siven",
+        "okoun"
+      ],
       "tip": "Horská jezera u hranice se Švédskem — krátké zajížďky od E6/Fv. Ideální na přívlač a muškaření.",
       "permitLabel": "Koupit povolenku (inatur.no)",
       "permitUrl": "https://www.inatur.no/"
@@ -73,7 +96,11 @@
       "lat": 65.94,
       "lng": 18.836,
       "country": "Švédsko",
-      "species": ["okoun", "štika", "pstruh"],
+      "species": [
+        "okoun",
+        "štika",
+        "pstruh"
+      ],
       "tip": "Odlehlá jezera u Arvidsjauru — okoun a štika, klidný lov z břehu. Domluv povolenku / podmínky s ubytováním; okolní veřejné vody přes iFiske.",
       "permitLabel": "iFiske — Arvidsjaur / Norrbotten",
       "permitUrl": "https://www.ifiske.se/"
@@ -84,7 +111,12 @@
       "lat": 66.05,
       "lng": 17.95,
       "country": "Švédsko",
-      "species": ["okoun", "štika", "siven", "pstruh"],
+      "species": [
+        "okoun",
+        "štika",
+        "siven",
+        "pstruh"
+      ],
       "tip": "Jedno z nejhlubších jezer Švédska — výlet z Myrkully. Silný okoun a štika; místní FVF karty přes iFiske.",
       "permitLabel": "iFiske — hledat Arjeplog / Hornavan",
       "permitUrl": "https://www.ifiske.se/"
@@ -95,8 +127,11 @@
       "lat": 60.8447,
       "lng": 16.4371,
       "country": "Švédsko",
-      "species": ["pstruh duhový", "siven"],
-      "tip": "Put & Take — zarybňovaný pstruh. Strategie „na těžko“ (bottenmete) do sloupce; max 3 ryby / karta. Zákaz lovu v koupací zóně.",
+      "species": [
+        "pstruh duhový",
+        "siven"
+      ],
+      "tip": "**put and take** — zarybňovaný pstruh. Strategie „na těžko“ (bottenmete) do sloupce; max 3 ryby / karta. Zákaz lovu v koupací zóně.",
       "permitLabel": "Denní karta Valkalampi (iFiske)",
       "permitUrl": "https://www.ifiske.se/en/fishing-permit-jadraas-fvf.htm"
     },
@@ -106,7 +141,11 @@
       "lat": 63.09,
       "lng": 18.5,
       "country": "Švédsko",
-      "species": ["okoun", "štika", "mořský pstruh"],
+      "species": [
+        "okoun",
+        "štika",
+        "mořský pstruh"
+      ],
       "tip": "Zastávka na cestě k Valkalampi — pobřeží a jezera Höga Kusten. Ověř místní FVF před lovem v NP zónách.",
       "permitLabel": "iFiske — Västernorrland",
       "permitUrl": "https://www.ifiske.se/"
@@ -117,7 +156,11 @@
       "lat": 58.4,
       "lng": 14.85,
       "country": "Švédsko",
-      "species": ["losos", "pstruh", "síh"],
+      "species": [
+        "losos",
+        "pstruh",
+        "síh"
+      ],
       "tip": "Velké jezero na trase jih — studená voda, přívlač a trolling. Část vod je volná pro držitele státního fiskekortu / místních karet.",
       "permitLabel": "iFiske — Vättern",
       "permitUrl": "https://www.ifiske.se/"
@@ -128,7 +171,10 @@
       "lat": 55.387,
       "lng": 14.065,
       "country": "Švédsko",
-      "species": ["mořský pstruh", "platýs"],
+      "species": [
+        "mořský pstruh",
+        "platýs"
+      ],
       "tip": "Rybářská vesnice pod útesem — pobřežní lov mořského pstruha. V Baltu platí švédská pravidla a minimální velikosti.",
       "permitLabel": "Pravidla Švédsko (Havs- och vattenmyndigheten)",
       "permitUrl": "https://www.havochvatten.se/fiske-och-handel/sport-och-fritidsfiske.html"
@@ -139,7 +185,11 @@
       "lat": 55.55,
       "lng": 12.92,
       "country": "Švédsko",
-      "species": ["treska", "platýs", "mořský pstruh"],
+      "species": [
+        "treska",
+        "platýs",
+        "mořský pstruh"
+      ],
       "tip": "Úžina u příjezdu z trajektu — lov ze břehu a mol. Sleduj aktuální omezení v Öresundu.",
       "permitLabel": "Pravidla Švédsko (HaV)",
       "permitUrl": "https://www.havochvatten.se/fiske-och-handel/sport-och-fritidsfiske.html"

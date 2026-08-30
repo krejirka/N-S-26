@@ -2,6 +2,7 @@ import PlaceCard from "./PlaceCard";
 import YrForecast from "./YrForecast";
 import NavigateButton from "./NavigateButton";
 import DayServicesPanel from "./DayServicesPanel";
+import InlineRichText from "./InlineRichText";
 import { useDayTraffic } from "@/hooks/useDayTraffic";
 import type { DayIncidentsSummary } from "@/hooks/useDayIncidents";
 import { formatDayKm } from "@/lib/dayDistance";
@@ -53,7 +54,7 @@ export default function DayDetail({
                   <span className="font-medium text-foreground">{formatDayKm(travel.distanceKm)} km</span>
                   {" · "}
                   <span>~{travel.hoursLabel}</span>
-                  <span className="text-xs"> (max {110} km/h)</span>
+                  <span className="text-xs"> ({travel.durationSourceLabel})</span>
                   {travel.loading ? (
                     <span className="ml-1 text-xs">· načítám provoz…</span>
                   ) : travel.delayLabel ? (
@@ -90,20 +91,28 @@ export default function DayDetail({
         {day.logistics && (
           <div className="mb-4 rounded-xl border border-border bg-card p-4">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Logistika</h3>
-            <p className="mt-2 text-sm leading-relaxed">{day.logistics}</p>
+            <InlineRichText text={day.logistics} as="p" className="mt-2 text-sm leading-relaxed" />
           </div>
         )}
 
         {day.program && (
           <div className="mb-6 rounded-xl border border-border bg-card p-4">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Program</h3>
-            <p className="mt-2 whitespace-pre-line text-sm leading-relaxed">{day.program}</p>
+            <InlineRichText
+              text={day.program}
+              as="p"
+              className="mt-2 whitespace-pre-line text-sm leading-relaxed"
+            />
           </div>
         )}
 
         {placeCoords && (
           <div className="mb-6 rounded-xl border border-border bg-card p-4">
-            <YrForecast lat={placeCoords.lat} lng={placeCoords.lng} />
+            <YrForecast
+              lat={placeCoords.lat}
+              lng={placeCoords.lng}
+              locationLabel={placeCoords.name || day.destination}
+            />
           </div>
         )}
 
