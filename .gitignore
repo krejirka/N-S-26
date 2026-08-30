@@ -7,5 +7,6 @@ dist
 !.env.example
 tsconfig.tsbuildinfo
 moje/*.xlsx
+**/moje/*.xlsx
 .vercel
-scripts/recap/__pycache__/
+**/__pycache__/
