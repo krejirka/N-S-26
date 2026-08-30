@@ -2,7 +2,7 @@ import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
   appId: "cz.ironknot.vypravy.sbsm26",
-  appName: "Balkán 2026",
+  appName: "S-B-SM-26",
   webDir: "dist",
   android: {
     allowMixedContent: false,

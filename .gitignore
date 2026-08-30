@@ -22,4 +22,8 @@ s-b-sm-26/android/local.properties
 s-b-sm-26/android/captures
 *.jks
 *.keystore
+/Ironknot Mark-selection.png
+/ironknot-logo.gif
+/ironknot-logo-light.gif
+/ironknot-logo-dark.gif
 

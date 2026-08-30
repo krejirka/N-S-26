@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Header from "@/components/Header";
+import BrandSplash from "@/components/BrandSplash";
 import DayList from "@/components/DayList";
 import DayDetail from "@/components/DayDetail";
 import TripMap from "@/components/TripMap";
@@ -138,6 +139,7 @@ export default function Index({ showDates }: IndexProps) {
 
   return (
     <div className="flex h-[100dvh] flex-col overflow-hidden">
+      <BrandSplash />
       <div className="shrink-0 border-b border-border bg-card shadow-sm">
         <Header
           itinerary={itinerary}
