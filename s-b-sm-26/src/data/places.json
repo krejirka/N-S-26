@@ -1,0 +1,155 @@
+{
+  "places": {
+    "hradec_kralove": {
+      "name": "Hradec Králové",
+      "lat": 50.2092,
+      "lng": 15.8328,
+      "country": "Česko",
+      "dayLabel": "1/6"
+    },
+    "subotica": {
+      "name": "Garni Hotel Royal Crown, Subotica",
+      "lat": 46.09154,
+      "lng": 19.64898,
+      "country": "Srbsko",
+      "dayLabel": "1",
+      "address": "Somborski put 75, 24000 Subotica, Srbsko"
+    },
+    "crveni_krst": {
+      "name": "Crveni krst (Niš)",
+      "lat": 43.33054,
+      "lng": 21.88864,
+      "country": "Srbsko",
+      "dayLabel": "2",
+      "address": "Bulevar 12. februar, 18104 Niš, Srbsko"
+    },
+    "nis_fortress": {
+      "name": "Pevnost Niš",
+      "lat": 43.32577,
+      "lng": 21.89545,
+      "country": "Srbsko",
+      "dayLabel": "2"
+    },
+    "nis": {
+      "name": "Prenočište Imper I.M.D., Niš",
+      "lat": 43.32316,
+      "lng": 21.90096,
+      "country": "Srbsko",
+      "dayLabel": "2",
+      "address": "7. juli 22, 18000 Niš, Srbsko"
+    },
+    "cele_kula": {
+      "name": "Ćele kula, Niš",
+      "lat": 43.3121,
+      "lng": 21.9238,
+      "country": "Srbsko",
+      "dayLabel": "3",
+      "address": "Bulevar dr Zorana Đinđića 78, 18108 Niš, Srbsko"
+    },
+    "pirot": {
+      "name": "Pirotská peglaná klobása (Pirot)",
+      "lat": 43.16048,
+      "lng": 22.58982,
+      "country": "Srbsko",
+      "dayLabel": "3",
+      "address": "Trg republike 29, 18300 Pirot, Srbsko"
+    },
+    "borovets": {
+      "name": "Park Hotel Ela, Borovec",
+      "lat": 42.26725,
+      "lng": 23.60386,
+      "country": "Bulharsko",
+      "dayLabel": "3–4",
+      "address": "кк Боровец, 2010 Borovec, Bulharsko"
+    },
+    "jastrebec_gondola": {
+      "name": "Lanovka Jastrebec (dolní stanice)",
+      "lat": 42.26633,
+      "lng": 23.60311,
+      "country": "Bulharsko",
+      "dayLabel": "4",
+      "address": "Yastrebets Gondola, 2010 Borovec, Bulharsko"
+    },
+    "jastrebec": {
+      "name": "Jastrebec (2 369 m)",
+      "lat": 42.22694,
+      "lng": 23.58083,
+      "country": "Bulharsko",
+      "dayLabel": "4"
+    },
+    "musala": {
+      "name": "Musala (2 925 m)",
+      "lat": 42.17919,
+      "lng": 23.58528,
+      "country": "Bulharsko",
+      "dayLabel": "4"
+    },
+    "rila": {
+      "name": "Rilský klášter",
+      "lat": 42.1333,
+      "lng": 23.34019,
+      "country": "Bulharsko",
+      "dayLabel": "5",
+      "address": "Rilski manastir 107, 2643 Rila, Bulharsko"
+    },
+    "kumanovo": {
+      "name": "KOKINO Winery & Hotel, Kumanovo",
+      "lat": 42.15627,
+      "lng": 21.73013,
+      "country": "Severní Makedonie",
+      "dayLabel": "5",
+      "address": "Kozjacka 15, 1300 Kumanovo, Severní Makedonie"
+    },
+    "avala": {
+      "name": "Avala (TV vysílač)",
+      "lat": 44.68909,
+      "lng": 20.51594,
+      "country": "Srbsko",
+      "dayLabel": "6"
+    },
+    "kalemegdan": {
+      "name": "Kalemegdan, Bělehrad",
+      "lat": 44.82339,
+      "lng": 20.45088,
+      "country": "Srbsko",
+      "dayLabel": "6"
+    },
+    "saint_sava": {
+      "name": "Chrám sv. Sávy, Bělehrad",
+      "lat": 44.79805,
+      "lng": 20.46919,
+      "country": "Srbsko",
+      "dayLabel": "6",
+      "address": "Krušedolska 2a, 11167 Bělehrad, Srbsko"
+    },
+    "tesla_museum": {
+      "name": "Muzeum Nikoly Tesly, Bělehrad",
+      "lat": 44.80511,
+      "lng": 20.4707,
+      "country": "Srbsko",
+      "dayLabel": "6",
+      "address": "Krunska 51, 11000 Bělehrad, Srbsko"
+    }
+  },
+  "daySegments": {
+    "1": [
+      "hk_subotica"
+    ],
+    "2": [
+      "subotica_nis"
+    ],
+    "3": [
+      "nis_pirot",
+      "pirot_borovets"
+    ],
+    "4": [],
+    "5": [
+      "borovets_rila",
+      "rila_kumanovo"
+    ],
+    "6": [
+      "kumanovo_avala",
+      "avala_hk"
+    ]
+  }
+}

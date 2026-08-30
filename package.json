@@ -1,35 +1,14 @@
 {
-  "name": "n-s-26",
+  "name": "vypravy.ironknot.cz",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
+  "description": "Portál výprav na vypravy.ironknot.cz — každá cesta je samostatná aplikace ve složce podle URL.",
+  "workspaces": ["n-s-26", "s-b-sm-26"],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
-    "import:itinerary": "node scripts/import-itinerary.mjs",
-    "build:routes": "node scripts/build-routes.mjs",
-    "fetch:pois": "node scripts/fetch-corridor-pois.mjs",
-    "seed:pois": "node scripts/seed-corridor-pois.mjs",
-    "data": "npm run import:itinerary && npm run build:routes"
-  },
-  "dependencies": {
-    "leaflet": "^1.9.4",
-    "lucide-react": "^0.462.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-leaflet": "^4.2.1",
-    "react-router-dom": "^6.28.0"
-  },
-  "devDependencies": {
-    "@types/leaflet": "^1.9.14",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.3",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.15",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.11"
+    "dev": "npm run dev -w n-s-26",
+    "dev:n-s-26": "npm run dev -w n-s-26",
+    "dev:s-b-sm-26": "npm run dev -w s-b-sm-26",
+    "build": "npm run build -w n-s-26 && npm run build -w s-b-sm-26 && node scripts/assemble-dist.mjs",
+    "assemble": "node scripts/assemble-dist.mjs"
   }
 }

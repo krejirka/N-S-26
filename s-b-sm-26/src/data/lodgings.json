@@ -1,0 +1,66 @@
+{
+  "note": "Noclehy s přesnou adresou pro navigaci.",
+  "lodgings": [
+    {
+      "id": "subotica",
+      "title": "Tvůj pobyt",
+      "dateLabel": "3. 9.",
+      "name": "Garni Hotel Royal Crown",
+      "address": "Somborski put 75, 24000 Subotica, Srbsko",
+      "country": "Srbsko",
+      "lat": 46.09154,
+      "lng": 19.64898,
+      "notes": [
+        "Cíl po nočním přejezdu za maďarsko-srbskou hranici (Horgoš)",
+        "Orientačně do 800 Kč / osoba včetně snídaně"
+      ],
+      "placeId": "subotica"
+    },
+    {
+      "id": "nis",
+      "title": "Tvůj pobyt",
+      "dateLabel": "4. 9.",
+      "name": "Prenočište Imper I.M.D.",
+      "address": "7. juli 22, 18000 Niš, Srbsko",
+      "country": "Srbsko",
+      "lat": 43.32316,
+      "lng": 21.90096,
+      "notes": [
+        "Centrum, cca 300 m od náměstí, parkování na dvoře",
+        "15 € / osoba ve dvoulůžkovém pokoji, 5 € snídaně",
+        "Web: apartmani-imper-imd.rs"
+      ],
+      "placeId": "nis"
+    },
+    {
+      "id": "borovets",
+      "title": "Tvůj pobyt",
+      "dateLabel": "5. 9. – 6. 9.",
+      "name": "Park Hotel Ela",
+      "address": "кк Боровец, 2010 Borovec, Bulharsko",
+      "country": "Bulharsko",
+      "lat": 42.26725,
+      "lng": 23.60386,
+      "notes": [
+        "2 noci, bazén a wellness, kousek od lanovky Jastrebec",
+        "cca 131 € / osoba na 2 noci s polopenzí"
+      ],
+      "placeId": "borovets"
+    },
+    {
+      "id": "kumanovo",
+      "title": "Tvůj pobyt",
+      "dateLabel": "7. 9.",
+      "name": "KOKINO Winery & Hotel",
+      "address": "Kozjacka 15, 1300 Kumanovo, Severní Makedonie",
+      "country": "Severní Makedonie",
+      "lat": 42.15627,
+      "lng": 21.73013,
+      "notes": [
+        "20 € / osoba ve dvoulůžkovém pokoji, 5 € snídaně",
+        "Možnost nákupu vín a krátké prohlídky sklepa s majitelem"
+      ],
+      "placeId": "kumanovo"
+    }
+  ]
+}

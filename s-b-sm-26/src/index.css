@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 20% 98%;
+  --foreground: 220 25% 12%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 25% 12%;
+  --primary: 168 72% 28%;
+  --primary-foreground: 0 0% 100%;
+  --muted: 210 16% 93%;
+  --muted-foreground: 215 14% 42%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 220 25% 12%;
+  --border: 214 20% 90%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+}
+
+.leaflet-container {
+  font-family: inherit;
+  z-index: 0;
+}
+
+@keyframes flag-wave {
+  0%,
+  100% {
+    transform: rotate(-4deg) skewX(-3deg);
+  }
+  50% {
+    transform: rotate(4deg) skewX(3deg);
+  }
+}
+
+.trip-flag-marker {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  transform-origin: bottom center;
+  transition: transform 0.2s ease;
+}
+
+.trip-flag-marker.is-active {
+  transform: scale(1.33);
+}
+
+.trip-flag-marker .flag-img {
+  display: block;
+  width: 14px;
+  height: 10px;
+  border-radius: 1px;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.15);
+  animation: flag-wave 2.8s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+.trip-flag-marker.is-active .flag-img {
+  box-shadow: 0 0 0 1.5px #0f766e;
+  animation-duration: 1.2s;
+}
+
+.trip-flag-marker .day-badge {
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.1;
+  background: #fff;
+  color: #1b2431;
+  border: 1px solid #94a3b8;
+  border-radius: 4px;
+  padding: 0 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+
+.trip-flag-marker.is-active .day-badge {
+  background: #0f766e;
+  color: #fff;
+  border-color: #0f766e;
+}
+
+/* Minimal shop pins — visually distinct */
+.shop-marker-wrap {
+  background: transparent !important;
+  border: none !important;
+}
+
+.shop-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  opacity: 0.9;
+  pointer-events: auto;
+}
+
+.shop-marker-ikea {
+  width: 12px;
+  height: 8px;
+  background: #ffda1a;
+  border: 1.5px solid #0051ba;
+  border-radius: 1px;
+  position: relative;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.15);
+}
+
+.shop-marker-ikea .ikea-bar {
+  display: block;
+  width: 2px;
+  height: 100%;
+  background: #0051ba;
+  margin-left: 2px;
+}
+
+.shop-marker-dollarstore {
+  width: 12px;
+  height: 12px;
+  background: #111;
+  color: #f5c518;
+  border: 1.5px solid #f5c518;
+  border-radius: 50%;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.2);
+}
+
+/* Airbnb-style lodging pin */
+.lodging-marker-wrap {
+  background: transparent !important;
+  border: none !important;
+}
+
+.lodging-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 96px;
+  pointer-events: auto;
+}
+
+.lodging-pin {
+  line-height: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+}
+
+.lodging-label {
+  margin-top: 1px;
+  text-align: center;
+  line-height: 1.15;
+  max-width: 96px;
+}
+
+.lodging-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: #111;
+  text-shadow: 0 0 3px #fff, 0 0 6px #fff;
+}
+
+.lodging-dates {
+  font-size: 9px;
+  font-weight: 500;
+  color: #333;
+  text-shadow: 0 0 3px #fff, 0 0 6px #fff;
+}
+
+.ferry-marker-wrap,
+.corridor-marker-wrap,
+.incident-marker-wrap,
+.fish-marker-wrap {
+  background: transparent !important;
+  border: none !important;
+}
+
+.fish-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.95)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+  pointer-events: auto;
+}
+
+.incident-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+  pointer-events: auto;
+}
+
+.ferry-marker {
+  line-height: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.corridor-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.9));
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 10px;
+}

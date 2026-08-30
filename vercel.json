@@ -1,3 +1,13 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "framework": null,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/n-s-26", "destination": "/n-s-26/index.html" },
+    { "source": "/n-s-26/", "destination": "/n-s-26/index.html" },
+    { "source": "/n-s-26/((?!assets/).*)", "destination": "/n-s-26/index.html" },
+    { "source": "/s-b-sm-26", "destination": "/s-b-sm-26/index.html" },
+    { "source": "/s-b-sm-26/", "destination": "/s-b-sm-26/index.html" },
+    { "source": "/s-b-sm-26/((?!assets/).*)", "destination": "/s-b-sm-26/index.html" }
+  ]
 }

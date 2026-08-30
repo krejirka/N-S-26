@@ -8,3 +8,4 @@ dist
 tsconfig.tsbuildinfo
 moje/*.xlsx
 .vercel
+scripts/recap/__pycache__/

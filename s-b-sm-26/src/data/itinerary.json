@@ -1,0 +1,365 @@
+{
+  "meta": {
+    "title": "Srbsko, Bulharsko, Severní Makedonie 2026",
+    "origin": "Hradec Králové",
+    "destination": "Hradec Králové",
+    "highlights": [
+      "Niš",
+      "Musala",
+      "Rilský klášter",
+      "Bělehrad"
+    ],
+    "totalDays": 6,
+    "totalKmExcel": 2946,
+    "note": "Silniční trasy vypočteny z OpenStreetMap přes OSRM. Úterý v podkladu bylo omylem 7. 9. — v kalendáři je 8. 9. 2026."
+  },
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-09-03",
+      "weekday": "čtvrtek",
+      "destination": "Subotica",
+      "km": 680,
+      "lodging": "Garni Hotel Royal Crown",
+      "logistics": "Odjezd odpoledne · cca 680 km / 7,5 h · noční odbavení HU–RS",
+      "program": "Odjezd z Hradce Králové v odpoledních hodinách. Cíl je dojezd za maďarsko-srbské hranice v noci (rychlejší odbavení). Ubytování v Subotici, Garni Hotel Royal Crown (Somborski put 75).",
+      "placeId": "subotica",
+      "phase": "tam",
+      "places": [
+        {
+          "name": "Hradec Králové",
+          "placeId": "hradec_kralove",
+          "links": [
+            { "label": "Wikipedia", "url": "https://cs.wikipedia.org/wiki/Hradec_Kr%C3%A1lov%C3%A9" },
+            { "label": "Turistická informace", "url": "https://www.hradeckralove.org/" }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Bila%20vez%20Hradec%20Kralove.jpg?width=640",
+            "alt": "Hradec Králové",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bila%20vez%20Hradec%20Kralove.jpg"
+          }
+        },
+        {
+          "name": "Garni Hotel Royal Crown",
+          "placeId": "subotica",
+          "tips": [
+            "Somborski put 75, 24000 Subotica",
+            "Orientačně do 800 Kč / osoba včetně snídaně",
+            "Za hranicí Horgoš — bez zajížďky do centra Subotice, pokud jedete pozdě v noci"
+          ],
+          "links": [
+            { "label": "Booking", "url": "https://www.booking.com/hotel/rs/vila-royal-crown.html" },
+            { "label": "Wikipedia — Subotica", "url": "https://cs.wikipedia.org/wiki/Subotica" }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Subotica%20City%20Hall.jpg?width=640",
+            "alt": "Subotica — radnice",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Subotica%20City%20Hall.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "date": "2026-09-04",
+      "weekday": "pátek",
+      "destination": "Niš",
+      "km": 425,
+      "lodging": "Prenočište Imper I.M.D.",
+      "logistics": "Přejezd Subotica → Niš · cca 425 km / 4 h",
+      "program": "Přejezd do Niše, třetího největšího srbského města a rodiště císaře Konstantina I. Velikého. Návštěva koncentračního tábora Crveni krst (9–16 h). Ubytování v centru, večer procházka včetně pevnosti z římských dob (dnešní vzhled z osmanské nadvlády).",
+      "placeId": "nis",
+      "phase": "tam",
+      "places": [
+        {
+          "name": "Crveni krst",
+          "placeId": "crveni_krst",
+          "tips": [
+            "Otevřeno 9–16 h",
+            "12. 2. 1941 odtud hromadně uprchlo 105 vězňů — první takový útěk z koncentračního tábora v Evropě",
+            "Informace a virtuální túra na narodnimuzejnis.rs"
+          ],
+          "links": [
+            { "label": "Národní muzeum Niš", "url": "https://www.narodnimuzejnis.rs/" },
+            { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Crveni_Krst_concentration_camp" }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Crveni%20Krst%20concentration%20camp.jpg?width=640",
+            "alt": "Crveni krst, Niš",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Crveni%20Krst%20concentration%20camp.jpg"
+          }
+        },
+        {
+          "name": "Pevnost Niš",
+          "placeId": "nis_fortress",
+          "tips": [
+            "Základy z římských dob, dnešní podoba z osmanského období",
+            "Park a hradby v centru u Nišavy"
+          ],
+          "links": [
+            { "label": "Wikipedia", "url": "https://cs.wikipedia.org/wiki/Pevnost_Ni%C5%A1" }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nis%20Fortress.jpg?width=640",
+            "alt": "Pevnost Niš",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nis%20Fortress.jpg"
+          }
+        },
+        {
+          "name": "Prenočište Imper I.M.D.",
+          "placeId": "nis",
+          "tips": [
+            "7. juli 22, centrum (Medijana), parkování na dvoře",
+            "15 € / osoba ve dvoulůžkovém pokoji, 5 € snídaně"
+          ],
+          "links": [
+            { "label": "apartmani-imper-imd.rs", "url": "https://apartmani-imper-imd.rs/en/about-us/" }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "date": "2026-09-05",
+      "weekday": "sobota",
+      "destination": "Borovec",
+      "km": 265,
+      "lodging": "Park Hotel Ela (1/2)",
+      "logistics": "Ćele kula ráno · Pirot (klobásy) · cca 265 km / 3 h + hranice RS–BG",
+      "program": "Ráno památník Ćele kula (9–16 h) — osmanská věž z lebek srbských vojáků z bitvy na Čegru (1809); z 952 lebek se zachovalo 58. Cestou do bulharského Borovce zastávka v Pirotu na peglanou klobásu. Ubytování na 2 noci v Park Hotel Ela (bazén, wellness, u lanovky Jastrebec).",
+      "placeId": "borovets",
+      "phase": "tam",
+      "places": [
+        {
+          "name": "Ćele kula",
+          "placeId": "cele_kula",
+          "tips": [
+            "Otevřeno 9–16 h, narodnimuzejnis.rs",
+            "Bulevar dr Zorana Đinđića 78, Niš",
+            "Věž z lebek po bitvě na Čegru 1809"
+          ],
+          "links": [
+            { "label": "Národní muzeum Niš", "url": "https://www.narodnimuzejnis.rs/" },
+            { "label": "Wikipedia", "url": "https://cs.wikipedia.org/wiki/%C4%86ele_kula" }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cele%20Kula.jpg?width=640",
+            "alt": "Ćele kula",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cele%20Kula.jpg"
+          }
+        },
+        {
+          "name": "Pirotská peglaná klobása",
+          "placeId": "pirot",
+          "tips": [
+            "Gastronomický symbol regionu Pirot, hodně bílkovin",
+            "Fyzická prodejna např. Deda Mile, Trg republike 29",
+            "Výrobce Piroćanac: pirotskapeglana.rs (i zásilka)"
+          ],
+          "links": [
+            { "label": "pirotskapeglana.rs", "url": "https://pirotskapeglana.rs/" },
+            { "label": "Wikipedia — Pirot", "url": "https://cs.wikipedia.org/wiki/Pirot" }
+          ]
+        },
+        {
+          "name": "Park Hotel Ela",
+          "placeId": "borovets",
+          "tips": [
+            "2 noci s polopenzí, cca 131 € / osoba",
+            "Bazén a wellness, cca 50–100 m od lanovky Jastrebec"
+          ],
+          "links": [
+            { "label": "Booking", "url": "https://www.booking.com/hotel/bg/ela.html" },
+            { "label": "Borovets", "url": "https://www.borovets-bg.com/" }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Borovets.jpg?width=640",
+            "alt": "Borovec",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Borovets.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "date": "2026-09-06",
+      "weekday": "neděle",
+      "destination": "Musala",
+      "km": null,
+      "lodging": "Park Hotel Ela (2/2)",
+      "logistics": "Lanovka 8:30–18:00 · zavřeno po a út · výstup cca 3 h, sestup 2 h 15 min",
+      "program": "Lanovkou z Borovce na Jastrebec (2 369 m). Odtud výstup na Musalu (2 925 m) — nejvyšší horu Bulharska i celého Balkánu. Převýšení 583 m, výstup cca 3 hodiny, sestup k lanovce cca 2 h 15 min. Nocleh znovu v Park Hotel Ela.",
+      "placeId": "musala",
+      "navPlaceId": "jastrebec_gondola",
+      "phase": "tam",
+      "places": [
+        {
+          "name": "Lanovka Jastrebec",
+          "placeId": "jastrebec_gondola",
+          "tips": [
+            "Provoz 8:30–18:00, pondělí a úterý zavřeno",
+            "Dolní stanice u hotelu Ela",
+            "Horní stanice 2 369 m — start výstupu na Musalu"
+          ],
+          "links": [
+            { "label": "borovets-bg.com", "url": "https://www.borovets-bg.com/" }
+          ]
+        },
+        {
+          "name": "Jastrebec",
+          "placeId": "jastrebec",
+          "tips": ["Vrchol 2 369 m n. m., konec lanovky"]
+        },
+        {
+          "name": "Musala",
+          "placeId": "musala",
+          "tips": [
+            "2 925 m n. m. — nejvyšší hora Balkánu",
+            "Z Jastrebce cca 3 h výstup / 2 h 15 min sestup"
+          ],
+          "links": [
+            { "label": "Wikipedia", "url": "https://cs.wikipedia.org/wiki/Musala" }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Musala.jpg?width=640",
+            "alt": "Musala",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Musala.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "date": "2026-09-07",
+      "weekday": "pondělí",
+      "destination": "Kumanovo",
+      "km": 385,
+      "lodging": "KOKINO Winery & Hotel",
+      "logistics": "Rilský klášter cca 100 km / 1 h 50 min · dále Kumanovo cca 285 km / 4 h 50 min + hranice",
+      "program": "Přejezd k Rilskému klášteru — největší a nejznámější klášter v Bulharsku, UNESCO. Odpoledne přejezd do Kumanova v Severní Makedonii, ubytování v KOKINO Winery & Hotel (vína, případně krátká prohlídka sklepa).",
+      "placeId": "kumanovo",
+      "phase": "tam",
+      "places": [
+        {
+          "name": "Rilský klášter",
+          "placeId": "rila",
+          "tips": [
+            "UNESCO, největší klášter v Bulharsku",
+            "Parkoviště u kláštera, pěšky poslední úsek"
+          ],
+          "links": [
+            { "label": "Wikipedia", "url": "https://cs.wikipedia.org/wiki/Rilsk%C3%BD_kl%C3%A1%C5%A1ter" },
+            { "label": "UNESCO", "url": "https://whc.unesco.org/en/list/216/" }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Rila%20Monastery%20Bulgaria.jpg?width=640",
+            "alt": "Rilský klášter",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rila%20Monastery%20Bulgaria.jpg"
+          }
+        },
+        {
+          "name": "KOKINO Winery & Hotel",
+          "placeId": "kumanovo",
+          "tips": [
+            "Kozjacka 15, 1300 Kumanovo",
+            "20 € / osoba ve dvoulůžku, 5 € snídaně",
+            "Nákup vín — cenu prohlídky sklepa domluvit na místě"
+          ],
+          "links": [
+            { "label": "Wikipedia — Kumanovo", "url": "https://cs.wikipedia.org/wiki/Kumanovo" }
+          ]
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "date": "2026-09-08",
+      "weekday": "úterý",
+      "destination": "Hradec Králové",
+      "km": 1250,
+      "lodging": null,
+      "logistics": "cca 1250 km / 12 h + 2 hraniční kontroly · volitelná zastávka Bělehrad",
+      "program": "Návrat do Hradce Králové. Na dálničním obchvatu Bělehradu je bez zajížďky Avala s TV vysílačem (nejvyšší věž na Balkáně, zničena 1999, znovu 2010). Volitelně zajížďka do centra: Kalemegdan, Chrám sv. Sávy, Muzeum Nikoly Tesly (hotově dináry, rezervace prohlídky). Parkování např. u nákupního centra, do centra taxi nebo MHD (v Bělehradě zdarma).",
+      "placeId": "hradec_kralove",
+      "phase": "zpět",
+      "places": [
+        {
+          "name": "Avala",
+          "placeId": "avala",
+          "tips": [
+            "17 km od Bělehradu u dálničního obchvatu — bez zajížďky do města",
+            "TV vysílač znovu postaven 2010 z veřejných sbírek"
+          ],
+          "links": [
+            { "label": "Wikipedia", "url": "https://cs.wikipedia.org/wiki/Avala" }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Avala%20Tower.jpg?width=640",
+            "alt": "Avala Tower",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Avala%20Tower.jpg"
+          }
+        },
+        {
+          "name": "Kalemegdan",
+          "placeId": "kalemegdan",
+          "tips": [
+            "Park na místě pevnosti nad soutokem Sávy a Dunaje",
+            "Zajížďka do centra — parkování u OC + MHD/taxi"
+          ],
+          "links": [
+            { "label": "Wikipedia", "url": "https://cs.wikipedia.org/wiki/Kalemegdan" }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kalemegdan.jpg?width=640",
+            "alt": "Kalemegdan",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kalemegdan.jpg"
+          }
+        },
+        {
+          "name": "Chrám sv. Sávy",
+          "placeId": "saint_sava",
+          "tips": ["Jeden z největších pravoslavných chrámů na světě"],
+          "links": [
+            { "label": "Wikipedia", "url": "https://cs.wikipedia.org/wiki/Chr%C3%A1m_svat%C3%A9ho_S%C3%A1vy" }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Temple%20of%20Saint%20Sava.jpg?width=640",
+            "alt": "Chrám sv. Sávy",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Temple%20of%20Saint%20Sava.jpg"
+          }
+        },
+        {
+          "name": "Muzeum Nikoly Tesly",
+          "placeId": "tesla_museum",
+          "tips": [
+            "Krunska 51, interaktivní výstava i v angličtině",
+            "Platba jen hotově v dinárech",
+            "Čas prohlídky raději rezervovat dopředu"
+          ],
+          "links": [
+            { "label": "nikolateslamuseum.org", "url": "https://nikolateslamuseum.org/" },
+            { "label": "Wikipedia", "url": "https://cs.wikipedia.org/wiki/Muzeum_Nikoly_Tesly" }
+          ]
+        },
+        {
+          "name": "Hradec Králové",
+          "placeId": "hradec_kralove",
+          "links": [
+            { "label": "Wikipedia", "url": "https://cs.wikipedia.org/wiki/Hradec_Kr%C3%A1lov%C3%A9" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,45 +1,19 @@
-# Norsko-Švédsko 2026
+# Výpravy · ironknot.cz
 
-Interaktivní cestovní plán road tripu **Hradec Králové → Norsko & Švédsko → Hradec Králové**.
+Portál cestovních plánů. Každá výprava je **samostatná aplikace** ve složce, která odpovídá cestě za lomítkem:
 
-## Funkce
+| URL | Složka | Přístup |
+| --- | --- | --- |
+| [vypravy.ironknot.cz/n-s-26](https://vypravy.ironknot.cz/n-s-26) | `n-s-26/` | privátní, heslo |
+| [vypravy.ironknot.cz/s-b-sm-26](https://vypravy.ironknot.cz/s-b-sm-26) | `s-b-sm-26/` | veřejná |
 
-- Denní itinerář se programem a tipy na místa
-- Mapa trasy po silnicích (OSRM / OpenStreetMap)
-- Trajekt Rostock–Trelleborg vyznačen přerušovanou čárou
-- Odkazy na Wikipedia a turistické stránky, náhledové fotografie se zdrojem
-
-## Lokální vývoj
+Kompletní šablona pro novou cestu: **[vypravy-ironknot.md](./vypravy-ironknot.md)**.
 
 ```bash
 npm install
-npm run data          # import Excelu + výpočet tras
-npm run dev
+npm run dev:n-s-26      # http://localhost:5173/n-s-26/
+npm run dev:s-b-sm-26   # http://localhost:5173/s-b-sm-26/
+npm run build           # obě aplikace + dist/ pro Vercel
 ```
 
-## Build
-
-```bash
-npm run build
-npm run preview
-```
-
-## Data
-
-- Itinerář: `moje/Norsko-Svedsko 26.xlsx` → `src/data/itinerary.json`
-- Trasy: `scripts/build-routes.mjs` → `src/data/routes.json`
-
-## Nasazení
-
-Aplikace běží na [n-s-26.ironknot.cz](https://n-s-26.ironknot.cz) (Vercel).
-
-## Live provoz (TomTom)
-
-Mapy Google/Waze neposkytují live data zdarma bez vlastního API klíče. Používáme **TomTom Routing** (freemium, bez karty).
-
-1. Registrace: [developer.tomtom.com](https://developer.tomtom.com/)
-2. Dashboard → **API Keys** → zkopíruj klíč (např. „My first API key“)
-3. Lokálně: `cp .env.example .env.local` a doplň `TOMTOM_API_KEY=...`, pak `npm run dev`
-4. Produkce (Vercel): Project → Settings → Environment Variables → `TOMTOM_API_KEY` → Redeploy
-
-Bez klíče se zobrazí jen odhad km a času při max 110 km/h.
+Vercel: jeden projekt, root tohoto repozitáře, custom domain `vypravy.ironknot.cz`. Starý host `n-s-26.ironknot.cz` přesměruje na `/n-s-26`.
