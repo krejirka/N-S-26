@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { MapContainer, TileLayer, Polyline, Marker } from "react-leaflet";
+import { MapContainer, Polyline, Marker } from "react-leaflet";
 import type {
   BorderCrossingAlt,
   CorridorPoi,
@@ -29,8 +29,10 @@ import HikingTrailLayer from "./HikingTrailLayer";
 import GpsLocateControl from "./GpsLocateControl";
 import ElevationProfile from "./ElevationProfile";
 import MapPoiLayerToggles from "./MapPoiLayerToggles";
+import BasemapLayers from "./BasemapLayers";
 import type { TrafficIncident } from "@/hooks/useDayIncidents";
 import { hoverPopupHandlers } from "@/lib/hoverPopup";
+import { useOnline } from "@/hooks/useOnline";
 import {
   FitDayBounds,
   FitRouteBounds,
@@ -107,6 +109,7 @@ export default function TripMap({
   const hike = useMemo(() => hikeForDay(day.day), [day.day]);
   const showHike = Boolean(hike && zoomToDay);
   const hikePositions = useMemo(() => (hike ? hikeTrackLatLngs(hike) : []), [hike]);
+  const online = useOnline();
 
   const [extraTopo, setExtraTopo] = useState(false);
   const [gpsOn, setGpsOn] = useState(false);
@@ -174,6 +177,11 @@ export default function TripMap({
           />
         </div>
         <div className="pointer-events-auto flex flex-wrap gap-1.5">
+          {!online && (
+            <span className="rounded-lg border border-amber-700/50 bg-amber-950/90 px-2.5 py-1.5 text-[10px] font-medium text-amber-50 shadow-md">
+              Offline mapa · počasí, provoz a radar až s daty
+            </span>
+          )}
           <button
             type="button"
             onClick={() => setExtraTopo((v) => (showHike ? false : !v))}
@@ -224,32 +232,8 @@ export default function TripMap({
         touchZoom
         doubleClickZoom
       >
-        {topoOn ? (
-          <>
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <TileLayer
-              attribution='&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)'
-              url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
-              maxZoom={17}
-              opacity={0.92}
-            />
-            <TileLayer
-              attribution='Hiking overlay &copy; <a href="https://waymarkedtrails.org">Waymarked Trails</a>'
-              url="https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png"
-              opacity={0.9}
-              maxZoom={18}
-            />
-          </>
-        ) : (
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-        )}
-        {showRadar && currentFrame && (
+        <BasemapLayers online={online} topoOn={topoOn} />
+        {online && showRadar && currentFrame && (
           <RadarPrecipitationLayer tileUrl={currentFrame.tileUrl} opacity={0.5} />
         )}
         <MapScrollBehavior />

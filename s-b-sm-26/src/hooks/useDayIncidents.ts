@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import type { RouteSegment, TripDay } from "@/types/trip";
 import { dayRouteGeometry } from "@/lib/corridorFilter";
+import { apiUrl } from "@/lib/runtime";
+import { useOnline } from "@/hooks/useOnline";
 
 export interface TrafficIncident {
   id: string;
@@ -53,6 +55,8 @@ export function useDayIncidents(
     return sampled.map(([lng, lat]) => `${lng.toFixed(4)},${lat.toFixed(4)}`).join(";");
   }, [day.day, segments, daySegments]);
 
+  const online = useOnline();
+
   const [state, setState] = useState<DayIncidentsSummary>({
     incidents: [],
     roadworksCount: 0,
@@ -64,7 +68,7 @@ export function useDayIncidents(
   });
 
   useEffect(() => {
-    if (!pathKey) {
+    if (!online || !pathKey) {
       setState({
         incidents: [],
         roadworksCount: 0,
@@ -80,7 +84,7 @@ export function useDayIncidents(
     let cancelled = false;
     setState((s) => ({ ...s, loading: true, error: null }));
 
-    fetch(`/api/incidents?path=${encodeURIComponent(pathKey)}`)
+    fetch(apiUrl(`/api/incidents?path=${encodeURIComponent(pathKey)}`))
       .then(async (res) => {
         const data = await res.json().catch(() => ({}));
         if (res.status === 503 || data.liveIncidents === false) {
@@ -124,7 +128,7 @@ export function useDayIncidents(
     return () => {
       cancelled = true;
     };
-  }, [pathKey]);
+  }, [online, pathKey]);
 
   return state;
 }

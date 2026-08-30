@@ -5,6 +5,7 @@ import DayDetail from "@/components/DayDetail";
 import TripMap from "@/components/TripMap";
 import { useRadarAnimation } from "@/hooks/useRadarAnimation";
 import { useDayIncidents } from "@/hooks/useDayIncidents";
+import { useOnline } from "@/hooks/useOnline";
 import { hikeForDay } from "@/lib/hikes";
 import itineraryData from "@/data/itinerary.json";
 import routesData from "@/data/routes.json";
@@ -86,7 +87,8 @@ export default function Index({ showDates }: IndexProps) {
   const [showRadar, setShowRadar] = useState(true);
   const [fitNonce, setFitNonce] = useState(0);
   const [mobileView, setMobileView] = useState<MobileView>("map");
-  const radar = useRadarAnimation(showRadar);
+  const online = useOnline();
+  const radar = useRadarAnimation(showRadar && online);
 
   const selectDay = useCallback((day: number) => {
     setSelectedDay(day);
@@ -208,7 +210,7 @@ export default function Index({ showDates }: IndexProps) {
               fishingSpots={fishingSpots}
               borderCrossings={borderCrossings}
               trafficIncidents={zoomToDay ? dayIncidents.incidents : []}
-              showRadar={showRadar}
+              showRadar={showRadar && online}
               currentFrame={radar.currentFrame}
               zoomToDay={zoomToDay}
               frames={radar.frames}

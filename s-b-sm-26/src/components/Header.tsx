@@ -1,6 +1,7 @@
 import type { Itinerary, PlacesData, RoutesData, TripDay } from "@/types/trip";
 import DayNav from "@/components/DayNav";
 import { dayRoadDistanceKm } from "@/lib/dayDistance";
+import { IS_NATIVE } from "@/lib/runtime";
 
 interface HeaderProps {
   itinerary: Itinerary;
@@ -37,9 +38,13 @@ export default function Header({
       <div className="mx-auto flex w-full max-w-[1920px] flex-col gap-2 md:flex-row md:items-center md:gap-6 lg:gap-8">
         <div className="shrink-0">
           <p className="text-sm font-medium uppercase tracking-wide text-primary">
-            <a href="/" className="hover:underline">
-              Cestovní plán
-            </a>
+            {IS_NATIVE ? (
+              <span>Cestovní plán</span>
+            ) : (
+              <a href="/" className="hover:underline">
+                Cestovní plán
+              </a>
+            )}
             <span className="ml-2 font-normal normal-case text-muted-foreground">
               · {meta.totalDays} dní / {routes.totalDistanceKm.toLocaleString("cs-CZ")} km
             </span>

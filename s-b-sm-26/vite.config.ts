@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
+import fs from "fs";
 import {
   fetchIncidentsAlongPath,
   parsePathParam,
@@ -132,13 +133,45 @@ function tomtomTrafficPlugin(apiKey: string | undefined): Plugin {
   };
 }
 
+function copyOfflineMapsPlugin(enabled: boolean): Plugin {
+  return {
+    name: "copy-offline-maps",
+    apply: "build",
+    closeBundle() {
+      if (!enabled) return;
+      const from = path.resolve(__dirname, "offline-maps");
+      const to = path.resolve(__dirname, "dist/offline");
+      if (!fs.existsSync(from)) {
+        console.warn("offline-maps/ missing — native APK will have no packed basemap");
+        return;
+      }
+      fs.mkdirSync(to, { recursive: true });
+      for (const name of ["corridor.pmtiles", "hike.pmtiles", "manifest.json"]) {
+        const src = path.join(from, name);
+        if (fs.existsSync(src)) fs.copyFileSync(src, path.join(to, name));
+      }
+      const otm = path.join(from, "otm");
+      if (fs.existsSync(otm)) fs.cpSync(otm, path.join(to, "otm"), { recursive: true });
+      console.log("copied offline-maps → dist/offline");
+    },
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const tomtomKey = env.TOMTOM_API_KEY || process.env.TOMTOM_API_KEY;
+  const native = mode === "native";
 
   return {
-    base: "/s-b-sm-26/",
-    plugins: [react(), tomtomTrafficPlugin(tomtomKey)],
+    base: native ? "./" : "/s-b-sm-26/",
+    envPrefix: "VITE_",
+    define: native
+      ? {
+          "import.meta.env.VITE_NATIVE": JSON.stringify("1"),
+          "import.meta.env.VITE_API_ORIGIN": JSON.stringify("https://vypravy.ironknot.cz"),
+        }
+      : {},
+    plugins: [react(), tomtomTrafficPlugin(tomtomKey), copyOfflineMapsPlugin(native)],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),

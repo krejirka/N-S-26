@@ -10,3 +10,16 @@ moje/*.xlsx
 **/moje/*.xlsx
 .vercel
 **/__pycache__/
+s-b-sm-26/offline-maps/
+s-b-sm-26/tools/
+s-b-sm-26/public/apk/*.apk
+s-b-sm-26/apk-out/
+s-b-sm-26/android/.gradle
+s-b-sm-26/android/app/build
+s-b-sm-26/android/build
+s-b-sm-26/android/app/src/main/assets/public
+s-b-sm-26/android/local.properties
+s-b-sm-26/android/captures
+*.jks
+*.keystore
+

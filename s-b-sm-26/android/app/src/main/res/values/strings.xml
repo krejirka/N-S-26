@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Balkán 2026</string>
+    <string name="title_activity_main">Balkán 2026</string>
+    <string name="package_name">cz.ironknot.vypravy.sbsm26</string>
+    <string name="custom_url_scheme">cz.ironknot.vypravy.sbsm26</string>
+</resources>

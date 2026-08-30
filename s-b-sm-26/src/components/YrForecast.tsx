@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchYrForecast, weatherIconUrl, type DayForecast } from "@/lib/metno";
+import { useOnline } from "@/hooks/useOnline";
 
 interface YrForecastProps {
   lat: number;
@@ -7,11 +8,19 @@ interface YrForecastProps {
 }
 
 export default function YrForecast({ lat, lng }: YrForecastProps) {
+  const online = useOnline();
   const [days, setDays] = useState<DayForecast[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!online) {
+      setDays(null);
+      setError("Předpověď je jen online — zapněte data, až budete mít signál.");
+      setLoading(false);
+      return;
+    }
+
     let cancelled = false;
     setLoading(true);
     setError(null);
@@ -30,7 +39,15 @@ export default function YrForecast({ lat, lng }: YrForecastProps) {
     return () => {
       cancelled = true;
     };
-  }, [lat, lng]);
+  }, [lat, lng, online]);
+
+  if (!online) {
+    return (
+      <p className="mt-2 text-xs text-muted-foreground">
+        Předpověď je jen online — zapněte data, až budete mít signál.
+      </p>
+    );
+  }
 
   if (loading) {
     return <p className="mt-2 text-xs text-gray-500">Načítám předpověď z yr.no…</p>;

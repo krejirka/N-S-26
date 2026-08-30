@@ -1,3 +1,5 @@
+import { apiUrl } from "@/lib/runtime";
+
 export const MET_USER_AGENT = "vypravy.ironknot.cz/1.0 github.com/krejirka/N-S-26";
 
 export interface DayForecast {
@@ -214,7 +216,7 @@ export async function fetchYrForecast(lat: number, lng: number): Promise<DayFore
   const cached = forecastCache.get(key);
   if (cached && Date.now() - cached.at < CACHE_MS) return cached.data;
 
-  const res = await fetch(`/api/forecast?lat=${lat}&lon=${lng}`);
+  const res = await fetch(apiUrl(`/api/forecast?lat=${lat}&lon=${lng}`));
   if (!res.ok) throw new Error(`Předpověď nedostupná (${res.status})`);
 
   const data = (await res.json()) as MetForecastResponse;

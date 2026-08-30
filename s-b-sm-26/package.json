@@ -16,17 +16,26 @@
     "fetch:fuel": "node scripts/fetch-fuel.mjs",
     "fetch:borders": "node ../scripts/fetch-border-crossings.mjs",
     "seed:pois": "node scripts/seed-corridor-pois.mjs",
-    "data": "npm run import:itinerary && npm run build:routes"
+    "data": "npm run import:itinerary && npm run build:routes",
+    "maps:offline": "node scripts/extract-offline-maps.mjs && node scripts/download-hike-tiles.mjs",
+    "build:native": "vite build --mode native",
+    "cap:sync": "npm run build:native && npx cap sync android",
+    "apk": "npm run cap:sync && node scripts/build-apk.mjs"
   },
   "dependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/core": "^6.2.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.462.0",
+    "pmtiles": "^4.3.0",
+    "protomaps-leaflet": "^5.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
+    "@capacitor/cli": "^6.2.0",
     "@types/leaflet": "^1.9.14",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",

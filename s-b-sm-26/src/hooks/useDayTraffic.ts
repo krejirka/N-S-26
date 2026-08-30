@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import type { Place, RouteSegment, TripDay } from "@/types/trip";
 import { formatDurationHours, hoursAtMaxSpeed, MAX_SPEED_KMH } from "@/lib/corridorFilter";
 import { dayRoadDistanceKm } from "@/lib/dayDistance";
+import { apiUrl } from "@/lib/runtime";
+import { useOnline } from "@/hooks/useOnline";
 
 export interface DayTravelSummary {
   distanceKm: number;
@@ -61,8 +63,10 @@ export function useDayTraffic(
     error: string | null;
   }>({ delaySec: 0, liveTraffic: false, trafficLengthKm: 0, loading: false, error: null });
 
+  const online = useOnline();
+
   useEffect(() => {
-    if (!endpoints || !distanceKm) {
+    if (!online || !endpoints || !distanceKm) {
       setLive({ delaySec: 0, liveTraffic: false, trafficLengthKm: 0, loading: false, error: null });
       return;
     }
@@ -71,7 +75,7 @@ export function useDayTraffic(
 
     const from = `${endpoints.from.lat},${endpoints.from.lng}`;
     const to = `${endpoints.to.lat},${endpoints.to.lng}`;
-    const url = `/api/traffic?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
+    const url = apiUrl(`/api/traffic?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
 
     fetch(url)
       .then(async (res) => {
@@ -108,7 +112,7 @@ export function useDayTraffic(
     return () => {
       cancelled = true;
     };
-  }, [endpoints?.from.lat, endpoints?.from.lng, endpoints?.to.lat, endpoints?.to.lng, distanceKm]);
+  }, [online, endpoints?.from.lat, endpoints?.from.lng, endpoints?.to.lat, endpoints?.to.lng, distanceKm]);
 
   const delayHours = live.delaySec / 3600;
   const totalHours = baseHours + delayHours;
