@@ -10,7 +10,16 @@ const FRAME_MS = 450;
 
 export type RadarPlayMode = "history" | "forecast" | null;
 
-export function useRadarAnimation(enabled: boolean) {
+export interface UseRadarAnimationOptions {
+  /** Default true on web. Native APK skips autoplay so tiles are not swapped every 450 ms. */
+  autoPlay?: boolean;
+  /** Pause timers while the map tab or app is hidden. */
+  paused?: boolean;
+}
+
+export function useRadarAnimation(enabled: boolean, options?: UseRadarAnimationOptions) {
+  const autoPlay = options?.autoPlay ?? true;
+  const paused = options?.paused ?? false;
   const [frames, setFrames] = useState<RadarFrame[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -110,11 +119,23 @@ export function useRadarAnimation(enabled: boolean) {
   }, [enabled, clearTimer]);
 
   useEffect(() => {
-    if (!enabled || loading || !frames.length || autoPlayDoneRef.current) return;
+    if (paused) {
+      clearTimer();
+      setIsPlaying(false);
+      setPlayMode(null);
+    }
+  }, [paused, clearTimer]);
+
+  useEffect(() => {
+    if (!enabled || paused || loading || !frames.length || autoPlayDoneRef.current) return;
+    if (!autoPlay) {
+      autoPlayDoneRef.current = true;
+      return;
+    }
     const { historyStart, historyEnd } = getRadarSliceIndices(frames);
     playRange(historyStart, historyEnd, "history");
     autoPlayDoneRef.current = true;
-  }, [enabled, frames, loading, playRange]);
+  }, [enabled, paused, autoPlay, frames, loading, playRange]);
 
   useEffect(() => () => clearTimer(), [clearTimer]);
 

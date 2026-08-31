@@ -47,7 +47,15 @@ export default function GpsLocateControl({ enabled, trailLatLngs, onStatus }: Gp
 
     map.on("locationfound", onFound);
     map.on("locationerror", onError);
-    map.locate({ watch: true, enableHighAccuracy: true, setView: false, maxZoom: 16 });
+    const hiking = Boolean(trailRef.current?.length);
+    map.locate({
+      watch: true,
+      enableHighAccuracy: hiking,
+      setView: false,
+      maxZoom: 16,
+      maximumAge: hiking ? 3000 : 15000,
+      timeout: 20000,
+    });
 
     return () => {
       map.off("locationfound", onFound);

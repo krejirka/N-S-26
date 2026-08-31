@@ -157,6 +157,17 @@ function copyOfflineMapsPlugin(enabled: boolean): Plugin {
   };
 }
 
+/** Native APK uses system fonts — skip Google Fonts download on every launch. */
+function stripGoogleFontsPlugin(enabled: boolean): Plugin {
+  return {
+    name: "strip-google-fonts",
+    transformIndexHtml(html) {
+      if (!enabled) return html;
+      return html.replace(/<link[^>]+(?:fonts\.googleapis|fonts\.gstatic)[^>]*>\s*/gi, "");
+    },
+  };
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const tomtomKey = env.TOMTOM_API_KEY || process.env.TOMTOM_API_KEY;
@@ -171,7 +182,7 @@ export default defineConfig(({ mode }) => {
           "import.meta.env.VITE_API_ORIGIN": JSON.stringify("https://vypravy.ironknot.cz"),
         }
       : {},
-    plugins: [react(), tomtomTrafficPlugin(tomtomKey), copyOfflineMapsPlugin(native)],
+    plugins: [react(), tomtomTrafficPlugin(tomtomKey), copyOfflineMapsPlugin(native), stripGoogleFontsPlugin(native)],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),

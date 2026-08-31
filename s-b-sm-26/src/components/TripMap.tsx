@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { Maximize2, Minimize2 } from "lucide-react";
 import { MapContainer, Polyline, Marker } from "react-leaflet";
 import type {
   BorderCrossingAlt,
@@ -33,10 +34,12 @@ import BasemapLayers from "./BasemapLayers";
 import type { TrafficIncident } from "@/hooks/useDayIncidents";
 import { hoverPopupHandlers } from "@/lib/hoverPopup";
 import { useOnline } from "@/hooks/useOnline";
+import { useMapFullscreen } from "@/hooks/useMapFullscreen";
 import OfflineHint from "./OfflineHint";
 import {
   FitDayBounds,
   FitRouteBounds,
+  MapInvalidateSize,
   MapScrollBehavior,
   RadarAutoDisable,
 } from "./MapControls";
@@ -70,6 +73,8 @@ interface TripMapProps {
   onToggleRadar: () => void;
   onRadarAutoDisable?: () => void;
   fitNonce?: number;
+  /** False when the map tab or app is hidden — stop GPS watch. */
+  mapInteractive?: boolean;
 }
 
 const outboundColor = "#c2410c";
@@ -106,11 +111,14 @@ export default function TripMap({
   onToggleRadar,
   onRadarAutoDisable,
   fitNonce = 0,
+  mapInteractive = true,
 }: TripMapProps) {
   const hike = useMemo(() => hikeForDay(day.day), [day.day]);
   const showHike = Boolean(hike && zoomToDay);
   const hikePositions = useMemo(() => (hike ? hikeTrackLatLngs(hike) : []), [hike]);
   const online = useOnline();
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const { fullscreen, toggle: toggleFullscreen } = useMapFullscreen(wrapRef);
 
   const [extraTopo, setExtraTopo] = useState(false);
   const [gpsOn, setGpsOn] = useState(false);
@@ -163,8 +171,21 @@ export default function TripMap({
   const radarLimited = showRadar;
 
   return (
-    <div className="relative h-full w-full min-h-0">
-      <div className="pointer-events-none absolute left-14 top-2 z-[1000] flex flex-col gap-1.5">
+    <>
+      {fullscreen ? <div className="h-full min-h-0 w-full" aria-hidden /> : null}
+      <div
+        ref={wrapRef}
+        className={
+          fullscreen
+            ? "fixed inset-0 z-[5000] overscroll-none bg-background"
+            : "relative h-full w-full min-h-0"
+        }
+      >
+      <div
+        className={`pointer-events-none absolute left-14 top-2 z-[1000] flex flex-col gap-1.5 ${
+          fullscreen ? "pt-[env(safe-area-inset-top)]" : ""
+        }`}
+      >
         <div className="pointer-events-auto">
           <RadarTimeline
             frames={frames}
@@ -211,6 +232,20 @@ export default function TripMap({
           >
             GPS
           </button>
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1.5 text-[10px] font-medium shadow-md backdrop-blur-sm transition ${
+              fullscreen
+                ? "border-neutral-700 bg-neutral-900 text-white"
+                : "border-border bg-card/95 text-foreground hover:bg-muted"
+            }`}
+            title={fullscreen ? "Ukončit celou obrazovku" : "Mapa na celou obrazovku"}
+            aria-label={fullscreen ? "Ukončit celou obrazovku" : "Mapa na celou obrazovku"}
+          >
+            {fullscreen ? <Minimize2 className="h-3 w-3" /> : <Maximize2 className="h-3 w-3" />}
+            {fullscreen ? "Zavřít" : "Celá obrazovka"}
+          </button>
           <MapPoiLayerToggles
             layers={poiLayers}
             available={availablePoiLayers}
@@ -219,7 +254,7 @@ export default function TripMap({
         </div>
       </div>
 
-      {showHike && hike?.profile && (
+      {showHike && hike?.profile && !fullscreen && (
         <div className="pointer-events-none absolute bottom-8 left-2 right-2 z-[1000] max-w-md lg:left-14">
           <div className="pointer-events-auto rounded-lg border border-border bg-card/95 px-2.5 py-1.5 shadow-md backdrop-blur-sm">
             <ElevationProfile profile={hike.profile} compact />
@@ -236,7 +271,9 @@ export default function TripMap({
         scrollWheelZoom={false}
         touchZoom
         doubleClickZoom
+        preferCanvas
       >
+        <MapInvalidateSize nonce={fullscreen ? 1 : 0} />
         <BasemapLayers online={online} topoOn={topoOn} />
         {online && showRadar && currentFrame && (
           <RadarPrecipitationLayer tileUrl={currentFrame.tileUrl} opacity={0.5} />
@@ -310,11 +347,12 @@ export default function TripMap({
         <BorderCrossingMarkers crossings={borderCrossings} />
         <TrafficIncidentMarkers incidents={trafficIncidents} />
         <GpsLocateControl
-          enabled={gpsOn}
+          enabled={gpsOn && mapInteractive}
           trailLatLngs={showHike ? hikePositions : undefined}
           onStatus={setGpsStatus}
         />
       </MapContainer>
-    </div>
+      </div>
+    </>
   );
 }

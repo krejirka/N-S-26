@@ -212,6 +212,16 @@ export function MapScrollBehavior() {
   return null;
 }
 
+/** After CSS/native fullscreen, Leaflet must recompute tile viewport. */
+export function MapInvalidateSize({ nonce }: { nonce: number }) {
+  const map = useMap();
+  useEffect(() => {
+    const id = window.setTimeout(() => map.invalidateSize({ animate: false }), 60);
+    return () => window.clearTimeout(id);
+  }, [map, nonce]);
+  return null;
+}
+
 /** When user zooms past radar tile limit, turn radar off so further zoom works. */
 export function RadarAutoDisable({
   showRadar,

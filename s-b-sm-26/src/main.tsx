@@ -4,6 +4,10 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 
+if (import.meta.env.VITE_NATIVE === "1") {
+  document.documentElement.classList.add("native-app");
+}
+
 const basename = import.meta.env.VITE_NATIVE === "1" ? "" : "/s-b-sm-26";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

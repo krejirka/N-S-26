@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { Maximize2, Minimize2 } from "lucide-react";
 import { MapContainer, TileLayer, Polyline, Marker } from "react-leaflet";
 import type {
   BorderCrossingAlt,
@@ -29,9 +30,11 @@ import MapPoiLayerToggles from "./MapPoiLayerToggles";
 import {
   FitDayBounds,
   FitRouteBounds,
+  MapInvalidateSize,
   MapScrollBehavior,
   RadarAutoDisable,
 } from "./MapControls";
+import { useMapFullscreen } from "@/hooks/useMapFullscreen";
 import "leaflet/dist/leaflet.css";
 
 interface TripMapProps {
@@ -97,6 +100,8 @@ export default function TripMap({
   onRadarAutoDisable,
   fitNonce = 0,
 }: TripMapProps) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const { fullscreen, toggle: toggleFullscreen } = useMapFullscreen(wrapRef);
   const activeSegmentIds = useMemo(
     () => new Set(daySegments[String(day.day)] || []),
     [daySegments, day.day]
@@ -137,8 +142,21 @@ export default function TripMap({
   const radarLimited = showRadar;
 
   return (
-    <div className="relative h-full w-full min-h-0">
-      <div className="pointer-events-none absolute left-14 top-2 z-[1000] flex flex-col gap-1.5">
+    <>
+      {fullscreen ? <div className="h-full min-h-0 w-full" aria-hidden /> : null}
+      <div
+        ref={wrapRef}
+        className={
+          fullscreen
+            ? "fixed inset-0 z-[5000] overscroll-none bg-background"
+            : "relative h-full w-full min-h-0"
+        }
+      >
+      <div
+        className={`pointer-events-none absolute left-14 top-2 z-[1000] flex flex-col gap-1.5 ${
+          fullscreen ? "pt-[env(safe-area-inset-top)]" : ""
+        }`}
+      >
         <div className="pointer-events-auto">
           <RadarTimeline
             frames={frames}
@@ -155,6 +173,20 @@ export default function TripMap({
           />
         </div>
         <div className="pointer-events-auto flex flex-wrap gap-1.5">
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1.5 text-[10px] font-medium shadow-md backdrop-blur-sm transition ${
+              fullscreen
+                ? "border-neutral-700 bg-neutral-900 text-white"
+                : "border-border bg-card/95 text-foreground hover:bg-muted"
+            }`}
+            title={fullscreen ? "Ukončit celou obrazovku" : "Mapa na celou obrazovku"}
+            aria-label={fullscreen ? "Ukončit celou obrazovku" : "Mapa na celou obrazovku"}
+          >
+            {fullscreen ? <Minimize2 className="h-3 w-3" /> : <Maximize2 className="h-3 w-3" />}
+            {fullscreen ? "Zavřít" : "Celá obrazovka"}
+          </button>
           <MapPoiLayerToggles
             layers={poiLayers}
             available={availablePoiLayers}
@@ -172,7 +204,9 @@ export default function TripMap({
         scrollWheelZoom={false}
         touchZoom
         doubleClickZoom
+        preferCanvas
       >
+        <MapInvalidateSize nonce={fullscreen ? 1 : 0} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -246,6 +280,7 @@ export default function TripMap({
         <BorderCrossingMarkers crossings={borderCrossings} />
         <TrafficIncidentMarkers incidents={trafficIncidents} />
       </MapContainer>
-    </div>
+      </div>
+    </>
   );
 }

@@ -85,6 +85,21 @@ body {
   transform-origin: left center;
 }
 
+html.native-app .trip-flag-marker .flag-img,
+html.app-hidden .trip-flag-marker .flag-img {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trip-flag-marker .flag-img {
+    animation: none !important;
+  }
+}
+
+html.native-app body {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
 .trip-flag-marker.is-active .flag-img {
   box-shadow: 0 0 0 1.5px #0f766e;
   animation-duration: 1.2s;

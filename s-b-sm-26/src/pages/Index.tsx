@@ -7,6 +7,9 @@ import TripMap from "@/components/TripMap";
 import { useRadarAnimation } from "@/hooks/useRadarAnimation";
 import { useDayIncidents } from "@/hooks/useDayIncidents";
 import { useOnline } from "@/hooks/useOnline";
+import { useAppVisible } from "@/hooks/useAppVisible";
+import { useDesktopLayout } from "@/hooks/useDesktopLayout";
+import { IS_NATIVE } from "@/lib/runtime";
 import { hikeForDay } from "@/lib/hikes";
 import itineraryData from "@/data/itinerary.json";
 import routesData from "@/data/routes.json";
@@ -85,12 +88,19 @@ export default function Index({ showDates }: IndexProps) {
   const [selectedDay, setSelectedDay] = useState(initialDay);
   /** false = full-route overview (lock); true = fit selected day. */
   const [zoomToDay, setZoomToDay] = useState(() => initialZoomToDay(itinerary.days));
-  const [showRadar, setShowRadar] = useState(true);
+  const [showRadar, setShowRadar] = useState(() => !IS_NATIVE);
   const [fitNonce, setFitNonce] = useState(0);
   const [mobileView, setMobileView] = useState<MobileView>("map");
   const [logoPlayKey, setLogoPlayKey] = useState(0);
   const online = useOnline();
-  const radar = useRadarAnimation(showRadar && online);
+  const appVisible = useAppVisible();
+  const desktop = useDesktopLayout();
+  const mapShown = desktop || mobileView === "map";
+  const mapInteractive = appVisible && mapShown;
+  const radar = useRadarAnimation(showRadar && online, {
+    autoPlay: !IS_NATIVE,
+    paused: !mapInteractive,
+  });
 
   const selectDay = useCallback((day: number) => {
     setSelectedDay(day);
@@ -235,6 +245,7 @@ export default function Index({ showDates }: IndexProps) {
               onToggleRadar={handleToggleRadar}
               onRadarAutoDisable={handleRadarAutoDisable}
               fitNonce={fitNonce}
+              mapInteractive={mapInteractive}
             />
           </div>
 

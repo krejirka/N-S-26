@@ -74,6 +74,12 @@ body {
   transform-origin: left center;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .trip-flag-marker .flag-img {
+    animation: none !important;
+  }
+}
+
 .trip-flag-marker.is-active .flag-img {
   box-shadow: 0 0 0 1.5px #0f766e;
   animation-duration: 1.2s;
