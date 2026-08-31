@@ -1,6 +1,7 @@
 import { Pause, Play } from "lucide-react";
 import { formatRadarOffsetMinutes, RADAR_FORECAST_MINUTES, RADAR_HISTORY_MINUTES, type RadarFrame } from "@/lib/rainviewer";
 import type { RadarPlayMode } from "@/hooks/useRadarAnimation";
+import OfflineHint from "./OfflineHint";
 
 interface RadarTimelineProps {
   frames: RadarFrame[];
@@ -11,6 +12,7 @@ interface RadarTimelineProps {
   loading: boolean;
   hasForecast: boolean;
   showRadar: boolean;
+  online?: boolean;
   onPlayHistory: () => void;
   onPlayForecast: () => void;
   onToggleRadar: () => void;
@@ -25,6 +27,7 @@ export default function RadarTimeline({
   loading,
   hasForecast,
   showRadar,
+  online = true,
   onPlayHistory,
   onPlayForecast,
   onToggleRadar,
@@ -40,13 +43,15 @@ export default function RadarTimeline({
       <button
         type="button"
         onClick={onToggleRadar}
+        disabled={!online}
         className={`rounded px-2 py-0.5 font-medium transition ${
-          showRadar ? "bg-sky-600 text-white hover:bg-sky-700" : "bg-muted text-foreground hover:bg-muted/80"
-        }`}
-        title="Radar srážek (RainViewer + LibreWXR)"
+          showRadar && online ? "bg-sky-600 text-white hover:bg-sky-700" : "bg-muted text-foreground hover:bg-muted/80"
+        } disabled:cursor-not-allowed disabled:opacity-60`}
+        title={online ? "Radar srážek (RainViewer + LibreWXR)" : "Radar potřebuje datové připojení"}
       >
         Radar
       </button>
+      <OfflineHint show={!online}>Radar jen online</OfflineHint>
 
       {!showRadar ? null : loading ? (
         <span className="text-muted-foreground">Načítám radar…</span>

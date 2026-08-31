@@ -5,6 +5,9 @@ import DayServicesPanel from "./DayServicesPanel";
 import HikingDayPanel from "./HikingDayPanel";
 import { useDayTraffic } from "@/hooks/useDayTraffic";
 import { hikeForDay } from "@/lib/hikes";
+import { IS_NATIVE } from "@/lib/runtime";
+import { useOnline } from "@/hooks/useOnline";
+import OfflineHint from "./OfflineHint";
 import type { DayIncidentsSummary } from "@/hooks/useDayIncidents";
 import { formatDayKm } from "@/lib/dayDistance";
 import type {
@@ -41,6 +44,7 @@ export default function DayDetail({
   fishingSpots,
 }: DayDetailProps) {
   const travel = useDayTraffic(day, places, segments, daySegments);
+  const online = useOnline();
   const navPlace = places[day.navPlaceId ?? day.placeId] ?? placeCoords;
   const destLabel = navPlace?.name || day.destination;
   const hike = hikeForDay(day.day);
@@ -62,6 +66,10 @@ export default function DayDetail({
                   <span className="text-xs"> (max {110} km/h)</span>
                   {travel.loading ? (
                     <span className="ml-1 text-xs">· načítám provoz…</span>
+                  ) : !online && IS_NATIVE ? (
+                    <OfflineHint show className="ml-1">
+                      Živý provoz jen online
+                    </OfflineHint>
                   ) : travel.delayLabel ? (
                     <span className="ml-1 text-xs">· {travel.delayLabel}</span>
                   ) : null}

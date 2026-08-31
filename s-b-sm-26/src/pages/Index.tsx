@@ -88,6 +88,7 @@ export default function Index({ showDates }: IndexProps) {
   const [showRadar, setShowRadar] = useState(true);
   const [fitNonce, setFitNonce] = useState(0);
   const [mobileView, setMobileView] = useState<MobileView>("map");
+  const [logoPlayKey, setLogoPlayKey] = useState(0);
   const online = useOnline();
   const radar = useRadarAnimation(showRadar && online);
 
@@ -97,30 +98,36 @@ export default function Index({ showDates }: IndexProps) {
     if (hikeForDay(day)) setShowRadar(false);
   }, []);
 
+  const handleMobileView = useCallback((view: MobileView) => {
+    setLogoPlayKey((k) => k + 1);
+    setMobileView(view);
+  }, []);
+
   const selectDayFromList = useCallback(
     (day: number) => {
       selectDay(day);
-      setMobileView("map");
+      handleMobileView("map");
     },
-    [selectDay]
+    [selectDay, handleMobileView]
   );
 
   const handleToggleFullRoute = useCallback(() => {
     setZoomToDay((dayZoom) => !dayZoom);
   }, []);
 
+  const handleRadarAutoDisable = useCallback(() => {
+    setShowRadar(false);
+  }, []);
+
   const handleToggleRadar = useCallback(() => {
+    if (!online) return;
     if (showRadar) {
       setShowRadar(false);
       return;
     }
     setFitNonce((n) => n + 1);
     setShowRadar(true);
-  }, [showRadar]);
-
-  const handleRadarAutoDisable = useCallback(() => {
-    setShowRadar(false);
-  }, []);
+  }, [showRadar, online]);
 
   const currentDay = useMemo(
     () => itinerary.days.find((d) => d.day === selectedDay) ?? itinerary.days[0],
@@ -155,6 +162,7 @@ export default function Index({ showDates }: IndexProps) {
           }
           fullRouteLocked={fullRouteLocked}
           onToggleFullRoute={handleToggleFullRoute}
+          logoPlayKey={logoPlayKey}
         />
       </div>
 
@@ -164,7 +172,7 @@ export default function Index({ showDates }: IndexProps) {
             <button
               key={tab.id}
               type="button"
-              onClick={() => setMobileView(tab.id)}
+              onClick={() => handleMobileView(tab.id)}
               className={`flex-1 border-b-2 px-2 py-2 text-sm font-medium transition ${
                 mobileView === tab.id
                   ? "border-primary text-primary"

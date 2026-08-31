@@ -33,6 +33,7 @@ import BasemapLayers from "./BasemapLayers";
 import type { TrafficIncident } from "@/hooks/useDayIncidents";
 import { hoverPopupHandlers } from "@/lib/hoverPopup";
 import { useOnline } from "@/hooks/useOnline";
+import OfflineHint from "./OfflineHint";
 import {
   FitDayBounds,
   FitRouteBounds,
@@ -171,6 +172,7 @@ export default function TripMap({
             loading={radarLoading}
             hasForecast={hasForecast}
             showRadar={showRadar}
+            online={online}
             onPlayHistory={onPlayHistory}
             onPlayForecast={onPlayForecast}
             onToggleRadar={onToggleRadar}
@@ -178,9 +180,9 @@ export default function TripMap({
         </div>
         <div className="pointer-events-auto flex flex-wrap gap-1.5">
           {!online && (
-            <span className="rounded-lg border border-amber-700/50 bg-amber-950/90 px-2.5 py-1.5 text-[10px] font-medium text-amber-50 shadow-md">
-              Offline mapa · počasí, provoz a radar až s daty
-            </span>
+            <OfflineHint show className="shadow-md">
+              Offline mapa · počasí a provoz až s daty
+            </OfflineHint>
           )}
           <button
             type="button"

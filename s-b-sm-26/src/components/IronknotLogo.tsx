@@ -1,27 +1,51 @@
+import { useEffect, useState } from "react";
 import { usePrefersDark } from "@/hooks/usePrefersDark";
+import { LOGO_CYCLE_MS, LOGO_HEADER_PX, LOGO_SPLASH_PX } from "@/lib/brand";
 
 interface IronknotLogoProps {
-  /** Compact mark in the header vs. full splash animation. */
   size?: "header" | "splash";
-  /** Force a variant; default follows the surface (light chrome vs system splash). */
   surface?: "light" | "dark" | "auto";
+  /** Bump to replay a single rotation (header). */
+  playKey?: number;
   className?: string;
 }
 
-export default function IronknotLogo({ size = "header", surface = "auto", className = "" }: IronknotLogoProps) {
+export default function IronknotLogo({
+  size = "header",
+  surface = "auto",
+  playKey = 0,
+  className = "",
+}: IronknotLogoProps) {
   const prefersDark = usePrefersDark();
   const dark = surface === "auto" ? prefersDark : surface === "dark";
-  const src = `${import.meta.env.BASE_URL}ironknot-logo-${dark ? "dark" : "light"}.gif`;
-  const box =
-    size === "splash"
-      ? "h-52 w-52 sm:h-64 sm:w-64"
-      : "h-14 w-14 shrink-0 sm:h-16 sm:w-16";
+  const variant = dark ? "dark" : "light";
+  const isSplash = size === "splash";
+  const [playing, setPlaying] = useState(true);
+
+  useEffect(() => {
+    if (isSplash) {
+      setPlaying(true);
+      return;
+    }
+    setPlaying(true);
+    const hold = window.setTimeout(() => setPlaying(false), LOGO_CYCLE_MS);
+    return () => window.clearTimeout(hold);
+  }, [playKey, variant, isSplash]);
+
+  const base = import.meta.env.BASE_URL;
+  const src = playing
+    ? `${base}ironknot-logo-${variant}.gif?p=${playKey}`
+    : `${base}ironknot-logo-${variant}-still.png`;
+  const px = isSplash ? LOGO_SPLASH_PX : LOGO_HEADER_PX;
 
   return (
     <img
       src={src}
       alt="Ironknot"
-      className={`${box} object-contain ${className}`}
+      width={px}
+      height={px}
+      className={`shrink-0 object-contain ${className}`}
+      style={{ width: px, height: px }}
     />
   );
 }

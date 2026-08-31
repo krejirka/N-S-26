@@ -18,7 +18,7 @@
     "seed:pois": "node scripts/seed-corridor-pois.mjs",
     "data": "npm run import:itinerary && npm run build:routes",
     "maps:offline": "node scripts/extract-offline-maps.mjs && node scripts/download-hike-tiles.mjs",
-    "build:native": "vite build --mode native",
+    "build:native": "node scripts/clean-public-apk.mjs && vite build --mode native",
     "cap:sync": "npm run build:native && npx cap sync android",
     "apk": "npm run cap:sync && node scripts/build-apk.mjs"
   },

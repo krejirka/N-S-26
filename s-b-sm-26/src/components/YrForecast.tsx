@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { fetchYrForecast, weatherIconUrl, type DayForecast } from "@/lib/metno";
 import { useOnline } from "@/hooks/useOnline";
+import { IS_NATIVE } from "@/lib/runtime";
+import OfflineHint from "./OfflineHint";
 
 interface YrForecastProps {
   lat: number;
@@ -43,9 +45,17 @@ export default function YrForecast({ lat, lng }: YrForecastProps) {
 
   if (!online) {
     return (
-      <p className="mt-2 text-xs text-muted-foreground">
-        Předpověď je jen online — zapněte data, až budete mít signál.
-      </p>
+      <div>
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          Předpověď 5 dní
+        </p>
+        <OfflineHint show>Počasí jen s datovým připojením</OfflineHint>
+        {!IS_NATIVE && (
+          <p className="mt-2 text-xs text-muted-foreground">
+            Předpověď je jen online — zapněte data, až budete mít signál.
+          </p>
+        )}
+      </div>
     );
   }
 
