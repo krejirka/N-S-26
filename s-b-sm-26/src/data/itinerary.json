@@ -68,11 +68,33 @@
       "destination": "Niš",
       "km": 425,
       "lodging": "Prenočište Imper I.M.D.",
-      "logistics": "Přejezd Subotica → Niš · cca 425 km / 4 h",
-      "program": "Přejezd do Niše, třetího největšího srbského města a rodiště císaře Konstantina I. Velikého. Návštěva koncentračního tábora Crveni krst (9–16 h). Ubytování v centru, večer procházka včetně pevnosti z římských dob (dnešní vzhled z osmanské nadvlády).",
+      "logistics": "Přejezd Subotica → Niš · cca 425 km / 4 h · volitelná zastávka Belgrade 360DECK (Kula Beograd / Waterfront)",
+      "program": "Přejezd do Niše, třetího největšího srbského města a rodiště císaře Konstantina I. Velikého. Trasa vede po A1 kolem Bělehradu — cestou tam lze zajet k Belgrade 360DECK (41. patro Kula Beograd, vstup přes Galeriji). V Niši návštěva koncentračního tábora Crveni krst (9–16 h). Ubytování v centru, večer procházka včetně pevnosti a večeře v Nišlijské mehaně.",
       "placeId": "nis",
       "phase": "tam",
       "places": [
+        {
+          "name": "Belgrade 360DECK",
+          "placeId": "belgrade_360deck",
+          "tips": [
+            "Volitelná zastávka cestou Subotica → Niš (A1 kolem Bělehradu, zajížďka k Waterfrontu)",
+            "Vyhlídka v 41. patře Kula Beograd — denně 10–22 h, poslední vstup 21 h",
+            "Vstup: Galerija, 2. patro, lift lobby A · Nikolaja Kravcova 1",
+            "Kartičky online nebo na místě · kavárna a suvenýry nahoře"
+          ],
+          "links": [
+            { "label": "belgrade360deck.com", "url": "https://www.belgrade360deck.com/en/" },
+            { "label": "Vstupenky", "url": "https://www.belgrade360deck.com/en/tickets/" },
+            { "label": "Kontakt", "url": "https://www.belgrade360deck.com/en/contact/" },
+            { "label": "Tel. +381 11 7888111", "url": "tel:+381117888111" }
+          ],
+          "image": {
+            "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Belgrade%20Tower.jpg?width=640",
+            "alt": "Kula Beograd — Belgrade 360DECK",
+            "source": "Wikimedia Commons",
+            "sourceUrl": "https://commons.wikimedia.org/wiki/File:Belgrade_Tower.jpg"
+          }
+        },
         {
           "name": "Crveni krst",
           "placeId": "crveni_krst",
@@ -108,6 +130,25 @@
             "source": "Wikimedia Commons",
             "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nis%20Fortress.jpg"
           }
+        },
+        {
+          "name": "Nišlijska mehana",
+          "placeId": "nislijska_mehana",
+          "tips": [
+            "Tradiční nišská mehana v centru — rezervace se vyplatí",
+            "Ne–Čt 8–24 h, Pá–So 8–1 h",
+            "Doporučení: belmuž, urnebes / trljanica, uštipci, ćevapi s pórkem, sarma, podvarak, grilovaná krkovice",
+            "Dva vchody: Prvomajska 49 (etno) a Kralja Stefana Prvovenčanog 22 (nový sál)",
+            "Blízko ubytování Imper I.M.D."
+          ],
+          "links": [
+            { "label": "Web", "url": "http://nislijskamehana.com/" },
+            { "label": "Menu / ceník", "url": "http://nislijskamehana.com/shop" },
+            { "label": "Kontakt", "url": "http://nislijskamehana.com/contactus" },
+            { "label": "Tel. +381 18 511111", "url": "tel:+38118511111" },
+            { "label": "Tel. +381 63 357200", "url": "tel:+38163357200" },
+            { "label": "E-mail", "url": "mailto:mehananislijska@gmail.com" }
+          ]
         },
         {
           "name": "Prenočište Imper I.M.D.",

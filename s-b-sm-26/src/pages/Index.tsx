@@ -147,7 +147,7 @@ export default function Index({ showDates }: IndexProps) {
   return (
     <div className="flex h-[100dvh] flex-col overflow-hidden">
       <BrandSplash />
-      <div className="shrink-0 border-b border-border bg-card shadow-sm">
+      <div className="shrink-0 border-b border-neutral-800 shadow-sm" style={{ background: "#000000" }}>
         <Header
           itinerary={itinerary}
           routes={routes}

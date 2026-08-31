@@ -27,6 +27,17 @@ body,
   overflow: hidden;
 }
 
+.header-ironknot {
+  --background: 0 0% 8%;
+  --foreground: 0 0% 96%;
+  --card: 0 0% 10%;
+  --muted: 0 0% 16%;
+  --muted-foreground: 0 0% 70%;
+  --border: 0 0% 24%;
+  --primary: 168 55% 48%;
+  color: hsl(var(--foreground));
+}
+
 body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;

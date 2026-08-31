@@ -118,7 +118,7 @@ export default function DayNav({
             download="s-b-sm-26.apk"
             title="Stáhnout Android APK (offline mapa trasy a treku)"
             aria-label="Stáhnout Android APK"
-            className="inline-flex h-[34px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-[#ececec] hover:ring-2 hover:ring-primary/40 lg:h-[38px] lg:w-[38px]"
+          className="inline-flex h-[34px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-lg border border-neutral-600 bg-black hover:ring-2 hover:ring-primary/40 lg:h-[38px] lg:w-[38px]"
           >
             <img src={APK_ICON_SRC} alt="" className="h-full w-full object-cover" />
           </a>

@@ -149,8 +149,11 @@ export default function TripMap({
     if (showHike && hike) {
       for (const id of hike.placeIds) ids.add(id);
     }
+    for (const p of day.places) {
+      if (p.placeId) ids.add(p.placeId);
+    }
     return ids;
-  }, [segments, activeSegmentIds, selectedPlaceId, showHike, hike]);
+  }, [segments, activeSegmentIds, selectedPlaceId, showHike, hike, day.places]);
 
   const center: [number, number] = useMemo(() => {
     const hk = places.hradec_kralove;

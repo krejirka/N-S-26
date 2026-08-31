@@ -45,6 +45,22 @@ const PLACES = {
     dayLabel: "2",
     address: "7. juli 22, 18000 Niš, Srbsko",
   },
+  belgrade_360deck: {
+    name: "Belgrade 360DECK",
+    lat: 44.8176,
+    lng: 20.4633,
+    country: "Srbsko",
+    dayLabel: "2",
+    address: "Nikolaja Kravcova 1, Kula Beograd (Galerija, 2. patro), Bělehrad",
+  },
+  nislijska_mehana: {
+    name: "Nišlijska mehana",
+    lat: 43.32278,
+    lng: 21.9025,
+    country: "Srbsko",
+    dayLabel: "2",
+    address: "Prvomajska 49 / Kralja Stefana Prvovenčanog 22, 18000 Niš, Srbsko",
+  },
   cele_kula: {
     name: "Ćele kula, Niš",
     lat: 43.3121,
