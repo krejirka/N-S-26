@@ -41,14 +41,14 @@ Referenční výpravy:
 | `places.json` / `routes.json` | `npm run build:routes` (OSRM) |
 | `corridor-pois.json` | `npm run fetch:pois` — fuel 20 km, hospital/vet 50 km |
 | `ev-chargers.json` | `npm run fetch:chargers` — DC / Tesla ≤25 km (s-b-sm-26) |
-| `border-crossings.json` | `npm run fetch:borders` — ZOLL, ≤100 km / ≤120 min |
+| `border-crossings.json` | `npm run fetch:borders` — ZOLL, stejný úsek hranice, zajížďka ≤90 min |
 | `hike-*.json` | `npm run fetch:hike` + `fetch:hike-elevation` |
 
 Overpass: preferuj `https://overpass.openstreetmap.fr/api/interpreter`.
 
 ## Mapa — povinné chování
 
-- Koridorové vrstvy **benzínky, nabíjení, nemocnice, veterina** jsou na mapě **defaultně vypnuté**. Zapínají se tlačítky u radar ovládání (`MapPoiLayerToggles`). Stejně v n-s-26 i s-b-sm-26.
+- Koridorové vrstvy **benzínky, nabíjení, nemocnice, veterina, přechody (ZOLL)** jsou na mapě **defaultně vypnuté**. Zapínají se tlačítky u radar ovládání (`MapPoiLayerToggles`). Stejně v n-s-26 i s-b-sm-26.
 - Trek (den bez silnice): OpenTopoMap + Waymarked Trails, OSM GPX trasa, tlačítko GPS (`watch` + high accuracy; nepanovat, pokud je uživatel >20 km od treku).
 - Výškový profil vedle treku (graf + start/cíl/POI). Data z Open-Meteo elevation, konce zarovnat na OSM `ele`.
 - GPX ke stažení do Mapy.cz / OsmAnd. Odkaz na Mapy.cz turistickou vrstvu je v pořádku; jejich tiles nestahovat.

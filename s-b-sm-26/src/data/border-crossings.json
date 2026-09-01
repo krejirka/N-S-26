@@ -1,6 +1,174 @@
 {
-  "note": "Alternativní hraniční přechody: ≤100 km vzdušnou čarou od plánovaného, zajížďka ≤120 min (OSRM).",
-  "generatedAt": "2026-08-30T13:31:15.294Z",
-  "planned": [],
-  "alternatives": []
+  "note": "Alternativní clo/přechody: stejný úsek hranice, zajížďka ≤90 min (OSRM).",
+  "generatedAt": "2026-09-01T21:10:09.921Z",
+  "planned": [
+    {
+      "id": "tabanovce-presevo",
+      "name": "Tabanovce / Preševo (E75)",
+      "lat": 42.23838,
+      "lng": 21.70295,
+      "pair": "MK-RS",
+      "kind": "planned",
+      "openingHoursLabel": "Nonstop (24/7)",
+      "note": null
+    },
+    {
+      "id": "roszke-horgos",
+      "name": "Röszke / Horgoš (dálnice M5/A1)",
+      "lat": 46.17372,
+      "lng": 19.97499,
+      "pair": "HU-RS",
+      "kind": "planned",
+      "openingHoursLabel": "Nonstop (24/7)",
+      "note": "Mezinárodní osobní i nákladní provoz, dálnice."
+    },
+    {
+      "id": "gradina-kalotina",
+      "name": "Gradina / Kalotina (E80)",
+      "lat": 42.99932,
+      "lng": 22.82942,
+      "pair": "RS-BG",
+      "kind": "planned",
+      "openingHoursLabel": "Nonstop (24/7)",
+      "note": null
+    },
+    {
+      "id": "gyueshevo-deve-bair",
+      "name": "Gjueshevo / Deve Bair (E871)",
+      "lat": 42.23602,
+      "lng": 22.47604,
+      "pair": "BG-MK",
+      "kind": "planned",
+      "openingHoursLabel": "Nonstop (24/7)",
+      "note": null
+    }
+  ],
+  "alternatives": [
+    {
+      "id": "asotthalom-vinogradi",
+      "name": "Ásotthalom / Bački Vinogradi",
+      "lat": 46.12339,
+      "lng": 19.85646,
+      "pair": "HU-RS",
+      "kind": "alternative",
+      "nearPlannedId": "roszke-horgos",
+      "nearPlannedName": "Röszke / Horgoš (dálnice M5/A1)",
+      "airKm": 10.7,
+      "detourMin": 14,
+      "openingHoursLabel": "7:00–19:00 (V–VIII), 6:00–18:00 (IX–IV)",
+      "note": "Jen občané EU/EHP/CH/RS a rodinní příslušníci."
+    },
+    {
+      "id": "pelince",
+      "name": "Pelince / Prohor Pčinjski",
+      "lat": 42.28788,
+      "lng": 21.85715,
+      "pair": "MK-RS",
+      "kind": "alternative",
+      "nearPlannedId": "tabanovce-presevo",
+      "nearPlannedName": "Tabanovce / Preševo (E75)",
+      "airKm": 13.8,
+      "detourMin": 24,
+      "openingHoursLabel": "Nonstop (24/7)",
+      "note": null
+    },
+    {
+      "id": "tompa-kelebija",
+      "name": "Tompa / Kelebija",
+      "lat": 46.15235,
+      "lng": 19.5776,
+      "pair": "HU-RS",
+      "kind": "alternative",
+      "nearPlannedId": "roszke-horgos",
+      "nearPlannedName": "Röszke / Horgoš (dálnice M5/A1)",
+      "airKm": 30.7,
+      "detourMin": 29,
+      "openingHoursLabel": "Nonstop (24/7)",
+      "note": "Mezinárodní osobní i nákladní provoz."
+    },
+    {
+      "id": "bacsalmas-bajmok",
+      "name": "Bácsalmás / Bajmok",
+      "lat": 45.96682,
+      "lng": 19.42493,
+      "pair": "HU-RS",
+      "kind": "alternative",
+      "nearPlannedId": "roszke-horgos",
+      "nearPlannedName": "Röszke / Horgoš (dálnice M5/A1)",
+      "airKm": 48.3,
+      "detourMin": 45,
+      "openingHoursLabel": "7:00–19:00 (V–VIII), 6:00–18:00 (IX–IV)",
+      "note": "Osobní provoz, bez autobusů."
+    },
+    {
+      "id": "tiszasziget-dala",
+      "name": "Tiszasziget / Đala",
+      "lat": 46.15479,
+      "lng": 20.10955,
+      "pair": "HU-RS",
+      "kind": "alternative",
+      "nearPlannedId": "roszke-horgos",
+      "nearPlannedName": "Röszke / Horgoš (dálnice M5/A1)",
+      "airKm": 10.6,
+      "detourMin": 61,
+      "openingHoursLabel": "7:00–19:00 (V–VIII), 6:00–18:00 (IX–IV)",
+      "note": "Jen občané EU/EHP/CH/RS a rodinní příslušníci."
+    },
+    {
+      "id": "kubekhaza-rabe",
+      "name": "Kübekháza / Rabe",
+      "lat": 46.11166,
+      "lng": 20.25375,
+      "pair": "HU-RS",
+      "kind": "alternative",
+      "nearPlannedId": "roszke-horgos",
+      "nearPlannedName": "Röszke / Horgoš (dálnice M5/A1)",
+      "airKm": 22.6,
+      "detourMin": 79,
+      "openingHoursLabel": "7:00–19:00 (V–VIII), 6:00–18:00 (IX–IV)",
+      "note": "Jen občané EU/EHP/CH/RS a rodinní příslušníci."
+    }
+  ],
+  "skipped": [
+    {
+      "id": "strezimirovci",
+      "name": "Strezimirovci",
+      "pair": "RS-BG",
+      "nearPlannedName": "Gradina / Kalotina (E80)",
+      "airKm": 38.6,
+      "detourMin": 128
+    },
+    {
+      "id": "stanke-lisichkovo",
+      "name": "Stanke Lisichkovo / Delčevo",
+      "pair": "BG-MK",
+      "nearPlannedName": "Gjueshevo / Deve Bair (E871)",
+      "airKm": 42.8,
+      "detourMin": 146
+    },
+    {
+      "id": "bacsszentgyorgy-rastina",
+      "name": "Bácsszentgyörgy / Rastina",
+      "pair": "HU-RS",
+      "nearPlannedName": "Röszke / Horgoš (dálnice M5/A1)",
+      "airKm": 76.2,
+      "detourMin": 151
+    },
+    {
+      "id": "hercegszanto-backi-breg",
+      "name": "Hercegszántó / Bački Breg",
+      "pair": "HU-RS",
+      "nearPlannedName": "Röszke / Horgoš (dálnice M5/A1)",
+      "airKm": 85.3,
+      "detourMin": 161
+    },
+    {
+      "id": "ribarci-oltomantsi",
+      "name": "Ribarci / Oltomantsi",
+      "pair": "RS-BG",
+      "nearPlannedName": "Gradina / Kalotina (E80)",
+      "airKm": 85.5,
+      "detourMin": 297
+    }
+  ]
 }

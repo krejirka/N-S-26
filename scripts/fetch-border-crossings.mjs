@@ -1,6 +1,7 @@
 /**
  * Match official customs/border posts to a trip route.
- * Planned = on the route (≤ 5 km). Alternatives = ≤ 100 km air, ≤ 120 min OSRM detour.
+ * Planned = closest catalog post per border pair on the route (≤ 30 km).
+ * Alternatives = same pair, zajížďka ≤ 90 min (OSRM).
  *
  * Run from a trip folder: `npm run fetch:borders`
  */
@@ -8,9 +9,9 @@ import fs from "fs";
 import path from "path";
 import { BORDER_CATALOG } from "./border-catalog.mjs";
 
-const AIR_KM = 100;
-const DETOUR_MIN = 120;
-const PLANNED_ROUTE_KM = 8;
+const PLANNED_ROUTE_KM = 30;
+const ALT_ROUTE_KM = 90;
+const DETOUR_MIN = 90;
 const LOOK_ALONG_KM = 35;
 const OSRM = "https://router.project-osrm.org/route/v1/driving";
 
@@ -26,41 +27,36 @@ function haversine(lat1, lon1, lat2, lon2) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-function sampleRoute(segments, stepKm = 8) {
-  const samples = [];
-  const full = [];
+function routePoints(segments) {
+  const latLng = [];
+  const lngLat = [];
   for (const seg of segments) {
     if (seg.kind === "ferry" || !seg.geometry?.length) continue;
-    for (const pt of seg.geometry) full.push(pt);
-    let acc = stepKm;
-    for (let i = 1; i < seg.geometry.length; i++) {
-      const [lng0, lat0] = seg.geometry[i - 1];
-      const [lng1, lat1] = seg.geometry[i];
-      acc += haversine(lat0, lng0, lat1, lng1);
-      if (acc >= stepKm) {
-        samples.push([lat1, lng1]);
-        acc = 0;
-      }
+    for (const pt of seg.geometry) {
+      lngLat.push(pt);
+      latLng.push([pt[1], pt[0]]);
     }
   }
-  return { samples, full };
+  return { latLng, lngLat };
 }
 
 function minDistKm(lat, lng, samplesLatLng) {
   let min = Infinity;
-  for (const [sLat, sLng] of samplesLatLng) {
+  const step = Math.max(1, Math.floor(samplesLatLng.length / 8000));
+  for (let i = 0; i < samplesLatLng.length; i += step) {
+    const [sLat, sLng] = samplesLatLng[i];
     const d = haversine(lat, lng, sLat, sLng);
     if (d < min) min = d;
   }
   return min;
 }
 
-function nearestIndex(geom, lat, lng) {
+function nearestIndex(geomLngLat, lat, lng) {
   let best = 0;
   let bestD = Infinity;
-  const step = Math.max(1, Math.floor(geom.length / 4000));
-  for (let i = 0; i < geom.length; i += step) {
-    const d = haversine(lat, lng, geom[i][1], geom[i][0]);
+  const step = Math.max(1, Math.floor(geomLngLat.length / 4000));
+  for (let i = 0; i < geomLngLat.length; i += step) {
+    const d = haversine(lat, lng, geomLngLat[i][1], geomLngLat[i][0]);
     if (d < bestD) {
       bestD = d;
       best = i;
@@ -129,8 +125,8 @@ if (!fs.existsSync(routesPath)) {
 }
 
 const routes = JSON.parse(fs.readFileSync(routesPath, "utf8"));
-const { samples, full } = sampleRoute(routes.segments);
-console.log(`Route samples: ${samples.length}`);
+const { latLng, lngLat } = routePoints(routes.segments);
+console.log(`Route points: ${latLng.length}`);
 
 const located = [];
 for (const item of BORDER_CATALOG) {
@@ -147,38 +143,35 @@ for (const item of BORDER_CATALOG) {
     lat = Math.round(hit.lat * 1e5) / 1e5;
     lng = Math.round(hit.lng * 1e5) / 1e5;
     console.log(`${lat}, ${lng}`);
-  } else {
-    console.log(`coords ${item.id} ${lat}, ${lng}`);
   }
-  located.push({ ...item, lat, lng });
+  const routeKm = minDistKm(lat, lng, latLng);
+  located.push({ ...item, lat, lng, routeKm });
+  console.log(`route ${item.id} ${routeKm.toFixed(1)} km`);
 }
 
-const withDist = located.map((p) => ({ ...p, routeKm: minDistKm(p.lat, p.lng, samples) }));
-const onRoute = withDist.filter((p) => p.routeKm <= PLANNED_ROUTE_KM);
-const planned = [];
-for (const p of onRoute.sort((a, b) => a.routeKm - b.routeKm)) {
-  if (planned.some((x) => haversine(x.lat, x.lng, p.lat, p.lng) < 20)) continue;
-  planned.push(p);
+const pairBest = new Map();
+for (const p of located) {
+  if (p.routeKm > PLANNED_ROUTE_KM) continue;
+  const prev = pairBest.get(p.pair);
+  if (!prev || p.routeKm < prev.routeKm) pairBest.set(p.pair, p);
 }
-console.log(`Planned on route: ${planned.map((p) => `${p.name} (${p.routeKm.toFixed(1)} km)`).join("; ") || "(none)"}`);
+const planned = [...pairBest.values()].sort((a, b) => a.routeKm - b.routeKm);
+console.log(
+  `Planned on route: ${planned.map((p) => `${p.name} (${p.routeKm.toFixed(1)} km)`).join("; ") || "(none)"}`
+);
 
 const alternatives = [];
+const skipped = [];
 for (const alt of located) {
   if (planned.some((p) => p.id === alt.id)) continue;
-  let nearest = null;
-  let airKm = Infinity;
-  for (const p of planned) {
-    const d = haversine(p.lat, p.lng, alt.lat, alt.lng);
-    if (d < airKm) {
-      airKm = d;
-      nearest = p;
-    }
-  }
-  if (!nearest || nearest.pair !== alt.pair || airKm > AIR_KM || airKm < 1) continue;
+  const nearest = planned.find((p) => p.pair === alt.pair);
+  if (!nearest) continue;
+  const airKm = haversine(nearest.lat, nearest.lng, alt.lat, alt.lng);
+  if (airKm > ALT_ROUTE_KM || alt.routeKm > ALT_ROUTE_KM) continue;
 
-  const idx = nearestIndex(full, nearest.lat, nearest.lng);
-  const before = walkKm(full, idx, LOOK_ALONG_KM, -1);
-  const after = walkKm(full, idx, LOOK_ALONG_KM, 1);
+  const idx = nearestIndex(lngLat, nearest.lat, nearest.lng);
+  const before = walkKm(lngLat, idx, LOOK_ALONG_KM, -1);
+  const after = walkKm(lngLat, idx, LOOK_ALONG_KM, 1);
   process.stdout.write(`OSRM ${alt.name} vs ${nearest.name}... `);
   const [baseSec, toAlt, fromAlt] = await Promise.all([
     osrmDurationSec(before, after),
@@ -186,22 +179,35 @@ for (const alt of located) {
     osrmDurationSec([alt.lng, alt.lat], after),
   ]);
   await sleep(150);
+
+  let detourMin;
   if (baseSec == null || toAlt == null || fromAlt == null) {
-    console.log("skip (no route)");
-    continue;
+    detourMin = Math.round((Math.max(0, airKm) / 70) * 60);
+    console.log(`approx +${detourMin} min (no OSRM)`);
+  } else {
+    detourMin = Math.round((toAlt + fromAlt - baseSec) / 60);
+    console.log(`ok +${detourMin} min / ${airKm.toFixed(1)} km`);
   }
-  const detourMin = Math.round((toAlt + fromAlt - baseSec) / 60);
+  if (detourMin < 0) detourMin = Math.round(airKm * 0.8);
   if (detourMin > DETOUR_MIN) {
-    console.log(`skip (+${detourMin} min)`);
+    console.log(`  skip (+${detourMin} min > ${DETOUR_MIN})`);
+    skipped.push({
+      id: alt.id,
+      name: alt.name,
+      pair: alt.pair,
+      nearPlannedName: nearest.name,
+      airKm: Math.round(airKm * 10) / 10,
+      detourMin,
+    });
     continue;
   }
-  console.log(`ok +${detourMin} min / ${airKm.toFixed(1)} km`);
   alternatives.push({
     id: alt.id,
     name: alt.name,
     lat: alt.lat,
     lng: alt.lng,
     pair: alt.pair,
+    kind: "alternative",
     nearPlannedId: nearest.id,
     nearPlannedName: nearest.name,
     airKm: Math.round(airKm * 10) / 10,
@@ -211,13 +217,13 @@ for (const alt of located) {
   });
 }
 
-alternatives.sort((a, b) => a.airKm - b.airKm);
+alternatives.sort((a, b) => a.detourMin - b.detourMin || a.airKm - b.airKm);
 
 fs.writeFileSync(
   outPath,
   JSON.stringify(
     {
-      note: "Alternativní clo/přechody: ≤100 km vzdušnou čarou od plánovaného, zajížďka ≤120 min (OSRM).",
+      note: "Alternativní clo/přechody: stejný úsek hranice, zajížďka ≤90 min (OSRM).",
       generatedAt: new Date().toISOString(),
       planned: planned.map((p) => ({
         id: p.id,
@@ -225,12 +231,15 @@ fs.writeFileSync(
         lat: p.lat,
         lng: p.lng,
         pair: p.pair,
+        kind: "planned",
         openingHoursLabel: p.openingHoursLabel,
+        note: p.note || null,
       })),
       alternatives,
+      skipped,
     },
     null,
     2
   ) + "\n"
 );
-console.log(`Wrote ${alternatives.length} alternatives → ${outPath}`);
+console.log(`Wrote ${planned.length} planned + ${alternatives.length} alternatives → ${outPath}`);

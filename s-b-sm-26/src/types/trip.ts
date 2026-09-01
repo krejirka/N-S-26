@@ -155,11 +155,14 @@ export interface FishingSpotsData {
   spots: FishingSpot[];
 }
 
+export type BorderCrossingKind = "planned" | "alternative";
+
 export interface BorderCrossingAlt {
   id: string;
   name: string;
   lat: number;
   lng: number;
+  kind?: BorderCrossingKind;
   nearPlannedId?: string;
   nearPlannedName?: string;
   airKm: number;
@@ -176,7 +179,19 @@ export interface PlannedBorderCrossing {
   name: string;
   lat: number;
   lng: number;
+  pair?: string;
+  kind?: BorderCrossingKind;
   openingHoursLabel?: string;
+  note?: string | null;
+}
+
+export interface SkippedBorderCrossing {
+  id: string;
+  name: string;
+  pair: string;
+  nearPlannedName?: string;
+  airKm: number;
+  detourMin: number;
 }
 
 export interface BorderCrossingsData {
@@ -184,6 +199,7 @@ export interface BorderCrossingsData {
   generatedAt?: string | null;
   planned: PlannedBorderCrossing[];
   alternatives: BorderCrossingAlt[];
+  skipped?: SkippedBorderCrossing[];
 }
 
 export interface RouteSegment {

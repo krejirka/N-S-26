@@ -73,7 +73,7 @@ Hesla se v bundlu neukládají v plaintextu, jen salted SHA-256. Pro novou *priv
 | `lodgings.json` | Ubytování — dům na mapě, adresa, navigace |
 | `corridor-pois.json` | Benzínky / nemocnice / veterina podél trasy (Overpass). Na mapě defaultně skryté. |
 | `ev-chargers.json` | Volitelné DC / Tesla nabíječky (s-b-sm-26). Na mapě defaultně skryté. |
-| `border-crossings.json` | Alternativní hraniční přechody (≤100 km / ≤120 min) |
+| `border-crossings.json` | Alternativní hraniční přechody (stejný úsek, zajížďka ≤90 min) |
 | `hike-*.json` | Pěší trasa + výškový profil (OSM + Open-Meteo). Jen dny bez silnice. |
 | `shops.json` | Volitelné obchody podél koridoru (např. IKEA). Není povinné. |
 | `fishing-spots.json` | Volitelná rybářská místa. Není povinné. |
@@ -192,10 +192,10 @@ Do `flagMarker.ts` doplň nové země: `Srbsko: "rs"`, `Bulharsko: "bg"`, `Sever
 ### Služby podél trasy (koridor)
 
 - Runtime filtr: benzínky ≤ 20 km od čáry dne, nabíječky ≤ 25 km, nemocnice a veterina ≤ 50 km.
-- **Na mapě defaultně vypnuté** — zapínají se tlačítky Benzínky / Nabíjení / Nemocnice / Veterina vedle radaru. Bez zapnutí mapa zůstane čistá (trasa, vlajky, ubytování).
+- **Na mapě defaultně vypnuté** — zapínají se tlačítky Benzínky / Nabíjení / Nemocnice / Veterina / Přechody vedle radaru. Bez zapnutí mapa zůstane čistá (trasa, vlajky, ubytování).
 - V detailu dne stejné služby jako rozbalovací seznamy (nejsou nakreslené na mapě, dokud uživatel vrstvu nezapne).
 - Navigace a telefon z Overpass tagů; tísňová 112 jako fallback.
-- Alternativní hraniční přechody: ikona ZOLL/DOUANE, ≤ 100 km vzdušnou čarou od plánovaného přechodu na trase, zajížďka ≤ 120 min (OSRM). Hover: plánování cesty + otevírací doba. `npm run fetch:borders`.
+- Alternativní hraniční přechody: ikona ZOLL/DOUANE na mapě (plánované i alternativy), stejný úsek hranice, zajížďka ≤ 90 min (OSRM). V itineráři seznam s otevírací dobou. `npm run fetch:borders`.
 - EV (s-b-sm-26): Tesla Supercharger + DC, Overpass `overpass.openstreetmap.fr`. n-s-26 má benzínky, ne nabíječky.
 
 ### Obchody a rybaření (volitelné)

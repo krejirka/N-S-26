@@ -17,6 +17,7 @@ import type { RadarPlayMode } from "@/hooks/useRadarAnimation";
 import { makeFlagIcon } from "@/lib/flagMarker";
 import { makeFerryIcon } from "@/lib/ferryMarker";
 import { hikeForDay, hikeTrackLatLngs } from "@/lib/hikes";
+import { pointsForDay } from "@/lib/borderDays";
 import { MAP_POI_LAYERS_OFF, type MapPoiLayer } from "@/lib/mapPoiLayers";
 import RadarPrecipitationLayer from "./RadarPrecipitationLayer";
 import RadarTimeline from "./RadarTimeline";
@@ -116,6 +117,10 @@ export default function TripMap({
   const hike = useMemo(() => hikeForDay(day.day), [day.day]);
   const showHike = Boolean(hike && zoomToDay);
   const hikePositions = useMemo(() => (hike ? hikeTrackLatLngs(hike) : []), [hike]);
+  const dayBorderPoints = useMemo(
+    () => pointsForDay(borderCrossings, day.day),
+    [borderCrossings, day.day]
+  );
   const online = useOnline();
   const wrapRef = useRef<HTMLDivElement>(null);
   const { fullscreen, toggle: toggleFullscreen } = useMapFullscreen(wrapRef);
@@ -132,8 +137,14 @@ export default function TripMap({
       hospital: corridorPois.some((p) => p.kind === "hospital"),
       charger: evChargers.length > 0,
       vet: corridorPois.some((p) => p.kind === "veterinary"),
+      border: borderCrossings.length > 0,
     }),
-    [corridorPois, evChargers]
+    [corridorPois, evChargers, borderCrossings]
+  );
+
+  const fitExtraPoints = useMemo(
+    () => [...(showHike ? hikePositions : []), ...(poiLayers.border ? dayBorderPoints : [])],
+    [showHike, hikePositions, poiLayers.border, dayBorderPoints]
   );
 
   const activeSegmentIds = useMemo(
@@ -292,7 +303,7 @@ export default function TripMap({
           enabled={zoomToDay}
           radarLimited={radarLimited}
           fitNonce={fitNonce}
-          extraPoints={showHike ? hikePositions : undefined}
+          extraPoints={fitExtraPoints.length ? fitExtraPoints : undefined}
           hikeView={showHike}
         />
         {segments.map((seg) => {
@@ -344,7 +355,7 @@ export default function TripMap({
           activeSegmentIds={activeSegmentIds}
           spots={fishingSpots}
         />
-        <BorderCrossingMarkers crossings={borderCrossings} />
+        {poiLayers.border ? <BorderCrossingMarkers crossings={borderCrossings} /> : null}
         <TrafficIncidentMarkers incidents={trafficIncidents} />
         <GpsLocateControl
           enabled={gpsOn && mapInteractive}

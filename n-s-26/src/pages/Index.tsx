@@ -33,7 +33,22 @@ const shops = (shopsData as ShopsData).shops;
 const lodgings = (lodgingsData as LodgingsData).lodgings;
 const corridorPois = (corridorPoisData as CorridorPoisData).pois ?? [];
 const fishingSpots = (fishingSpotsData as FishingSpotsData).spots ?? [];
-const borderCrossings = (borderCrossingsData as BorderCrossingsData).alternatives ?? [];
+const borderData = borderCrossingsData as BorderCrossingsData;
+const borderCrossings = [
+  ...(borderData.planned ?? []).map((p) => ({
+    id: p.id,
+    name: p.name,
+    lat: p.lat,
+    lng: p.lng,
+    pair: p.pair,
+    kind: "planned" as const,
+    airKm: 0,
+    detourMin: 0,
+    openingHoursLabel: p.openingHoursLabel ?? "ověřte na místě",
+    note: p.note ?? null,
+  })),
+  ...(borderData.alternatives ?? []).map((a) => ({ ...a, kind: a.kind ?? ("alternative" as const) })),
+];
 
 type MobileView = "list" | "map" | "detail";
 

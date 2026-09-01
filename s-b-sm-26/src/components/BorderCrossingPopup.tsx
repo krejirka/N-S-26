@@ -4,6 +4,7 @@ import { formatCoords } from "@/lib/navLink";
 import type { BorderCrossingAlt } from "@/types/trip";
 
 export default function BorderCrossingPopup({ crossing }: { crossing: BorderCrossingAlt }) {
+  const planned = crossing.kind === "planned";
   const detour =
     crossing.detourMin <= 0
       ? "bez navýšení času (OSRM)"
@@ -13,17 +14,23 @@ export default function BorderCrossingPopup({ crossing }: { crossing: BorderCros
     <Popup minWidth={230} maxWidth={300}>
       <strong>{crossing.name}</strong>
       <br />
-      <span className="text-xs text-gray-600">Alternativní hraniční přechod</span>
-      {crossing.nearPlannedName ? (
+      <span className="text-xs text-gray-600">
+        {planned ? "Plánovaný hraniční přechod na trase" : "Alternativní hraniční přechod"}
+      </span>
+      {!planned && crossing.nearPlannedName ? (
         <>
           <br />
           <span className="text-xs text-gray-600">u plánovaného: {crossing.nearPlannedName}</span>
         </>
       ) : null}
-      <br />
-      <span className="text-xs text-gray-700">
-        {crossing.airKm} km vzdušnou čarou · {detour}
-      </span>
+      {!planned ? (
+        <>
+          <br />
+          <span className="text-xs text-gray-700">
+            {crossing.airKm} km vzdušnou čarou · {detour}
+          </span>
+        </>
+      ) : null}
       <br />
       <span className="text-xs font-medium text-gray-800">
         Otevírací doba: {crossing.openingHoursLabel}

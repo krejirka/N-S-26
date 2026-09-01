@@ -5,6 +5,7 @@ const LAYER_BTNS: { id: MapPoiLayer; label: string; title: string }[] = [
   { id: "charger", label: "Nabíjení", title: "DC / Tesla nabíječky podél trasy" },
   { id: "hospital", label: "Nemocnice", title: "Nemocnice s pohotovostí podél trasy" },
   { id: "vet", label: "Veterina", title: "Veterinární pohotovost podél trasy" },
+  { id: "border", label: "Přechody", title: "Hraniční přechody ZOLL (plánované i alternativy do 90 min)" },
 ];
 
 const BTN =

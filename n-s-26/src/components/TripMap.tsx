@@ -135,8 +135,9 @@ export default function TripMap({
       hospital: corridorPois.some((p) => p.kind === "hospital"),
       charger: false,
       vet: corridorPois.some((p) => p.kind === "veterinary"),
+      border: borderCrossings.length > 0,
     }),
-    [corridorPois]
+    [corridorPois, borderCrossings]
   );
 
   const center: [number, number] = useMemo(() => {
@@ -294,7 +295,7 @@ export default function TripMap({
           activeSegmentIds={activeSegmentIds}
           spots={fishingSpots}
         />
-        <BorderCrossingMarkers crossings={borderCrossings} />
+        {poiLayers.border ? <BorderCrossingMarkers crossings={borderCrossings} /> : null}
         <TrafficIncidentMarkers incidents={trafficIncidents} />
         <GpsLocateControl enabled={gpsOn && mapInteractive} onStatus={setGpsStatus} />
       </MapContainer>

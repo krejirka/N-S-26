@@ -186,8 +186,8 @@
       "destination": "Borovec",
       "km": 265,
       "lodging": "Park Hotel Ela (1/2)",
-      "logistics": "Ćele kula ráno · Pirot (klobásy) · cca 265 km / 3 h + hranice RS–BG",
-      "program": "Ráno památník Ćele kula (9–16 h) — osmanská věž z lebek srbských vojáků z bitvy na Čegru (1809); z 952 lebek se zachovalo 58. Cestou do bulharského Borovce zastávka v Pirotu na peglanou klobásu. Ubytování na 2 noci v Park Hotel Ela (bazén, wellness, u lanovky Jastrebec).",
+      "logistics": "Ćele kula ráno · Pirot Zelena pijaca (peglané klobásy) · cca 265 km / 3 h + hranice RS–BG",
+      "program": "Ráno památník Ćele kula (9–16 h) — osmanská věž z lebek srbských vojáků z bitvy na Čegru (1809); z 952 lebek se zachovalo 58. Cestou do bulharského Borovce zastávka v Pirotu na zeleném trhu (Zelena / Tijabarska pijaca) — domluvený nákup pirotské žehlené klobásy. Ubytování na 2 noci v Park Hotel Ela (bazén, wellness, u lanovky Jastrebec).",
       "placeId": "borovets",
       "phase": "tam",
       "places": [
@@ -211,12 +211,14 @@
           }
         },
         {
-          "name": "Pirotská peglaná klobása",
+          "name": "Zelena pijaca — pirotská žehlená klobása",
           "placeId": "pirot",
           "tips": [
-            "Gastronomický symbol regionu Pirot, hodně bílkovin",
-            "Fyzická prodejna např. Deda Mile, Trg republike 29",
-            "Výrobce Piroćanac: pirotskapeglana.rs (i zásilka)"
+            "Domluvený nákup na zeleném trhu Zelena / Tijabarska pijaca (Trg republike bb). Sobota 5. 9. je tržní den — ráno je plnější.",
+            "Pirotská žehlená (peglana) klobása: libové kozí, ovčí a hovězí maso, bez vepřového. Piroćanac (PG Krstić) míchá cca 70 % hovězího a 30 % kozího s přírodním kořením (sůl, pepř, paprika, česnek, pálivá paprika).",
+            "Plní se do přírodného střeva, váže do podkovy a suší na průvanu (nejlépe −5 až +5 °C, říjen–březen). Každý den se během sušení „žehlí“ (často lahví), proto peglana — vytlačí se voda a klobása déle vydrží.",
+            "Před jídlem opláchnout vodou, oloupat a krájet šikmo na tenké plátky. V kraji k rakiji nebo červenému vínu. 100 g klobásy je z cca 210 g masa, hodně bílkovin, málo tuku.",
+            "Výrobce a objednávky: pirotskapeglana.rs · +381 60 346 7450"
           ],
           "links": [
             { "label": "pirotskapeglana.rs", "url": "https://pirotskapeglana.rs/" },

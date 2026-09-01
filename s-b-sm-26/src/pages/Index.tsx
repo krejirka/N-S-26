@@ -20,6 +20,7 @@ import corridorPoisData from "@/data/corridor-pois.json";
 import fishingSpotsData from "@/data/fishing-spots.json";
 import borderCrossingsData from "@/data/border-crossings.json";
 import evChargersData from "@/data/ev-chargers.json";
+import { flattenBorderCrossings } from "@/lib/borderDays";
 import type {
   BorderCrossingsData,
   CorridorPoisData,
@@ -39,7 +40,8 @@ const shops = (shopsData as ShopsData).shops;
 const lodgings = (lodgingsData as LodgingsData).lodgings;
 const corridorPois = (corridorPoisData as CorridorPoisData).pois ?? [];
 const fishingSpots = (fishingSpotsData as FishingSpotsData).spots ?? [];
-const borderCrossings = (borderCrossingsData as BorderCrossingsData).alternatives ?? [];
+const borderData = borderCrossingsData as BorderCrossingsData;
+const borderCrossings = flattenBorderCrossings(borderData);
 const evChargers = (evChargersData as EvChargersData).chargers ?? [];
 
 type MobileView = "list" | "map" | "detail";
@@ -284,6 +286,8 @@ export default function Index({ showDates }: IndexProps) {
               corridorPois={corridorPois}
               evChargers={evChargers}
               fishingSpots={fishingSpots}
+              borderCrossings={borderCrossings}
+              skippedBorders={borderData.skipped}
             />
           </div>
         </div>

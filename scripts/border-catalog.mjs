@@ -155,7 +155,7 @@ export const BORDER_CATALOG = [
   },
   {
     id: "stanke-lisichkovo",
-    name: "Stanke Lisichkovo / Unčite",
+    name: "Stanke Lisichkovo / Delčevo",
     query: "Stanke Lisichkovo border crossing",
     pair: "BG-MK",
     openingHoursLabel: "Nonstop (24/7)",

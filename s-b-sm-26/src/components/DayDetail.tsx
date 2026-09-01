@@ -10,13 +10,16 @@ import { useOnline } from "@/hooks/useOnline";
 import OfflineHint from "./OfflineHint";
 import type { DayIncidentsSummary } from "@/hooks/useDayIncidents";
 import { formatDayKm } from "@/lib/dayDistance";
+import DayBorderCrossings from "./DayBorderCrossings";
 import type {
+  BorderCrossingAlt,
   CorridorPoi,
   EvCharger,
   FishingSpot,
   Place,
   PlacesData,
   RouteSegment,
+  SkippedBorderCrossing,
   TripDay,
 } from "@/types/trip";
 
@@ -30,6 +33,8 @@ interface DayDetailProps {
   corridorPois: CorridorPoi[];
   evChargers?: EvCharger[];
   fishingSpots: FishingSpot[];
+  borderCrossings?: BorderCrossingAlt[];
+  skippedBorders?: SkippedBorderCrossing[];
 }
 
 export default function DayDetail({
@@ -42,6 +47,8 @@ export default function DayDetail({
   corridorPois,
   evChargers = [],
   fishingSpots,
+  borderCrossings = [],
+  skippedBorders = [],
 }: DayDetailProps) {
   const travel = useDayTraffic(day, places, segments, daySegments);
   const online = useOnline();
@@ -92,6 +99,12 @@ export default function DayDetail({
             </div>
           </div>
         )}
+
+        <DayBorderCrossings
+          day={day.day}
+          crossings={borderCrossings}
+          skipped={skippedBorders}
+        />
 
         <DayServicesPanel
           day={day}
