@@ -69,7 +69,7 @@
       "km": 425,
       "lodging": "Prenočište Imper I.M.D.",
       "logistics": "Přejezd Subotica → Niš · cca 425 km / 4 h · volitelná zastávka Belgrade 360DECK (Kula Beograd / Waterfront)",
-      "program": "Přejezd do Niše, třetího největšího srbského města a rodiště císaře Konstantina I. Velikého. Trasa vede po A1 kolem Bělehradu — cestou tam lze zajet k Belgrade 360DECK (41. patro Kula Beograd, vstup přes Galeriji). V Niši návštěva koncentračního tábora Crveni krst (9–16 h). Ubytování v centru, večer procházka včetně pevnosti a večeře v Nišlijské mehaně.",
+      "program": "Přejezd do Niše, třetího největšího srbského města a rodiště císaře Konstantina I. Velikého. Trasa vede po A1 kolem Bělehradu — cestou tam lze zajet k Belgrade 360DECK (41. patro Kula Beograd, vstup přes Galeriji). V Niši návštěva koncentračního tábora Crveni krst (9–16 h). Ubytování v centru (rezervace ověřena). Večer procházka včetně pevnosti a večeře — Nišlijska mehana na e-mail nereagovala, záložně restaurace Stambolijski v centru.",
       "placeId": "nis",
       "phase": "tam",
       "places": [
@@ -135,11 +135,11 @@
           "name": "Nišlijska mehana",
           "placeId": "nislijska_mehana",
           "tips": [
-            "Tradiční nišská mehana v centru — rezervace se vyplatí",
+            "Tradiční nišská mehana v centru — na e-mail zatím bez odpovědi",
             "Ne–Čt 8–24 h, Pá–So 8–1 h",
             "Doporučení: belmuž, urnebes / trljanica, uštipci, ćevapi s pórkem, sarma, podvarak, grilovaná krkovice",
             "Dva vchody: Prvomajska 49 (etno) a Kralja Stefana Prvovenčanog 22 (nový sál)",
-            "Blízko ubytování Imper I.M.D."
+            "Blízko ubytování Imper I.M.D. — záložně Stambolijski v centru"
           ],
           "links": [
             { "label": "Web", "url": "http://nislijskamehana.com/" },
@@ -151,11 +151,27 @@
           ]
         },
         {
+          "name": "Restoran Stambolijski",
+          "placeId": "stambolijski",
+          "tips": [
+            "Záloha za Mehanu — v centru, Nikole Pašića 36",
+            "Pá 4. 9. kuchyň cca 12–22:30, restaurace do půlnoci (neděle zavřeno)",
+            "Rezervace stolu se zkouší — historický dům, srbská / balkánská kuchyně"
+          ],
+          "links": [
+            { "label": "Web", "url": "https://www.restoranstambolijski.rs/" },
+            { "label": "Google Maps", "url": "https://share.google/Oj6Dg6IxptvUzatqY" },
+            { "label": "Tel. +381 18 300440", "url": "tel:+38118300440" },
+            { "label": "Tel. +381 18 300444", "url": "tel:+38118300444" }
+          ]
+        },
+        {
           "name": "Prenočište Imper I.M.D.",
           "placeId": "nis",
           "tips": [
             "7. juli 22, centrum (Medijana), parkování na dvoře",
-            "15 € / osoba ve dvoulůžkovém pokoji, 5 € snídaně"
+            "15 € / osoba ve dvoulůžkovém pokoji, 5 € snídaně",
+            "Rezervace ubytování ověřena"
           ],
           "links": [
             { "label": "apartmani-imper-imd.rs", "url": "https://apartmani-imper-imd.rs/en/about-us/" }
@@ -234,8 +250,8 @@
       "destination": "Musala",
       "km": null,
       "lodging": "Park Hotel Ela (2/2)",
-      "logistics": "Lanovka 8:30–18:00 · zavřeno po a út · výstup cca 3 h, sestup 2 h 15 min",
-      "program": "Lanovkou z Borovce na Jastrebec (2 369 m). Odtud výstup na Musalu (2 925 m) — nejvyšší horu Bulharska i celého Balkánu. Převýšení 583 m, výstup cca 3 hodiny, sestup k lanovce cca 2 h 15 min. Nocleh znovu v Park Hotel Ela.",
+      "logistics": "Lanovka 8:30–18:00 · zavřeno po a út · jízdenky na místě · výstup cca 3 h, sestup 2 h 15 min",
+      "program": "Lanovkou z Borovce na Jastrebec (2 369 m) — jízdenku kupovat dopředu nemusíme (ověřeno e-mailem). Odtud výstup na Musalu (2 925 m) — nejvyšší horu Bulharska i celého Balkánu. Převýšení 583 m, výstup cca 3 hodiny, sestup k lanovce cca 2 h 15 min. Nocleh znovu v Park Hotel Ela.",
       "placeId": "musala",
       "navPlaceId": "jastrebec_gondola",
       "phase": "tam",
@@ -246,7 +262,8 @@
           "tips": [
             "Provoz 8:30–18:00, pondělí a úterý zavřeno",
             "Dolní stanice u hotelu Ela",
-            "Horní stanice 2 369 m — start výstupu na Musalu"
+            "Horní stanice 2 369 m — start výstupu na Musalu",
+            "Jízdenku kupovat dopředu nemusíme — na místě"
           ],
           "links": [
             { "label": "borovets-bg.com", "url": "https://www.borovets-bg.com/" }
@@ -285,7 +302,7 @@
       "km": 385,
       "lodging": "KOKINO Winery & Hotel",
       "logistics": "Rilský klášter cca 100 km / 1 h 50 min · dále Kumanovo cca 285 km / 4 h 50 min + hranice",
-      "program": "Přejezd k Rilskému klášteru — největší a nejznámější klášter v Bulharsku, UNESCO. Odpoledne přejezd do Kumanova v Severní Makedonii, ubytování v KOKINO Winery & Hotel (vína, případně krátká prohlídka sklepa).",
+      "program": "Přejezd k Rilskému klášteru — největší a nejznámější klášter v Bulharsku, UNESCO. Odpoledne přejezd do Kumanova (ubytování ověřeno) v KOKINO Winery & Hotel. Hotelová restaurace je jen na snídaně — na 19 h je rezervovaný stůl v Palace Garden. Degustace vín: majitel může být na vinicích (vrcholí vinobraní), někdo z hotelu ji ale s námi absolvuje — spíš improvizace.",
       "placeId": "kumanovo",
       "phase": "tam",
       "places": [
@@ -313,10 +330,25 @@
           "tips": [
             "Kozjacka 15, 1300 Kumanovo",
             "20 € / osoba ve dvoulůžku, 5 € snídaně",
-            "Nákup vín — cenu prohlídky sklepa domluvit na místě"
+            "Rezervace ubytování ověřena",
+            "Restaurace v hotelu jen snídaně — večeře v Palace Garden",
+            "Degustace vín: majitel možná na vinicích (vinobraní), někdo z hotelu ji ale povede — spíš improvizace"
           ],
           "links": [
             { "label": "Wikipedia — Kumanovo", "url": "https://cs.wikipedia.org/wiki/Kumanovo" }
+          ]
+        },
+        {
+          "name": "Palace Garden",
+          "placeId": "palace_garden",
+          "tips": [
+            "Rezervace stolu v pondělí 7. 9. na 19 h",
+            "R1204, Dobrošane — výjezd z Kumanova směr Sveti Nikole",
+            "Po–Pá 9–24 h, So–Ne 9–1 h · parkování u restaurace"
+          ],
+          "links": [
+            { "label": "Tel. +389 78 204 187", "url": "tel:+38978204187" },
+            { "label": "Instagram", "url": "https://www.instagram.com/palace_garden_kumanovo/" }
           ]
         }
       ]

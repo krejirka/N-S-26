@@ -211,16 +211,76 @@ export function parseFiveDayForecast(data: MetForecastResponse): DayForecast[] {
   });
 }
 
+function wmoToYrSymbol(code: number): string {
+  if (code === 0 || code === 1) return "fair_day";
+  if (code === 2) return "partlycloudy_day";
+  if (code === 3) return "cloudy";
+  if (code === 45 || code === 48) return "fog";
+  if (code >= 51 && code <= 57) return "lightrain";
+  if (code >= 61 && code <= 67) return "rain";
+  if (code >= 71 && code <= 77) return "snow";
+  if (code >= 80 && code <= 82) return "rainshowers_day";
+  if (code >= 85 && code <= 86) return "snowshowers_day";
+  if (code >= 95) return "rainshowersandthunder_day";
+  return "cloudy";
+}
+
+async function fetchOpenMeteoForecast(lat: number, lng: number): Promise<DayForecast[]> {
+  const url =
+    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}` +
+    `&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum` +
+    `&forecast_days=${FORECAST_DAYS}&timezone=Europe%2FPrague`;
+  const res = await fetch(url, { credentials: "omit", mode: "cors" });
+  if (!res.ok) throw new Error(`Předpověď nedostupná (${res.status})`);
+  const data = (await res.json()) as {
+    daily?: {
+      time?: string[];
+      weather_code?: number[];
+      temperature_2m_max?: number[];
+      temperature_2m_min?: number[];
+      precipitation_sum?: number[];
+    };
+  };
+  const times = data.daily?.time ?? [];
+  return times.map((date, i) => {
+    const precipMm = Math.round((data.daily?.precipitation_sum?.[i] ?? 0) * 10) / 10;
+    const symbol = wmoToYrSymbol(data.daily?.weather_code?.[i] ?? 3);
+    const d = new Date(date + "T12:00:00");
+    return {
+      date,
+      label: d.toLocaleDateString("cs-CZ", { weekday: "short", day: "numeric", month: "numeric" }),
+      symbol,
+      tempDay: Math.round(data.daily?.temperature_2m_max?.[i] ?? 0),
+      tempNight: Math.round(data.daily?.temperature_2m_min?.[i] ?? 0),
+      precipMm,
+      precipLabel: formatPrecipLabel(precipMm, precipMm > 0 ? [symbol] : []),
+      windMax: 0,
+    };
+  });
+}
+
 export async function fetchYrForecast(lat: number, lng: number): Promise<DayForecast[]> {
   const key = `${lat.toFixed(3)},${lng.toFixed(3)}`;
   const cached = forecastCache.get(key);
   if (cached && Date.now() - cached.at < CACHE_MS) return cached.data;
 
-  const res = await fetch(apiUrl(`/api/forecast?lat=${lat}&lon=${lng}`));
-  if (!res.ok) throw new Error(`Předpověď nedostupná (${res.status})`);
+  const load = async () => {
+    try {
+      const res = await fetch(apiUrl(`/api/forecast?lat=${lat}&lon=${lng}`), {
+        credentials: "omit",
+        mode: "cors",
+      });
+      if (!res.ok) throw new Error(`Předpověď nedostupná (${res.status})`);
+      const data = (await res.json()) as MetForecastResponse;
+      const days = parseFiveDayForecast(data);
+      if (!days.length) throw new Error("empty");
+      return days;
+    } catch {
+      return fetchOpenMeteoForecast(lat, lng);
+    }
+  };
 
-  const data = (await res.json()) as MetForecastResponse;
-  const days = parseFiveDayForecast(data);
+  const days = await load();
   forecastCache.set(key, { at: Date.now(), data: days });
   return days;
 }

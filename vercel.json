@@ -10,6 +10,16 @@
     { "source": "/s-b-sm-26/", "destination": "/s-b-sm-26/index.html" },
     { "source": "/s-b-sm-26/((?!assets/)(?!.*\\.).*)", "destination": "/s-b-sm-26/index.html" }
   ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
+      ]
+    }
+  ],
   "redirects": [
     {
       "source": "/s-b-sm-26/apk/s-b-sm-26.apk",

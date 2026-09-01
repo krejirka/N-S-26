@@ -121,7 +121,7 @@ export default function TripMap({
   const { fullscreen, toggle: toggleFullscreen } = useMapFullscreen(wrapRef);
 
   const [extraTopo, setExtraTopo] = useState(false);
-  const [gpsOn, setGpsOn] = useState(false);
+  const [gpsOn, setGpsOn] = useState(true);
   const [gpsStatus, setGpsStatus] = useState<string | null>(null);
   const [poiLayers, setPoiLayers] = useState(MAP_POI_LAYERS_OFF);
   const topoOn = showHike || extraTopo;
@@ -228,7 +228,7 @@ export default function TripMap({
                 ? "border-sky-700 bg-sky-600 text-white"
                 : "border-border bg-card/95 text-foreground hover:bg-muted"
             }`}
-            title={gpsStatus || "Moje poloha (GPS telefonu)"}
+            title={gpsStatus || (gpsOn ? "Moje poloha — klepnutím vypnout" : "Zapnout moji polohu (GPS)")}
           >
             GPS
           </button>

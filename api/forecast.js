@@ -1,6 +1,9 @@
+import { preflight } from "./_cors.js";
+
 const MET_USER_AGENT = "vypravy.ironknot.cz/1.0 github.com/krejirka/N-S-26";
 
 export default async function handler(req, res) {
+  if (preflight(req, res)) return;
   const { lat, lon } = req.query;
 
   if (!lat || !lon) {

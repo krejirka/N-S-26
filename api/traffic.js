@@ -2,7 +2,10 @@
  * TomTom routing with traffic. Set TOMTOM_API_KEY in Vercel env.
  * Without key returns 503 so client can fall back to OSRM distance + 110 km/h estimate.
  */
+import { preflight } from "./_cors.js";
+
 export default async function handler(req, res) {
+  if (preflight(req, res)) return;
   const key = String(process.env.TOMTOM_API_KEY || "").trim();
   if (!key) {
     return res.status(503).json({

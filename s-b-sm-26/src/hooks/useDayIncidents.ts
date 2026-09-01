@@ -84,7 +84,10 @@ export function useDayIncidents(
     let cancelled = false;
     setState((s) => ({ ...s, loading: true, error: null }));
 
-    fetch(apiUrl(`/api/incidents?path=${encodeURIComponent(pathKey)}`))
+    fetch(apiUrl(`/api/incidents?path=${encodeURIComponent(pathKey)}`), {
+      credentials: "omit",
+      mode: "cors",
+    })
       .then(async (res) => {
         const data = await res.json().catch(() => ({}));
         if (res.status === 503 || data.liveIncidents === false) {

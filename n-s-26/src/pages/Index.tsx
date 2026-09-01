@@ -1,10 +1,12 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Header from "@/components/Header";
 import DayList from "@/components/DayList";
 import DayDetail from "@/components/DayDetail";
 import TripMap from "@/components/TripMap";
 import { useRadarAnimation } from "@/hooks/useRadarAnimation";
 import { useDayIncidents } from "@/hooks/useDayIncidents";
+import { useAppVisible } from "@/hooks/useAppVisible";
+import { useDesktopLayout } from "@/hooks/useDesktopLayout";
 import itineraryData from "@/data/itinerary.json";
 import routesData from "@/data/routes.json";
 import placesData from "@/data/places.json";
@@ -82,7 +84,31 @@ export default function Index({ showDates }: IndexProps) {
   const [showRadar, setShowRadar] = useState(true);
   const [fitNonce, setFitNonce] = useState(0);
   const [mobileView, setMobileView] = useState<MobileView>("map");
+  const appVisible = useAppVisible();
+  const desktop = useDesktopLayout();
+  const mapShown = desktop || mobileView === "map";
+  const mapInteractive = appVisible && mapShown;
   const radar = useRadarAnimation(showRadar);
+  const syncedDateRef = useRef(pragueToday());
+
+  useEffect(() => {
+    const applyIfDateChanged = () => {
+      const today = pragueToday();
+      if (today === syncedDateRef.current) return;
+      syncedDateRef.current = today;
+      setSelectedDay(dayForToday(itinerary.days));
+      setZoomToDay(initialZoomToDay(itinerary.days));
+    };
+    const onVis = () => {
+      if (document.visibilityState === "visible") applyIfDateChanged();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    const id = window.setInterval(applyIfDateChanged, 60_000);
+    return () => {
+      document.removeEventListener("visibilitychange", onVis);
+      window.clearInterval(id);
+    };
+  }, []);
 
   const selectDay = useCallback((day: number) => {
     setSelectedDay(day);
@@ -213,6 +239,7 @@ export default function Index({ showDates }: IndexProps) {
               onToggleRadar={handleToggleRadar}
               onRadarAutoDisable={handleRadarAutoDisable}
               fitNonce={fitNonce}
+              mapInteractive={mapInteractive}
             />
           </div>
 

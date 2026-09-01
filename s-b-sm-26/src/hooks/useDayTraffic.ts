@@ -77,7 +77,7 @@ export function useDayTraffic(
     const to = `${endpoints.to.lat},${endpoints.to.lng}`;
     const url = apiUrl(`/api/traffic?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
 
-    fetch(url)
+    fetch(url, { credentials: "omit", mode: "cors" })
       .then(async (res) => {
         const data = await res.json().catch(() => ({}));
         if (res.status === 503 || data.liveTraffic === false) {

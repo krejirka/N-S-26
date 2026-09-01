@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Header from "@/components/Header";
 import BrandSplash from "@/components/BrandSplash";
 import DayList from "@/components/DayList";
@@ -101,6 +101,26 @@ export default function Index({ showDates }: IndexProps) {
     autoPlay: !IS_NATIVE,
     paused: !mapInteractive,
   });
+  const syncedDateRef = useRef(pragueToday());
+
+  useEffect(() => {
+    const applyIfDateChanged = () => {
+      const today = pragueToday();
+      if (today === syncedDateRef.current) return;
+      syncedDateRef.current = today;
+      setSelectedDay(dayForToday(itinerary.days));
+      setZoomToDay(initialZoomToDay(itinerary.days));
+    };
+    const onVis = () => {
+      if (document.visibilityState === "visible") applyIfDateChanged();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    const id = window.setInterval(applyIfDateChanged, 60_000);
+    return () => {
+      document.removeEventListener("visibilitychange", onVis);
+      window.clearInterval(id);
+    };
+  }, []);
 
   const selectDay = useCallback((day: number) => {
     setSelectedDay(day);

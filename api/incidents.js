@@ -3,8 +3,10 @@
  * Query: path=lng,lat;lng,lat;... (sampled corridor points)
  */
 import { fetchIncidentsAlongPath, parsePathParam } from "./_tomtomIncidents.js";
+import { preflight } from "./_cors.js";
 
 export default async function handler(req, res) {
+  if (preflight(req, res)) return;
   const key = String(process.env.TOMTOM_API_KEY || "").trim();
   if (!key) {
     return res.status(503).json({

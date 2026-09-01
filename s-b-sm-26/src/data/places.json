@@ -54,6 +54,14 @@
       "dayLabel": "2",
       "address": "Prvomajska 49 / Kralja Stefana Prvovenčanog 22, 18000 Niš, Srbsko"
     },
+    "stambolijski": {
+      "name": "Restoran Stambolijski",
+      "lat": 43.31868,
+      "lng": 21.89323,
+      "country": "Srbsko",
+      "dayLabel": "2",
+      "address": "Nikole Pašića 36, 18105 Niš, Srbsko"
+    },
     "cele_kula": {
       "name": "Ćele kula, Niš",
       "lat": 43.3121,
@@ -115,6 +123,14 @@
       "country": "Severní Makedonie",
       "dayLabel": "5",
       "address": "Kozjacka 15, 1300 Kumanovo, Severní Makedonie"
+    },
+    "palace_garden": {
+      "name": "Palace Garden, Kumanovo",
+      "lat": 42.1245,
+      "lng": 21.7378,
+      "country": "Severní Makedonie",
+      "dayLabel": "5",
+      "address": "R1204, Dobrošane / Kumanovo, Severní Makedonie"
     },
     "avala": {
       "name": "Avala (TV vysílač)",

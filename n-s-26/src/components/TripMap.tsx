@@ -25,6 +25,7 @@ import TrafficIncidentMarkers from "./TrafficIncidentMarkers";
 import BorderCrossingMarkers from "./BorderCrossingMarkers";
 import type { TrafficIncident } from "@/hooks/useDayIncidents";
 import { hoverPopupHandlers } from "@/lib/hoverPopup";
+import GpsLocateControl from "./GpsLocateControl";
 import { MAP_POI_LAYERS_OFF, type MapPoiLayer } from "@/lib/mapPoiLayers";
 import MapPoiLayerToggles from "./MapPoiLayerToggles";
 import {
@@ -64,6 +65,7 @@ interface TripMapProps {
   onToggleRadar: () => void;
   onRadarAutoDisable?: () => void;
   fitNonce?: number;
+  mapInteractive?: boolean;
 }
 
 const outboundColor = "#c2410c";
@@ -99,9 +101,12 @@ export default function TripMap({
   onToggleRadar,
   onRadarAutoDisable,
   fitNonce = 0,
+  mapInteractive = true,
 }: TripMapProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const { fullscreen, toggle: toggleFullscreen } = useMapFullscreen(wrapRef);
+  const [gpsOn, setGpsOn] = useState(true);
+  const [gpsStatus, setGpsStatus] = useState<string | null>(null);
   const activeSegmentIds = useMemo(
     () => new Set(daySegments[String(day.day)] || []),
     [daySegments, day.day]
@@ -173,6 +178,18 @@ export default function TripMap({
           />
         </div>
         <div className="pointer-events-auto flex flex-wrap gap-1.5">
+          <button
+            type="button"
+            onClick={() => setGpsOn((v) => !v)}
+            className={`rounded-lg border px-2.5 py-1.5 text-[10px] font-medium shadow-md backdrop-blur-sm transition ${
+              gpsOn
+                ? "border-sky-700 bg-sky-600 text-white"
+                : "border-border bg-card/95 text-foreground hover:bg-muted"
+            }`}
+            title={gpsStatus || (gpsOn ? "Moje poloha — klepnutím vypnout" : "Zapnout moji polohu (GPS)")}
+          >
+            GPS
+          </button>
           <button
             type="button"
             onClick={toggleFullscreen}
@@ -279,6 +296,7 @@ export default function TripMap({
         />
         <BorderCrossingMarkers crossings={borderCrossings} />
         <TrafficIncidentMarkers incidents={trafficIncidents} />
+        <GpsLocateControl enabled={gpsOn && mapInteractive} onStatus={setGpsStatus} />
       </MapContainer>
       </div>
     </>
