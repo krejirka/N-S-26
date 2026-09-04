@@ -34,7 +34,7 @@ export default function DayServicesPanel({
   fishingSpots,
   placeCoords = null,
 }: DayServicesPanelProps) {
-  const [open, setOpen] = useState<PanelKind>("tesla");
+  const [open, setOpen] = useState<PanelKind>(null);
 
   const geometry = useMemo(() => {
     const ids = new Set(daySegments[String(day.day)] || []);
@@ -100,7 +100,7 @@ export default function DayServicesPanel({
     fuels.length > 0;
   if (!hasAny && !geometry.length) return null;
 
-  // Default open Tesla when available; otherwise leave closed
+  // Panel stays closed until the user opens a section
   const effectiveOpen =
     open === "tesla" && teslaChargers.length === 0 ? null : open;
 
