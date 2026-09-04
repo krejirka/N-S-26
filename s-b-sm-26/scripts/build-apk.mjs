@@ -43,10 +43,15 @@ async function main() {
   await run(gradlew, [task], androidDir);
   const apk = findApk();
   if (!apk) throw new Error("APK not found after Gradle build");
+  const pkg = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
+  const version = pkg.version || "0.0.0";
   const outDir = path.join(root, "apk-out");
   fs.mkdirSync(outDir, { recursive: true });
-  const outApk = path.join(outDir, "s-b-sm-26.apk");
+  const versionedName = `s-b-sm-26-${version}.apk`;
+  const outApk = path.join(outDir, versionedName);
   fs.copyFileSync(apk, outApk);
+  // Stable alias for older download links / local testing
+  fs.copyFileSync(apk, path.join(outDir, "s-b-sm-26.apk"));
   const mb = (fs.statSync(outApk).size / (1024 * 1024)).toFixed(1);
   console.log(`Copied ${apk} → ${outApk} (${mb} MB)`);
 }

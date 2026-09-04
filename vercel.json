@@ -3,27 +3,59 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/n-s-26", "destination": "/n-s-26/index.html" },
-    { "source": "/n-s-26/", "destination": "/n-s-26/index.html" },
-    { "source": "/n-s-26/((?!assets/)(?!.*\\.).*)", "destination": "/n-s-26/index.html" },
-    { "source": "/s-b-sm-26", "destination": "/s-b-sm-26/index.html" },
-    { "source": "/s-b-sm-26/", "destination": "/s-b-sm-26/index.html" },
-    { "source": "/s-b-sm-26/((?!assets/)(?!.*\\.).*)", "destination": "/s-b-sm-26/index.html" }
+    {
+      "source": "/n-s-26",
+      "destination": "/n-s-26/index.html"
+    },
+    {
+      "source": "/n-s-26/",
+      "destination": "/n-s-26/index.html"
+    },
+    {
+      "source": "/n-s-26/((?!assets/)(?!.*\\.).*)",
+      "destination": "/n-s-26/index.html"
+    },
+    {
+      "source": "/s-b-sm-26",
+      "destination": "/s-b-sm-26/index.html"
+    },
+    {
+      "source": "/s-b-sm-26/",
+      "destination": "/s-b-sm-26/index.html"
+    },
+    {
+      "source": "/s-b-sm-26/((?!assets/)(?!.*\\.).*)",
+      "destination": "/s-b-sm-26/index.html"
+    }
   ],
   "headers": [
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" }
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type"
+        }
       ]
     }
   ],
   "redirects": [
     {
+      "source": "/s-b-sm-26/apk/s-b-sm-26-1.1.4.apk",
+      "destination": "https://github.com/krejirka/N-S-26/releases/download/s-b-sm-26-1.1.4/s-b-sm-26-1.1.4.apk",
+      "permanent": false
+    },
+    {
       "source": "/s-b-sm-26/apk/s-b-sm-26.apk",
-      "destination": "https://github.com/krejirka/N-S-26/releases/download/s-b-sm-26-1.1.3/s-b-sm-26.apk",
+      "destination": "https://github.com/krejirka/N-S-26/releases/download/s-b-sm-26-1.1.4/s-b-sm-26-1.1.4.apk",
       "permanent": false
     }
   ]
