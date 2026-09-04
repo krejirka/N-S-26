@@ -7,6 +7,16 @@ import { offlineAssetUrl } from "@/lib/pmtilesMemory";
 
 const OSM_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 
+/** Absolute URL so Capacitor WebView Range requests hit https://localhost/offline/… */
+function absoluteOfflineUrl(file: string): string {
+  const rel = offlineAssetUrl(file);
+  try {
+    return new URL(rel, window.location.href).href;
+  } catch {
+    return rel;
+  }
+}
+
 function ProtomapsFileLayer({
   file,
   maxZoom,
@@ -20,7 +30,7 @@ function ProtomapsFileLayer({
 
   useEffect(() => {
     const layer = leafletLayer({
-      url: offlineAssetUrl(file),
+      url: absoluteOfflineUrl(file),
       flavor: "light",
       lang: "cs",
       attribution: OSM_ATTR + " · Protomaps",
@@ -42,10 +52,10 @@ interface BasemapLayersProps {
 }
 
 /**
- * Native APK always prefers packed basemap (works offline).
- * Online OSM is only used in the website build.
+ * Native APK uses packed Protomaps (needs uncompressed .pmtiles in the APK for Range I/O).
+ * Website uses online OSM / OpenTopoMap tiles.
  */
-export default function BasemapLayers({ online: _online, topoOn }: BasemapLayersProps) {
+export default function BasemapLayers({ online, topoOn }: BasemapLayersProps) {
   const usePacked = IS_NATIVE;
   const otmUrl = `${import.meta.env.BASE_URL}offline/otm/{z}/{x}/{y}.png`;
 
@@ -74,12 +84,16 @@ export default function BasemapLayers({ online: _online, topoOn }: BasemapLayers
 
   return (
     <>
+      {/* When online, OSM underlay fills gaps outside the packed corridor. */}
+      {online && (
+        <TileLayer attribution={OSM_ATTR} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      )}
       {/* 100 km corridor overview */}
       <ProtomapsFileLayer file="corridor.pmtiles" maxZoom={topoOn ? 13 : 16} maxDataZoom={12} />
       {/* Street-level detail ~12 km from route (city navigation) */}
       {!topoOn && <ProtomapsFileLayer file="streets.pmtiles" maxZoom={17} maxDataZoom={14} />}
       {topoOn && <ProtomapsFileLayer file="hike.pmtiles" maxZoom={17} maxDataZoom={16} />}
-      {/* OTM rasters are omitted from the APK (install size); hike.pmtiles covers the trek. */}
+      {/* OTM rasters omitted from APK; hike.pmtiles covers the trek offline. */}
       {false && topoOn && (
         <TileLayer
           attribution='&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)'

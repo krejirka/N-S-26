@@ -23,7 +23,7 @@
   "redirects": [
     {
       "source": "/s-b-sm-26/apk/s-b-sm-26.apk",
-      "destination": "https://github.com/krejirka/N-S-26/releases/download/s-b-sm-26-1.1.1/s-b-sm-26.apk",
+      "destination": "https://github.com/krejirka/N-S-26/releases/download/s-b-sm-26-1.1.2/s-b-sm-26.apk",
       "permanent": false
     }
   ]
