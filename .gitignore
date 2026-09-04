@@ -27,3 +27,8 @@ s-b-sm-26/android/captures
 /ironknot-logo-light.gif
 /ironknot-logo-dark.gif
 
+
+# Allow the sideload release keystore for S-B-SM-26 APK rebuilds
+!s-b-sm-26/android/keystore/
+!s-b-sm-26/android/keystore/s-b-sm-26-release.jks
+!s-b-sm-26/android/keystore.properties
