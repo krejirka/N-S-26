@@ -185,7 +185,7 @@ function copyOfflineMapsPlugin(enabled: boolean): Plugin {
         return;
       }
       fs.mkdirSync(to, { recursive: true });
-      for (const name of ["corridor.pmtiles", "streets.pmtiles", "hike.pmtiles", "manifest.json"]) {
+      for (const name of ["basemap.pmtiles", "hike.pmtiles", "manifest.json"]) {
         const src = path.join(from, name);
         if (fs.existsSync(src)) fs.copyFileSync(src, path.join(to, name));
       }

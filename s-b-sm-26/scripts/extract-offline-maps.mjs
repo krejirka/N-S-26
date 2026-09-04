@@ -196,9 +196,17 @@ async function main() {
     ...extra,
   ]);
 
+  // One continuous archive for the APK (z0–14). Stacked corridor+streets
+  // GridLayers blanked the overview with empty opaque tiles.
+  const basemapOut = path.join(outDir, "basemap.pmtiles");
+  if (!dry && fs.existsSync(corridorOut) && fs.existsSync(streetsOut)) {
+    await run(bin, ["merge", corridorOut, streetsOut, basemapOut]);
+  }
+
   const manifest = {
     generatedAt: new Date().toISOString(),
     planet: PLANET,
+    basemap: "basemap.pmtiles",
     corridorKm: CORRIDOR_KM,
     corridorMaxZoom: CORRIDOR_MAXZOOM,
     streetKm: STREET_KM,

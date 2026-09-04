@@ -3,7 +3,7 @@ import DayNav from "@/components/DayNav";
 import IronknotLogo from "@/components/IronknotLogo";
 import { dayRoadDistanceKm } from "@/lib/dayDistance";
 import { HEADER_BAR_BG } from "@/lib/brand";
-import { IS_NATIVE } from "@/lib/runtime";
+import { APP_VERSION, IS_NATIVE } from "@/lib/runtime";
 import { useOnline } from "@/hooks/useOnline";
 
 interface HeaderProps {
@@ -58,6 +58,9 @@ export default function Header({
               )}
               <span className="font-normal normal-case text-neutral-400">
                 · {meta.totalDays} dní / {routes.totalDistanceKm.toLocaleString("cs-CZ")} km
+              </span>
+              <span className="rounded-full bg-neutral-500/20 px-2 py-0.5 text-[10px] font-semibold normal-case tracking-normal text-neutral-300">
+                v{APP_VERSION}
               </span>
               {IS_NATIVE && (
                 <span

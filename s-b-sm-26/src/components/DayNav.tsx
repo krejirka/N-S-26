@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, Map, Tent, Home, Ship } from "lucide-react";
 import type { TripDay } from "@/types/trip";
 import { formatDayKm } from "@/lib/dayDistance";
-import { APK_DOWNLOAD_HREF, APK_ICON_SRC, APK_VERSION, IS_NATIVE } from "@/lib/runtime";
+import { APK_DOWNLOAD_HREF, APK_FILE_NAME, APK_ICON_SRC, APK_VERSION, IS_NATIVE } from "@/lib/runtime";
 
 interface DayNavProps {
   day: TripDay;
@@ -115,7 +115,7 @@ export default function DayNav({
         {!IS_NATIVE && (
           <a
             href={APK_DOWNLOAD_HREF}
-            download="s-b-sm-26.apk"
+            download={APK_FILE_NAME}
             title={`Stáhnout Android APK ${APK_VERSION} (offline mapa trasy a treku)`}
             aria-label={`Stáhnout Android APK ${APK_VERSION}`}
           className="inline-flex h-[34px] w-[34px] shrink-0 items-center justify-center overflow-hidden rounded-lg border border-neutral-600 bg-black hover:ring-2 hover:ring-primary/40 lg:h-[38px] lg:w-[38px]"
