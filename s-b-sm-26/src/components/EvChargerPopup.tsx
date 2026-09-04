@@ -1,11 +1,21 @@
 import { Popup } from "react-leaflet";
 import NavigateButton from "./NavigateButton";
 import { formatCoords } from "@/lib/navLink";
-import type { EvCharger } from "@/types/trip";
+import { feeBadge, stallsLabel } from "@/lib/evChargerLabels";
+import type { EvCharger, EvLiveStatus } from "@/types/trip";
 
-export default function EvChargerPopup({ charger }: { charger: EvCharger }) {
+export default function EvChargerPopup({
+  charger,
+  live,
+}: {
+  charger: EvCharger;
+  live?: EvLiveStatus | null;
+}) {
+  const stalls = stallsLabel(charger, live);
+  const fee = feeBadge(charger);
+
   return (
-    <Popup minWidth={230} maxWidth={300}>
+    <Popup minWidth={240} maxWidth={320}>
       <strong>{charger.name}</strong>
       <br />
       <span className="text-xs text-gray-600">
@@ -14,6 +24,23 @@ export default function EvChargerPopup({ charger }: { charger: EvCharger }) {
       </span>
       <br />
       <span className="text-xs font-semibold text-gray-800">Výkon: {charger.powerLabel}</span>
+      {stalls ? (
+        <>
+          <br />
+          <span className={`text-xs font-semibold ${live?.live ? "text-emerald-700" : "text-gray-800"}`}>
+            {stalls}
+            {live?.live ? " (živě)" : ""}
+          </span>
+        </>
+      ) : null}
+      {fee ? (
+        <>
+          <br />
+          <span className={`text-xs font-medium ${fee.free ? "text-emerald-700" : "text-gray-700"}`}>
+            {fee.text}
+          </span>
+        </>
+      ) : null}
       {charger.sockets ? (
         <>
           <br />

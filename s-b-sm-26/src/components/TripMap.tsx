@@ -35,6 +35,7 @@ import BasemapLayers from "./BasemapLayers";
 import type { TrafficIncident } from "@/hooks/useDayIncidents";
 import { hoverPopupHandlers } from "@/lib/hoverPopup";
 import { useOnline } from "@/hooks/useOnline";
+import { useEvAvailability } from "@/hooks/useEvAvailability";
 import { useMapFullscreen } from "@/hooks/useMapFullscreen";
 import OfflineHint from "./OfflineHint";
 import {
@@ -135,12 +136,23 @@ export default function TripMap({
     () => ({
       fuel: corridorPois.some((p) => p.kind === "fuel"),
       hospital: corridorPois.some((p) => p.kind === "hospital"),
-      charger: evChargers.length > 0,
+      tesla: evChargers.some((c) => c.tesla),
+      chargerOther: evChargers.some((c) => !c.tesla),
       vet: corridorPois.some((p) => p.kind === "veterinary"),
       border: borderCrossings.length > 0,
     }),
     [corridorPois, evChargers, borderCrossings]
   );
+
+  const evCenter = useMemo(() => {
+    const p = places[selectedPlaceId];
+    return p ? { lat: p.lat, lng: p.lng } : null;
+  }, [places, selectedPlaceId]);
+
+  const evLive = useEvAvailability(evChargers, evCenter, {
+    enabled: online && (poiLayers.tesla || poiLayers.chargerOther),
+    radiusM: 35000,
+  });
 
   const fitExtraPoints = useMemo(
     () => [...(showHike ? hikePositions : []), ...(poiLayers.border ? dayBorderPoints : [])],
@@ -349,6 +361,7 @@ export default function TripMap({
           shops={shops}
           evChargers={evChargers}
           layers={poiLayers}
+          liveById={evLive.byId}
         />
         <FishingSpotMarkers
           segments={segments}

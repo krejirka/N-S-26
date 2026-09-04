@@ -14,9 +14,9 @@ const outRoot = path.join(root, "offline-maps", "otm");
 const UA = "vypravy.ironknot.cz/1.0 (personal offline hike tiles for one trek)";
 const DELAY_MS = 140;
 const WIDE_ZOOMS = [11, 12, 13, 14];
-const TRAIL_ZOOMS = [15, 16];
-const WIDE_PAD_KM = 12;
-const TRAIL_PAD_KM = 3.5;
+const TRAIL_ZOOMS = [15, 16, 17];
+const WIDE_PAD_KM = 15;
+const TRAIL_PAD_KM = 4.5;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 

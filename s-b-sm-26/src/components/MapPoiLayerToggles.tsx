@@ -2,7 +2,16 @@ import type { MapPoiLayer, MapPoiLayerState } from "@/lib/mapPoiLayers";
 
 const LAYER_BTNS: { id: MapPoiLayer; label: string; title: string }[] = [
   { id: "fuel", label: "Benzínky", title: "Čerpací stanice podél trasy (vypnuto ve výchozím zobrazení)" },
-  { id: "charger", label: "Nabíjení", title: "DC / Tesla nabíječky podél trasy" },
+  {
+    id: "tesla",
+    label: "Tesla SC",
+    title: "Tesla Superchargery — volné stojany online přes TomTom",
+  },
+  {
+    id: "chargerOther",
+    label: "Ostatní EV",
+    title: "Ostatní DC nabíječky (výkon, počet, zdarma/placené)",
+  },
   { id: "hospital", label: "Nemocnice", title: "Nemocnice s pohotovostí podél trasy" },
   { id: "vet", label: "Veterina", title: "Veterinární pohotovost podél trasy" },
   { id: "border", label: "Přechody", title: "Hraniční přechody ZOLL (plánované i alternativy do 90 min)" },

@@ -113,6 +113,7 @@ export default function DayDetail({
           corridorPois={corridorPois}
           evChargers={evChargers}
           fishingSpots={fishingSpots}
+          placeCoords={navPlace}
         />
 
         {hike && <HikingDayPanel hike={hike} />}

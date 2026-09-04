@@ -98,6 +98,33 @@ function socketsLabel(t) {
   return parts.length ? parts.join(" · ") : null;
 }
 
+function stallsTotalFromTags(t) {
+  const nums = [
+    t["socket:tesla_supercharger"],
+    t["socket:tesla_supercharger_ccs"],
+    t["socket:type2_combo"],
+    t["socket:ccs"],
+    t["socket:type2"],
+    t["socket:chademo"],
+    t.capacity,
+  ]
+    .map((v) => Number(v))
+    .filter((n) => Number.isFinite(n) && n > 0);
+  if (!nums.length) return null;
+  // capacity is total stalls; socket:* are per-connector counts — prefer capacity
+  if (t.capacity && Number(t.capacity) > 0) return Number(t.capacity);
+  return nums.reduce((a, b) => a + b, 0);
+}
+
+function feeFromTags(t) {
+  const raw = t.fee ?? t["charging_station:fee"] ?? t.payment ?? null;
+  if (raw == null || raw === "") return { fee: "unknown", feeLabel: "cena v OSM neuvedena" };
+  const s = String(raw).toLowerCase().trim();
+  if (s === "no" || s === "free" || s === "0") return { fee: "no", feeLabel: "zdarma" };
+  if (s === "yes" || s === "paid") return { fee: "yes", feeLabel: "placené" };
+  return { fee: "unknown", feeLabel: `cena: ${raw}` };
+}
+
 function hoursLabel(oh) {
   if (!oh || !String(oh).trim()) return "Otevírací doba v OSM není uvedená";
   const s = String(oh).trim();
@@ -130,6 +157,11 @@ function fromEl(e) {
   const address = [t["addr:street"], t["addr:housenumber"], t["addr:city"] || t["addr:place"]]
     .filter(Boolean)
     .join(" ");
+  const fee = feeFromTags(t);
+  if (tesla && fee.fee === "unknown") {
+    fee.fee = "yes";
+    fee.feeLabel = "placené (Tesla)";
+  }
   return {
     id: `ev-${e.type?.[0] || "n"}${e.id}`,
     name,
@@ -140,10 +172,14 @@ function fromEl(e) {
     maxKw: kw || null,
     powerLabel: powerLabel(kw, tesla),
     sockets: socketsLabel(t),
+    stallsTotal: stallsTotalFromTags(t),
+    fee: fee.fee,
+    feeLabel: fee.feeLabel,
     openingHours: t.opening_hours || null,
     openingHoursLabel: hoursLabel(t.opening_hours),
     address: address || undefined,
     website: t.website || t["contact:website"] || null,
+    osmId: String(e.id),
   };
 }
 
@@ -235,7 +271,7 @@ fs.writeFileSync(
   outPath,
   JSON.stringify(
     {
-      note: "DC / CCS / Tesla Supercharger ≤25 km od trasy, přednostně ≥50 kW.",
+      note: "Tesla Superchargery + DC ≥50 kW ≤25 km od trasy. Po fetch spusť npm run enrich:chargers.",
       generatedAt: new Date().toISOString(),
       chargers,
     },
@@ -244,3 +280,4 @@ fs.writeFileSync(
   ) + "\n"
 );
 console.log(`Wrote ${chargers.length} chargers → ${outPath}`);
+console.log("Tip: npm run enrich:chargers — stall counts z supercharge.info");

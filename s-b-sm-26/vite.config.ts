@@ -129,6 +129,45 @@ function tomtomTrafficPlugin(apiKey: string | undefined): Plugin {
           );
         }
       });
+
+      server.middlewares.use("/api/ev-availability", async (req, res, next) => {
+        if (req.method !== "GET") return next();
+        try {
+          if (!key) {
+            res.statusCode = 503;
+            res.setHeader("Content-Type", "application/json");
+            res.end(
+              JSON.stringify({
+                live: false,
+                stations: [],
+                error: "TOMTOM_API_KEY not configured",
+              })
+            );
+            return;
+          }
+          const url = new URL(req.url || "", "http://localhost");
+          const lat = Number(url.searchParams.get("lat"));
+          const lng = Number(url.searchParams.get("lng"));
+          const radiusM = Math.min(
+            Math.max(Number(url.searchParams.get("radius")) || 30000, 1000),
+            50000
+          );
+          if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+            res.statusCode = 400;
+            res.setHeader("Content-Type", "application/json");
+            res.end(JSON.stringify({ live: false, stations: [], error: "lat and lng required" }));
+            return;
+          }
+          const { fetchEvAvailabilityNear } = await import("./server/evAvailability.mjs");
+          const result = await fetchEvAvailabilityNear(key, { lat, lng, radiusM });
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify(result));
+        } catch (err) {
+          res.statusCode = 500;
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify({ live: false, stations: [], error: String(err) }));
+        }
+      });
     },
   };
 }
@@ -146,7 +185,7 @@ function copyOfflineMapsPlugin(enabled: boolean): Plugin {
         return;
       }
       fs.mkdirSync(to, { recursive: true });
-      for (const name of ["corridor.pmtiles", "hike.pmtiles", "manifest.json"]) {
+      for (const name of ["corridor.pmtiles", "streets.pmtiles", "hike.pmtiles", "manifest.json"]) {
         const src = path.join(from, name);
         if (fs.existsSync(src)) fs.copyFileSync(src, path.join(to, name));
       }
