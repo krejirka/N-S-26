@@ -2,11 +2,11 @@ export type MapPoiLayer = "fuel" | "hospital" | "tesla" | "chargerOther" | "vet"
 
 export type MapPoiLayerState = Record<MapPoiLayer, boolean>;
 
-/** Tesla Superchargers on by default; other corridor layers stay off. */
+/** Corridor POI layers off by default (GPS stays separate / on in TripMap). */
 export const MAP_POI_LAYERS_OFF: MapPoiLayerState = {
   fuel: false,
   hospital: false,
-  tesla: true,
+  tesla: false,
   chargerOther: false,
   vet: false,
   border: false,
