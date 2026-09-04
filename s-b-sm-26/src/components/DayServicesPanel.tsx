@@ -2,14 +2,17 @@ import { useMemo, useState, type ReactNode } from "react";
 import { ExternalLink, Fish, Fuel, Hospital, PawPrint, Phone, X, Zap } from "lucide-react";
 import NavigateButton from "./NavigateButton";
 import { dayRouteGeometry, rankByCorridor } from "@/lib/corridorFilter";
-import type { CorridorPoi, EvCharger, FishingSpot, RouteSegment, TripDay } from "@/types/trip";
+import { feeBadge, stallsLabel } from "@/lib/evChargerLabels";
+import { useEvAvailability } from "@/hooks/useEvAvailability";
+import type { CorridorPoi, EvCharger, EvLiveStatus, Place, RouteSegment, TripDay } from "@/types/trip";
+import type { FishingSpot } from "@/types/trip";
 
 const FISH_KM = 20;
 const SERVICE_KM = 50;
 const CHARGER_KM = 25;
 const FUEL_KM = 20;
 
-type PanelKind = "fish" | "hospital" | "vet" | "charger" | "fuel" | null;
+type PanelKind = "fish" | "hospital" | "vet" | "tesla" | "chargerOther" | "fuel" | null;
 
 interface DayServicesPanelProps {
   day: TripDay;
@@ -18,6 +21,8 @@ interface DayServicesPanelProps {
   corridorPois: CorridorPoi[];
   evChargers?: EvCharger[];
   fishingSpots: FishingSpot[];
+  /** Day destination — center for live EV availability. */
+  placeCoords?: Place | null;
 }
 
 export default function DayServicesPanel({
@@ -27,8 +32,9 @@ export default function DayServicesPanel({
   corridorPois,
   evChargers = [],
   fishingSpots,
+  placeCoords = null,
 }: DayServicesPanelProps) {
-  const [open, setOpen] = useState<PanelKind>(null);
+  const [open, setOpen] = useState<PanelKind>("tesla");
 
   const geometry = useMemo(() => {
     const ids = new Set(daySegments[String(day.day)] || []);
@@ -54,6 +60,8 @@ export default function DayServicesPanel({
     () => rankByCorridor(evChargers, geometry, CHARGER_KM),
     [evChargers, geometry]
   );
+  const teslaChargers = useMemo(() => chargers.filter((c) => c.tesla), [chargers]);
+  const otherChargers = useMemo(() => chargers.filter((c) => !c.tesla), [chargers]);
 
   const hospitals = useMemo(
     () =>
@@ -75,22 +83,33 @@ export default function DayServicesPanel({
     [corridorPois, geometry]
   );
 
+  const evCenter = placeCoords ? { lat: placeCoords.lat, lng: placeCoords.lng } : null;
+  const evLive = useEvAvailability(evChargers, evCenter, {
+    enabled: open === "tesla" || open === "chargerOther",
+    radiusM: 35000,
+  });
+
   const toggle = (kind: PanelKind) => setOpen((cur) => (cur === kind ? null : kind));
 
   const hasAny =
     fish.length > 0 ||
     hospitals.length > 0 ||
     vets.length > 0 ||
-    chargers.length > 0 ||
+    teslaChargers.length > 0 ||
+    otherChargers.length > 0 ||
     fuels.length > 0;
   if (!hasAny && !geometry.length) return null;
+
+  // Default open Tesla when available; otherwise leave closed
+  const effectiveOpen =
+    open === "tesla" && teslaChargers.length === 0 ? null : open;
 
   return (
     <div className="mb-4">
       <div className="flex flex-wrap items-center gap-2">
         {fish.length > 0 && (
           <IconToggle
-            active={open === "fish"}
+            active={effectiveOpen === "fish"}
             label={`Rybaření (${fish.length})`}
             title="Rybářská místa podél trasy"
             onClick={() => toggle("fish")}
@@ -98,19 +117,29 @@ export default function DayServicesPanel({
             <Fish className="h-4 w-4" />
           </IconToggle>
         )}
-        {chargers.length > 0 && (
+        {teslaChargers.length > 0 && (
           <IconToggle
-            active={open === "charger"}
-            label={`Nabíjení (${chargers.length})`}
-            title="DC / Tesla nabíječky podél trasy"
-            onClick={() => toggle("charger")}
+            active={effectiveOpen === "tesla"}
+            label={`Tesla SC (${teslaChargers.length})`}
+            title="Tesla Superchargery — volné stojany online"
+            onClick={() => toggle("tesla")}
+          >
+            <Zap className="h-4 w-4" />
+          </IconToggle>
+        )}
+        {otherChargers.length > 0 && (
+          <IconToggle
+            active={effectiveOpen === "chargerOther"}
+            label={`Ostatní EV (${otherChargers.length})`}
+            title="Ostatní DC nabíječky podél trasy"
+            onClick={() => toggle("chargerOther")}
           >
             <Zap className="h-4 w-4" />
           </IconToggle>
         )}
         {fuels.length > 0 && (
           <IconToggle
-            active={open === "fuel"}
+            active={effectiveOpen === "fuel"}
             label={`Benzínky (${fuels.length})`}
             title="Čerpací stanice podél trasy"
             onClick={() => toggle("fuel")}
@@ -120,7 +149,7 @@ export default function DayServicesPanel({
         )}
         {hospitals.length > 0 && (
           <IconToggle
-            active={open === "hospital"}
+            active={effectiveOpen === "hospital"}
             label={`Nemocnice (${hospitals.length})`}
             title="Nemocnice s pohotovostí"
             onClick={() => toggle("hospital")}
@@ -130,7 +159,7 @@ export default function DayServicesPanel({
         )}
         {vets.length > 0 && (
           <IconToggle
-            active={open === "vet"}
+            active={effectiveOpen === "vet"}
             label={`Veterina (${vets.length})`}
             title="Veterinární pohotovost"
             onClick={() => toggle("vet")}
@@ -140,7 +169,7 @@ export default function DayServicesPanel({
         )}
       </div>
 
-      {open === "fish" && (
+      {effectiveOpen === "fish" && (
         <ServiceList title="Rybaření podél trasy (≤20 km)" onClose={() => setOpen(null)}>
           {fish.map((spot) => (
             <li key={spot.id} className="border-b border-border py-2.5 last:border-0">
@@ -173,40 +202,26 @@ export default function DayServicesPanel({
         </ServiceList>
       )}
 
-      {open === "charger" && (
-        <ServiceList title="Nabíjení elektromobilu (≤25 km, DC / Tesla)" onClose={() => setOpen(null)}>
-          {chargers.map((c) => (
-            <li key={c.id} className="border-b border-border py-2.5 last:border-0">
-              <div className="text-sm font-semibold">{c.name}</div>
-              <div className="text-xs text-muted-foreground">
-                {c.distanceKm} km · {c.powerLabel}
-                {c.tesla ? " · Tesla" : ""}
-              </div>
-              {c.sockets ? <div className="mt-0.5 text-xs text-foreground/80">{c.sockets}</div> : null}
-              <div className="mt-0.5 text-xs text-foreground/90">Otevírací doba: {c.openingHoursLabel}</div>
-              {c.address ? <div className="mt-0.5 text-xs text-foreground/80">{c.address}</div> : null}
-              <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
-                {c.website ? (
-                  <a
-                    href={c.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-teal-700 underline"
-                  >
-                    Web
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
-                ) : null}
-                <NavigateButton lat={c.lat} lng={c.lng} label={c.name} variant="link">
-                  Navigovat k nabíječce
-                </NavigateButton>
-              </div>
-            </li>
+      {effectiveOpen === "tesla" && (
+        <ServiceList
+          title={`Tesla Superchargery (≤25 km)${evLive.live ? " · živá kapacita" : ""}`}
+          onClose={() => setOpen(null)}
+        >
+          {teslaChargers.map((c) => (
+            <ChargerRow key={c.id} charger={c} live={evLive.byId[c.id]} />
           ))}
         </ServiceList>
       )}
 
-      {open === "fuel" && (
+      {effectiveOpen === "chargerOther" && (
+        <ServiceList title="Ostatní EV nabíječky (≤25 km, DC)" onClose={() => setOpen(null)}>
+          {otherChargers.map((c) => (
+            <ChargerRow key={c.id} charger={c} live={evLive.byId[c.id]} />
+          ))}
+        </ServiceList>
+      )}
+
+      {effectiveOpen === "fuel" && (
         <ServiceList title="Čerpací stanice (≤20 km)" onClose={() => setOpen(null)}>
           {fuels.map((poi) => (
             <ServicePoiRow key={poi.id} poi={poi} />
@@ -214,7 +229,7 @@ export default function DayServicesPanel({
         </ServiceList>
       )}
 
-      {open === "hospital" && (
+      {effectiveOpen === "hospital" && (
         <ServiceList title="Nemocnice s pohotovostí (≤50 km)" onClose={() => setOpen(null)}>
           {hospitals.map((poi) => (
             <ServicePoiRow key={poi.id} poi={poi} />
@@ -222,7 +237,7 @@ export default function DayServicesPanel({
         </ServiceList>
       )}
 
-      {open === "vet" && (
+      {effectiveOpen === "vet" && (
         <ServiceList title="Veterinární pohotovost (≤50 km)" onClose={() => setOpen(null)}>
           {vets.map((poi) => (
             <ServicePoiRow key={poi.id} poi={poi} />
@@ -230,6 +245,56 @@ export default function DayServicesPanel({
         </ServiceList>
       )}
     </div>
+  );
+}
+
+function ChargerRow({
+  charger,
+  live,
+}: {
+  charger: EvCharger & { distanceKm: number };
+  live?: EvLiveStatus;
+}) {
+  const stalls = stallsLabel(charger, live);
+  const fee = feeBadge(charger);
+  return (
+    <li className="border-b border-border py-2.5 last:border-0">
+      <div className="text-sm font-semibold">{charger.name}</div>
+      <div className="text-xs text-muted-foreground">
+        {charger.distanceKm} km · {charger.powerLabel}
+        {charger.tesla ? " · Tesla" : ""}
+      </div>
+      {stalls ? (
+        <div className={`mt-0.5 text-xs font-semibold ${live?.live ? "text-emerald-700" : "text-foreground/90"}`}>
+          {stalls}
+          {live?.live ? " (živě)" : ""}
+        </div>
+      ) : null}
+      {fee ? (
+        <div className={`mt-0.5 text-xs ${fee.free ? "font-semibold text-emerald-700" : "text-foreground/80"}`}>
+          {fee.text}
+        </div>
+      ) : null}
+      {charger.sockets ? <div className="mt-0.5 text-xs text-foreground/80">{charger.sockets}</div> : null}
+      <div className="mt-0.5 text-xs text-foreground/90">Otevírací doba: {charger.openingHoursLabel}</div>
+      {charger.address ? <div className="mt-0.5 text-xs text-foreground/80">{charger.address}</div> : null}
+      <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
+        {charger.website ? (
+          <a
+            href={charger.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-teal-700 underline"
+          >
+            Web
+            <ExternalLink className="h-3 w-3" />
+          </a>
+        ) : null}
+        <NavigateButton lat={charger.lat} lng={charger.lng} label={charger.name} variant="link">
+          Navigovat k nabíječce
+        </NavigateButton>
+      </div>
+    </li>
   );
 }
 

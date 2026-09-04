@@ -7,7 +7,15 @@ import { offlineAssetUrl } from "@/lib/pmtilesMemory";
 
 const OSM_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 
-function ProtomapsFileLayer({ file, maxZoom }: { file: string; maxZoom: number }) {
+function ProtomapsFileLayer({
+  file,
+  maxZoom,
+  maxDataZoom,
+}: {
+  file: string;
+  maxZoom: number;
+  maxDataZoom: number;
+}) {
   const map = useMap();
 
   useEffect(() => {
@@ -17,13 +25,13 @@ function ProtomapsFileLayer({ file, maxZoom }: { file: string; maxZoom: number }
       lang: "cs",
       attribution: OSM_ATTR + " · Protomaps",
       maxZoom,
-      maxDataZoom: file.includes("hike") ? 15 : 12,
+      maxDataZoom,
     }) as unknown as Layer;
     layer.addTo(map);
     return () => {
       map.removeLayer(layer);
     };
-  }, [map, file, maxZoom]);
+  }, [map, file, maxZoom, maxDataZoom]);
 
   return null;
 }
@@ -33,8 +41,12 @@ interface BasemapLayersProps {
   topoOn: boolean;
 }
 
-export default function BasemapLayers({ online, topoOn }: BasemapLayersProps) {
-  const usePacked = IS_NATIVE && !online;
+/**
+ * Native APK always prefers packed basemap (works offline).
+ * Online OSM is only used in the website build.
+ */
+export default function BasemapLayers({ online: _online, topoOn }: BasemapLayersProps) {
+  const usePacked = IS_NATIVE;
   const otmUrl = `${import.meta.env.BASE_URL}offline/otm/{z}/{x}/{y}.png`;
 
   if (!usePacked) {
@@ -62,13 +74,16 @@ export default function BasemapLayers({ online, topoOn }: BasemapLayersProps) {
 
   return (
     <>
-      <ProtomapsFileLayer file="corridor.pmtiles" maxZoom={topoOn ? 13 : 14} />
-      {topoOn && <ProtomapsFileLayer file="hike.pmtiles" maxZoom={16} />}
+      {/* 100 km corridor overview */}
+      <ProtomapsFileLayer file="corridor.pmtiles" maxZoom={topoOn ? 13 : 16} maxDataZoom={12} />
+      {/* Street-level detail ~12 km from route (city navigation) */}
+      {!topoOn && <ProtomapsFileLayer file="streets.pmtiles" maxZoom={17} maxDataZoom={15} />}
+      {topoOn && <ProtomapsFileLayer file="hike.pmtiles" maxZoom={17} maxDataZoom={16} />}
       {topoOn && (
         <TileLayer
           attribution='&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)'
           url={otmUrl}
-          maxNativeZoom={16}
+          maxNativeZoom={17}
           maxZoom={18}
           opacity={0.92}
         />

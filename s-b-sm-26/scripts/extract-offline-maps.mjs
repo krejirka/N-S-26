@@ -1,7 +1,8 @@
 /**
  * Build offline map packs for the Android APK:
  *  - corridor.pmtiles: Protomaps vector basemap, 100 km around the planned route (z0–12)
- *  - hike.pmtiles: higher-detail cutout around Jastrebec–Musala (z0–15)
+ *  - streets.pmtiles: street-level detail ~12 km from the route (z13–15) for city navigation
+ *  - hike.pmtiles: higher-detail cutout around Jastrebec–Musala (z0–16)
  *  - otm/{z}/{x}/{y}.png: OpenTopoMap raster for the trek (high zoom)
  *
  * OSM raster bulk download is avoided (tile ToS). Vector cutouts use pmtiles extract
@@ -22,10 +23,13 @@ const hikePath = path.join(root, "src", "data", "hike-jastrebec-musala.json");
 const PLANET =
   process.env.PROTOMAPS_URL || "https://build.protomaps.com/20260830.pmtiles";
 const CORRIDOR_KM = 100;
+const STREET_KM = Number(process.env.STREET_KM || 12);
 const SAMPLE_KM = 12;
 const CORRIDOR_MAXZOOM = Number(process.env.CORRIDOR_MAXZOOM || 12);
-const HIKE_MAXZOOM = Number(process.env.HIKE_MAXZOOM || 15);
-const HIKE_PAD_KM = 12;
+const STREET_MINZOOM = Number(process.env.STREET_MINZOOM || 13);
+const STREET_MAXZOOM = Number(process.env.STREET_MAXZOOM || 15);
+const HIKE_MAXZOOM = Number(process.env.HIKE_MAXZOOM || 16);
+const HIKE_PAD_KM = Number(process.env.HIKE_PAD_KM || 15);
 
 function haversineKm(lat1, lon1, lat2, lon2) {
   const R = 6371;
@@ -103,17 +107,17 @@ function run(bin, args) {
   });
 }
 
-function writeCorridorRegion(points) {
+function writeRegion(points, radiusKm, fileName) {
   const features = points.map(([lat, lng], i) => ({
     type: "Feature",
     properties: { i },
     geometry: {
       type: "Polygon",
-      coordinates: [circleRing(lat, lng, CORRIDOR_KM)],
+      coordinates: [circleRing(lat, lng, radiusKm)],
     },
   }));
   const geojson = { type: "FeatureCollection", features };
-  const file = path.join(outDir, "corridor-100km.geojson");
+  const file = path.join(outDir, fileName);
   fs.writeFileSync(file, JSON.stringify(geojson));
   return file;
 }
@@ -145,24 +149,40 @@ async function main() {
   const routes = JSON.parse(fs.readFileSync(routesPath, "utf8"));
   const hike = JSON.parse(fs.readFileSync(hikePath, "utf8"));
   const points = sampleRoutePoints(routes.segments, SAMPLE_KM);
-  console.log(`Route samples: ${points.length} (every ~${SAMPLE_KM} km, ${CORRIDOR_KM} km buffer)`);
+  console.log(`Route samples: ${points.length} (every ~${SAMPLE_KM} km)`);
 
-  const region = writeCorridorRegion(points);
+  const corridorRegion = writeRegion(points, CORRIDOR_KM, "corridor-100km.geojson");
+  const streetRegion = writeRegion(points, STREET_KM, "streets-12km.geojson");
   const bin = findPmtilesBin();
   const corridorOut = path.join(outDir, "corridor.pmtiles");
+  const streetsOut = path.join(outDir, "streets.pmtiles");
   const hikeOut = path.join(outDir, "hike.pmtiles");
   const bbox = hikeBbox(hike.track);
 
   const dry = process.argv.includes("--dry-run");
+  const skipCorridor = process.argv.includes("--skip-corridor");
   const extra = dry ? ["--dry-run"] : [];
+
+  if (!skipCorridor) {
+    await run(bin, [
+      "extract",
+      PLANET,
+      corridorOut,
+      `--region=${corridorRegion}`,
+      `--maxzoom=${CORRIDOR_MAXZOOM}`,
+      "--download-threads=4",
+      ...extra,
+    ]);
+  }
 
   await run(bin, [
     "extract",
     PLANET,
-    corridorOut,
-    `--region=${region}`,
-    `--maxzoom=${CORRIDOR_MAXZOOM}`,
-    "--download-threads=4",
+    streetsOut,
+    `--region=${streetRegion}`,
+    `--minzoom=${STREET_MINZOOM}`,
+    `--maxzoom=${STREET_MAXZOOM}`,
+    "--download-threads=6",
     ...extra,
   ]);
 
@@ -181,7 +201,11 @@ async function main() {
     planet: PLANET,
     corridorKm: CORRIDOR_KM,
     corridorMaxZoom: CORRIDOR_MAXZOOM,
+    streetKm: STREET_KM,
+    streetMinZoom: STREET_MINZOOM,
+    streetMaxZoom: STREET_MAXZOOM,
     hikeMaxZoom: HIKE_MAXZOOM,
+    hikePadKm: HIKE_PAD_KM,
     hikeBbox: bbox,
     samples: points.length,
   };

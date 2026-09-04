@@ -5,7 +5,7 @@ import { makeChargerIcon } from "@/lib/evChargerMarker";
 import { dayRouteGeometry, filterByCorridor } from "@/lib/corridorFilter";
 import { hoverPopupHandlers } from "@/lib/hoverPopup";
 import type { MapPoiLayerState } from "@/lib/mapPoiLayers";
-import type { CorridorPoi, EvCharger, RouteSegment, ShopPoi } from "@/types/trip";
+import type { CorridorPoi, EvCharger, EvLiveStatus, RouteSegment, ShopPoi } from "@/types/trip";
 import { CorridorPoiPopup, ShopCorridorPopup } from "./CorridorPoiPopup";
 import EvChargerPopup from "./EvChargerPopup";
 
@@ -23,6 +23,7 @@ interface CorridorPoiMarkersProps {
   shops: ShopPoi[];
   evChargers?: EvCharger[];
   layers: MapPoiLayerState;
+  liveById?: Record<string, EvLiveStatus>;
 }
 
 export default function CorridorPoiMarkers({
@@ -32,6 +33,7 @@ export default function CorridorPoiMarkers({
   shops,
   evChargers = [],
   layers,
+  liveById = {},
 }: CorridorPoiMarkersProps) {
   const map = useMap();
   const [zoom, setZoom] = useState(map.getZoom());
@@ -63,6 +65,9 @@ export default function CorridorPoiMarkers({
     () => filterByCorridor(evChargers, geometry, CHARGER_KM),
     [evChargers, geometry]
   );
+  const visibleChargers = useMemo(() => {
+    return chargers.filter((c) => (c.tesla ? layers.tesla : layers.chargerOther));
+  }, [chargers, layers.tesla, layers.chargerOther]);
 
   const hospitals = useMemo(
     () =>
@@ -102,17 +107,16 @@ export default function CorridorPoiMarkers({
             <ShopCorridorPopup shop={shop} />
           </Marker>
         ))}
-      {layers.charger &&
-        zoom >= MIN_ZOOM_CHARGERS &&
-        chargers.map((charger) => (
+      {zoom >= MIN_ZOOM_CHARGERS &&
+        visibleChargers.map((charger) => (
           <Marker
             key={charger.id}
             position={[charger.lat, charger.lng]}
             icon={makeChargerIcon(charger.tesla)}
             eventHandlers={hoverPopupHandlers()}
-            zIndexOffset={-160}
+            zIndexOffset={charger.tesla ? -140 : -160}
           >
-            <EvChargerPopup charger={charger} />
+            <EvChargerPopup charger={charger} live={liveById[charger.id]} />
           </Marker>
         ))}
       {layers.fuel &&

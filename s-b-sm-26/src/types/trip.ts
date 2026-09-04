@@ -116,6 +116,8 @@ export interface CorridorPoisData {
   pois: CorridorPoi[];
 }
 
+export type EvFeeKind = "yes" | "no" | "unknown";
+
 export interface EvCharger {
   id: string;
   name: string;
@@ -126,10 +128,29 @@ export interface EvCharger {
   maxKw?: number | null;
   powerLabel: string;
   sockets?: string | null;
+  /** Total stalls / connectors when known (OSM or supercharge.info). */
+  stallsTotal?: number | null;
+  fee?: EvFeeKind;
+  feeLabel?: string;
   openingHours?: string | null;
   openingHoursLabel: string;
   address?: string;
   website?: string | null;
+  teslaLocationId?: string | null;
+  teslaOtherEvs?: boolean | null;
+  osmId?: string | null;
+}
+
+/** Live availability matched onto a static charger (TomTom). */
+export interface EvLiveStatus {
+  available: number | null;
+  total: number | null;
+  occupied?: number | null;
+  maxPowerKW?: number | null;
+  live: boolean;
+  tesla?: boolean;
+  name?: string;
+  fetchedAt?: string;
 }
 
 export interface EvChargersData {

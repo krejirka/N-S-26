@@ -1,7 +1,7 @@
 {
   "name": "s-b-sm-26",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,6 +11,7 @@
     "build:routes": "node scripts/build-routes.mjs",
     "fetch:pois": "node scripts/fetch-corridor-pois.mjs",
     "fetch:chargers": "node scripts/fetch-ev-chargers.mjs",
+    "enrich:chargers": "node scripts/enrich-ev-chargers.mjs",
     "fetch:hike": "node scripts/fetch-hike-musala.mjs && node scripts/fetch-hike-elevation.mjs",
     "fetch:hike-elevation": "node scripts/fetch-hike-elevation.mjs",
     "fetch:fuel": "node scripts/fetch-fuel.mjs",
