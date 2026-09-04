@@ -12,6 +12,6 @@ export function apiUrl(path: string): string {
 }
 
 /** Sideload APK with packed maps. Same-origin URL; Vercel redirects to GitHub Releases if the file is too large for the CDN. */
-export const APK_VERSION = "1.1.0";
+export const APK_VERSION = "1.1.1";
 export const APK_DOWNLOAD_HREF = `${import.meta.env.BASE_URL}apk/s-b-sm-26.apk`;
 export const APK_ICON_SRC = `${import.meta.env.BASE_URL}android-apk.png`;

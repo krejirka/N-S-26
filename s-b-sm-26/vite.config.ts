@@ -190,8 +190,12 @@ function copyOfflineMapsPlugin(enabled: boolean): Plugin {
         if (fs.existsSync(src)) fs.copyFileSync(src, path.join(to, name));
       }
       const otm = path.join(from, "otm");
-      if (fs.existsSync(otm)) fs.cpSync(otm, path.join(to, "otm"), { recursive: true });
-      console.log("copied offline-maps → dist/offline");
+      // Do not pack per-tile OTM PNGs into the APK (3000+ files → "App not installed"
+      // on many devices). Offline hiking uses hike.pmtiles instead.
+      if (false && fs.existsSync(otm)) {
+        fs.cpSync(otm, path.join(to, "otm"), { recursive: true });
+      }
+      console.log("copied offline-maps → dist/offline (without OTM tile tree)");
     },
   };
 }

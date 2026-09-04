@@ -27,7 +27,7 @@ const STREET_KM = Number(process.env.STREET_KM || 12);
 const SAMPLE_KM = 12;
 const CORRIDOR_MAXZOOM = Number(process.env.CORRIDOR_MAXZOOM || 12);
 const STREET_MINZOOM = Number(process.env.STREET_MINZOOM || 13);
-const STREET_MAXZOOM = Number(process.env.STREET_MAXZOOM || 15);
+const STREET_MAXZOOM = Number(process.env.STREET_MAXZOOM || 14);
 const HIKE_MAXZOOM = Number(process.env.HIKE_MAXZOOM || 16);
 const HIKE_PAD_KM = Number(process.env.HIKE_PAD_KM || 15);
 

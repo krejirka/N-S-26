@@ -77,9 +77,10 @@ export default function BasemapLayers({ online: _online, topoOn }: BasemapLayers
       {/* 100 km corridor overview */}
       <ProtomapsFileLayer file="corridor.pmtiles" maxZoom={topoOn ? 13 : 16} maxDataZoom={12} />
       {/* Street-level detail ~12 km from route (city navigation) */}
-      {!topoOn && <ProtomapsFileLayer file="streets.pmtiles" maxZoom={17} maxDataZoom={15} />}
+      {!topoOn && <ProtomapsFileLayer file="streets.pmtiles" maxZoom={17} maxDataZoom={14} />}
       {topoOn && <ProtomapsFileLayer file="hike.pmtiles" maxZoom={17} maxDataZoom={16} />}
-      {topoOn && (
+      {/* OTM rasters are omitted from the APK (install size); hike.pmtiles covers the trek. */}
+      {false && topoOn && (
         <TileLayer
           attribution='&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)'
           url={otmUrl}
