@@ -1,70 +1,89 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { TileLayer, useMap } from "react-leaflet";
 import type { Layer, LatLngBoundsExpression } from "leaflet";
 import { leafletLayer } from "protomaps-leaflet";
+import type { PMTiles } from "pmtiles";
 import { IS_NATIVE } from "@/lib/runtime";
-import { offlineAssetUrl } from "@/lib/pmtilesMemory";
+import { nativePmtiles } from "@/lib/capacitorPmtiles";
 
 const OSM_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 
-/** Absolute URL so Capacitor WebView Range requests hit https://localhost/offline/… */
-function absoluteOfflineUrl(file: string): string {
-  const rel = offlineAssetUrl(file);
-  try {
-    return new URL(rel, window.location.href).href;
-  } catch {
-    return rel;
-  }
-}
-
-/** Musala hike cutout (from hike.pmtiles metadata). */
 const HIKE_BOUNDS: LatLngBoundsExpression = [
   [42.044443, 23.395889],
   [42.361687, 23.771282],
 ];
 
-type ProtomapsFileLayerProps = {
+type ProtomapsNativeLayerProps = {
   file: string;
   maxZoom: number;
   maxDataZoom: number;
   minZoom?: number;
   bounds?: LatLngBoundsExpression;
-  /** Drop opaque basemap fill so empty tiles do not blank the underlay. */
   overlay?: boolean;
+  /** When true, skip opaque canvas fill so OSM underlay can show through. */
+  clearBackground?: boolean;
+  onReady?: () => void;
+  onError?: (err: unknown) => void;
 };
 
-function ProtomapsFileLayer({
+function ProtomapsNativeLayer({
   file,
   maxZoom,
   maxDataZoom,
   minZoom,
   bounds,
   overlay = false,
-}: ProtomapsFileLayerProps) {
+  clearBackground = false,
+  onReady,
+  onError,
+}: ProtomapsNativeLayerProps) {
   const map = useMap();
 
   useEffect(() => {
-    const layer = leafletLayer({
-      url: absoluteOfflineUrl(file),
-      flavor: "light",
-      lang: "cs",
-      attribution: OSM_ATTR + " · Protomaps",
-      maxZoom,
-      maxDataZoom,
-      ...(minZoom != null ? { minZoom } : {}),
-      ...(bounds ? { bounds } : {}),
-      ...(overlay ? { backgroundColor: undefined } : {}),
-    }) as unknown as Layer & { backgroundColor?: string };
+    let cancelled = false;
+    let layer: (Layer & { backgroundColor?: string }) | null = null;
 
-    if (overlay) {
-      layer.backgroundColor = undefined;
-    }
+    const archive: PMTiles = nativePmtiles(`offline/${file}`);
 
-    layer.addTo(map);
+    // Verify header via native byte reads before attaching the layer.
+    archive
+      .getHeader()
+      .then((header) => {
+        if (cancelled) return;
+        if (header.tileType !== 1 /* mvt */) {
+          throw new Error(`Unexpected tile type ${header.tileType} in ${file}`);
+        }
+        // Cast: app and protomaps-leaflet may resolve different pmtiles package builds.
+        layer = leafletLayer({
+          url: archive as never,
+          flavor: "light",
+          lang: "cs",
+          attribution: OSM_ATTR + " · Protomaps",
+          maxZoom,
+          maxDataZoom,
+          ...(minZoom != null ? { minZoom } : {}),
+          ...(bounds ? { bounds } : {}),
+          ...(overlay || clearBackground ? { backgroundColor: undefined } : {}),
+        }) as unknown as Layer & { backgroundColor?: string };
+
+        if (overlay || clearBackground) {
+          layer.backgroundColor = undefined;
+        }
+        layer.addTo(map);
+        onReady?.();
+      })
+      .catch((err) => {
+        console.error("[BasemapLayers] native pmtiles failed", file, err);
+        onError?.(err);
+      });
+
     return () => {
-      map.removeLayer(layer);
+      cancelled = true;
+      if (layer) {
+        map.removeLayer(layer);
+      }
     };
-  }, [map, file, maxZoom, maxDataZoom, minZoom, bounds, overlay]);
+  }, [map, file, maxZoom, maxDataZoom, minZoom, bounds, overlay, clearBackground, onReady, onError]);
 
   return null;
 }
@@ -93,32 +112,47 @@ function OnlineOsmBasemap({ topoOn }: { topoOn: boolean }) {
 }
 
 interface BasemapLayersProps {
-  /** Kept for API compatibility; native always uses packed maps (online detection is flaky). */
   online: boolean;
   topoOn: boolean;
 }
 
 /**
- * Website: online OSM / OpenTopoMap.
+ * Website: OSM / OpenTopoMap.
  *
- * Native APK: ALWAYS packed basemap.pmtiles (+ hike overlay).
- * Do not gate on `online` — Android WebView often keeps navigator.onLine=true
- * with mobile data off, which previously left the map on broken OSM tiles.
- * Packed assets need real HTTP Range from PmtilesRangeServer in MainActivity.
+ * Native APK: basemap.pmtiles (z0–14) via Capacitor PmtilesAsset plugin
+ * (direct AssetFileDescriptor reads — NOT WebView HTTP Range). Continuous
+ * zoom-in/out. OSM underlay when online as safety net outside the corridor.
  */
-export default function BasemapLayers({ online: _online, topoOn }: BasemapLayersProps) {
+export default function BasemapLayers({ online, topoOn }: BasemapLayersProps) {
+  const [packedFailed, setPackedFailed] = useState(false);
+
   if (!IS_NATIVE) {
+    return <OnlineOsmBasemap topoOn={topoOn} />;
+  }
+
+  // If native archive cannot open, fall back to OSM while online.
+  if (packedFailed && online) {
     return <OnlineOsmBasemap topoOn={topoOn} />;
   }
 
   return (
     <>
-      <ProtomapsFileLayer file="basemap.pmtiles" minZoom={0} maxZoom={17} maxDataZoom={14} />
-      {topoOn && (
-        <ProtomapsFileLayer
+      {online && (
+        <TileLayer attribution={OSM_ATTR} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      )}
+      <ProtomapsNativeLayer
+        file="basemap.pmtiles"
+        minZoom={0}
+        maxZoom={18}
+        maxDataZoom={14}
+        clearBackground={online}
+        onError={() => setPackedFailed(true)}
+      />
+      {topoOn && !packedFailed && (
+        <ProtomapsNativeLayer
           file="hike.pmtiles"
           minZoom={10}
-          maxZoom={17}
+          maxZoom={18}
           maxDataZoom={16}
           bounds={HIKE_BOUNDS}
           overlay
