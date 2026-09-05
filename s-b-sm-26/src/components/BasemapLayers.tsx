@@ -93,6 +93,7 @@ function OnlineOsmBasemap({ topoOn }: { topoOn: boolean }) {
 }
 
 interface BasemapLayersProps {
+  /** Kept for API compatibility; native always uses packed maps (online detection is flaky). */
   online: boolean;
   topoOn: boolean;
 }
@@ -100,23 +101,16 @@ interface BasemapLayersProps {
 /**
  * Website: online OSM / OpenTopoMap.
  *
- * Native APK:
- *  - Online → same reliable OSM/OTM as the website (never blank the map).
- *  - Offline → packed basemap.pmtiles (z0–14) + optional hike.pmtiles.
- *    Requires real HTTP Range from PmtilesRangeServer in MainActivity
- *    (Capacitor's built-in Range handler seeks incorrectly).
+ * Native APK: ALWAYS packed basemap.pmtiles (+ hike overlay).
+ * Do not gate on `online` — Android WebView often keeps navigator.onLine=true
+ * with mobile data off, which previously left the map on broken OSM tiles.
+ * Packed assets need real HTTP Range from PmtilesRangeServer in MainActivity.
  */
-export default function BasemapLayers({ online, topoOn }: BasemapLayersProps) {
+export default function BasemapLayers({ online: _online, topoOn }: BasemapLayersProps) {
   if (!IS_NATIVE) {
     return <OnlineOsmBasemap topoOn={topoOn} />;
   }
 
-  // Online APK: always use network tiles so the map never goes blank.
-  if (online) {
-    return <OnlineOsmBasemap topoOn={topoOn} />;
-  }
-
-  // Offline APK: packed Protomaps (needs native Range fix).
   return (
     <>
       <ProtomapsFileLayer file="basemap.pmtiles" minZoom={0} maxZoom={17} maxDataZoom={14} />

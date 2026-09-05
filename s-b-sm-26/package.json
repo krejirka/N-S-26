@@ -1,7 +1,7 @@
 {
   "name": "s-b-sm-26",
   "private": true,
-  "version": "1.1.5",
+  "version": "1.1.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -26,6 +26,7 @@
   "dependencies": {
     "@capacitor/android": "^6.2.0",
     "@capacitor/core": "^6.2.0",
+    "@capacitor/network": "^6.0.4",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.462.0",
     "pmtiles": "^4.3.0",
