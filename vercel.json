@@ -49,13 +49,13 @@
   ],
   "redirects": [
     {
-      "source": "/s-b-sm-26/apk/s-b-sm-26-1.1.7.apk",
-      "destination": "https://github.com/krejirka/N-S-26/releases/download/s-b-sm-26-1.1.7/s-b-sm-26-1.1.7.apk",
+      "source": "/s-b-sm-26/apk/s-b-sm-26-1.2.0.apk",
+      "destination": "https://github.com/krejirka/N-S-26/releases/download/s-b-sm-26-1.2.0/s-b-sm-26-1.2.0.apk",
       "permanent": false
     },
     {
       "source": "/s-b-sm-26/apk/s-b-sm-26.apk",
-      "destination": "https://github.com/krejirka/N-S-26/releases/download/s-b-sm-26-1.1.7/s-b-sm-26-1.1.7.apk",
+      "destination": "https://github.com/krejirka/N-S-26/releases/download/s-b-sm-26-1.2.0/s-b-sm-26-1.2.0.apk",
       "permanent": false
     }
   ]
