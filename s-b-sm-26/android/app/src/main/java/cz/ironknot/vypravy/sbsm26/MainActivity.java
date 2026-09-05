@@ -12,21 +12,32 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Serve .pmtiles with real HTTP 206 Range (Capacitor's built-in handler is broken).
-        if (this.bridge != null) {
-            this.bridge.setWebViewClient(
-                new BridgeWebViewClient(this.bridge) {
-                    @Override
-                    public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                        WebResourceResponse pmtiles = PmtilesRangeServer.tryServe(getAssets(), request);
-                        if (pmtiles != null) {
-                            return pmtiles;
-                        }
-                        return super.shouldInterceptRequest(view, request);
-                    }
-                }
-            );
+        installPmtilesClient();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Re-install after Capacitor finishes wiring the WebView.
+        installPmtilesClient();
+    }
+
+    private void installPmtilesClient() {
+        if (this.bridge == null) {
+            return;
         }
+        this.bridge.setWebViewClient(
+            new BridgeWebViewClient(this.bridge) {
+                @Override
+                public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                    WebResourceResponse pmtiles = PmtilesRangeServer.tryServe(getAssets(), request);
+                    if (pmtiles != null) {
+                        return pmtiles;
+                    }
+                    return super.shouldInterceptRequest(view, request);
+                }
+            }
+        );
     }
 
     @Override

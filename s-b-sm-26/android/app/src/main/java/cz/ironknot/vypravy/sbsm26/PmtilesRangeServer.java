@@ -48,13 +48,15 @@ final class PmtilesRangeServer {
             long end = fileLen - 1;
             boolean partial = false;
             Map<String, String> reqHeaders = request.getRequestHeaders();
-            String range = reqHeaders != null ? reqHeaders.get("Range") : null;
-            if (range == null && reqHeaders != null) {
-                // Some WebViews lowercase header names
-                for (Map.Entry<String, String> e : reqHeaders.entrySet()) {
-                    if (e.getKey() != null && e.getKey().equalsIgnoreCase("Range")) {
-                        range = e.getValue();
-                        break;
+            String range = null;
+            if (reqHeaders != null) {
+                range = reqHeaders.get("Range");
+                if (range == null) {
+                    for (Map.Entry<String, String> e : reqHeaders.entrySet()) {
+                        if (e.getKey() != null && e.getKey().equalsIgnoreCase("Range")) {
+                            range = e.getValue();
+                            break;
+                        }
                     }
                 }
             }
@@ -88,15 +90,9 @@ final class PmtilesRangeServer {
             }
 
             final long contentLen = end - start + 1;
-            FileInputStream fis = afd.createInputStream();
-            long remaining = start;
-            while (remaining > 0) {
-                long skipped = fis.skip(remaining);
-                if (skipped <= 0) {
-                    break;
-                }
-                remaining -= skipped;
-            }
+            // Seek via FileChannel — InputStream.skip() is unreliable for large offsets.
+            FileInputStream fis = new FileInputStream(afd.getFileDescriptor());
+            fis.getChannel().position(afd.getStartOffset() + start);
 
             InputStream body = new LimitedAfInputStream(fis, contentLen, afd);
             afd = null; // ownership transferred to stream
