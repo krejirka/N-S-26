@@ -15,7 +15,7 @@ export function apiUrl(path: string): string {
  * App / APK version shown in the UI (web + Android) and embedded in the
  * downloadable APK filename.
  */
-export const APP_VERSION = "1.1.4";
+export const APP_VERSION = "1.1.5";
 /** @deprecated use APP_VERSION — kept as alias for existing APK download UI */
 export const APK_VERSION = APP_VERSION;
 
