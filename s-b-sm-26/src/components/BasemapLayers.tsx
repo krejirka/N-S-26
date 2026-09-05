@@ -29,10 +29,7 @@ type ProtomapsFileLayerProps = {
   maxDataZoom: number;
   minZoom?: number;
   bounds?: LatLngBoundsExpression;
-  /**
-   * Overlay packs: drop solid basemap fill so empty tiles outside coverage
-   * do not blank the underlay underneath.
-   */
+  /** Drop opaque basemap fill so empty tiles do not blank the underlay. */
   overlay?: boolean;
 };
 
@@ -56,7 +53,6 @@ function ProtomapsFileLayer({
       maxDataZoom,
       ...(minZoom != null ? { minZoom } : {}),
       ...(bounds ? { bounds } : {}),
-      // Overlay must not paint an opaque canvas fill over the basemap.
       ...(overlay ? { backgroundColor: undefined } : {}),
     }) as unknown as Layer & { backgroundColor?: string };
 
@@ -73,52 +69,56 @@ function ProtomapsFileLayer({
   return null;
 }
 
+function OnlineOsmBasemap({ topoOn }: { topoOn: boolean }) {
+  if (topoOn) {
+    return (
+      <>
+        <TileLayer attribution={OSM_ATTR} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer
+          attribution='&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)'
+          url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+          maxZoom={17}
+          opacity={0.92}
+        />
+        <TileLayer
+          attribution='Hiking overlay &copy; <a href="https://waymarkedtrails.org">Waymarked Trails</a>'
+          url="https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png"
+          opacity={0.9}
+          maxZoom={18}
+        />
+      </>
+    );
+  }
+  return <TileLayer attribution={OSM_ATTR} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />;
+}
+
 interface BasemapLayersProps {
   online: boolean;
   topoOn: boolean;
 }
 
 /**
- * Native APK basemap — one continuous archive:
- *   basemap.pmtiles = corridor z0–12 ∪ streets z13–14 (merged, disjoint zooms)
- * so zoom-out to the full route and street detail share a single GridLayer
- * (no stacked empty tiles blanking the overview).
- * hike.pmtiles overlays Musala when topo is on.
- * Website keeps online OSM / OpenTopoMap.
+ * Website: online OSM / OpenTopoMap.
+ *
+ * Native APK:
+ *  - Online → same reliable OSM/OTM as the website (never blank the map).
+ *  - Offline → packed basemap.pmtiles (z0–14) + optional hike.pmtiles.
+ *    Requires real HTTP Range from PmtilesRangeServer in MainActivity
+ *    (Capacitor's built-in Range handler seeks incorrectly).
  */
 export default function BasemapLayers({ online, topoOn }: BasemapLayersProps) {
-  const usePacked = IS_NATIVE;
-
-  if (!usePacked) {
-    if (topoOn) {
-      return (
-        <>
-          <TileLayer attribution={OSM_ATTR} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <TileLayer
-            attribution='&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)'
-            url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
-            maxZoom={17}
-            opacity={0.92}
-          />
-          <TileLayer
-            attribution='Hiking overlay &copy; <a href="https://waymarkedtrails.org">Waymarked Trails</a>'
-            url="https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png"
-            opacity={0.9}
-            maxZoom={18}
-          />
-        </>
-      );
-    }
-    return <TileLayer attribution={OSM_ATTR} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />;
+  if (!IS_NATIVE) {
+    return <OnlineOsmBasemap topoOn={topoOn} />;
   }
 
+  // Online APK: always use network tiles so the map never goes blank.
+  if (online) {
+    return <OnlineOsmBasemap topoOn={topoOn} />;
+  }
+
+  // Offline APK: packed Protomaps (needs native Range fix).
   return (
     <>
-      {/* Online OSM fills areas outside the packed corridor before vectors paint. */}
-      {online && (
-        <TileLayer attribution={OSM_ATTR} url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      )}
-      {/* Single continuous vector basemap: full-route overview → street detail. */}
       <ProtomapsFileLayer file="basemap.pmtiles" minZoom={0} maxZoom={17} maxDataZoom={14} />
       {topoOn && (
         <ProtomapsFileLayer
