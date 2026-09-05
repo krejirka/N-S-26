@@ -26,6 +26,13 @@ function base64ToUint8(b64: string): Uint8Array {
   return out;
 }
 
+/** Tight ArrayBuffer copy — `Uint8Array.buffer.slice` is typed as ArrayBuffer | SharedArrayBuffer. */
+function toArrayBuffer(bytes: Uint8Array): ArrayBuffer {
+  const out = new ArrayBuffer(bytes.byteLength);
+  new Uint8Array(out).set(bytes);
+  return out;
+}
+
 export class CapacitorPmtilesSource implements Source {
   private readonly opened: Promise<{ id: string; size: number }>;
 
@@ -51,9 +58,7 @@ export class CapacitorPmtilesSource implements Source {
     if (length <= 0) return { data: new ArrayBuffer(0) };
     if (length <= CHUNK) {
       const { data } = await PmtilesAsset.read({ id, offset, length });
-      const bytes = base64ToUint8(data);
-      // Copy into a tight ArrayBuffer — pmtiles expects exact length.
-      return { data: bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) };
+      return { data: toArrayBuffer(base64ToUint8(data)) };
     }
     // Chunked read for large leaf directories / metadata (Binder ~1 MiB limit).
     const out = new Uint8Array(length);
@@ -67,7 +72,7 @@ export class CapacitorPmtilesSource implements Source {
       written += part.length;
       if (part.length < n) break;
     }
-    return { data: out.buffer.slice(0, written) };
+    return { data: toArrayBuffer(out.subarray(0, written)) };
   }
 }
 
